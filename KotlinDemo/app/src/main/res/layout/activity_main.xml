@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Result wil be shown here"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.392"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.161" />
+
+    <Button
+        android:id="@+id/btnAuthor"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="108dp"
+        android:text="Get Author By Id"
+        app:layout_constraintEnd_toEndOf="@+id/editTextNumber"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/editTextNumber"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+
+    <Button
+        android:id="@+id/btnAuthorList"
+        android:layout_width="240dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="36dp"
+        android:text="Get Author List"
+        app:layout_constraintEnd_toEndOf="@+id/btnAuthor"
+        app:layout_constraintStart_toStartOf="@+id/btnAuthor"
+        app:layout_constraintTop_toBottomOf="@+id/btnAuthor" />
+
+    <Button
+        android:id="@+id/btnBook"
+        android:layout_width="244dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="68dp"
+        android:text="Get Book By Id"
+        app:layout_constraintEnd_toEndOf="@+id/btnAuthorList"
+        app:layout_constraintStart_toStartOf="@+id/btnAuthorList"
+        app:layout_constraintTop_toBottomOf="@+id/btnAuthorList" />
+
+    <Button
+        android:id="@+id/btnBookList"
+        android:layout_width="244dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="40dp"
+        android:text="Get Book List"
+        app:layout_constraintEnd_toEndOf="@+id/btnBook"
+        app:layout_constraintStart_toStartOf="@+id/btnBook"
+        app:layout_constraintTop_toBottomOf="@+id/btnBook" />
+
+    <EditText
+        android:id="@+id/editTextNumber"
+        android:layout_width="239dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
