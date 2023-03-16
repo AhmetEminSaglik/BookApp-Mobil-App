@@ -2,9 +2,7 @@ package com.ahmeteminsaglik.bookdemoapi.controller;
 
 import com.ahmeteminsaglik.bookdemoapi.business.ExampleData;
 import com.ahmeteminsaglik.bookdemoapi.model.Author;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,5 +13,9 @@ public class AuthorController {
     @GetMapping("")
     public List<Author> getAuthorList(){
         return  exampleData.getAuthorList();
+    }
+    @GetMapping("/{authorId}")
+    public Author getAuthorById(@PathVariable int authorId){
+        return exampleData.getAuthorList().get(authorId-1);
     }
 }
