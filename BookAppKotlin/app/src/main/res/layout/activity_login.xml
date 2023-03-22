@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/constraintColor"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/bookAppLogo"
         android:layout_width="187dp"
         android:layout_height="124dp"
         android:layout_marginStart="16dp"
@@ -55,7 +55,7 @@
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/bookAppLogo" />
 
     <Button
         android:id="@+id/loginPageBtnSignup"
@@ -65,7 +65,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/btnbackground"
-        android:text="SignUp"
+        android:text="Sign Up"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
