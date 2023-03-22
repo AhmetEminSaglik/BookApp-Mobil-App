@@ -33,4 +33,16 @@ public class User {
 //    @JsonIgnoreProperties({"actors", "directors"})
 //    @Relationship(type = "DIRECTED")
 //    private List<Movie> directed = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", totalFollowers=" + totalFollowers +
+                '}';
+    }
 }

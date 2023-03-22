@@ -1,29 +1,28 @@
-package com.ahmeteminsaglik.neo4jsocialmedya.business.conretes;
+package com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation;
 
+import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.Validation;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.InvalidInputException;
-import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.DataResult;
-import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.ErrorResult;
-import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.Result;
-import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessResult;
+import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ValidationSignUp {
+public class ValidationSignUp implements Validation {
     Logger logger = LoggerFactory.getLogger(ValidationSignUp.class);
     private final static int minLength = 3;
     private final static int maxLength = 10;
 
-    public Result validate(User user) {
+    @Override
+    public DataResult<User> validate(User user) {
         try {
             validateName(user.getName());
             validateLastname(user.getLastname());
             validateUsername(user.getUsername());
             validatePassword(user.getPassword());
-            return new SuccessResult("User is sing up successfully");
+            return new SuccessDataResult<>(user, "User is sing up successfully");
         } catch (InvalidInputException e) {
             logger.error(e.getMessage());
-            return new ErrorResult(e.getMessage());
+            return new ErrorDataResult(e.getMessage());
         }
     }
 
@@ -61,4 +60,5 @@ public class ValidationSignUp {
         }
         return true;
     }
+
 }

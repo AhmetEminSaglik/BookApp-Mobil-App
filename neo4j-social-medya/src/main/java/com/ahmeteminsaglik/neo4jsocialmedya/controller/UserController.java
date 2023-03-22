@@ -1,9 +1,11 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.controller;
 
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.UserService;
-import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.ValidationSignUp;
+import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.Validation;
+import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.LoginUser;
+import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationLoginInput;
+import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationSignUp;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
-import com.ahmeteminsaglik.neo4jsocialmedya.utility.LoginRequestData;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.DataResult;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.ErrorDataResult;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.Result;
@@ -17,7 +19,8 @@ import java.util.List;
 @RequestMapping("/users")
 @CrossOrigin
 public class UserController {
-    private ValidationSignUp validationSignUp = new ValidationSignUp();
+    private Validation validationSignUp = new ValidationSignUp();
+    private Validation validationLogin = new ValidationLoginInput();
     @Autowired
     private UserService userService;
 
@@ -33,8 +36,13 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
-    public User login(@RequestBody LoginRequestData loginRequestData) {
-        return userService.findByUserNameAndPassword(loginRequestData.getUsername(), loginRequestData.getPassword());
+    public DataResult<User> login(@RequestBody User user) {
+        DataResult<User> dataResult = validationLogin.validate(user);
+        if (dataResult.isSuccess()) {
+            dataResult = new LoginUser(userService).login(user);
+            return dataResult;
+        }
+        return dataResult;
     }
 
     @PostMapping("/signup")
@@ -44,8 +52,6 @@ public class UserController {
             user = userService.save(user);
             return new SuccessDataResult(user, result.getMessage());
         }
-
         return new ErrorDataResult<>(result.getMessage());
-
     }
 }
