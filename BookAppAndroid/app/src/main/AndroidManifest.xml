@@ -9,15 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Neo4jBookAppAndroid"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        >
         <activity
             android:name=".MyReadBookActivity"
             android:exported="true" />
         <activity
-            android:name=".SingUpActivity"
+            android:name=".activities.signup.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".login.LoginActivity"
+            android:name=".activities.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

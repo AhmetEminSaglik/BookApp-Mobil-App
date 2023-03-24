@@ -2,6 +2,7 @@ package com.ahmeteminsaglik.neo4jbookappandroid.restapi;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.response.concrete.LoginResponse;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.response.concrete.SignUpResponse;
 
 import java.util.List;
 
@@ -15,7 +16,10 @@ public interface RestApiUserService {
     Call<List<User>> getAllUsers();
 
     @POST("/users/login")
-    Call<LoginResponse> loginUser(@Body User user/*@Field("username") String username,@Field("password") String password*/);
+    Call<LoginResponse> loginUser(@Body User user);
+
+    @POST("/users/signup")
+    Call<SignUpResponse> signUpUser(@Body User user);
     /*
     This returns response.body() null
     @FormUrlEncoded

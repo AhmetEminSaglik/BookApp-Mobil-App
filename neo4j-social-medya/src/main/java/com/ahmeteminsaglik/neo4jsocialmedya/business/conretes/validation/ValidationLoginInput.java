@@ -10,8 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ValidationLoginInput implements Validation {
-    private final static int minLength = 3;
-    private final static int maxLength = 10;
+    private final static int minLength = 1;
+    private final static int maxLength = 15;
     Logger logger = LoggerFactory.getLogger(ValidationLoginInput.class);
 
     @Override

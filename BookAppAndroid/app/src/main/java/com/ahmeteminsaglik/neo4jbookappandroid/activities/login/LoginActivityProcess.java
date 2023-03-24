@@ -1,8 +1,6 @@
-package com.ahmeteminsaglik.neo4jbookappandroid.login;
+package com.ahmeteminsaglik.neo4jbookappandroid.activities.login;
 
 import android.content.Context;
-import android.os.StrictMode;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
@@ -14,7 +12,6 @@ import com.google.gson.Gson;
 import java.io.IOException;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivityProcess {
@@ -32,25 +29,18 @@ public class LoginActivityProcess {
     }
 
     public User getLoginUser(String username, String password) {
-
         sendLoginRequest(new User(username, password));
-        System.out.println("UUUUUUUUUUUUUUUUUU USER : " + user);
         return user;
     }
 
 
     private User sendLoginRequest(User userForLoginRequest) { // enqueue yerine execute kullanmaliyim. arastir.
         Call<LoginResponse> call = ManagerAll.getInstance().getUserByLoginRequest(userForLoginRequest);
-//        call.execute(new Response<LoginResponse>);
-
-
         try {
             Response<LoginResponse> response = call.execute();
-            System.out.println("Response : "+response.body());
             if (response.code() == 200) {
-                Toast.makeText(context, response.body().toString(), Toast.LENGTH_LONG).show();
                 user = response.body().getData();
-            } else if (response.code() == 400) {
+            } else/* if (response.code() == 400) */{
                 Gson gson = new Gson();
                 RestApiErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(), RestApiErrorResponse.class);
                 String errMsg = errorResponse.getMessage();
@@ -59,9 +49,10 @@ public class LoginActivityProcess {
             }
 
         } catch (IOException e) {
-            System.out.println("ERROR ?????????????????????? "+e.getMessage());
-//            e.printStackTrace();
+            System.out.println("-AES-> Error : "+e.getMessage());
         }
+        return user;
+
 /*        call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -89,8 +80,6 @@ public class LoginActivityProcess {
             }
         });*/
 
-        System.out.println("USER:::::::::::::::::::::::::::::::" + user);
-        return user;
     }
 }
 

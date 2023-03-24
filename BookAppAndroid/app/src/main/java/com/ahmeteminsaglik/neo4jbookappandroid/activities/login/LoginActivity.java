@@ -1,4 +1,4 @@
-package com.ahmeteminsaglik.neo4jbookappandroid.login;
+package com.ahmeteminsaglik.neo4jbookappandroid.activities.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,13 +8,13 @@ import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.MyReadBookActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.signup.SignUpActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumUser;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
+import com.ahmeteminsaglik.neo4jbookappandroid.utility.StrictModePolicy;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -23,27 +23,41 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+        StrictModePolicy.enable();
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
 //        startLoginProcess();
-        Button button = findViewById(R.id.loginPageBtnLogin);
-        button.setOnClickListener(getBtnFunction());
+
+        setAllBtnClickFunction();
+
     }
 
-    View.OnClickListener getBtnFunction() {
+    private void setAllBtnClickFunction() {
+        Button btnLogin = findViewById(R.id.loginPageBtnLogin);
+        btnLogin.setOnClickListener(getLoginBtnFunction());
+
+        Button btnSignUp = findViewById(R.id.loginPageBtnSignup);
+        btnSignUp.setOnClickListener(getSignUpPageBtnFunction());
+
+    }
+
+    private View.OnClickListener getLoginBtnFunction() {
         Intent intent = new Intent(this, MyReadBookActivity.class);
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                User user = startLoginProcess();
-                if (user != null) {
-                    setUserDataToIntent(intent, user);
-                    startActivity(intent);
-                } else {
-                    System.out.println("USER IS EMPTYY L " + user);
-                }
-//                finish();
+        return view -> {
+            User user = startLoginProcess();
+            if (user != null) {
+                setUserDataToIntent(intent, user);
+                startActivity(intent);
             }
+//                finish();
+        };
+    }
+
+    private View.OnClickListener getSignUpPageBtnFunction() {
+        Intent intent = new Intent(this, SignUpActivity.class);
+        return view -> {
+            startActivity(intent);
+            finish();
         };
     }
 

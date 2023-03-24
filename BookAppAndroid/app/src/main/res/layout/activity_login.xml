@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/constraintColor"
-    tools:context=".login.LoginActivity">
+    tools:context=".activities.login.LoginActivity">
 
     <ImageView
         android:id="@+id/bookAppLogo"

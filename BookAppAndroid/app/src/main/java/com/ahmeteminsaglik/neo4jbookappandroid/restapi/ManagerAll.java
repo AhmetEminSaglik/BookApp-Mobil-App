@@ -2,6 +2,7 @@ package com.ahmeteminsaglik.neo4jbookappandroid.restapi;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.response.concrete.LoginResponse;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.response.concrete.SignUpResponse;
 
 import java.util.List;
 
@@ -20,7 +21,10 @@ public class ManagerAll extends BaseManager {
     }
 
     public Call<LoginResponse> getUserByLoginRequest(User user) {
-        Call<LoginResponse> call = getRestApiClient().loginUser(user/*.getUsername(),user.getPassword()*/);
-        return  call;
+        return getRestApiClient().loginUser(user);
+    }
+
+    public Call<SignUpResponse> signUpUser(User user) {
+        return getRestApiClient().signUpUser(user);
     }
 }

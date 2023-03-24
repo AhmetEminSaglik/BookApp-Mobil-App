@@ -16,8 +16,8 @@ public class ValidationSignUp implements Validation {
     }
 
     Logger logger = LoggerFactory.getLogger(ValidationSignUp.class);
-    private final static int minLength = 3;
-    private final static int maxLength = 10;
+    private final static int minLength = 1;
+    private final static int maxLength = 15;
 
     @Override
     public DataResult<User> validate(User user) {
