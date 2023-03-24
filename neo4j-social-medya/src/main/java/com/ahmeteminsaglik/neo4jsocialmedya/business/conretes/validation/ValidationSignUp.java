@@ -27,36 +27,40 @@ public class ValidationSignUp implements Validation {
     }
 
     private void validateName(String name) throws InvalidInputException {
+        String inputArea = "name";
         isDataFilled("name", name);
-        isTextLengthProper(name, minLength, maxLength);
+        isTextLengthProper(inputArea, name, minLength, maxLength);
     }
 
     private void validateLastname(String lastname) throws InvalidInputException {
-        isDataFilled("lastname", lastname);
-        isTextLengthProper(lastname, minLength, maxLength);
+        String inputArea = "lastname";
+        isDataFilled(inputArea, lastname);
+        isTextLengthProper(inputArea, lastname, minLength, maxLength);
     }
 
     private void validateUsername(String username) throws InvalidInputException {
-        isDataFilled("username", username);
-        isTextLengthProper(username, minLength, maxLength);
+        String inputArea = "username";
+        isDataFilled(inputArea, username);
+        isTextLengthProper(inputArea, username, minLength, maxLength);
     }
 
     private void validatePassword(String password) throws InvalidInputException {
-        isDataFilled("password", password);
-        isTextLengthProper(password, minLength, maxLength);
+        String inputArea = "password";
+        isDataFilled(inputArea, password);
+        isTextLengthProper(inputArea, password, minLength, maxLength);
     }
 
 
-    private boolean isTextLengthProper(String text, int min, int max) throws InvalidInputException {
+    private boolean isTextLengthProper(String inputArea, String text, int min, int max) throws InvalidInputException {
         if (text.length() < min || text.length() > max) {
-            throw new InvalidInputException(text, min, max);
+            throw new InvalidInputException(inputArea, min, max);
         }
         return true;
     }
 
     private boolean isDataFilled(String inputArea, String text) throws InvalidInputException {
-        if (text == null) {
-            throw new InvalidInputException(inputArea, text);
+        if (text != null || text.trim().length() == 0) {
+            throw new InvalidInputException(inputArea);
         }
         return true;
     }

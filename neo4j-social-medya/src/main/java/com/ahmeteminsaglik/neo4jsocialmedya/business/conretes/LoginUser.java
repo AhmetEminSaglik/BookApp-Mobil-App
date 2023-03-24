@@ -20,7 +20,6 @@ public class LoginUser {
 
     public DataResult<User> login(User user) {
         user = userService.findByUserNameAndPassword(user.getUsername(), user.getPassword());
-        logger.info("GELDIIIIIIIIIIIIIIIIIII + user : "+user);
         if (user == null) {
             return new ErrorDataResult<>(null, "Invalid username or password.");
         }
