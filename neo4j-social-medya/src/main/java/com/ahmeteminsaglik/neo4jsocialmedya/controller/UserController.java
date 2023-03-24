@@ -9,21 +9,22 @@ import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.ApiRequestException;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.response.InvalidUsernameOrPasswordException;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.DataResult;
-import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.ErrorDataResult;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.Result;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessDataResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 @CrossOrigin
 public class UserController {
-    private Validation validationSignUp = new ValidationSignUp();
-    private Validation validationLogin = new ValidationLoginInput();
     @Autowired
     private UserService userService;
+    private ValidationSignUp validationSignUp = new ValidationSignUp();
+    private ValidationLoginInput validationLogin = new ValidationLoginInput();
+
 
     @GetMapping()
     public List<User> getAll() {
@@ -35,12 +36,10 @@ public class UserController {
         return userService.findByName(name);
     }
 
-//    @ExceptionHandler
+    //    @ExceptionHandler
     @PostMapping("/login")
     @ResponseBody
     public DataResult<User> login(@RequestBody User user) {
-
-        System.out.println("gelen user  :" + user.toString());
         DataResult<User> dataResult = validationLogin.validate(user);
         if (dataResult.isSuccess()) {
             dataResult = new LoginUser(userService).login(user);
@@ -52,12 +51,15 @@ public class UserController {
     }
 
     @PostMapping("/signup")
+    @ResponseBody
     public DataResult<User> signup(@RequestBody User user) {
+        validationSignUp.setUserService(userService);
         Result result = validationSignUp.validate(user);
         if (result.isSuccess()) {
             user = userService.save(user);
             return new SuccessDataResult(user, result.getMessage());
         }
-        return new ErrorDataResult<>(result.getMessage());
+//        return new ErrorDataResult<>(result.getMessage());
+        throw new ApiRequestException(result.getMessage(), new InvalidUsernameOrPasswordException());
     }
 }

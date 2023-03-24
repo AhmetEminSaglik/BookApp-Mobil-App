@@ -23,6 +23,10 @@ public class UserManager implements UserService {
     public User findByName(String name) {
         return userRepository.findByName(name);
     }
+    @Override
+    public User findByUsername(String name) {
+        return userRepository.findByUsername(name);
+    }
 
     @Override
     public User findByUserNameAndPassword(String username, String password) {

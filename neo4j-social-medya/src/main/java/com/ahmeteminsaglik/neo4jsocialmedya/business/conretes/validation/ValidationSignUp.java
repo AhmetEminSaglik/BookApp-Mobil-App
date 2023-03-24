@@ -1,5 +1,6 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation;
 
+import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.UserService;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.Validation;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.InvalidInputException;
@@ -8,12 +9,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ValidationSignUp implements Validation {
+    private UserService userService;
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
     Logger logger = LoggerFactory.getLogger(ValidationSignUp.class);
     private final static int minLength = 3;
     private final static int maxLength = 10;
 
     @Override
     public DataResult<User> validate(User user) {
+        boolean isUsernameAvailable = isUsernameAvailable(user.getUsername());
+        if (isUsernameAvailable) {
+            return inputValidations(user);
+        }
+        return new ErrorDataResult<>("Username is unavaiable. Please type another username.");
+    }
+
+    private DataResult<User> inputValidations(User user) {
         try {
             validateName(user.getName());
             validateLastname(user.getLastname());
@@ -59,10 +74,19 @@ public class ValidationSignUp implements Validation {
     }
 
     private boolean isDataFilled(String inputArea, String text) throws InvalidInputException {
-        if (text != null || text.trim().length() == 0) {
+        if (text == null) {
             throw new InvalidInputException(inputArea);
         }
         return true;
     }
 
+    private boolean isUsernameAvailable(String username) {
+        System.out.println("Username : " + username);
+        User user = userService.findByUsername(username);
+        System.out.println("user : " + user);
+        if (user == null) {
+            return true;
+        }
+        return false;
+    }
 }
