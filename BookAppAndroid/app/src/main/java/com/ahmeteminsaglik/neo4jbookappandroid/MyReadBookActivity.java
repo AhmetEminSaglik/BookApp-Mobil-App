@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
 import com.ahmeteminsaglik.neo4jbookappandroid.restapi.ManagerAll;
@@ -21,7 +22,7 @@ public class MyReadBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_read_book);
-        getRequest();
+//        getRequest();
     }
 
     private void getRequest() {
@@ -30,6 +31,8 @@ public class MyReadBookActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 System.out.println("--> AES >> "+response.body());
+//                TextView textView = findViewById(R.id.txtViewMyBookPageUserData);
+//                textView.setText(response.body().toString());
                 Log.i("--> AES >>  ", response.body().toString());
             }
 

@@ -7,7 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestApiClient {
-    private RestApi restAPI;
+    private RestApiUserService restAPIUserService;
 
     public RestApiClient(String restApiServiceUrl) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
@@ -20,10 +20,10 @@ public class RestApiClient {
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        restAPI = retrofit.create(RestApi.class);
+        restAPIUserService = retrofit.create(RestApiUserService.class);
     }
 
-    public RestApi getRestAPI() {
-        return restAPI;
+    public RestApiUserService getRestAPI() {
+        return restAPIUserService;
     }
 }
