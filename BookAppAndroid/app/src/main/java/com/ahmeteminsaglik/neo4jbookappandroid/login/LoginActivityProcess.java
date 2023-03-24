@@ -1,6 +1,7 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.login;
 
 import android.content.Context;
+import android.os.StrictMode;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -9,6 +10,8 @@ import com.ahmeteminsaglik.neo4jbookappandroid.model.response.abstracts.RestApiE
 import com.ahmeteminsaglik.neo4jbookappandroid.model.response.concrete.LoginResponse;
 import com.ahmeteminsaglik.neo4jbookappandroid.restapi.ManagerAll;
 import com.google.gson.Gson;
+
+import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,73 +24,75 @@ public class LoginActivityProcess {
      * click login btn
      * if data is correct than change loginActivity to MyReadBookActivity
      * */
-    Context context;
+    private Context context;
+    private User user;
 
     public LoginActivityProcess(Context context) {
         this.context = context;
     }
 
-    public User login(String username, String password) {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        sendLoginRequest(user);
+    public User getLoginUser(String username, String password) {
+
+        sendLoginRequest(new User(username, password));
+        System.out.println("UUUUUUUUUUUUUUUUUU USER : " + user);
         return user;
     }
 
-    private void sendLoginRequest(User user) {
-        System.out.println("user : " + user.toString());
-        Call<LoginResponse> call = ManagerAll.getInstance().getUserByLoginRequest(user);
-        call.enqueue(new Callback<LoginResponse>() {
+
+    private User sendLoginRequest(User userForLoginRequest) { // enqueue yerine execute kullanmaliyim. arastir.
+        Call<LoginResponse> call = ManagerAll.getInstance().getUserByLoginRequest(userForLoginRequest);
+//        call.execute(new Response<LoginResponse>);
+
+
+        try {
+            Response<LoginResponse> response = call.execute();
+            System.out.println("Response : "+response.body());
+            if (response.code() == 200) {
+                Toast.makeText(context, response.body().toString(), Toast.LENGTH_LONG).show();
+                user = response.body().getData();
+            } else if (response.code() == 400) {
+                Gson gson = new Gson();
+                RestApiErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(), RestApiErrorResponse.class);
+                String errMsg = errorResponse.getMessage();
+                Toast.makeText(context, errMsg, Toast.LENGTH_LONG).show();
+                user = null;
+            }
+
+        } catch (IOException e) {
+            System.out.println("ERROR ?????????????????????? "+e.getMessage());
+//            e.printStackTrace();
+        }
+/*        call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                System.out.println("response.code()   :"+response.code());
-                System.out.println("response  :"+response.toString());
-                System.out.println("response.message()  :"+response.message());
+                System.out.println("response.code()   :" + response.code());
+                System.out.println("response  :" + response.toString());
+                System.out.println("response.message()  :" + response.message());
 
                 if (response.code() == 200) {
                     Toast.makeText(context, response.body().toString(), Toast.LENGTH_LONG).show();
-                    User user = response.body().getData();
-                    long id = user.getId();
-                    String name = user.getName();
-                    String lastname = user.getLastname();
-                    String username = user.getUsername();
-                    String password = user.getPassword();
-                    int totalFollowers = user.getTotalFollowers();
-                    Log.i("-------------------------id : ", Long.toString(id));
-                    Log.i("-------------------------name : ", name);
-                    Log.i("-------------------------lastname : ", lastname);
-                    Log.i("-------------------------totalFollowers : ", Integer.toString(totalFollowers));
-                    // do something with the user data
+                    user = response.body().getData();
                 } else if (response.code() == 400) {
                     Gson gson = new Gson();
-                    RestApiErrorResponse errorResponse=gson.fromJson(response.errorBody().charStream(),RestApiErrorResponse.class);
-                    String errMsg=errorResponse.getMessage();
-
-                    System.out.println("response.AAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                    System.out.println("response.response : "+response);
-                    System.out.println("response.message : "+response.message());
-                    System.out.println("response.code : "+response.code());
-                    System.out.println("response.body : "+response.body());
-                    System.out.println("response.headers : "+response.headers());
-                    System.out.println("response.isSuccessful : "+response.isSuccessful());
-                    System.out.println("response.errorBody : "+response.errorBody());
-                    System.out.println("response.errorBody : "+response.errorBody());
-                    System.out.println("response.raw : "+response.raw());
-
+                    RestApiErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(), RestApiErrorResponse.class);
+                    String errMsg = errorResponse.getMessage();
                     Toast.makeText(context, errMsg, Toast.LENGTH_LONG).show();
+                    user = null;
                 }
             }
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 // handle error
-                System.out.println("GELDIIIIIIIIIIIIIIIIIIIIIIIIIIIIII : "+t.getMessage());
+                user = null;
+                Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 
-
-
+        System.out.println("USER:::::::::::::::::::::::::::::::" + user);
+        return user;
+    }
+}
 
 /*
         Call<User> call = ManagerAll.getInstance().getUserByLoginRequest(user);
@@ -112,5 +117,3 @@ public class LoginActivityProcess {
                 Log.i("--> AES >>  ERROR ", t.getMessage());
             }
         });*/
-    }
-}

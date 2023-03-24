@@ -6,21 +6,14 @@ import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.LoginUser;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationLoginInput;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationSignUp;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
-import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.ApiExceptionHandler;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.ApiRequestException;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.response.InvalidUsernameOrPasswordException;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.DataResult;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.ErrorDataResult;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.Result;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessDataResult;
-import org.json.HTTP;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.server.ResponseStatusException;
-
-import javax.swing.*;
 import java.util.List;
 
 @RestController
