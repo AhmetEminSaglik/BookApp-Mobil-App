@@ -1,6 +1,7 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.activities.login;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
@@ -40,16 +41,17 @@ public class LoginActivityProcess {
             Response<LoginResponse> response = call.execute();
             if (response.code() == 200) {
                 user = response.body().getData();
-            } else/* if (response.code() == 400) */{
+            } else/* if (response.code() == 400) */ {
                 Gson gson = new Gson();
                 RestApiErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(), RestApiErrorResponse.class);
                 String errMsg = errorResponse.getMessage();
+                Log.e("Error : ",errMsg);
                 Toast.makeText(context, errMsg, Toast.LENGTH_LONG).show();
                 user = null;
             }
 
         } catch (IOException e) {
-            System.out.println("-AES-> Error : "+e.getMessage());
+            Log.e("-AES-> Error : ", e.getMessage());
         }
         return user;
 

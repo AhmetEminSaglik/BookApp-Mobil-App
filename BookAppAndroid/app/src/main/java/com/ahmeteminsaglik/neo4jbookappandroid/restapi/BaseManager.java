@@ -1,8 +1,11 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.restapi;
 
 public class BaseManager {
-    protected RestApiUserService getRestApiClient() {
-        RestApiClient restApiClient = new RestApiClient(BaseUrl.USER_URL);
-        return restApiClient.getRestAPI();
+    protected RestApiUserService getUserRestApiClient() {
+        return RestApiClient.getUserRestApi(BaseUrl.USER_URL);
+    }
+    protected RestApiBookService getBookRestApiClient() {
+        return RestApiClient.getBookRestApi(BaseUrl.BOOK_URL);
+
     }
 }

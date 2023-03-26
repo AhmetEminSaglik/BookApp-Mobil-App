@@ -1,6 +1,6 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.model.response.abstracts;
 
-public abstract class RestApiResponse <T> extends RestApiBaseResponse {
+public class RestApiResponse <T> extends RestApiBaseResponse {
     private boolean success;
     private  T data;
 

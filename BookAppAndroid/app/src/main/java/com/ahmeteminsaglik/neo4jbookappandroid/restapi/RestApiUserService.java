@@ -12,13 +12,13 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface RestApiUserService {
-    @GET("/users")
+    @GET("")
     Call<List<User>> getAllUsers();
 
-    @POST("/users/login")
+    @POST("login")
     Call<LoginResponse> loginUser(@Body User user);
 
-    @POST("/users/signup")
+    @POST("signup")
     Call<SignUpResponse> signUpUser(@Body User user);
     /*
     This returns response.body() null

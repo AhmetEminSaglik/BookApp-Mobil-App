@@ -4,12 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.ahmeteminsaglik.neo4jbookappandroid.MyReadBookActivity;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.myreadbook.MyReadBookActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.signup.SignUpActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumUser;

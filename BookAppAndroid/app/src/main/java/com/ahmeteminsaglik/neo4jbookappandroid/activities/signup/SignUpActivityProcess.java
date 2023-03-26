@@ -1,6 +1,7 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.activities.signup;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
@@ -29,19 +30,18 @@ public class SignUpActivityProcess {
         Call<SignUpResponse> call = ManagerAll.getInstance().signUpUser(user);
         try {
             Response<SignUpResponse> response = call.execute();
-            System.out.println("--> AES : RESPONSE " + response);
             if (response.code() == 200) {
-                Toast.makeText(context, response.body().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Signup successfuly", Toast.LENGTH_LONG).show();
                 return true;
-            } else  {
+            } else {
                 Gson gson = new Gson();
                 RestApiErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(), RestApiErrorResponse.class);
                 String errMsg = errorResponse.getMessage();
-                System.out.println("AES-> Error :  "+errMsg);
+                Log.e("Error :  ", errMsg);
                 Toast.makeText(context, errMsg, Toast.LENGTH_LONG).show();
             }
         } catch (IOException e) {
-            System.out.println("-AES-> Error : " + e.getMessage());
+            Log.e("Error occured at sending SingUp Request : ", e.getMessage());
         }
         return false;
     }

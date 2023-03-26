@@ -23,14 +23,15 @@
 
     <EditText
         android:id="@+id/signUpPageEditTxtPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="50dp"
         android:background="@drawable/edittextbackground"
         android:ems="10"
         android:hint="password"
+        android:inputType="textPassword"
         android:padding="10dp"
         android:textColorHint="@color/black"
         android:textSize="20sp"
@@ -40,11 +41,11 @@
 
     <EditText
         android:id="@+id/signUpPageEditTxtName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="50dp"
         android:background="@drawable/edittextbackground"
         android:ems="10"
         android:hint="name"
@@ -57,11 +58,11 @@
 
     <EditText
         android:id="@+id/signUpPageEditTxtLastname"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="88dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="87dp"
+        android:layout_marginEnd="50dp"
         android:background="@drawable/edittextbackground"
         android:ems="10"
         android:hint="lastname"
@@ -120,11 +121,11 @@
 
     <EditText
         android:id="@+id/signUpPageEditTxtUsername"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="50dp"
         android:background="@drawable/edittextbackground"
         android:ems="10"
         android:hint="username"

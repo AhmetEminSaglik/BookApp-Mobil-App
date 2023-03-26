@@ -1,6 +1,8 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.restapi;
 
+import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.response.abstracts.RestApiResponse;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.response.concrete.LoginResponse;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.response.concrete.SignUpResponse;
 
@@ -16,15 +18,19 @@ public class ManagerAll extends BaseManager {
     }
 
     public Call<List<User>> getAllUser() {
-        Call<List<User>> call = getRestApiClient().getAllUsers();
+        Call<List<User>> call = getUserRestApiClient().getAllUsers();
         return call;
     }
 
     public Call<LoginResponse> getUserByLoginRequest(User user) {
-        return getRestApiClient().loginUser(user);
+        return getUserRestApiClient().loginUser(user);
     }
 
     public Call<SignUpResponse> signUpUser(User user) {
-        return getRestApiClient().signUpUser(user);
+        return getUserRestApiClient().signUpUser(user);
+    }
+
+    public Call<RestApiResponse<List<Book>>> getReadBookList(Long id) {
+        return getBookRestApiClient().getReadBooks(id);
     }
 }
