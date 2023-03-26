@@ -12,7 +12,7 @@ import java.util.List;
 public class UserManager implements UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public List<User> findAll() {
