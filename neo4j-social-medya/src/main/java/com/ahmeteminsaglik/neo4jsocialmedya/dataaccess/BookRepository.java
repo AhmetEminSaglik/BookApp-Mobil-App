@@ -12,8 +12,12 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
 
     @Query("MATCH (u:User) WHERE ID(u) = $userId " +
             "MATCH (b:Book) " +
-            "MATCH (u)-[:Read]->(b)" +
-            "RETURN b")
+            "RETURN b,u")
+
+            /*MATCH (u:User) WHERE ID(u)=64
+MATCH (b:Book)
+Create (u)-[:Read]->(b)
+RETURN u,b*/
 //            "<-[ai:ACTED_IN]-(p:Person)-[d:DIRECTED]->(dm:Movie) return p, collect(ai), collect(d), collect(am), collect(dm)")
     List<Book> getAllByUserIdMatches(Long userId);
 }

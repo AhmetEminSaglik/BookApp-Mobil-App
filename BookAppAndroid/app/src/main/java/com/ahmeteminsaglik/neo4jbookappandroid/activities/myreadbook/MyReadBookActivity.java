@@ -1,6 +1,8 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.activities.myreadbook;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.login.LoginActivityProcess;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.myreadbook.adapter.BookRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumUser;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
@@ -24,18 +27,24 @@ import retrofit2.Response;
 
 public class MyReadBookActivity extends AppCompatActivity {
     private User user = new User();
+    private RecyclerView rv;
+    private BookRVAdapter adapter;
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_read_book);
         StrictModePolicy.enable();
 //        getRequest();
         getUserDataFromIntent();
-        TextView textView = findViewById(R.id.myBookPageTextView);
-        textView.setText(textView.getText().toString() + " " + user.getName());
         Log.e("User id : ", Long.toString(user.getId()));
         List<Book> bookList = getReadBookList();
+        rv = findViewById(R.id.bookRecyleView);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new BookRVAdapter(this, bookList);
+        rv.setAdapter(adapter);
         bookList.forEach(e -> Log.e("read book", e.toString()));
     }
 
