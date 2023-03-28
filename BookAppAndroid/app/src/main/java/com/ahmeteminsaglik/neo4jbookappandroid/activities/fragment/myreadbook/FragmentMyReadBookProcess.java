@@ -1,4 +1,4 @@
-package com.ahmeteminsaglik.neo4jbookappandroid.activities.myreadbook;
+package com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,10 +17,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class HomeActivityProcess {
+public class FragmentMyReadBookProcess {
     private Context context;
 
-    public HomeActivityProcess(Context context) {
+    public FragmentMyReadBookProcess(Context context) {
         this.context = context;
     }
 

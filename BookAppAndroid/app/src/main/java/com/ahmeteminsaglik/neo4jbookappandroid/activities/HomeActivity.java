@@ -1,4 +1,4 @@
-package com.ahmeteminsaglik.neo4jbookappandroid.activities.myreadbook;
+package com.ahmeteminsaglik.neo4jbookappandroid.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -7,48 +7,56 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
-import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.FragmentMyReadBook;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.FragmentRecommends;
-import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.FragmentMyReadBook;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumUser;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
 import com.ahmeteminsaglik.neo4jbookappandroid.utility.StrictModePolicy;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
     private BottomNavigationView bottom_navigation;
     private Fragment tempFragment;
     private User user = new User();
-//    private RecyclerView rv;
-//    private BookRVAdapter adapter;
+
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-//        getUserDataFromIntent();
-//        Log.e("GELDII : ",user.toString());
         StrictModePolicy.enable();
+        getUserDataFromIntent();
+
         bottom_navigation = findViewById(R.id.bottom_navigation);
-        getSupportFragmentManager().beginTransaction().add(R.id.base_fragment, new FragmentMyReadBook()).commit();
+//        Fragment fragment = findViewById(R.id.base_fragment);
+        getSupportFragmentManager()
+                .beginTransaction()//.remove(base_fragment)
+                .add(R.id.base_fragment, new FragmentMyReadBook(this, user))
+                .commit();
+
         bottom_navigation.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.action_my_read_book) {
                 Toast.makeText(getApplicationContext(), "action_my_read_book clicked", Toast.LENGTH_LONG).show();
-                tempFragment= new FragmentMyReadBook();
+                tempFragment = new FragmentMyReadBook(this, user);
             }
             if (item.getItemId() == R.id.action_recommends) {
                 Toast.makeText(getApplicationContext(), "action_recommends clicked", Toast.LENGTH_LONG).show();
-                tempFragment= new FragmentRecommends();
+                tempFragment = new FragmentRecommends();
             }
             if (item.getItemId() == R.id.action_logout) {
-                Toast.makeText(getApplicationContext(), "action_logout clicked", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Log out Successfully", Toast.LENGTH_LONG).show();
                 finish();
+                return false;
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.base_fragment,tempFragment).commit();
-            return false;
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.base_fragment, tempFragment)
+                    .commit();
+
+            return true;
         });
 //        getRequest();
 /*        getUserDataFromIntent();
@@ -76,11 +84,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private List<Book> getReadBookList() {
-        HomeActivityProcess homeActivityProcess = new HomeActivityProcess(getApplicationContext());
-        List<Book> bookList = homeActivityProcess.getReadBookList(user);
-        return bookList;
-    }
 
 
 /*    private void getRequest() {

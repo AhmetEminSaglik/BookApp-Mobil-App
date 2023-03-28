@@ -8,8 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.ahmeteminsaglik.neo4jbookappandroid.activities.myreadbook.HomeActivity;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.HomeActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.TestActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.signup.SignUpActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumUser;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;

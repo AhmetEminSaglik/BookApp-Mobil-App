@@ -12,4 +12,5 @@
     <color name="card_constraintColor">#56BCEA</color>
     <color name="editTextColor">#F7F6F8</color>
     <color name="btnColor">#3075DC</color>
+    <color name="red">#E61728</color>
 </resources>
