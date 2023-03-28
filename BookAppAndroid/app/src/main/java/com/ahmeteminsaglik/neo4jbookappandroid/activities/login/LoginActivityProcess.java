@@ -20,7 +20,7 @@ public class LoginActivityProcess {
     /*
      * get username,password
      * click login btn
-     * if data is correct than change loginActivity to MyReadBookActivity
+     * if data is correct than change loginActivity to HomeActivity
      * */
     private Context context;
     private User user;

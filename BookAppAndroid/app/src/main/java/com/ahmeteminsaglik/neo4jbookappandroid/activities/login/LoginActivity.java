@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.ahmeteminsaglik.neo4jbookappandroid.activities.myreadbook.MyReadBookActivity;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.myreadbook.HomeActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.signup.SignUpActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumUser;
@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private View.OnClickListener getLoginBtnFunction() {
-        Intent intent = new Intent(this, MyReadBookActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         return view -> {
             User user = startLoginProcess();
             if (user != null) {

@@ -17,10 +17,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class MyReadBookActivityProcess {
+public class HomeActivityProcess {
     private Context context;
 
-    public MyReadBookActivityProcess(Context context) {
+    public HomeActivityProcess(Context context) {
         this.context = context;
     }
 
