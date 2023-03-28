@@ -47,6 +47,7 @@ public class FragmentMyReadBookProcess {
                 }
                 Toast.makeText(context, errMsg, Toast.LENGTH_LONG).show();
             }
+
             return readBookList;
         } catch (IOException e) {
             e.printStackTrace();
