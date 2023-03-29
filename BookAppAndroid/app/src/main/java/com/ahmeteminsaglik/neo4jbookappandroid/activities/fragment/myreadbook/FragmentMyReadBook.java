@@ -16,8 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter.BookRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumRecommendReason;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedBook;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentMyReadBook extends Fragment {
@@ -39,7 +42,8 @@ public class FragmentMyReadBook extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         createRecycleView(view);
         List<Book> bookList = getReadBookList();
-        adapter = new BookRVAdapter(activity, bookList);
+        List<RecommendedBook> recommendedBookList = convertBookListToRecommedBookList(bookList);
+        adapter = new BookRVAdapter(activity, recommendedBookList);
         rv.setAdapter(adapter);
     }
 
@@ -48,10 +52,20 @@ public class FragmentMyReadBook extends Fragment {
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
+
     private List<Book> getReadBookList() {
         FragmentMyReadBookProcess fragmentMyReadBookProcess = new FragmentMyReadBookProcess(activity.getApplicationContext());
         List<Book> bookList = fragmentMyReadBookProcess.getReadBookList();
         return bookList;
     }
 
+    private List<RecommendedBook> convertBookListToRecommedBookList(List<Book> bookList) {
+        List<RecommendedBook> recommendedBookList = new ArrayList<>();
+        for (Book book : bookList) {
+            String recommendReason = EnumRecommendReason.No_Recommend.getName();
+            RecommendedBook recBook = new RecommendedBook(book, recommendReason);
+            recommendedBookList.add(recBook);
+        }
+        return recommendedBookList;
+    }
 }

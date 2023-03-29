@@ -13,17 +13,40 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedBook;
 
 import java.util.List;
 
 public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHolder> {
     private Context context;
-    private List<Book> readBookList;
+    private List<RecommendedBook> recommendedBookList;
+//    private List<Book> bookList;
 
-    public BookRVAdapter(Context context, List<Book> readBookList) {
+    public BookRVAdapter(Context context, List<RecommendedBook> recommendedBookList) {
         this.context = context;
-        this.readBookList = readBookList;
+        this.recommendedBookList = recommendedBookList;
     }
+
+
+//    public BookRVAdapter(Context context) {
+//        this.context = context;
+//    }
+
+//    public List<RecommendedBook> getRecommendedBookList() {
+//        return recommendedBookList;
+//    }
+//
+//    public void setRecommendedBookList(List<RecommendedBook> recommendedBookList) {
+//        this.recommendedBookList = recommendedBookList;
+//    }
+//
+//    public List<Book> getBookList() {
+//        return bookList;
+//    }
+//
+//    public void setBookList(List<Book> bookList) {
+//        this.bookList = bookList;
+//    }
 
 
     @NonNull
@@ -37,18 +60,21 @@ public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHo
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        String bookName = readBookList.get(position).getName();
-        double point = readBookList.get(position).getPoint();
-        int totalRead = readBookList.get(position).getTotalRead();
+        Book book = recommendedBookList.get(position).getBook();
+        String whyRecommend = recommendedBookList.get(position).getWhyRecommend();
+        String bookName = book.getName();
+        double point = book.getPoint();
+        int totalRead = book.getTotalRead();
         holder.txtVBookName.setText(bookName);
         holder.txtVBookPoint.setText(Double.toString(point));
         holder.txtVTotalRead.setText(Integer.toString(totalRead));
-        holder.bookCardIndexNo.setText(Integer.toString(position+1));
+        holder.bookCardIndexNo.setText(Integer.toString(position + 1));
+        holder.whyRecommend.setText(whyRecommend);
     }
 
     @Override
     public int getItemCount() {
-        return readBookList.size();
+        return recommendedBookList.size();
     }
 
     public class CardViewHolder extends RecyclerView.ViewHolder {
@@ -57,6 +83,7 @@ public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHo
         public TextView txtVBookPoint;
         public TextView txtVTotalRead;
         public TextView bookCardIndexNo;
+        public TextView whyRecommend;
 
         public CardViewHolder(@NonNull View view) {
             super(view);
@@ -65,6 +92,7 @@ public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHo
             txtVBookPoint = view.findViewById(R.id.txtVAuthorPointValue);
             txtVTotalRead = view.findViewById(R.id.txtVAuthorTotalBookNumber);
             bookCardIndexNo = view.findViewById(R.id.authorCardIndexNo);
+            whyRecommend = view.findViewById(R.id.txtBookWhyRecommend);
         }
     }
 }
