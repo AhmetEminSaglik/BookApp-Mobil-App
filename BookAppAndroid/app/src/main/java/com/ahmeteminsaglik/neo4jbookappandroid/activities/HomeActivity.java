@@ -11,6 +11,7 @@ import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.FragmentRecom
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.FragmentMyReadBook;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumUser;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
+import com.ahmeteminsaglik.neo4jbookappandroid.utility.SharedPreferenceUtility;
 import com.ahmeteminsaglik.neo4jbookappandroid.utility.StrictModePolicy;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -18,8 +19,8 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class HomeActivity extends AppCompatActivity {
     private BottomNavigationView bottom_navigation;
-    private Fragment tempFragment;
-    private User user = new User();
+//    private User user = new User();
+    private Fragment tempFragment = new FragmentMyReadBook(this);
 
 
     @Override
@@ -28,33 +29,29 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         StrictModePolicy.enable();
-        getUserDataFromIntent();
+//        getUserDataFromIntent();
 
         bottom_navigation = findViewById(R.id.bottom_navigation);
 //        Fragment fragment = findViewById(R.id.base_fragment);
-        getSupportFragmentManager()
-                .beginTransaction()//.remove(base_fragment)
-                .add(R.id.base_fragment, new FragmentMyReadBook(this, user))
-                .commit();
+
+        activateFragment(R.id.base_fragment, tempFragment);
 
         bottom_navigation.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.action_my_read_book) {
                 Toast.makeText(getApplicationContext(), "action_my_read_book clicked", Toast.LENGTH_LONG).show();
-                tempFragment = new FragmentMyReadBook(this, user);
+                tempFragment = new FragmentMyReadBook(this);
             }
             if (item.getItemId() == R.id.action_recommends) {
                 Toast.makeText(getApplicationContext(), "action_recommends clicked", Toast.LENGTH_LONG).show();
-                tempFragment = new FragmentRecommends();
+                tempFragment = new FragmentRecommends(this);
             }
             if (item.getItemId() == R.id.action_logout) {
+                SharedPreferenceUtility.clearSharedPreference(this);
                 Toast.makeText(getApplicationContext(), "Log out Successfully", Toast.LENGTH_LONG).show();
                 finish();
                 return false;
             }
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.base_fragment, tempFragment)
-                    .commit();
+            activateFragment(R.id.base_fragment, tempFragment);
 
             return true;
         });
@@ -71,6 +68,14 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    private void activateFragment(int base_fragment_id, Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(base_fragment_id, fragment)
+                .commit();
+    }
+
+/*
 
     private void getUserDataFromIntent() {
         Bundle bundle = getIntent().getExtras();
@@ -85,6 +90,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+*/
 
 /*    private void getRequest() {
         Call<List<User>> callList = ManagerAll.getInstance().getAllUser();

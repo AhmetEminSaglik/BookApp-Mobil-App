@@ -5,10 +5,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumUser;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.response.abstracts.RestApiErrorResponse;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.response.abstracts.RestApiResponse;
 import com.ahmeteminsaglik.neo4jbookappandroid.restapi.ManagerAll;
+import com.ahmeteminsaglik.neo4jbookappandroid.utility.SharedPreferenceUtility;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -24,12 +26,14 @@ public class FragmentMyReadBookProcess {
         this.context = context;
     }
 
-    public List<Book> getReadBookList(User user) {
-        return sendBookReadListRequest(user);
+    public List<Book> getReadBookList() {
+        return sendBookReadListRequest();
     }
 
-    private List<Book> sendBookReadListRequest(User user) {
-        Call<RestApiResponse<List<Book>>> call = ManagerAll.getInstance().getReadBookList(user.getId());
+    private List<Book> sendBookReadListRequest() {
+        Call<RestApiResponse<List<Book>>> call = ManagerAll.getInstance().getReadBookList(
+                SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID)
+        );
 
         try {
             List<Book> readBookList = null;
@@ -43,13 +47,10 @@ public class FragmentMyReadBookProcess {
                 if (errMsg != null) {
                     Log.e("Error  ", errMsg);
                 } else {
-                    Log.e("Error Message is empty : ","no mesage");
+                    Log.e("Error Message is empty : ", "no mesage");
                 }
                 Toast.makeText(context, errMsg, Toast.LENGTH_LONG).show();
             }
-
-                readBookList.add(new Book(44l,"ABC Atomic habbits Demo bilmem ne ",4.4,4));
-
             return readBookList;
         } catch (IOException e) {
             e.printStackTrace();

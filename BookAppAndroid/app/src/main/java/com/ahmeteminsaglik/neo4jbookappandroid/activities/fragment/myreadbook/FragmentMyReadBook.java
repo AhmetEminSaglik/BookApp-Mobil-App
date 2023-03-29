@@ -21,14 +21,12 @@ import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
 import java.util.List;
 
 public class FragmentMyReadBook extends Fragment {
-    private final User user;
     private final Activity activity;
     private RecyclerView rv;
     public BookRVAdapter adapter;
 
-    public FragmentMyReadBook(Activity activity, User user) {
+    public FragmentMyReadBook(Activity activity) {
         this.activity = activity;
-        this.user = user;
     }
 
     @Nullable
@@ -39,19 +37,16 @@ public class FragmentMyReadBook extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         createRecycleView(view);
         List<Book> bookList = getReadBookList();
         bookList.forEach(e -> Log.e("read book", e.toString()));
         adapter = new BookRVAdapter(activity, bookList);
-        adapter.notifyDataSetChanged();
         rv.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
     }
 
     private List<Book> getReadBookList() {
         FragmentMyReadBookProcess fragmentMyReadBookProcess = new FragmentMyReadBookProcess(activity.getApplicationContext());
-        List<Book> bookList = fragmentMyReadBookProcess.getReadBookList(user);
+        List<Book> bookList = fragmentMyReadBookProcess.getReadBookList();
         return bookList;
     }
 
