@@ -7,11 +7,11 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/bookCardView"
+        android:id="@+id/authorCardView"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="10dp"
-        app:cardBackgroundColor="@color/card_constraintColor_Blue"
+        app:cardBackgroundColor="@color/card_constraintColor_Green"
         app:cardCornerRadius="7dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -66,7 +66,7 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="19dp"
                             android:layout_marginBottom="10dp"
-                            android:text="Book Name"
+                            android:text="Author Full Name"
                             android:textSize="19dp" />
                     </LinearLayout>
 
@@ -123,7 +123,7 @@
                             android:id="@+id/lblVTotalReadValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total Read :"
+                            android:text="Total Book :"
                             android:textSize="16dp"
                             app:layout_constraintBottom_toTopOf="@+id/lblPoint"
                             app:layout_constraintEnd_toStartOf="@+id/txtVAuthorTotalBookNumber"

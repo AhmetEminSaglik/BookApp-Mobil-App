@@ -44,7 +44,6 @@ public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHo
         holder.txtVBookPoint.setText(Double.toString(point));
         holder.txtVTotalRead.setText(Integer.toString(totalRead));
         holder.bookCardIndexNo.setText(Integer.toString(position+1));
-        Toast.makeText(context, "view holder'a geldi", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -62,10 +61,10 @@ public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHo
         public CardViewHolder(@NonNull View view) {
             super(view);
             bookCardView = view.findViewById(R.id.bookCardView);
-            txtVBookName = view.findViewById(R.id.txtVBookName);
-            txtVBookPoint = view.findViewById(R.id.txtVPointValue);
-            txtVTotalRead = view.findViewById(R.id.txtVTotalReadValue);
-            bookCardIndexNo = view.findViewById(R.id.bookCardIndexNo);
+            txtVBookName = view.findViewById(R.id.txtVAuthorFullName);
+            txtVBookPoint = view.findViewById(R.id.txtVAuthorPointValue);
+            txtVTotalRead = view.findViewById(R.id.txtVAuthorTotalBookNumber);
+            bookCardIndexNo = view.findViewById(R.id.authorCardIndexNo);
         }
     }
 }

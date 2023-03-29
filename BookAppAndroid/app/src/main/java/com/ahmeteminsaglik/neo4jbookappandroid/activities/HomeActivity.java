@@ -7,14 +7,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
-import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.FragmentRecommends;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.recommend.FragmentRecommends;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.FragmentMyReadBook;
-import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumUser;
-import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
 import com.ahmeteminsaglik.neo4jbookappandroid.utility.SharedPreferenceUtility;
 import com.ahmeteminsaglik.neo4jbookappandroid.utility.StrictModePolicy;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -38,11 +35,9 @@ public class HomeActivity extends AppCompatActivity {
 
         bottom_navigation.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.action_my_read_book) {
-                Toast.makeText(getApplicationContext(), "action_my_read_book clicked", Toast.LENGTH_LONG).show();
                 tempFragment = new FragmentMyReadBook(this);
             }
             if (item.getItemId() == R.id.action_recommends) {
-                Toast.makeText(getApplicationContext(), "action_recommends clicked", Toast.LENGTH_LONG).show();
                 tempFragment = new FragmentRecommends(this);
             }
             if (item.getItemId() == R.id.action_logout) {

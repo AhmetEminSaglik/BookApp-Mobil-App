@@ -32,28 +32,26 @@ public class FragmentMyReadBook extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my_read_book_layout, container, false); // layout icindeki tasarimlari baglamak icin kullanilir.
+        return inflater.inflate(R.layout.fragment_my_read_book_layout, container, false); // is used to connect desing in layout
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         createRecycleView(view);
         List<Book> bookList = getReadBookList();
-        bookList.forEach(e -> Log.e("read book", e.toString()));
         adapter = new BookRVAdapter(activity, bookList);
         rv.setAdapter(adapter);
-    }
-
-    private List<Book> getReadBookList() {
-        FragmentMyReadBookProcess fragmentMyReadBookProcess = new FragmentMyReadBookProcess(activity.getApplicationContext());
-        List<Book> bookList = fragmentMyReadBookProcess.getReadBookList();
-        return bookList;
     }
 
     private void createRecycleView(View view) {
         rv = view.findViewById(R.id.bookRecyleView);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
+    }
+    private List<Book> getReadBookList() {
+        FragmentMyReadBookProcess fragmentMyReadBookProcess = new FragmentMyReadBookProcess(activity.getApplicationContext());
+        List<Book> bookList = fragmentMyReadBookProcess.getReadBookList();
+        return bookList;
     }
 
 }

@@ -9,7 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="constraintColor">#0644A1</color>
     <color name="background_constraintColor">#2D87E6</color>
-    <color name="card_constraintColor">#56BCEA</color>
+    <color name="card_constraintColor_Blue">#56BCEA</color>
+    <color name="card_constraintColor_Green">#4ED538</color>
     <color name="editTextColor">#F7F6F8</color>
     <color name="btnColor">#3075DC</color>
     <color name="red">#E61728</color>
