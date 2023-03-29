@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:maxHeight="110dp"
-        app:cardBackgroundColor="@color/card_constraintColor_Blue"
+        app:cardBackgroundColor="@color/card_constraintColor_0_default_light_blue"
         app:cardCornerRadius="7dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout

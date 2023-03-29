@@ -1,6 +1,7 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.recommend.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Author;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedAuthor;
+import com.ahmeteminsaglik.neo4jbookappandroid.utility.CardUtility;
 
 import java.util.List;
 
@@ -49,6 +51,7 @@ public class AuthorRVAdapter extends RecyclerView.Adapter<AuthorRVAdapter.CardVi
         holder.totalBook.setText(Integer.toString(totalBook));
         holder.point.setText(Double.toString(point));
         holder.whyRecommend.setText(whyRecommend);
+        holder.cardView.setBackgroundResource(CardUtility.getCardBackgroudColorByRecommendType(whyRecommend));
     }
 
     @Override

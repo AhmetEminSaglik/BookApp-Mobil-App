@@ -1,6 +1,7 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumRecommendReason;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedBook;
+import com.ahmeteminsaglik.neo4jbookappandroid.utility.CardUtility;
 
 import java.util.List;
 
@@ -70,6 +73,7 @@ public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHo
         holder.txtVTotalRead.setText(Integer.toString(totalRead));
         holder.bookCardIndexNo.setText(Integer.toString(position + 1));
         holder.whyRecommend.setText(whyRecommend);
+        holder.bookCardView.setBackgroundResource(CardUtility.getCardBackgroudColorByRecommendType(whyRecommend));
     }
 
     @Override
@@ -95,4 +99,6 @@ public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHo
             whyRecommend = view.findViewById(R.id.txtBookWhyRecommend);
         }
     }
+
+
 }

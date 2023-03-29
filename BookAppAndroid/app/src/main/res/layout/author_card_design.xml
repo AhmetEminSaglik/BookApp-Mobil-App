@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="105dp"
         android:layout_margin="10dp"
-        app:cardBackgroundColor="@color/card_constraintColor_Green"
+        app:cardBackgroundColor="@color/card_constraintColor_0_default_light_blue"
         app:cardCornerRadius="7dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp">
-            >
 
             <LinearLayout
                 android:layout_width="match_parent"
