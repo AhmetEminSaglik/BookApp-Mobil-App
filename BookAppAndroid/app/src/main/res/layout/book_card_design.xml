@@ -18,99 +18,133 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/txtVBookName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="19dp"
-                android:layout_marginBottom="10dp"
-                android:text="Book Name"
-                android:textSize="19dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/lblPoint"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.648" />
-
-            <TextView
-                android:id="@+id/lblPoint"
-                android:layout_width="79dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="19dp"
-                android:layout_marginTop="8dp"
-                android:text="Point : "
-                android:textSize="19dp"
-                app:layout_constraintEnd_toStartOf="@+id/txtVPointValue"
-                app:layout_constraintStart_toEndOf="@+id/txtVBookName"
-                app:layout_constraintTop_toBottomOf="@+id/lblVTotalReadValue" />
-
-            <TextView
-                android:id="@+id/txtVPointValue"
-                android:layout_width="42dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="5dp"
-                android:text="5.0"
-                android:textSize="19dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/lblPoint"
-                app:layout_constraintTop_toBottomOf="@+id/txtVTotalReadValue" />
-
-            <TextView
-                android:id="@+id/txtVTotalReadValue"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="40dp"
-                android:text="125"
-                android:textSize="19dp"
-                app:layout_constraintBottom_toTopOf="@+id/txtVPointValue"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/lblVTotalReadValue"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/lblVTotalReadValue"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginStart="38dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="11dp"
-                android:text="Total Read :"
-                android:textSize="19dp"
-                app:layout_constraintBottom_toTopOf="@+id/lblPoint"
-                app:layout_constraintEnd_toStartOf="@+id/txtVTotalReadValue"
-                app:layout_constraintStart_toEndOf="@+id/txtVBookName"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                android:layout_marginEnd="163dp"
-                android:layout_marginBottom="26dp"
-                app:layout_constraintBottom_toTopOf="@+id/txtVBookName"
-                app:layout_constraintEnd_toStartOf="@+id/lblVTotalReadValue"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                <LinearLayout
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No : " />
+
+                        <TextView
+                            android:id="@+id/bookCardIndexNo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="999" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/bookNameLinerLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/lblPoint"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.648">
+
+                        <TextView
+                            android:id="@+id/txtVBookName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="19dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="Book Name"
+                            android:textSize="19dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:text="No : " />
+                    android:orientation="vertical"
+                    tools:layout_editor_absoluteX="216dp"
+                    tools:layout_editor_absoluteY="0dp">
 
-                <TextView
-                    android:id="@+id/bookCardIndexNo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="999" />
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toStartOf="@+id/txtVPointValue"
+                        app:layout_constraintStart_toEndOf="@+id/bookNameLinerLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/lblVTotalReadValue">
+
+                        <TextView
+                            android:id="@+id/lblPoint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Point : "
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:id="@+id/txtVPointValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5.0"
+                            android:textSize="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/lblPoint"
+                            app:layout_constraintTop_toBottomOf="@+id/txtVTotalReadValue" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="23dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                        <TextView
+                            android:id="@+id/lblVTotalReadValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Read :"
+                            android:textSize="16dp"
+                            app:layout_constraintBottom_toTopOf="@+id/lblPoint"
+                            app:layout_constraintEnd_toStartOf="@+id/txtVTotalReadValue"
+                            app:layout_constraintStart_toEndOf="@+id/bookNameLinerLayout"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txtVTotalReadValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="125"
+                            android:textSize="16dp"
+                            app:layout_constraintBottom_toTopOf="@+id/txtVPointValue"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/lblVTotalReadValue"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

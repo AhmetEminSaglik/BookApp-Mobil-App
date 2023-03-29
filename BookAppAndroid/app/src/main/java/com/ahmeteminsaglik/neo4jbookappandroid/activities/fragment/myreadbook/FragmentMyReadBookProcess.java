@@ -48,6 +48,8 @@ public class FragmentMyReadBookProcess {
                 Toast.makeText(context, errMsg, Toast.LENGTH_LONG).show();
             }
 
+                readBookList.add(new Book(44l,"ABC Atomic habbits Demo bilmem ne ",4.4,4));
+
             return readBookList;
         } catch (IOException e) {
             e.printStackTrace();
