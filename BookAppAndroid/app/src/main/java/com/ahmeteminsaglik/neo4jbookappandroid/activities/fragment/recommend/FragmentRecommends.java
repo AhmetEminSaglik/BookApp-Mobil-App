@@ -35,11 +35,12 @@ public class FragmentRecommends extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        createRecycleView(view);
 
     }
 
     private void createRecycleView(View view) {
-        rv = view.findViewById(R.id.bookRecyleView);
+        rv = view.findViewById(R.id.recommendRecyleView);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
