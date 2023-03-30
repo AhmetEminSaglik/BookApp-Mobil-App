@@ -22,9 +22,9 @@ RETURN u,b*/
 //            "<-[ai:ACTED_IN]-(p:Person)-[d:DIRECTED]->(dm:Movie) return p, collect(ai), collect(d), collect(am), collect(dm)")
     List<Book> getAllByUserIdMatches(@PathVariable Long userId);
 
-    @Query("MATCH (b:Book) RETURN b ORDER BY b.point DESC LIMIT 3")
+    @Query("MATCH (b:Book) RETURN b ORDER BY b.point DESC LIMIT 5")
     List<Book> findByHighestPoint();
-    @Query("MATCH (b:Book) RETURN b ORDER BY b.totalRead DESC LIMIT 3")
+    @Query("MATCH (b:Book) RETURN b ORDER BY b.totalRead DESC LIMIT 5")
     List<Book> findByHighestTotalRead();
 
 }

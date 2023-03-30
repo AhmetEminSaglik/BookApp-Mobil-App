@@ -79,7 +79,7 @@ public class Main {
     static void createBookCreationQuery() {
         StringBuilder bookCreationQuery = new StringBuilder();
         for (int i = 0; i < bookName.length; i++) {
-            bookCreationQuery.append("CREATE (b" + i + ":Book{name:\"" + bookName[i] + "\",totalRead:" + Utility.getRandomInt(100) + ",point:" + Utility.getRandomDoublePoint() + "})\n");
+            bookCreationQuery.append("CREATE (b" + i + ":Book{name:\"" + bookName[i] + "\",totalRead:" + Utility.getRandomTotalRead() + ",point:" + Utility.getRandomDoublePoint() + "})\n");
             String abbr = "b" + i;
             abbrOfBookList.add(abbr);
         }
