@@ -20,8 +20,8 @@ public class DataStorage {
         createAllUserCreationQuery();
         createAllBookCreationQuery();
         createUserReadBookConnection();
+        createAuthorCreationQuery();
         createReturnQuery();
-
 //        createAllBookCreationQuery();
 
 //        for (int i = 0; i < 100; i++) {
@@ -37,28 +37,57 @@ public class DataStorage {
         for (int i = 0; i < abbrOfBookList.size(); i++) {
             returnQuery.append(abbrOfBookList.get(i) + ",");
         }
-        returnQuery.deleteCharAt(returnQuery.length() - 1);
+        for (int i = 0; i < abbrOfAuthorList.size(); i++) {
+            returnQuery.append(abbrOfAuthorList.get(i) + ",");
+        }
+        deleteComma(returnQuery,1);
         System.out.println(returnQuery);
+    }
+
+    static void createAuthorCreationQuery() {
+//        StringBuilder builder= new StringBuilder("as ds few");
+//        builder.
+//        StringBuilder returnQuery = new StringBuilder("RETURN ");
+        for (int i = 0; i < authorName.length; i++) {
+            String abbr = "a" + i;
+            abbrOfAuthorList.add(abbr);
+            String[] nameArr = authorName[i].trim().split(" ");
+            String lastname = nameArr[nameArr.length - 1];
+            StringBuilder name = new StringBuilder();
+            for (int j = 0; j < nameArr.length - 1; j++) {
+                name.append(nameArr[j] + " ");
+            }
+//            name.deleteCharAt(name.length() - 1);
+            deleteComma(name,1);
+            String createBookText = "CREATE (a" + i + ":Author{name:\"" + name + "\",lastname:\"" + lastname + "\",totalBook:" + getRandomInt(50) + ",point:" + getRandomDoublePoint() + "})";
+            System.out.println(createBookText);
+//            returnQuery.append(abbr + ",");
+        }
+//        returnQuery.deleteCharAt(returnQuery.length() - 1);
+//        System.out.println(returnQuery);
+
+        /*create (a1:Author{name:"Author 1",lastname:"first Author",totalBook:10,point:8.9})*/
+
     }
 
     /*create (n3:Book{name:"Head First Java",totalRead:10,point:0})*/
     static void createUserReadBookConnection() {
-        StringBuilder userReadBookQueryBuilder = new StringBuilder();
-        userReadBookQueryBuilder.append("CREATE ");
+        StringBuilder userReadBookQueryBuilder = new StringBuilder("CREATE ");
         for (int i = 0; i < abbrOfUserList.size(); i++) {
             List<Integer> readBookList = new ArrayList<>();
 
             int userTotalReadBook = getRandomInt(20);
             for (int j = 0; j < userTotalReadBook; j++) {
                 int bookIndex = getRandomInt(abbrOfBookList.size());
-                bookIndex = getProperBookToRead(readBookList, bookIndex);
+//                bookIndex = getProperBookToRead(readBookList, bookIndex);
+                bookIndex = getProperItemIndex(abbrOfBookList.size(), readBookList, bookIndex);
                 readBookList.add(bookIndex);
 
                 userReadBookQueryBuilder.append("(" + abbrOfUserList.get(i) + ")-[:Read]->(" + abbrOfBookList.get(getRandomInt(abbrOfBookList.size())) + "),\n");
             }
         }
-        userReadBookQueryBuilder.deleteCharAt(userReadBookQueryBuilder.length() - 2);
-
+//        userReadBookQueryBuilder.deleteCharAt(userReadBookQueryBuilder.length() - 2);
+        deleteComma(userReadBookQueryBuilder,2);
         System.out.println(userReadBookQueryBuilder);
     }
 
@@ -105,13 +134,15 @@ public class DataStorage {
             followedPeople.add(userIndex);
             for (int j = 0; j < totalFollowingPeople; j++) {
                 int indexOfPeopleToFollow = getRandomInt(userNumber);
-                indexOfPeopleToFollow = getProperUserIndexToFollow(followedPeople, indexOfPeopleToFollow);
+
+                indexOfPeopleToFollow = getProperItemIndex(abbrOfUserList.size(), followedPeople, indexOfPeopleToFollow);
                 createFollowingAction.append("(u" + i + ")-[:Follow]->(u" + indexOfPeopleToFollow + "),\n");
                 followedPeople.add(indexOfPeopleToFollow);
             }
 
         }
-        createFollowingAction.deleteCharAt(createFollowingAction.length() - 2);
+//        createFollowingAction.deleteCharAt(createFollowingAction.length() - 2);
+        deleteComma(createFollowingAction,2);
 
         System.out.println(createFollowingAction);
 //        System.out.println(returnQueryText);
@@ -119,34 +150,47 @@ public class DataStorage {
 //        abbrOfUserList.forEach(e -> System.out.println(e));
     }
 
+
+    public static int getProperItemIndex(int abbrSize, List<Integer> list, int requestIndex) {
+        for (Integer tmp : list) {
+            if (tmp == requestIndex) {
+                requestIndex = getUniqeItemAbbrIndex(abbrSize, requestIndex);
+                return getProperItemIndex(abbrSize, list, requestIndex);
+            }
+        }
+        return requestIndex;
+    }
+/*
+
     public static int getProperUserIndexToFollow(List<Integer> list, int peopleIndexToFollow) {
         for (Integer tmp : list) {
             if (tmp == peopleIndexToFollow) {
-                peopleIndexToFollow = getUniqeUserIndexToFollow(peopleIndexToFollow);
+                peopleIndexToFollow = getUniqeItemAbbrIndex(abbrOfUserList.size(), peopleIndexToFollow);
                 return getProperUserIndexToFollow(list, peopleIndexToFollow);
             }
         }
         return peopleIndexToFollow;
     }
+*/
 
-    public static int getProperBookToRead(List<Integer> list, int bookIndex) {
+/*    public static int getProperBookToRead(List<Integer> list, int bookIndex) {
         for (Integer tmp : list) {
             if (tmp == bookIndex) {
-                bookIndex = getUniqeBookAbbrToFollow(bookIndex);
+                bookIndex = getUniqeItemAbbrIndex(abbrOfBookList.size(), bookIndex);
                 return getProperBookToRead(list, bookIndex);
             }
         }
         return bookIndex;
-    }
+    }*/
 
-    private static int getUniqeUserIndexToFollow(int index) {
-        index++;
-        return index % userNumber;
-    }
+//    private static int getUniqeUserIndexToFollow(int index) {
+//        index++;
+//        return index % userNumber;
+//    }
 
-    private static int getUniqeBookAbbrToFollow(int index) {
+    private static int getUniqeItemAbbrIndex(int listSize, int index) {
         index++;
-        return index % abbrOfBookList.size();
+        return index % listSize;
     }
 
     /*
@@ -176,4 +220,7 @@ public class DataStorage {
         return random.nextInt(100);
     }
 
+    private static void deleteComma(StringBuilder stringBuilder, int commaIndexToMinusFromLength) {
+        stringBuilder.deleteCharAt(stringBuilder.length() - commaIndexToMinusFromLength);
+    }
 }
