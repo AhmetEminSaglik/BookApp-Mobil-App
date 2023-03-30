@@ -32,4 +32,14 @@ public class BookManager implements BookService {
     public List<Book> getAllReadBooksByUserId(Long userId) {
         return bookRepository.getAllByUserIdMatches(userId);
     }
+
+    @Override
+    public List<Book> findByHighestPoint() {
+        return bookRepository.findByHighestPoint();
+    }
+
+    @Override
+    public List<Book> findByHighestTotalRead() {
+        return bookRepository.findByHighestTotalRead();
+    }
 }

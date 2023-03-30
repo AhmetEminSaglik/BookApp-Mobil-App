@@ -13,4 +13,8 @@ public interface BookService {
     Book save(Book book);
 
     List<Book> getAllReadBooksByUserId(Long userId);
+
+    List<Book> findByHighestPoint();
+    List<Book> findByHighestTotalRead();
+
 }

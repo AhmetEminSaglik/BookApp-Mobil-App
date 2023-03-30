@@ -1,43 +1,57 @@
-package com.ahmeteminsaglik.neo4jbookappandroid.activities.myreadbook;
+package com.ahmeteminsaglik.neo4jbookappandroid.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
-import com.ahmeteminsaglik.neo4jbookappandroid.activities.login.LoginActivityProcess;
-import com.ahmeteminsaglik.neo4jbookappandroid.activities.myreadbook.adapter.BookRVAdapter;
-import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
-import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumUser;
-import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
-import com.ahmeteminsaglik.neo4jbookappandroid.restapi.ManagerAll;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.recommend.FragmentRecommends;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.FragmentMyReadBook;
+import com.ahmeteminsaglik.neo4jbookappandroid.utility.SharedPreferenceUtility;
 import com.ahmeteminsaglik.neo4jbookappandroid.utility.StrictModePolicy;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+public class HomeActivity extends AppCompatActivity {
+    private BottomNavigationView bottom_navigation;
+//    private User user = new User();
+    private Fragment tempFragment = new FragmentMyReadBook(this);
 
-public class MyReadBookActivity extends AppCompatActivity {
-    private User user = new User();
-    private RecyclerView rv;
-    private BookRVAdapter adapter;
 
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_read_book);
+        setContentView(R.layout.activity_home);
         StrictModePolicy.enable();
+//        getUserDataFromIntent();
+
+        bottom_navigation = findViewById(R.id.bottom_navigation);
+//        Fragment fragment = findViewById(R.id.base_fragment);
+
+        activateFragment(R.id.base_fragment, tempFragment);
+
+        bottom_navigation.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.action_my_read_book) {
+                tempFragment = new FragmentMyReadBook(this);
+            }
+            if (item.getItemId() == R.id.action_recommends) {
+                tempFragment = new FragmentRecommends(this);
+            }
+            if (item.getItemId() == R.id.action_logout) {
+                SharedPreferenceUtility.clearSharedPreference(this);
+                Toast.makeText(getApplicationContext(), "Log out Successfully", Toast.LENGTH_LONG).show();
+                finish();
+                return false;
+            }
+            activateFragment(R.id.base_fragment, tempFragment);
+
+            return true;
+        });
 //        getRequest();
-        getUserDataFromIntent();
+/*        getUserDataFromIntent();
         Log.e("User id : ", Long.toString(user.getId()));
         List<Book> bookList = getReadBookList();
         rv = findViewById(R.id.bookRecyleView);
@@ -45,8 +59,18 @@ public class MyReadBookActivity extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BookRVAdapter(this, bookList);
         rv.setAdapter(adapter);
-        bookList.forEach(e -> Log.e("read book", e.toString()));
+        bookList.forEach(e -> Log.e("read book", e.toString()));*/
+
     }
+
+    private void activateFragment(int base_fragment_id, Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(base_fragment_id, fragment)
+                .commit();
+    }
+
+/*
 
     private void getUserDataFromIntent() {
         Bundle bundle = getIntent().getExtras();
@@ -60,11 +84,8 @@ public class MyReadBookActivity extends AppCompatActivity {
 
     }
 
-    private List<Book> getReadBookList() {
-        MyReadBookActivityProcess myReadBookActivityProcess = new MyReadBookActivityProcess(getApplicationContext());
-        List<Book> bookList = myReadBookActivityProcess.getReadBookList(user);
-        return bookList;
-    }
+
+*/
 
 /*    private void getRequest() {
         Call<List<User>> callList = ManagerAll.getInstance().getAllUser();
