@@ -33,28 +33,55 @@
                     android:paddingLeft="15dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="250dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
                         android:orientation="horizontal"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:paddingLeft="15dp">
 
-                        <TextView
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="No : " />
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                        <TextView
-                            android:id="@+id/authorCardIndexNo"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="No : " />
+
+                            <TextView
+                                android:id="@+id/authorCardIndexNo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="50dp"
+
+                                android:text="999" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="999" />
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal"
+                            app:layout_constraintTop_toTopOf="parent">
+
+
+                            <TextView
+                                android:id="@+id/bookCardRecommendType"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Book"
+                                android:textColor="@color/recommendTxtColor" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/bookNameLinerLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp">
 
                         <TextView
                             android:id="@+id/txtVAuthorFullName"

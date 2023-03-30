@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7c3c2a9-e6f6-43f3-8620-54c9f2a97509" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/abstracts/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/abstracts/BookService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/conretes/BookManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/conretes/BookManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/AuthorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/AuthorRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/BookRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/author_card_design.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/author_card_design.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/book_card_design.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/book_card_design.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../project-desing.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../project-desing.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../~$oject-desing.docx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
