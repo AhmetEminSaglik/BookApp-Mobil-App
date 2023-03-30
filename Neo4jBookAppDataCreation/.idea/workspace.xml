@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7c3c2a9-e6f6-43f3-8620-54c9f2a97509" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Utility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/abstracts/BookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/abstracts/BookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/conretes/BookManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/conretes/BookManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/controller/BookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/AuthorRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/AuthorRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/BookRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +71,7 @@
       <workItem from="1680176283093" duration="36000" />
       <workItem from="1680176353106" duration="64000" />
       <workItem from="1680176444290" duration="404000" />
-      <workItem from="1680176949313" duration="1201000" />
+      <workItem from="1680176949313" duration="8722000" />
     </task>
     <servers />
   </component>

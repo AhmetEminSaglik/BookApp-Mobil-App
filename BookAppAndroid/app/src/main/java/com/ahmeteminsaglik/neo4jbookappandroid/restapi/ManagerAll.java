@@ -41,6 +41,9 @@ public class ManagerAll extends BaseManager {
     public Call<RestApiResponse<List<Book>>> getRecommendedBookListByTotalRead() {
         return getBookRestApiClient().getRecommendedBookListByTotalRead();
     }
+    public Call<RestApiResponse<List<Book>>> getRecommendedBookListByByFriendRead(Long userId) {
+        return getBookRestApiClient().getRecommendedBookListByByFriendRead(userId);
+    }
 
     public Call<RestApiResponse<List<Author>>> getRecommendAuthorListByPoint() {
         return getAuthorRestApiClient().getRecommendedAuthorListByPoint();

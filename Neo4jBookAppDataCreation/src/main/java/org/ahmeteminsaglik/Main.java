@@ -3,6 +3,16 @@ package org.ahmeteminsaglik;
 import java.util.*;
 
 public class Main {
+    /*
+bu query user1'in takip ettigi kisilerin okudugu kitaplari bulur,  user1'in takip ettigi kisilerden kactanesi bu kitaplari okuyorsa onlarin sayisini alir, bu okuyucularin sayisi siralnir ve dondurur.
+ MATCH (u1:User{username:"user1"})-[:Follow]->(u2)-[:Read]->(b:Book)
+WITH b, COUNT(DISTINCT u2) AS num_readers
+ORDER BY num_readers DESC
+LIMIT 1
+MATCH (u1)-[:Follow]->(u2)-[:Read]->(b)
+RETURN  u2, b
+
+*/
     static final int userNumber = 25;
     static Random random = new Random();
     static String[] maleName = {"James", "Robert", "John", "Michael", "David", "William", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua"};
@@ -23,8 +33,9 @@ public class Main {
 
         createAuthorCreationQuery();
         createAuthorWriteBookQuery();
-
+        // to fix data :
         createReturnQuery();
+
 
 //        for (int i = 0; i < 100; i++) {
 //            System.out.println(getRandomDoublePoint());
@@ -90,7 +101,7 @@ public class Main {
         StringBuilder userReadBookQueryBuilder = new StringBuilder("CREATE ");
         for (int i = 0; i < abbrOfUserList.size(); i++) {
             List<Integer> readBookList = new ArrayList<>();
-            int userTotalReadBook = Utility.getRandomInt(20);
+            int userTotalReadBook = Utility.getRandomInt(250);
             for (int j = 0; j < userTotalReadBook; j++) {
                 int bookIndex = Utility.getRandomInt(abbrOfBookList.size());
                 bookIndex = Utility.getProperItemIndex(abbrOfBookList.size(), readBookList, bookIndex);
@@ -130,5 +141,11 @@ public class Main {
         System.out.println(writeBookQuery);
     }
 
-
+    /*
+    *
+    MATCH (a:Author{name:"Anthony", lastname:"Trollope"})-[:Write]->(b:Book)
+WITH a, COUNT(b) AS totalBooks
+SET a.totalBook = totalBooks
+RETURN a
+* */
 }

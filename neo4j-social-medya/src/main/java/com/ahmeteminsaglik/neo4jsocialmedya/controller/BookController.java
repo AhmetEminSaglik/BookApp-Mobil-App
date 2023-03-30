@@ -41,12 +41,18 @@ public class BookController {
     }
 
     @GetMapping("/recommend/point")
-    public DataResult<List<Book>> getRecommenedAuthorListByHighestPoint(){
-        return  new SuccessDataResult<>(bookService.findByHighestPoint(),"Data retrived Successfully");
+    public DataResult<List<Book>> getRecommenedAuthorListByHighestPoint() {
+        return new SuccessDataResult<>(bookService.findByHighestPoint(), "Data retrived Successfully");
     }
 
     @GetMapping("/recommend/totalread")
     public DataResult<List<Book>> findByHighestTotalRead() {
         return new SuccessDataResult<>(bookService.findByHighestTotalRead(), "Data retrived Successfully");
     }
+
+    @GetMapping("/recommend/friend/{userId}")
+    public DataResult<List<Book>> findByMostReadBookFromFollowings(@PathVariable Long userId) {
+        return new SuccessDataResult<>(bookService.findByMostReadBookFromFollowings(userId), "Data retrived Successfully");
+    }
+
 }
