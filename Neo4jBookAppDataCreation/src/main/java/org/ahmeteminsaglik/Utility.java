@@ -46,11 +46,11 @@ public class Utility {
     }
 
     static double getRandomDoublePoint() {
-        return (getRandomRecurcive(2, 75)) / 10.0;
+        return (getRandomRecurcive(2, 100)) / 10.0;
     }
 
     static int getRandomTotalRead() {
-        return (getRandomRecurcive(2, 85));
+        return (getRandomRecurcive(2, 100));
     }
 
     static int getRandomFollowers() {
