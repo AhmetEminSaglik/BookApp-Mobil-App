@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7c3c2a9-e6f6-43f3-8620-54c9f2a97509" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/author_card_design.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/author_card_design.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/book_card_design.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/book_card_design.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/d/9d7659d2ee4aa699209e85b6873c0d449e6eaa27" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/f/bf3096bbb46b9825269757fdf0598e1d40674049" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Utility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/Utility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/Utility.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../project-desing.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../project-desing.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../~$oject-desing.docx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +27,13 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProjectId" id="2NjHLnsj1enLNZYU77FNVVl2hdt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -69,6 +83,10 @@
       <workItem from="1680176353106" duration="64000" />
       <workItem from="1680176444290" duration="404000" />
       <workItem from="1680176949313" duration="8722000" />
+      <workItem from="1680364435968" duration="49000" />
+      <workItem from="1680364506116" duration="3495000" />
+      <workItem from="1680382736629" duration="1378000" />
+      <workItem from="1680493697458" duration="2624000" />
     </task>
     <servers />
   </component>

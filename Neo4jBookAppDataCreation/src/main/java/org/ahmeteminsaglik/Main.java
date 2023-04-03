@@ -13,7 +13,7 @@ MATCH (u1)-[:Follow]->(u2)-[:Read]->(b)
 RETURN  u2, b
 
 */
-    static final int userNumber = 25;
+    static final int userNumber = 30;
     static Random random = new Random();
     static String[] maleName = {"James", "Robert", "John", "Michael", "David", "William", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua"};
     static String[] femaleName = {"Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah", "Karen", "Lisa", "Nancy", "Betty", "Margaret", "Sandra", "Ashley", "Kimberly", "Emily", "Donna", "Michelle", "Carol", "Amanda"};
@@ -33,8 +33,11 @@ RETURN  u2, b
 
         createAuthorCreationQuery();
         createAuthorWriteBookQuery();
-        // to fix data :
+
         createReturnQuery();
+
+        // to fix data :
+        createFixUserFollowedDataQuery();
 
 
 //        for (int i = 0; i < 100; i++) {
@@ -62,7 +65,7 @@ RETURN  u2, b
         //create users
         StringBuilder createUserText = new StringBuilder();
         for (int i = 0; i < userNumber; i++) {
-            createUserText.append("CREATE (u" + i + ":User{name:\"" + Utility.getRandomGenderName() + "\",lastname:\"" + Utility.getRandomGenderName() + "\",username:\"" + "user" + i + "\",password:\"pass\",totalFollowers:" + Utility.getRandomFollowers() + "})\n");
+            createUserText.append("CREATE (u" + i + ":User{name:\"" + Utility.getRandomGenderName() + "\",lastname:\"" + Utility.getRandomGenderName() + "\",username:\"" + "user" + i + "\",password:\"pass\",totalFollowers:" + Utility.getRandomFollowers() + ",totalFollowed:" + Utility.getRandomFollowers() + "})\n");
             String abbr = "u" + i;
             abbrOfUserList.add(abbr);
         }
@@ -141,6 +144,21 @@ RETURN  u2, b
         System.out.println(writeBookQuery);
     }
 
+    static void createFixUserFollowedDataQuery() {
+        StringBuilder fixUserFollowersDataQuery = new StringBuilder("");
+        for (int i = 0; i < userNumber; i++) {
+            fixUserFollowersDataQuery.append(
+                    "MATCH (u" + userNumber + ":User)-[:Follow]->(u:User)" +
+                            "WHERE u" + userNumber + ".username = \"user" + userNumber + "\"" +
+                            "WITH COUNT(u) AS totalFollowed, u0");
+        }
+
+    }
+    /*
+    MATCH (u0:User)-[:Follow]->(u:User)
+    WHERE u0.username = "user0"
+    WITH COUNT(u) AS totalFollowed, u0
+    SET u0.totalFollowed = totalFollowed*/
     /*
     *
     MATCH (a:Author{name:"Anthony", lastname:"Trollope"})-[:Write]->(b:Book)

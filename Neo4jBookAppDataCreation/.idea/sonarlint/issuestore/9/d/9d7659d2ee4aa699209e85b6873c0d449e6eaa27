@@ -1,12 +1,12 @@
 
 c
-java:S1192I"HDefine a constant instead of duplicating this literal "CREATE " 3 times.(Ëô¥Üıÿÿÿÿ
-t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¹ôÀüÿÿÿÿ
-Q	java:S125("<This block of commented-out lines of code should be removed.(ƒ¡Õ”
-S	java:S1069"9Replace this use of System.out or System.err by a logger.(»²Ãûÿÿÿÿ
-S	java:S106E"9Replace this use of System.out or System.err by a logger.(ù¬âØÿÿÿÿÿ
-N	java:S106W"9Replace this use of System.out or System.err by a logger.(Ÿı¾Ã
-S	java:S106a"9Replace this use of System.out or System.err by a logger.(øäÄûÿÿÿÿ
-S	java:S106q"9Replace this use of System.out or System.err by a logger.(ºÈò™şÿÿÿÿ
-T	java:S106‚"9Replace this use of System.out or System.err by a logger.(Êî¸øÿÿÿÿ
-T	java:S106"9Replace this use of System.out or System.err by a logger.(’ãıÑÿÿÿÿÿ
+java:S1192L"HDefine a constant instead of duplicating this literal "CREATE " 3 times.(Ëô¥Üıÿÿÿÿ
+t	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(¯ö«½ûÿÿÿÿ
+Q	java:S125+"<This block of commented-out lines of code should be removed.(ƒ¡Õ”
+S	java:S106<"9Replace this use of System.out or System.err by a logger.(»²Ãûÿÿÿÿ
+S	java:S106H"9Replace this use of System.out or System.err by a logger.(ù¬âØÿÿÿÿÿ
+N	java:S106Z"9Replace this use of System.out or System.err by a logger.(Ÿı¾Ã
+S	java:S106d"9Replace this use of System.out or System.err by a logger.(øäÄûÿÿÿÿ
+S	java:S106t"9Replace this use of System.out or System.err by a logger.(ºÈò™şÿÿÿÿ
+T	java:S106…"9Replace this use of System.out or System.err by a logger.(Êî¸øÿÿÿÿ
+T	java:S106"9Replace this use of System.out or System.err by a logger.(’ãıÑÿÿÿÿÿ

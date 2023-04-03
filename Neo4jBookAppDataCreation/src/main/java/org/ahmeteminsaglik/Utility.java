@@ -55,6 +55,7 @@ public class Utility {
 
     static int getRandomFollowers() {
         return random.nextInt(100);
+//        return 0;
     }
 
     static void deleteComma(StringBuilder stringBuilder, int commaIndexToMinusFromLength) {
