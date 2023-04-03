@@ -10,5 +10,5 @@ public interface UserService {
     User findByUserNameAndPassword(String username, String password);
     User save(User user);
     User findByUsername(String username);
-//    List<ReadData> findAllReadData();
+//    List<Read> findAllReadData();
 }

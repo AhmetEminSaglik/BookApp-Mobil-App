@@ -16,5 +16,7 @@
     <color name="card_constraintColor_4_light_orange">#F4D2C8</color>
     <color name="editTextColor">#F7F6F8</color>
     <color name="btnColor">#3075DC</color>
+    <color name="btnRemoveBackgroundColor">#F3001C</color>
+    <color name="btnRemoveTextColor">#000000</color>
     <color name="recommendTxtColor">#D80404</color>
 </resources>

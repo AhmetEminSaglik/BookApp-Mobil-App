@@ -57,6 +57,17 @@
             <artifactId>neo4j-cypher-runtime-util</artifactId>
             <version>4.4.16</version>
         </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j-kernel</artifactId>
+            <version>4.4.16</version>
+        </dependency>
+		<!-- Neo4j Object-Graph Mapping Core -->
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-ogm-core</artifactId>
+			<version>3.2.24</version>
+		</dependency>
 
     </dependencies>
 

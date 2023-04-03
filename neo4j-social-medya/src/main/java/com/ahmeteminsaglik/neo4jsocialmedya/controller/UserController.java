@@ -63,7 +63,7 @@ public class UserController {
     }
 
 /*    @GetMapping("/read")
-    public List<ReadData> getReadData() {
+    public List<Read> getReadData() {
         return userService.findAllReadData();
     }*/
 }

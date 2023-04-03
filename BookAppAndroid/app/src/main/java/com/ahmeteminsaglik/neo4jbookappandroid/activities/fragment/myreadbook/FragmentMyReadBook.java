@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,11 +25,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentMyReadBook extends Fragment {
-    private final Activity activity;
+    private final AppCompatActivity activity;
     private RecyclerView rv;
     public BookRVAdapter adapter;
+    Fragment fragment;
 
-    public FragmentMyReadBook(Activity activity) {
+    public FragmentMyReadBook(Fragment fragment, AppCompatActivity activity) {
+        this.fragment = fragment;
+        this.activity = activity;
+    }
+
+    public FragmentMyReadBook(AppCompatActivity activity) {
         this.activity = activity;
     }
 
@@ -43,7 +50,7 @@ public class FragmentMyReadBook extends Fragment {
         createRecycleView(view);
         List<Book> bookList = getReadBookList();
         List<RecommendedBook> recommendedBookList = convertBookListToRecommedBookList(bookList);
-        adapter = new BookRVAdapter(activity, recommendedBookList);
+        adapter = new BookRVAdapter(fragment, activity, recommendedBookList);
         rv.setAdapter(adapter);
     }
 

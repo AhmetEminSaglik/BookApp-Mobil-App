@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ConcatAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,12 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentRecommends extends Fragment {
-    private final Activity activity;
+    private final AppCompatActivity activity;
     private RecyclerView rvRecommend;
     public BookRVAdapter bookAdapter;
     public AuthorRVAdapter authorAdapter;
 
-    public FragmentRecommends(Activity activity) {
+    public FragmentRecommends(AppCompatActivity activity) {
         this.activity = activity;
     }
 

@@ -1,32 +1,38 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.MyReadBookItemFragment;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
-import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumRecommendReason;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedBook;
 import com.ahmeteminsaglik.neo4jbookappandroid.utility.CardUtility;
 
 import java.util.List;
 
 public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHolder> {
-    private Context context;
+    private AppCompatActivity activity;
     private List<RecommendedBook> recommendedBookList;
-//    private List<Book> bookList;
+    //    private List<Book> bookList;
+    private Fragment baseFragment;
 
-    public BookRVAdapter(Context context, List<RecommendedBook> recommendedBookList) {
-        this.context = context;
+    public BookRVAdapter(Fragment fragment, AppCompatActivity activity, List<RecommendedBook> recommendedBookList) {
+        this.baseFragment = fragment;
+        this.activity = activity;
+        this.recommendedBookList = recommendedBookList;
+    }
+
+    public BookRVAdapter(AppCompatActivity activity, List<RecommendedBook> recommendedBookList) {
+        this.baseFragment = null;
+        this.activity =activity;
         this.recommendedBookList = recommendedBookList;
     }
 
@@ -55,7 +61,7 @@ public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHo
     @NonNull
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(context)
+        View itemView = LayoutInflater.from(activity.getApplicationContext())
                 .inflate(R.layout.book_card_design, parent, false);
 
         return new CardViewHolder(itemView);
@@ -74,6 +80,14 @@ public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHo
         holder.bookCardIndexNo.setText(Integer.toString(position + 1));
         holder.whyRecommend.setText(whyRecommend);
         holder.bookCardView.setBackgroundResource(CardUtility.getCardBackgroudColorByRecommendType(whyRecommend));
+        holder.bookCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(activity.getApplicationContext(), "tiklandi", Toast.LENGTH_LONG).show();
+                Fragment fragment = new MyReadBookItemFragment();
+                activateFragment(baseFragment.getId(),fragment);
+            }
+        });
     }
 
     @Override
@@ -100,5 +114,10 @@ public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHo
         }
     }
 
-
+    private void activateFragment(int base_fragment_id, Fragment fragment) {
+        activity.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(base_fragment_id, fragment)
+                .commit();
+    }
 }

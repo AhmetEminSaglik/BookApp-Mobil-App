@@ -1,7 +1,7 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.controller;
 
-import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.ReadDataService;
-import com.ahmeteminsaglik.neo4jsocialmedya.model.ReadData;
+import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.ReadService;
+import com.ahmeteminsaglik.neo4jsocialmedya.model.Read;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +13,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/read")
 @CrossOrigin
-public class ReadDataController {
+public class ReadController {
     @Autowired
-    private ReadDataService service;
+    private ReadService service;
 
     @GetMapping()
-    public List<ReadData> getAll() {
+    public List<Read> getAll() {
+        service.findAll().forEach(e -> System.out.println(e));
         return service.findAll();
     }
 

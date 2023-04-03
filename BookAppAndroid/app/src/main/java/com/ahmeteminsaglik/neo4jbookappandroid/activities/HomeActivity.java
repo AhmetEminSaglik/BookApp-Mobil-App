@@ -16,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
     private BottomNavigationView bottom_navigation;
-//    private User user = new User();
+    //    private User user = new User();
     private Fragment tempFragment = new FragmentMyReadBook(this);
 
 
@@ -28,6 +28,7 @@ public class HomeActivity extends AppCompatActivity {
         StrictModePolicy.enable();
 //        getUserDataFromIntent();
 
+
         bottom_navigation = findViewById(R.id.bottom_navigation);
 //        Fragment fragment = findViewById(R.id.base_fragment);
 
@@ -35,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
 
         bottom_navigation.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.action_my_read_book) {
-                tempFragment = new FragmentMyReadBook(this);
+                tempFragment = new FragmentMyReadBook(tempFragment, this);
             }
             if (item.getItemId() == R.id.action_recommends) {
                 tempFragment = new FragmentRecommends(this);

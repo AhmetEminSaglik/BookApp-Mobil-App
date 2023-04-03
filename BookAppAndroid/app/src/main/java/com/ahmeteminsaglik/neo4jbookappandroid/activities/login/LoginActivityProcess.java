@@ -52,6 +52,7 @@ public class LoginActivityProcess {
 
         } catch (IOException e) {
             Log.e("-AES-> Error : ", e.getMessage());
+            Toast.makeText(context, "Error Occured\nCould not connect to 8080 port.\nMore :  "+e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return user;
 

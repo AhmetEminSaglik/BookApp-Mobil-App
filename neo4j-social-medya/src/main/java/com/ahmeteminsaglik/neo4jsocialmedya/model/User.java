@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.neo4j.core.schema.*;
 
+import java.util.List;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,13 +25,16 @@ public class User {
     private String username;
     private String password;
     private int totalFollowers;
-//    @JsonIgnoreProperties("person")
+    private int totalFollowed;
+    //    @JsonIgnoreProperties("person")
 //    @Relationship(type = "ACTED_IN")
 //    private List<Movie> actedIn = new ArrayList<>();
 //
 //    @JsonIgnoreProperties({"actors", "directors"})
 //    @Relationship(type = "DIRECTED")
 //    private List<Movie> directed = new ArrayList<>();
+    @Relationship(type = "Read", direction = Relationship.Direction.OUTGOING)
+    private List<Read> reads;
 
     @Override
     public String toString() {
