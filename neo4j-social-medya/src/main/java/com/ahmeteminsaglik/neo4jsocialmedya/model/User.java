@@ -12,8 +12,8 @@ import org.springframework.data.neo4j.core.schema.*;
 @Getter
 @Setter
 public class User {
-/*
-* create (n:User{name:"Ahmet Emin",lastname:"SAGLIK",username:"ahmet",password:"pass",totalFollowers:0})*/
+    /*
+     * create (n:User{name:"Ahmet Emin",lastname:"SAGLIK",username:"ahmet",password:"pass",totalFollowers:0})*/
     @Id
     @GeneratedValue
     private Long id;
@@ -23,7 +23,6 @@ public class User {
     private String username;
     private String password;
     private int totalFollowers;
-
 //    @JsonIgnoreProperties("person")
 //    @Relationship(type = "ACTED_IN")
 //    private List<Movie> actedIn = new ArrayList<>();

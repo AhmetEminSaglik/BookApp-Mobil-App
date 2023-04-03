@@ -12,12 +12,12 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
 
 
     @Query("MATCH (u:User) WHERE ID(u) = $userId " +
-            "MATCH (u)-[:Read]->(b:Book) " +
+            "MATCH (u)-[:ReadData]->(b:Book) " +
             "RETURN u,b")
 
             /*MATCH (u:User) WHERE ID(u)=64
 MATCH (b:Book)
-Create (u)-[:Read]->(b)
+Create (u)-[:ReadData]->(b)
 RETURN u,b*/
 //            "<-[ai:ACTED_IN]-(p:Person)-[d:DIRECTED]->(dm:Movie) return p, collect(ai), collect(d), collect(am), collect(dm)")
     List<Book> getAllByUserIdMatches(@PathVariable Long userId);
@@ -30,13 +30,12 @@ RETURN u,b*/
 
     // returns user's following users' read common books to recommend users.
     @Query(" MATCH (u:User) WHERE ID(u) = $userId " +
-            "MATCH (u)-[:Follow]->(u2:User)-[:Read]->(b:Book) " +
+            "MATCH (u)-[:Follow]->(u2:User)-[:ReadData]->(b:Book) " +
             "WITH b, COUNT(DISTINCT u2) AS num_readers " +
             "ORDER BY num_readers DESC " +
             "LIMIT 5 " +
-            "MATCH (u:User)-[:Read]->(b) " +
+            "MATCH (u:User)-[:ReadData]->(b) " +
             "RETURN DISTINCT b")
     List<Book> findByMostReadBookFromFollowings(@PathVariable Long userId);
-
 
 }

@@ -1,5 +1,7 @@
 package org.ahmeteminsaglik;
 
+import jdk.jshell.execution.Util;
+
 import java.util.*;
 
 public class Main {
@@ -109,7 +111,7 @@ RETURN  u2, b
                 int bookIndex = Utility.getRandomInt(abbrOfBookList.size());
                 bookIndex = Utility.getProperItemIndex(abbrOfBookList.size(), readBookList, bookIndex);
                 readBookList.add(bookIndex);
-                userReadBookQueryBuilder.append("(" + abbrOfUserList.get(i) + ")-[:Read]->(" + abbrOfBookList.get(Utility.getRandomInt(abbrOfBookList.size())) + "),\n");
+                userReadBookQueryBuilder.append("(" + abbrOfUserList.get(i) + ")-[:Read{Rate:" + (Utility.getRandomInt(10) + 1) + "}]->(" + abbrOfBookList.get(Utility.getRandomInt(abbrOfBookList.size())) + "),\n");
             }
         }
         Utility.deleteComma(userReadBookQueryBuilder, 2);

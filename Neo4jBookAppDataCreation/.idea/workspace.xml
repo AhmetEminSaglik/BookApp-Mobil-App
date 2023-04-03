@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7c3c2a9-e6f6-43f3-8620-54c9f2a97509" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/d/9d7659d2ee4aa699209e85b6873c0d449e6eaa27" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/f/bf3096bbb46b9825269757fdf0598e1d40674049" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/d/9d7659d2ee4aa699209e85b6873c0d449e6eaa27" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/d/9d7659d2ee4aa699209e85b6873c0d449e6eaa27" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/f/bf3096bbb46b9825269757fdf0598e1d40674049" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/f/bf3096bbb46b9825269757fdf0598e1d40674049" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Utility.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/Utility.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/Utility.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../project-desing.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../project-desing.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/BookRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +82,9 @@
       <workItem from="1680364506116" duration="3495000" />
       <workItem from="1680382736629" duration="1378000" />
       <workItem from="1680493697458" duration="2624000" />
+      <workItem from="1680519946393" duration="11000" />
+      <workItem from="1680520646815" duration="311000" />
+      <workItem from="1680522322138" duration="7000" />
     </task>
     <servers />
   </component>

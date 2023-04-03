@@ -1,7 +1,6 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.controller;
 
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.UserService;
-import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.Validation;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.LoginUser;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationLoginInput;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationSignUp;
@@ -62,4 +61,9 @@ public class UserController {
 //        return new ErrorDataResult<>(result.getMessage());
         throw new ApiRequestException(result.getMessage(), new InvalidUsernameOrPasswordException());
     }
+
+/*    @GetMapping("/read")
+    public List<ReadData> getReadData() {
+        return userService.findAllReadData();
+    }*/
 }

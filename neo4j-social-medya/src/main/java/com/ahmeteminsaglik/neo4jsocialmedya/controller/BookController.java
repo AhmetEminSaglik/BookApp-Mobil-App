@@ -37,7 +37,7 @@ public class BookController {
 
     @GetMapping("/readby/{userId}")
     public DataResult<List<Book>> getAllReadBookByUserId(@PathVariable Long userId) {
-        return new SuccessDataResult<>(bookService.getAllReadBooksByUserId(userId), "Read book data is retrived successfuly");
+        return new SuccessDataResult<>(bookService.getAllReadBooksByUserId(userId), "ReadData book data is retrived successfuly");
     }
 
     @GetMapping("/recommend/point")
