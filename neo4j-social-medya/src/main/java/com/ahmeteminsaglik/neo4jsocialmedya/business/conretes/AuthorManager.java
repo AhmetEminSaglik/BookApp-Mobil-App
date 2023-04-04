@@ -17,4 +17,9 @@ public class AuthorManager implements AuthorService {
     public List<Author> findByHighestPoint() {
         return authorRepository.findByHighestPoint();
     }
+
+    @Override
+    public List<Author> findAll() {
+        return authorRepository.findAll();
+    }
 }

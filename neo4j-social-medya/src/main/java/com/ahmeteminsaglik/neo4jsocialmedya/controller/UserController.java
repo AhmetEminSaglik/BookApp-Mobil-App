@@ -29,6 +29,10 @@ public class UserController {
     public List<User> getAll() {
         return userService.findAll();
     }
+    @GetMapping("/readbooks")
+    public List<User> getAllWithReadBooksoca() {
+        return userService.findAll();
+    }
 
     @GetMapping("/{name}")
     public User getUserByName(@PathVariable String name) {

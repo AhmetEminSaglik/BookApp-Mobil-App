@@ -4,13 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.neo4j.ogm.annotation.NodeEntity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
+import org.springframework.data.neo4j.core.schema.Relationship;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@NodeEntity
 public class Author {
     @Id
     @GeneratedValue
@@ -20,6 +25,8 @@ public class Author {
     private int totalBook;
     private double point;
 
+    @Relationship(type = "Write", direction = Relationship.Direction.OUTGOING)
+    private List<Book> bookList;
 
     @Override
     public String toString() {

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.neo4j.ogm.annotation.NodeEntity;
 import org.springframework.data.neo4j.core.schema.*;
 
 import java.util.List;
@@ -13,11 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@NodeEntity
 public class User {
     /*
      * create (n:User{name:"Ahmet Emin",lastname:"SAGLIK",username:"ahmet",password:"pass",totalFollowers:0})*/
     @Id
-    @GeneratedValue
     private Long id;
 
     private String name;
@@ -26,6 +27,9 @@ public class User {
     private String password;
     private int totalFollowers;
     private int totalFollowed;
+    @Relationship(type = "Read",direction = Relationship.Direction.OUTGOING)
+    private  List<Book> bookList;
+
     //    @JsonIgnoreProperties("person")
 //    @Relationship(type = "ACTED_IN")
 //    private List<Movie> actedIn = new ArrayList<>();
@@ -33,8 +37,8 @@ public class User {
 //    @JsonIgnoreProperties({"actors", "directors"})
 //    @Relationship(type = "DIRECTED")
 //    private List<Movie> directed = new ArrayList<>();
-    @Relationship(type = "Read", direction = Relationship.Direction.OUTGOING)
-    private List<Read> reads;
+//    @Relationship(type = "Read", direction = Relationship.Direction.OUTGOING)
+//    private List<Read> reads;
 
     @Override
     public String toString() {

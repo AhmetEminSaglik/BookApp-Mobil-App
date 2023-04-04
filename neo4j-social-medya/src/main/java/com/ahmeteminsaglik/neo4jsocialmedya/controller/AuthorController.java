@@ -19,6 +19,10 @@ public class AuthorController {
     @Autowired
     private AuthorService authorService;
 
+        @GetMapping
+        public DataResult<List<Author>> getAllAuthor(){
+            return  new SuccessDataResult<>(authorService.findAll());
+        }
     @GetMapping("/recommend/point")
     public DataResult<List<Author>> getRecommenedAuthorListByHighestPoint(){
         return  new SuccessDataResult<>(authorService.findByHighestPoint(),"Data retrived Successfully");

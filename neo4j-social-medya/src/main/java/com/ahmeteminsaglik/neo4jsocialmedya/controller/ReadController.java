@@ -19,8 +19,6 @@ public class ReadController {
 
     @GetMapping()
     public List<Read> getAll() {
-        service.findAll().forEach(e -> System.out.println(e));
         return service.findAll();
     }
-
 }
