@@ -19,6 +19,7 @@ public class User {
     /*
      * create (n:User{name:"Ahmet Emin",lastname:"SAGLIK",username:"ahmet",password:"pass",totalFollowers:0})*/
     @Id
+    @GeneratedValue
     private Long id;
 
     private String name;
