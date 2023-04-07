@@ -15,6 +15,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.neo4j.cypher.internal.expressions.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import retrofit2.http.Body;
 
 import javax.xml.crypto.Data;
 import java.util.List;
@@ -53,6 +54,7 @@ public class UserController {
         if (dataResult.isSuccess()) {
             dataResult = new LoginUser(userService).login(user);
             if (dataResult.isSuccess()) {
+                System.out.println("Gelen user : "+dataResult.getData().toString());
                 return dataResult;
             }
         }
@@ -78,6 +80,16 @@ public class UserController {
         return new SuccessResult("Connection is removed successfully");
     }
 
+    @GetMapping("/followed/{userId}")
+    public DataResult<List<User>> getFollowedUserList(@PathVariable long userId) {
+        List<User> userList = userService.findAllFollowedUsersByUserId(userId);
+        return new SuccessDataResult<>(userList, "User's followed users are retrived");
+    }
+/*    @PostMapping("/post/followed")
+    public DataResult<List<User>> getFollowedUserList2(@Body int userId) {
+        List<User> userList = userService.findAllFollowedUsersByUserId(userId);
+        return new SuccessDataResult<>(userList, "User's followed users are retrived");
+    }*/
 /*    @GetMapping("/read")
     public List<Read> getReadData() {
         return userService.findAllReadData();

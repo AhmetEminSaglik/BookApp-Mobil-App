@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.springframework.data.neo4j.core.schema.*;
+import org.springframework.data.neo4j.core.schema.GeneratedValue;
+import org.springframework.data.neo4j.core.schema.Id;
 
 import java.util.List;
 
@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@NodeEntity
 public class User {
     /*
      * create (n:User{name:"Ahmet Emin",lastname:"SAGLIK",username:"ahmet",password:"pass",totalFollowers:0})*/
@@ -28,8 +27,8 @@ public class User {
     private String password;
     private int totalFollowers;
     private int totalFollowed;
-    @Relationship(type = "Read",direction = Relationship.Direction.OUTGOING)
-    private  List<Book> bookList;
+//    @Relationship(type = "Read",direction = Relationship.Direction.OUTGOING)
+//    private  List<Book> bookList;
 
     //    @JsonIgnoreProperties("person")
 //    @Relationship(type = "ACTED_IN")
