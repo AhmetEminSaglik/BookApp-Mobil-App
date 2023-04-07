@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.HomeActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.signup.SignUpActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
-import com.ahmeteminsaglik.neo4jbookappandroid.utility.HomeActivityUtility;
 import com.ahmeteminsaglik.neo4jbookappandroid.utility.SharedPreferenceUtility;
 import com.ahmeteminsaglik.neo4jbookappandroid.utility.StrictModePolicy;
 
@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private View.OnClickListener getLoginBtnFunction() {
-        Intent intent = new Intent(this, HomeActivityUtility.getHomeAcitivity().getClass());
+        Intent intent = new Intent(this, HomeActivity.class);
         return view -> {
             User user = startLoginProcess();
             if (user != null) {

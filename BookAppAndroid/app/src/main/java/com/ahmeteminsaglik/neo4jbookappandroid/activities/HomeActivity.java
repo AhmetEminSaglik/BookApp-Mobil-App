@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.profil.FragmentProfil;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.recommend.FragmentRecommends;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.FragmentMyReadBook;
 import com.ahmeteminsaglik.neo4jbookappandroid.utility.SharedPreferenceUtility;
@@ -43,6 +44,9 @@ public class HomeActivity extends AppCompatActivity {
             }
             if (item.getItemId() == R.id.action_recommends) {
                 tempFragment = new FragmentRecommends(this);
+            }
+            if (item.getItemId() == R.id.action_profil) {
+                tempFragment = new FragmentProfil(this);
             }
             if (item.getItemId() == R.id.action_logout) {
                 SharedPreferenceUtility.clearSharedPreference(this);

@@ -23,10 +23,13 @@ public class ManagerAll extends BaseManager {
         return getUserRestApiClient().getAllUsers();
     }
 
+
     public Call<RestApiResponse<Object>> removeUserReadBookConection(long userId, long bookId) {
         return getUserRestApiClient().removeUserReadBookConnection(userId,bookId);
     }
-
+    public Call<RestApiResponse<List<User>>> getUserRelationshipFollowRequest(Long id) {
+        return getUserRestApiClient().getFollowedList(id);
+    }
     public Call<LoginResponse> getUserByLoginRequest(User user) {
         return getUserRestApiClient().loginUser(user);
     }

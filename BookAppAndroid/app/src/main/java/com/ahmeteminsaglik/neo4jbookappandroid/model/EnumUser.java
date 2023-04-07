@@ -1,5 +1,6 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.model;
 
+
 public enum EnumUser {
     ID("id"),
     NAME("name"),
