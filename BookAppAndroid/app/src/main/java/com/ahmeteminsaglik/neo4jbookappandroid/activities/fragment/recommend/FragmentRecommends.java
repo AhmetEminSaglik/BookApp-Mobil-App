@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter.BookRVAdapter;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter.RecommendedBookpageBookRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.recommend.adapter.AuthorRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Author;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumRecommendReason;
@@ -50,10 +51,10 @@ public class FragmentRecommends extends Fragment {
         List<RecommendedBook> bookListFromFollowings = getBookListByFriendsRead();
 
         List<RecommendedBook> allBookList = new ArrayList<>();
-        allBookList.addAll(bookList);
         allBookList.addAll(bookListFromFollowings);
+        allBookList.addAll(bookList);
 
-        bookAdapter = new BookRVAdapter(activity, allBookList);
+        bookAdapter = new RecommendedBookpageBookRVAdapter(activity, allBookList);//new BookRVAdapter(activity, allBookList);
         authorAdapter = new AuthorRVAdapter(activity, authorList);
         ConcatAdapter concatAdapter = new ConcatAdapter(authorAdapter, bookAdapter);
         rvRecommend.setAdapter(concatAdapter);

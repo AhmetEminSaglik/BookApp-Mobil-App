@@ -179,11 +179,6 @@
                                           app:layout_constraintTop_toBottomOf="@+id/loginPageEditTxtPassword" />
                                   </LinearLayout>-->
 
-                    <Button
-                        android:id="@+id/removeReadBookBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Remove" />
                 </LinearLayout>
 
             </LinearLayout>

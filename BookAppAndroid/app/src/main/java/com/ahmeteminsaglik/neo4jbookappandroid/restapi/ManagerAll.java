@@ -8,6 +8,7 @@ import com.ahmeteminsaglik.neo4jbookappandroid.model.response.concrete.LoginResp
 import com.ahmeteminsaglik.neo4jbookappandroid.model.response.concrete.SignUpResponse;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 
@@ -20,6 +21,10 @@ public class ManagerAll extends BaseManager {
 
     public Call<List<User>> getAllUser() {
         return getUserRestApiClient().getAllUsers();
+    }
+
+    public Call<RestApiResponse<Object>> removeUserReadBookConection(long userId, long bookId) {
+        return getUserRestApiClient().removeUserReadBookConnection(userId,bookId);
     }
 
     public Call<LoginResponse> getUserByLoginRequest(User user) {
@@ -41,6 +46,7 @@ public class ManagerAll extends BaseManager {
     public Call<RestApiResponse<List<Book>>> getRecommendedBookListByTotalRead() {
         return getBookRestApiClient().getRecommendedBookListByTotalRead();
     }
+
     public Call<RestApiResponse<List<Book>>> getRecommendedBookListByByFriendRead(Long userId) {
         return getBookRestApiClient().getRecommendedBookListByByFriendRead(userId);
     }
