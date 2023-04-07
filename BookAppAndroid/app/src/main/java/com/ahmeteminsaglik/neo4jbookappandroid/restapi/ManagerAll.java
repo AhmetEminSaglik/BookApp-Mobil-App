@@ -29,6 +29,8 @@ public class ManagerAll extends BaseManager {
     }
     public Call<RestApiResponse<List<User>>> getUserRelationshipFollowRequest(Long id) {
         return getUserRestApiClient().getFollowedList(id);
+    }  public Call<RestApiResponse<List<User>>> getUserRelationshipFollowerRequest(Long id) {
+        return getUserRestApiClient().getFollowerList(id);
     }
     public Call<LoginResponse> getUserByLoginRequest(User user) {
         return getUserRestApiClient().loginUser(user);

@@ -30,31 +30,41 @@ public class FragmentProfilProcess {
     }
 
     public List<RelationshipUser> getFollowedList() {
-
-//        List list = new ArrayList<RelationshipUser>();
-//        list.add(new RelationshipUser("Demo asd asd saasd a adsda sads ads a sd ", "Fake adsdas das ds adas ads asasdsadas dad ds d", EnumRelationship.FOLLOWED));
         return sendUserFollowedRelationshipListRequest();
+    }
+    public List<RelationshipUser> getFollowerList() {
+        return sendUserFollowerRelationshipListRequest();
     }
 
     private List<RelationshipUser> sendUserFollowedRelationshipListRequest() {
-        List<RelationshipUser> relationshipList = new ArrayList();
-
         Call<RestApiResponse<List<User>>> call = ManagerAll.getInstance().getUserRelationshipFollowRequest(
                 SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID)
         );
+        return parseRequestOfRelationshipList(call, EnumRelationship.FOLLOWED);
+    }
+
+    private List<RelationshipUser> sendUserFollowerRelationshipListRequest() {
+        Call<RestApiResponse<List<User>>> call = ManagerAll.getInstance().getUserRelationshipFollowerRequest(
+                SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID)
+        );
+        return parseRequestOfRelationshipList(call, EnumRelationship.FOLLOWER);
+    }
+
+    private List<RelationshipUser> parseRequestOfRelationshipList(Call<RestApiResponse<List<User>>> call, EnumRelationship enumRelationship) {
+        List<RelationshipUser> relationshipList = new ArrayList();
+        List<User> userList;
 
         try {
-            List<User> userList;
             Response<RestApiResponse<List<User>>> response = call.execute();
             if (response.code() == 200) {
-                Log.e("200 ok : ","response : "+response.body());
+                Log.e("200 ok : ", "response : " + response.body());
                 userList = response.body().getData();
-
                 userList.forEach(e -> {
-                    relationshipList.add(new RelationshipUser(e.getName(), e.getLastname(), EnumRelationship.FOLLOWED));
+                    relationshipList.add(new RelationshipUser(e.getName(), e.getLastname(), enumRelationship));
                 });
-            } else/* if (response.code() == 400) */ {
-                Log.e("Error occured  : ","error body : "+response.errorBody());
+                return relationshipList;
+            } else {
+                Log.e("Error occured  : ", "error body : " + response.errorBody());
                 Gson gson = new Gson();
                 RestApiErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(), RestApiErrorResponse.class);
                 String errMsg = errorResponse.getMessage();
@@ -65,11 +75,12 @@ public class FragmentProfilProcess {
                 }
                 Toast.makeText(context, errMsg, Toast.LENGTH_LONG).show();
             }
-            return relationshipList;
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
-        }
 
+        }
+        return null;
     }
+
+
 }

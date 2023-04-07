@@ -31,6 +31,8 @@ public interface RestApiUserService {
 
     @GET("followed/{userId}")
     Call<RestApiResponse<List<User>>> getFollowedList(@Path("userId") long userId);
+    @GET("followed/{userId}")
+    Call<RestApiResponse<List<User>>> getFollowerList(@Path("userId") long userId);
 
     /*
     This returns response.body() null

@@ -16,15 +16,18 @@ import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.profil.adapter.RelationshipUserRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RelationshipUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentProfil extends Fragment {
     private final AppCompatActivity activity;
     private RecyclerView rv;
     public RelationshipUserRVAdapter adapter;
+
     public FragmentProfil(AppCompatActivity activity) {
         this.activity = activity;
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,15 +43,18 @@ public class FragmentProfil extends Fragment {
         adapter = new RelationshipUserRVAdapter(activity, relationshipList);//new BookRVAdapter(fragment, activity, recommendedBookList);
         rv.setAdapter(adapter);
     }
+
     private void createRecycleView(View view) {
-        rv = view.findViewById(R.id.relationshipCardView);
+        rv = view.findViewById(R.id.relationshipRecyleView);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
 
     private List<RelationshipUser> getRelationshipUser() {
         FragmentProfilProcess fragmentRecommendsProcess = new FragmentProfilProcess(activity.getApplicationContext());
-        List<RelationshipUser> relationshipList = fragmentRecommendsProcess.getFollowedList();
+        List<RelationshipUser> relationshipList = new ArrayList<>();
+        relationshipList.addAll(fragmentRecommendsProcess.getFollowedList());
+        relationshipList.addAll(fragmentRecommendsProcess.getFollowerList());
         return relationshipList;
     }
 }

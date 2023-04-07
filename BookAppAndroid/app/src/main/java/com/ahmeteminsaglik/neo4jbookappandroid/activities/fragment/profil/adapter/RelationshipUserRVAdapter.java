@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RelationshipUser;
+import com.ahmeteminsaglik.neo4jbookappandroid.utility.CardUtility;
 
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class RelationshipUserRVAdapter extends RecyclerView.Adapter<Relationship
         holder.txtName.setText(user.getName());
         holder.txtLastname.setText(user.getLastname());
         holder.relationshipType.setText(user.getEnumRelationship().getName());
+        holder.cardView.setBackgroundResource(CardUtility.getCardBackgroundColorByRelationshipType(user.getEnumRelationship().getName()));
 
     }
 
@@ -58,7 +60,7 @@ public class RelationshipUserRVAdapter extends RecyclerView.Adapter<Relationship
 
         public CardViewHolder(@NonNull View view) {
             super(view);
-            cardView = view.findViewById(R.id.authorCardView);
+            cardView = view.findViewById(R.id.relationshipCardView);
             indexNo = view.findViewById(R.id.indexNo);
             txtName = view.findViewById(R.id.txtName);
             txtLastname = view.findViewById(R.id.txtLastname);
