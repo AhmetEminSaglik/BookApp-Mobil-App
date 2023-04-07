@@ -73,7 +73,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Book"
-                                android:textColor="@color/recommendTxtColor" />
+                                android:textColor="@color/recommendTxtColor"
+                                android:textSize="18dp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -98,6 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -159,23 +161,29 @@
 
                     </LinearLayout>
 
-      <!--              <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp">
+                    <!--              <LinearLayout
+                                      android:layout_width="wrap_content"
+                                      android:layout_height="wrap_content"
+                                      android:layout_marginTop="3dp">
 
-                        <Button
-                            android:id="@+id/bookRemove"
-                            android:layout_width="wrap_content"
-                            android:layout_height="35dp"
-                            android:background="@drawable/btnbackground"
-                            android:text="Remove"
-                            android:textColor="@color/btnRemoveTextColor"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            app:backgroundTint="@color/btnRemoveBackgroundColor"
-                            app:layout_constraintTop_toBottomOf="@+id/loginPageEditTxtPassword" />
-                    </LinearLayout>-->
+                                      <Button
+                                          android:id="@+id/bookRemove"
+                                          android:layout_width="wrap_content"
+                                          android:layout_height="35dp"
+                                          android:background="@drawable/btnbackground"
+                                          android:text="Remove"
+                                          android:textColor="@color/btnRemoveTextColor"
+                                          android:textSize="13sp"
+                                          android:textStyle="bold"
+                                          app:backgroundTint="@color/btnRemoveBackgroundColor"
+                                          app:layout_constraintTop_toBottomOf="@+id/loginPageEditTxtPassword" />
+                                  </LinearLayout>-->
+
+                    <Button
+                        android:id="@+id/removeReadBookBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Remove" />
                 </LinearLayout>
 
             </LinearLayout>

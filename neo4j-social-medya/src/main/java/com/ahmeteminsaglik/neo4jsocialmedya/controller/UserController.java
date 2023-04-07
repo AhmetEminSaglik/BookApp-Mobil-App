@@ -10,10 +10,15 @@ import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.response.InvalidUs
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.DataResult;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.Result;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessDataResult;
+import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessResult;
+import org.apache.commons.lang3.ObjectUtils;
+import org.neo4j.cypher.internal.expressions.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.crypto.Data;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -29,6 +34,7 @@ public class UserController {
     public List<User> getAll() {
         return userService.findAll();
     }
+
     @GetMapping("/readbooks")
     public List<User> getAllWithReadBooksoca() {
         return userService.findAll();
@@ -64,6 +70,12 @@ public class UserController {
         }
 //        return new ErrorDataResult<>(result.getMessage());
         throw new ApiRequestException(result.getMessage(), new InvalidUsernameOrPasswordException());
+    }
+
+    @DeleteMapping("/readbooks")
+    public Result removeUserReadBookConnection(@RequestParam long userId, @RequestParam Long bookId) {
+        userService.removeUserReadBookConnection(userId, bookId);
+        return new SuccessResult("Connection is removed successfully");
     }
 
 /*    @GetMapping("/read")

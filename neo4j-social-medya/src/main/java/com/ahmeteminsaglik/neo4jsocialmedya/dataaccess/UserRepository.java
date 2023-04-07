@@ -16,4 +16,9 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
     @Query("MATCH (u:User)-[r:Read]->(b:Book) return u,r,b limit 3")
     List<User> findAllWithBooks();
 
+    @Query("MATCH (u:User)-[r:Read]->(b:Book)\n" +
+            "where ID(u)=$userId\n" +
+            "and ID(b)=$bookId\n" +
+            "detach delete r")
+    void removeUserReadBookConnection(long userId, long bookId);
 }

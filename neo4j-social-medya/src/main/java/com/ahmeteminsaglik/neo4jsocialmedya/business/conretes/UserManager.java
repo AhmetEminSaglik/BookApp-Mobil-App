@@ -35,6 +35,11 @@ public class UserManager implements UserService {
     }
 
     @Override
+    public void removeUserReadBookConnection(long userId, long bookId) {
+        userRepository.removeUserReadBookConnection(userId,bookId);
+    }
+
+    @Override
     public User findByUserNameAndPassword(String username, String password) {
         return userRepository.findByUsernameAndPassword(username, password);
     }

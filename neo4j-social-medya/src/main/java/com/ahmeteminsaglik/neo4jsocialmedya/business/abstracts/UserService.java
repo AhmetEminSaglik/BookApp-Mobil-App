@@ -16,5 +16,7 @@ public interface UserService {
     User findByUsername(String username);
 
     List<User> findAllWithReadBooks();
-//    List<Read> findAllReadData();
+
+    //    List<Read> findAllReadData();
+    void removeUserReadBookConnection(long userId, long bookId);
 }
