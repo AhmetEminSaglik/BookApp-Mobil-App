@@ -21,4 +21,5 @@ public interface UserService {
     void removeUserReadBookConnection(long userId, long bookId);
 
     List<User> findAllFollowedUsersByUserId(long id);
+    List<User> findAllFollowersOfUserId(long id);
 }

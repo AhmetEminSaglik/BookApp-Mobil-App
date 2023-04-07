@@ -36,12 +36,17 @@ public class UserManager implements UserService {
 
     @Override
     public void removeUserReadBookConnection(long userId, long bookId) {
-        userRepository.removeUserReadBookConnection(userId,bookId);
+        userRepository.removeUserReadBookConnection(userId, bookId);
     }
 
     @Override
     public List<User> findAllFollowedUsersByUserId(long id) {
         return userRepository.findAllFollowedUsersByUserId(id);
+    }
+
+    @Override
+    public List<User> findAllFollowersOfUserId(long id) {
+        return userRepository.findAllFollowersOfUserId(id);
     }
 
     @Override

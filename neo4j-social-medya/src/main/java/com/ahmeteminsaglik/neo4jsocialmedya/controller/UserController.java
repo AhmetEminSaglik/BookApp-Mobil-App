@@ -85,6 +85,11 @@ public class UserController {
         List<User> userList = userService.findAllFollowedUsersByUserId(userId);
         return new SuccessDataResult<>(userList, "User's followed users are retrived");
     }
+    @GetMapping("/follower/{userId}")
+    public DataResult<List<User>> getAllFollowersOfUserId(@PathVariable long userId) {
+        List<User> userList = userService.findAllFollowersOfUserId(userId);
+        return new SuccessDataResult<>(userList, "User's followed users are retrived");
+    }
 /*    @PostMapping("/post/followed")
     public DataResult<List<User>> getFollowedUserList2(@Body int userId) {
         List<User> userList = userService.findAllFollowedUsersByUserId(userId);

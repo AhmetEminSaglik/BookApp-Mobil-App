@@ -26,4 +26,9 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
             "WHERE ID(u) = $userId\n" +
             "RETURN f")
     List<User> findAllFollowedUsersByUserId(long userId);
+
+    @Query("MATCH (u:User)<-[:Follow]-(f:User)\n" +
+            "WHERE ID(u) = $userId\n" +
+            "RETURN f")
+    List<User> findAllFollowersOfUserId(long userId);
 }
