@@ -43,4 +43,13 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
             "AND ID(u2) = $followedUserId\n" +
             "DETACH DELETE f")
     void removeUserFollowerRelationShipUser(long userId, long followedUserId);
+
+    /*
+    * This query return user's friends' most common following friends as recommened user*/
+    @Query("MATCH (u:User)-[:Follow]->(fu:User)-[:Follow]->(f:User)\n" +
+            "WHERE ID(u) = $userId AND NOT (u)-[:Follow]->(f)\n" +
+            "WITH f, COUNT(DISTINCT fu) AS num_followers\n" +
+            "ORDER BY num_followers DESC\n" +
+            "RETURN f, num_followers LIMIT 5\n")
+    List<User> findCommonUsersByFriends(long userId);
 }

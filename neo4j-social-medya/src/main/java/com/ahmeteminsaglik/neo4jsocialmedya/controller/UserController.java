@@ -4,6 +4,7 @@ import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.UserService;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.LoginUser;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationLoginInput;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationSignUp;
+import com.ahmeteminsaglik.neo4jsocialmedya.model.Book;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.ApiRequestException;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.response.InvalidUsernameOrPasswordException;
@@ -97,11 +98,22 @@ public class UserController {
         userService.removeUserFollowedRelationShipUser(userId, followedUserId);
         return new SuccessResult("Relationship is deleted");
     }
+
     @DeleteMapping("/{userId}/follower/{followerUserId}")
     public Result removeUserFollowerRelationShipUser(@PathVariable long userId, @PathVariable long followerUserId) {
         userService.removeUserFollowerRelationShipUser(userId, followerUserId);
         return new SuccessResult("Relationship is deleted");
     }
+
+    @GetMapping("/recommend/user/{userId}")
+    public DataResult<List<User>> getRecommendedUserList(@PathVariable long userId) {
+        List<User> userList = userService.findCommonUsersByFriends(userId);
+        return new SuccessDataResult<>(userList,"Recommended user list is succesfully retrived");
+    }
+    /*@GetMapping("/recommend/friend/{userId}")
+    public DataResult<List<User>> getByMostReadBookFromFollowings(@PathVariable Long userId) {
+        return new SuccessDataResult<>(userService.findCommonUsersByFriends(userId), "Data retrived Successfully");
+    }*/
 /*    @PostMapping("/post/followed")
     public DataResult<List<User>> getFollowedUserList2(@Body int userId) {
         List<User> userList = userService.findAllFollowedUsersByUserId(userId);

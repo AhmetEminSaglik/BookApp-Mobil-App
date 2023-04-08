@@ -34,7 +34,7 @@ public class BookController {
     }
 
     @GetMapping("/readby/{userId}")
-    public DataResult<List<Book>> getAllReadBookByUserId(@PathVariable Long userId) {
+    public DataResult<List<Book>> getAllReadBookByUserId(@PathVariable long userId) {
         return new SuccessDataResult<>(bookService.getAllReadBooksByUserId(userId), "Read book data is retrived successfuly");
     }
 
@@ -44,12 +44,12 @@ public class BookController {
     }
 
     @GetMapping("/recommend/totalread")
-    public DataResult<List<Book>> findByHighestTotalRead() {
+    public DataResult<List<Book>> getByHighestTotalRead() {
         return new SuccessDataResult<>(bookService.findByHighestTotalRead(), "Data retrived Successfully");
     }
 
     @GetMapping("/recommend/friend/{userId}")
-    public DataResult<List<Book>> findByMostReadBookFromFollowings(@PathVariable Long userId) {
+    public DataResult<List<Book>> getByMostReadBookFromFollowings(@PathVariable long userId) {
         return new SuccessDataResult<>(bookService.findByMostReadBookFromFollowings(userId), "Data retrived Successfully");
     }
 

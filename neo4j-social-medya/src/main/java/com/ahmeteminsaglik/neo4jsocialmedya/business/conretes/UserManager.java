@@ -60,6 +60,11 @@ public class UserManager implements UserService {
     }
 
     @Override
+    public List<User> findCommonUsersByFriends(long userId) {
+        return userRepository.findCommonUsersByFriends(userId);
+    }
+
+    @Override
     public User findByUserNameAndPassword(String username, String password) {
         return userRepository.findByUsernameAndPassword(username, password);
     }
