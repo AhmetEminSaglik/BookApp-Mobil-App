@@ -10,6 +10,7 @@ import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumUser;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedAuthor;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedBook;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.RelationshipUser;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.response.abstracts.RestApiErrorResponse;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.response.abstracts.RestApiResponse;
 import com.ahmeteminsaglik.neo4jbookappandroid.restapi.ManagerAll;
@@ -44,6 +45,12 @@ public class FragmentRecommendsProcess {
 
     public List<RecommendedBook> getBookListByFriendsRead() {
         return sendRecommendBookByFriendReadRequest();
+    }
+
+    public List<RelationshipUser> getRelationshipUserList() {
+//        TODO En son user'in takip ettigi userlarin takip ettigi userlarin onerilmesinde kaldim
+//        return sendRecommendBookByFriendReadRequest();
+        return null;
     }
 
 

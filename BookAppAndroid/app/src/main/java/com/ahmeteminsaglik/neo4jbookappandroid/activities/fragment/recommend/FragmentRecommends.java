@@ -17,12 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter.BookRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter.RecommendedBookpageBookRVAdapter;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.profil.adapter.RelationshipUserRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.recommend.adapter.AuthorRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Author;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumRecommendReason;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedAuthor;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedBook;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.RelationshipUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +32,20 @@ import java.util.List;
 public class FragmentRecommends extends Fragment {
     private final AppCompatActivity activity;
     private RecyclerView rvRecommend;
-    public BookRVAdapter bookAdapter;
-    public AuthorRVAdapter authorAdapter;
+    private BookRVAdapter bookAdapter;
+    private AuthorRVAdapter authorAdapter;
+    private RelationshipUserRVAdapter relationshipUserAdapter;
+    private FragmentRecommendsProcess fragmentRecommendsProcess;
 
     public FragmentRecommends(AppCompatActivity activity) {
         this.activity = activity;
+        fragmentRecommendsProcess = new FragmentRecommendsProcess(activity.getApplicationContext());
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_recommends, container, false);
+        return inflater.inflate(R.layout.standart_fragment_layout, container, false);
     }
 
     @Override
@@ -49,40 +54,37 @@ public class FragmentRecommends extends Fragment {
         List<RecommendedAuthor> authorList = getAuthorList();
         List<RecommendedBook> bookList = getBookList();
         List<RecommendedBook> bookListFromFollowings = getBookListByFriendsRead();
-
+        List<RelationshipUser> relationshipUserList = getRelationshipUserList();
         List<RecommendedBook> allBookList = new ArrayList<>();
         allBookList.addAll(bookListFromFollowings);
         allBookList.addAll(bookList);
 
         bookAdapter = new RecommendedBookpageBookRVAdapter(activity, allBookList);//new BookRVAdapter(activity, allBookList);
         authorAdapter = new AuthorRVAdapter(activity, authorList);
-        ConcatAdapter concatAdapter = new ConcatAdapter(authorAdapter, bookAdapter);
+        relationshipUserAdapter = new RelationshipUserRVAdapter(activity, relationshipUserList);
+        ConcatAdapter concatAdapter = new ConcatAdapter(authorAdapter, bookAdapter, relationshipUserAdapter);
         rvRecommend.setAdapter(concatAdapter);
     }
 
     private void createRecycleView(View view) {
-        rvRecommend = view.findViewById(R.id.recommendRecyleView);
+        rvRecommend = view.findViewById(R.id.standardRecyleView);
         rvRecommend.setHasFixedSize(true);
         rvRecommend.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
 
     private List<RecommendedAuthor> getAuthorList() {
-        FragmentRecommendsProcess fragmentRecommendsProcess = new FragmentRecommendsProcess(activity.getApplicationContext());
-        List<RecommendedAuthor> authorList = fragmentRecommendsProcess.getAuthorList();
-        return authorList;
+        return fragmentRecommendsProcess.getAuthorList();
     }
 
     private List<RecommendedBook> getBookList() {
-        FragmentRecommendsProcess fragmentRecommendsProcess = new FragmentRecommendsProcess(activity.getApplicationContext());
-        List<RecommendedBook> bookList = fragmentRecommendsProcess.getBookList();
-        return bookList;
+        return fragmentRecommendsProcess.getBookList();
     }
 
-    //    Simdi burdan request aticam --> http://localhost:8080/books/recommend/friend/userId
-//    sonrasinda veri otomatik islenecektir.
     private List<RecommendedBook> getBookListByFriendsRead() {
-        FragmentRecommendsProcess fragmentRecommendsProcess = new FragmentRecommendsProcess(activity.getApplicationContext());
-        List<RecommendedBook> bookList = fragmentRecommendsProcess.getBookListByFriendsRead();
-        return bookList;
+        return fragmentRecommendsProcess.getBookListByFriendsRead();
+    }
+
+    private List<RelationshipUser> getRelationshipUserList() {
+        return fragmentRecommendsProcess.getRelationshipUserList();
     }
 }
