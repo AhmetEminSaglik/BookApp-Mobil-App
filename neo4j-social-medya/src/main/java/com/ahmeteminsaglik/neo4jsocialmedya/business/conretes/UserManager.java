@@ -50,6 +50,16 @@ public class UserManager implements UserService {
     }
 
     @Override
+    public void removeUserFollowedRelationShipUser(long userId, long followedUserId) {
+        userRepository.removeUserFollowedRelationShipUser(userId, followedUserId);
+    }
+
+    @Override
+    public void removeUserFollowerRelationShipUser(long userId, long followerUserId) {
+        userRepository.removeUserFollowerRelationShipUser(userId, followerUserId);
+    }
+
+    @Override
     public User findByUserNameAndPassword(String username, String password) {
         return userRepository.findByUsernameAndPassword(username, password);
     }

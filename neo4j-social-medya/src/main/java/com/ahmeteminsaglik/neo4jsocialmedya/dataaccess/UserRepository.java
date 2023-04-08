@@ -31,4 +31,16 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
             "WHERE ID(u) = $userId\n" +
             "RETURN f")
     List<User> findAllFollowersOfUserId(long userId);
+
+    @Query("MATCH (u1:User)-[f:Follow]->(u2:User)" +
+            "WHERE ID(u1) = $userId\n" +
+            "AND ID(u2) = $followedUserId\n" +
+            "DETACH DELETE f")
+    void removeUserFollowedRelationShipUser(long userId, long followedUserId);
+
+    @Query("MATCH (u1:User)<-[f:Follow]-(u2:User)" +
+            "WHERE ID(u1) = $userId\n" +
+            "AND ID(u2) = $followedUserId\n" +
+            "DETACH DELETE f")
+    void removeUserFollowerRelationShipUser(long userId, long followedUserId);
 }

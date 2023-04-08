@@ -54,7 +54,7 @@ public class UserController {
         if (dataResult.isSuccess()) {
             dataResult = new LoginUser(userService).login(user);
             if (dataResult.isSuccess()) {
-                System.out.println("Gelen user : "+dataResult.getData().toString());
+                System.out.println("Gelen user : " + dataResult.getData().toString());
                 return dataResult;
             }
         }
@@ -85,10 +85,22 @@ public class UserController {
         List<User> userList = userService.findAllFollowedUsersByUserId(userId);
         return new SuccessDataResult<>(userList, "User's followed users are retrived");
     }
+
     @GetMapping("/follower/{userId}")
     public DataResult<List<User>> getAllFollowersOfUserId(@PathVariable long userId) {
         List<User> userList = userService.findAllFollowersOfUserId(userId);
         return new SuccessDataResult<>(userList, "User's followed users are retrived");
+    }
+
+    @DeleteMapping("/{userId}/followed/{followedUserId}")
+    public Result removeUserFollowedRelationShipUser(@PathVariable long userId, @PathVariable long followedUserId) {
+        userService.removeUserFollowedRelationShipUser(userId, followedUserId);
+        return new SuccessResult("Relationship is deleted");
+    }
+    @DeleteMapping("/{userId}/follower/{followerUserId}")
+    public Result removeUserFollowerRelationShipUser(@PathVariable long userId, @PathVariable long followerUserId) {
+        userService.removeUserFollowerRelationShipUser(userId, followerUserId);
+        return new SuccessResult("Relationship is deleted");
     }
 /*    @PostMapping("/post/followed")
     public DataResult<List<User>> getFollowedUserList2(@Body int userId) {
