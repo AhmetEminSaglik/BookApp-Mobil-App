@@ -7,9 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.ahmeteminsaglik.neo4jbookappandroid.activities.HomeActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.HomeActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.signup.SignUpActivity;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
 import com.ahmeteminsaglik.neo4jbookappandroid.utility.SharedPreferenceUtility;

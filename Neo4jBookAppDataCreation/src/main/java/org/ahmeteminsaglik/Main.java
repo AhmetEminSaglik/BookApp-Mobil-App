@@ -1,9 +1,21 @@
 package org.ahmeteminsaglik;
 
+import jdk.jshell.execution.Util;
+
 import java.util.*;
 
 public class Main {
-    static final int userNumber = 25;
+    /*
+bu query user1'in takip ettigi kisilerin okudugu kitaplari bulur,  user1'in takip ettigi kisilerden kactanesi bu kitaplari okuyorsa onlarin sayisini alir, bu okuyucularin sayisi siralnir ve dondurur.
+ MATCH (u1:User{username:"user1"})-[:Follow]->(u2)-[:Read]->(b:Book)
+WITH b, COUNT(DISTINCT u2) AS num_readers
+ORDER BY num_readers DESC
+LIMIT 1
+MATCH (u1)-[:Follow]->(u2)-[:Read]->(b)
+RETURN  u2, b
+
+*/
+    static final int userNumber = 30;
     static Random random = new Random();
     static String[] maleName = {"James", "Robert", "John", "Michael", "David", "William", "Richard", "Joseph", "Thomas", "Charles", "Christopher", "Daniel", "Matthew", "Anthony", "Mark", "Donald", "Steven", "Paul", "Andrew", "Joshua"};
     static String[] femaleName = {"Mary", "Patricia", "Jennifer", "Linda", "Elizabeth", "Barbara", "Susan", "Jessica", "Sarah", "Karen", "Lisa", "Nancy", "Betty", "Margaret", "Sandra", "Ashley", "Kimberly", "Emily", "Donna", "Michelle", "Carol", "Amanda"};
@@ -25,6 +37,10 @@ public class Main {
         createAuthorWriteBookQuery();
 
         createReturnQuery();
+
+        // to fix data :
+        createFixUserFollowedDataQuery();
+
 
 //        for (int i = 0; i < 100; i++) {
 //            System.out.println(getRandomDoublePoint());
@@ -51,7 +67,7 @@ public class Main {
         //create users
         StringBuilder createUserText = new StringBuilder();
         for (int i = 0; i < userNumber; i++) {
-            createUserText.append("CREATE (u" + i + ":User{name:\"" + Utility.getRandomGenderName() + "\",lastname:\"" + Utility.getRandomGenderName() + "\",username:\"" + "user" + i + "\",password:\"pass\",totalFollowers:" + Utility.getRandomFollowers() + "})\n");
+            createUserText.append("CREATE (u" + i + ":User{name:\"" + Utility.getRandomGenderName() + "\",lastname:\"" + Utility.getRandomGenderName() + "\",username:\"" + "user" + i + "\",password:\"pass\",totalFollowers:" + Utility.getRandomFollowers() + ",totalFollowed:" + Utility.getRandomFollowers() + "})\n");
             String abbr = "u" + i;
             abbrOfUserList.add(abbr);
         }
@@ -79,7 +95,7 @@ public class Main {
     static void createBookCreationQuery() {
         StringBuilder bookCreationQuery = new StringBuilder();
         for (int i = 0; i < bookName.length; i++) {
-            bookCreationQuery.append("CREATE (b" + i + ":Book{name:\"" + bookName[i] + "\",totalRead:" + Utility.getRandomInt(100) + ",point:" + Utility.getRandomDoublePoint() + "})\n");
+            bookCreationQuery.append("CREATE (b" + i + ":Book{name:\"" + bookName[i] + "\",totalRead:" + Utility.getRandomTotalRead() + ",point:" + Utility.getRandomDoublePoint() + "})\n");
             String abbr = "b" + i;
             abbrOfBookList.add(abbr);
         }
@@ -90,12 +106,12 @@ public class Main {
         StringBuilder userReadBookQueryBuilder = new StringBuilder("CREATE ");
         for (int i = 0; i < abbrOfUserList.size(); i++) {
             List<Integer> readBookList = new ArrayList<>();
-            int userTotalReadBook = Utility.getRandomInt(20);
+            int userTotalReadBook = Utility.getRandomInt(250);
             for (int j = 0; j < userTotalReadBook; j++) {
                 int bookIndex = Utility.getRandomInt(abbrOfBookList.size());
                 bookIndex = Utility.getProperItemIndex(abbrOfBookList.size(), readBookList, bookIndex);
                 readBookList.add(bookIndex);
-                userReadBookQueryBuilder.append("(" + abbrOfUserList.get(i) + ")-[:Read]->(" + abbrOfBookList.get(Utility.getRandomInt(abbrOfBookList.size())) + "),\n");
+                userReadBookQueryBuilder.append("(" + abbrOfUserList.get(i) + ")-[:Read{rate:" + (Utility.getRandomInt(10) + 1) + "}]->(" + abbrOfBookList.get(Utility.getRandomInt(abbrOfBookList.size())) + "),\n");
             }
         }
         Utility.deleteComma(userReadBookQueryBuilder, 2);
@@ -130,5 +146,26 @@ public class Main {
         System.out.println(writeBookQuery);
     }
 
+    static void createFixUserFollowedDataQuery() {
+        StringBuilder fixUserFollowersDataQuery = new StringBuilder("");
+        for (int i = 0; i < userNumber; i++) {
+            fixUserFollowersDataQuery.append(
+                    "MATCH (u" + userNumber + ":User)-[:Follow]->(u:User)" +
+                            "WHERE u" + userNumber + ".username = \"user" + userNumber + "\"" +
+                            "WITH COUNT(u) AS totalFollowed, u0");
+        }
 
+    }
+    /*
+    MATCH (u0:User)-[:Follow]->(u:User)
+    WHERE u0.username = "user0"
+    WITH COUNT(u) AS totalFollowed, u0
+    SET u0.totalFollowed = totalFollowed*/
+    /*
+    *
+    MATCH (a:Author{name:"Anthony", lastname:"Trollope"})-[:Write]->(b:Book)
+WITH a, COUNT(b) AS totalBooks
+SET a.totalBook = totalBooks
+RETURN a
+* */
 }

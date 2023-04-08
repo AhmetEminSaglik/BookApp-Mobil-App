@@ -1,7 +1,6 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.controller;
 
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.UserService;
-import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.Validation;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.LoginUser;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationLoginInput;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationSignUp;
@@ -11,10 +10,16 @@ import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.response.InvalidUs
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.DataResult;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.Result;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessDataResult;
+import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessResult;
+import org.apache.commons.lang3.ObjectUtils;
+import org.neo4j.cypher.internal.expressions.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import retrofit2.http.Body;
 
+import javax.xml.crypto.Data;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -31,6 +36,11 @@ public class UserController {
         return userService.findAll();
     }
 
+    @GetMapping("/readbooks")
+    public List<User> getAllWithReadBooksoca() {
+        return userService.findAll();
+    }
+
     @GetMapping("/{name}")
     public User getUserByName(@PathVariable String name) {
         return userService.findByName(name);
@@ -44,6 +54,7 @@ public class UserController {
         if (dataResult.isSuccess()) {
             dataResult = new LoginUser(userService).login(user);
             if (dataResult.isSuccess()) {
+                System.out.println("Gelen user : " + dataResult.getData().toString());
                 return dataResult;
             }
         }
@@ -62,4 +73,42 @@ public class UserController {
 //        return new ErrorDataResult<>(result.getMessage());
         throw new ApiRequestException(result.getMessage(), new InvalidUsernameOrPasswordException());
     }
+
+    @DeleteMapping("/readbooks")
+    public Result removeUserReadBookConnection(@RequestParam long userId, @RequestParam Long bookId) {
+        userService.removeUserReadBookConnection(userId, bookId);
+        return new SuccessResult("Connection is removed successfully");
+    }
+
+    @GetMapping("/followed/{userId}")
+    public DataResult<List<User>> getFollowedUserList(@PathVariable long userId) {
+        List<User> userList = userService.findAllFollowedUsersByUserId(userId);
+        return new SuccessDataResult<>(userList, "User's followed users are retrived");
+    }
+
+    @GetMapping("/follower/{userId}")
+    public DataResult<List<User>> getAllFollowersOfUserId(@PathVariable long userId) {
+        List<User> userList = userService.findAllFollowersOfUserId(userId);
+        return new SuccessDataResult<>(userList, "User's followed users are retrived");
+    }
+
+    @DeleteMapping("/{userId}/followed/{followedUserId}")
+    public Result removeUserFollowedRelationShipUser(@PathVariable long userId, @PathVariable long followedUserId) {
+        userService.removeUserFollowedRelationShipUser(userId, followedUserId);
+        return new SuccessResult("Relationship is deleted");
+    }
+    @DeleteMapping("/{userId}/follower/{followerUserId}")
+    public Result removeUserFollowerRelationShipUser(@PathVariable long userId, @PathVariable long followerUserId) {
+        userService.removeUserFollowerRelationShipUser(userId, followerUserId);
+        return new SuccessResult("Relationship is deleted");
+    }
+/*    @PostMapping("/post/followed")
+    public DataResult<List<User>> getFollowedUserList2(@Body int userId) {
+        List<User> userList = userService.findAllFollowedUsersByUserId(userId);
+        return new SuccessDataResult<>(userList, "User's followed users are retrived");
+    }*/
+/*    @GetMapping("/read")
+    public List<Read> getReadData() {
+        return userService.findAllReadData();
+    }*/
 }

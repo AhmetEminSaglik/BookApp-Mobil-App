@@ -9,5 +9,8 @@
         <module name="Neo4jBookAppDataCreation" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Neo4jBookAppDataCreation" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

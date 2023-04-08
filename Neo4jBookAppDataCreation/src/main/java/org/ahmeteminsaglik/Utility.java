@@ -6,7 +6,7 @@ import java.util.Random;
 public class Utility {
     static Random random = new Random();
 
-     static int getProperItemIndex(int abbrSize, List<Integer> list, int requestIndex) {
+    static int getProperItemIndex(int abbrSize, List<Integer> list, int requestIndex) {
         for (Integer tmp : list) {
             if (tmp == requestIndex) {
                 requestIndex = getUniqeItemAbbrIndex(abbrSize, requestIndex);
@@ -34,12 +34,28 @@ public class Utility {
         return random.nextInt(bound);
     }
 
+    static int tmpDeep = 0;
+
+    static int getRandomRecurcive(int randomDeep, int randomValue) {
+        if (tmpDeep != randomDeep) {
+            tmpDeep++;
+            return getRandomRecurcive(randomDeep, getRandomInt(randomValue) + 5);
+        }
+        tmpDeep = 0;
+        return getRandomInt(randomValue + 1);
+    }
+
     static double getRandomDoublePoint() {
-        return random.nextInt(100) / 10.0;
+        return (getRandomRecurcive(2, 100)) / 10.0;
+    }
+
+    static int getRandomTotalRead() {
+        return (getRandomRecurcive(2, 100));
     }
 
     static int getRandomFollowers() {
         return random.nextInt(100);
+//        return 0;
     }
 
     static void deleteComma(StringBuilder stringBuilder, int commaIndexToMinusFromLength) {

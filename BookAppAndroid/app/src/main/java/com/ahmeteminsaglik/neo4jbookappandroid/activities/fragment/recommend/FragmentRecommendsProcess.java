@@ -42,6 +42,11 @@ public class FragmentRecommendsProcess {
         return recommendedBookList;
     }
 
+    public List<RecommendedBook> getBookListByFriendsRead() {
+        return sendRecommendBookByFriendReadRequest();
+    }
+
+
     private List<RecommendedAuthor> sendRecommendAuthorByPointRequest() {
         Call<RestApiResponse<List<Author>>> call = ManagerAll.getInstance().getRecommendAuthorListByPoint();
 
@@ -62,7 +67,7 @@ public class FragmentRecommendsProcess {
                 }
                 Toast.makeText(context, errMsg, Toast.LENGTH_LONG).show();
             }
-            return getAuthorRecommen(authorList, EnumRecommendReason.HIGH_POINT.getName());
+            return getRecommendedAuthor(authorList, EnumRecommendReason.HIGH_POINT.getName());
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -94,6 +99,7 @@ public class FragmentRecommendsProcess {
             return null;
         }
     }
+
     private List<RecommendedBook> sendRecommendBookByTotalReadRequest() {
         Call<RestApiResponse<List<Book>>> call = ManagerAll.getInstance().getRecommendedBookListByTotalRead();
 
@@ -120,8 +126,35 @@ public class FragmentRecommendsProcess {
         }
     }
 
+    private List<RecommendedBook> sendRecommendBookByFriendReadRequest() {
+        Call<RestApiResponse<List<Book>>> call = ManagerAll.getInstance().
+                getRecommendedBookListByByFriendRead(SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID));
 
-    private List<RecommendedAuthor> getAuthorRecommen(List<Author> authorList, String reason) {
+        try {
+            List<Book> readBookList = null;
+            Response<RestApiResponse<List<Book>>> response = call.execute();
+            if (response.code() == 200) {
+                readBookList = response.body().getData();
+            } else/* if (response.code() == 400) */ {
+                Gson gson = new Gson();
+                RestApiErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(), RestApiErrorResponse.class);
+                String errMsg = errorResponse.getMessage();
+                if (errMsg != null) {
+                    Log.e("Error  ", errMsg);
+                } else {
+                    Log.e("Error Message is empty : ", "no mesage");
+                }
+                Toast.makeText(context, errMsg, Toast.LENGTH_LONG).show();
+            }
+            return convertBookListToRecommedBookList(readBookList, EnumRecommendReason.FRIEND.getName());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    private List<RecommendedAuthor> getRecommendedAuthor(List<Author> authorList, String reason) {
         List<RecommendedAuthor> recommendedAuthorList = new ArrayList<>();
         authorList.forEach(e -> {
             recommendedAuthorList.add(new RecommendedAuthor(e, reason));

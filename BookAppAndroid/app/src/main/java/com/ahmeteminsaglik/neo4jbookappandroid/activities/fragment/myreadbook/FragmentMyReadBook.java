@@ -1,34 +1,39 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter.BookRVAdapter;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter.MyReadBookPageBookRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumRecommendReason;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedBook;
-import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentMyReadBook extends Fragment {
-    private final Activity activity;
+    private final AppCompatActivity activity;
     private RecyclerView rv;
     public BookRVAdapter adapter;
+//    Fragment fragment;
 
-    public FragmentMyReadBook(Activity activity) {
+    /*public FragmentMyReadBook(*//*Fragment fragment,*//* AppCompatActivity activity) {
+        this.fragment = fragment;
+        this.activity = activity;
+    }*/
+
+    public FragmentMyReadBook(AppCompatActivity activity) {
         this.activity = activity;
     }
 
@@ -42,8 +47,8 @@ public class FragmentMyReadBook extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         createRecycleView(view);
         List<Book> bookList = getReadBookList();
-        List<RecommendedBook> recommendedBookList = convertBookListToRecommedBookList(bookList);
-        adapter = new BookRVAdapter(activity, recommendedBookList);
+//        List<RecommendedBook> recommendedBookList = convertBookListToRecommedBookList(bookList);
+        adapter = new MyReadBookPageBookRVAdapter(activity, bookList);//new BookRVAdapter(fragment, activity, recommendedBookList);
         rv.setAdapter(adapter);
     }
 

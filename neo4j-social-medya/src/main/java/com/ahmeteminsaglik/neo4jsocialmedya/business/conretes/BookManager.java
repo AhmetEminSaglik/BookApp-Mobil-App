@@ -42,4 +42,9 @@ public class BookManager implements BookService {
     public List<Book> findByHighestTotalRead() {
         return bookRepository.findByHighestTotalRead();
     }
+
+    @Override
+    public List<Book> findByMostReadBookFromFollowings(Long userId) {
+        return bookRepository.findByMostReadBookFromFollowings(userId);
+    }
 }

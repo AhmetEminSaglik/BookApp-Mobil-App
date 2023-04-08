@@ -12,6 +12,11 @@
         android:state_checked="true"
         android:title="Recommends" />
     <item
+        android:id="@+id/action_profil"
+        android:icon="@drawable/profil_logo"
+        android:state_checked="true"
+        android:title="Profil" />
+    <item
         android:id="@+id/action_logout"
         android:icon="@drawable/logout"
         android:state_checked="true"

@@ -1,10 +1,8 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.controller;
 
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.BookService;
-import com.ahmeteminsaglik.neo4jsocialmedya.model.Author;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.Book;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.DataResult;
-import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.Result;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessDataResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,12 +39,18 @@ public class BookController {
     }
 
     @GetMapping("/recommend/point")
-    public DataResult<List<Book>> getRecommenedAuthorListByHighestPoint(){
-        return  new SuccessDataResult<>(bookService.findByHighestPoint(),"Data retrived Successfully");
+    public DataResult<List<Book>> getRecommenedAuthorListByHighestPoint() {
+        return new SuccessDataResult<>(bookService.findByHighestPoint(), "Data retrived Successfully");
     }
 
     @GetMapping("/recommend/totalread")
     public DataResult<List<Book>> findByHighestTotalRead() {
         return new SuccessDataResult<>(bookService.findByHighestTotalRead(), "Data retrived Successfully");
     }
+
+    @GetMapping("/recommend/friend/{userId}")
+    public DataResult<List<Book>> findByMostReadBookFromFollowings(@PathVariable Long userId) {
+        return new SuccessDataResult<>(bookService.findByMostReadBookFromFollowings(userId), "Data retrived Successfully");
+    }
+
 }

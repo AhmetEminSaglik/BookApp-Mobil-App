@@ -16,5 +16,6 @@ public interface BookService {
 
     List<Book> findByHighestPoint();
     List<Book> findByHighestTotalRead();
+    List<Book> findByMostReadBookFromFollowings(Long userId);
 
 }
