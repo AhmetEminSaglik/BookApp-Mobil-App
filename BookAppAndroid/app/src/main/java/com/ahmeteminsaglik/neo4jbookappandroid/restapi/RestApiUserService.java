@@ -40,6 +40,9 @@ public interface RestApiUserService {
 
     @DELETE("/users/{userId}/follower/{followerUserId}")
     Call<RestApiResponse<List<User>>> removeFollowerUserRelationship(@Path("userId") long userId, @Path("followerUserId") long followerUserId);
+
+    @GET("recommend/user/{userId}")
+    Call<RestApiResponse<List<User>>> getRecommendedUserList(@Path("userId") long userId);
     /*
     This returns response.body() null
     @FormUrlEncodedw

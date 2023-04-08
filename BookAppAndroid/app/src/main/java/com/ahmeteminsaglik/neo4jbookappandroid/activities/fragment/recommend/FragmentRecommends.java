@@ -19,11 +19,13 @@ import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.ad
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter.RecommendedBookpageBookRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.profil.adapter.RelationshipUserRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.recommend.adapter.AuthorRVAdapter;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.recommend.adapter.RecommendedUserRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Author;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumRecommendReason;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedAuthor;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedBook;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedUser;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RelationshipUser;
 
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class FragmentRecommends extends Fragment {
     private RecyclerView rvRecommend;
     private BookRVAdapter bookAdapter;
     private AuthorRVAdapter authorAdapter;
-    private RelationshipUserRVAdapter relationshipUserAdapter;
+    private RecommendedUserRVAdapter recommendedUserRVAdapter;
     private FragmentRecommendsProcess fragmentRecommendsProcess;
 
     public FragmentRecommends(AppCompatActivity activity) {
@@ -54,15 +56,15 @@ public class FragmentRecommends extends Fragment {
         List<RecommendedAuthor> authorList = getAuthorList();
         List<RecommendedBook> bookList = getBookList();
         List<RecommendedBook> bookListFromFollowings = getBookListByFriendsRead();
-        List<RelationshipUser> relationshipUserList = getRelationshipUserList();
+        List<RecommendedUser> recommendedUserList = getRecommendedUserList();
         List<RecommendedBook> allBookList = new ArrayList<>();
         allBookList.addAll(bookListFromFollowings);
         allBookList.addAll(bookList);
 
         bookAdapter = new RecommendedBookpageBookRVAdapter(activity, allBookList);//new BookRVAdapter(activity, allBookList);
         authorAdapter = new AuthorRVAdapter(activity, authorList);
-        relationshipUserAdapter = new RelationshipUserRVAdapter(activity, relationshipUserList);
-        ConcatAdapter concatAdapter = new ConcatAdapter(authorAdapter, bookAdapter, relationshipUserAdapter);
+        recommendedUserRVAdapter = new RecommendedUserRVAdapter(activity, recommendedUserList);
+        ConcatAdapter concatAdapter = new ConcatAdapter(authorAdapter, bookAdapter, recommendedUserRVAdapter);
         rvRecommend.setAdapter(concatAdapter);
     }
 
@@ -84,7 +86,7 @@ public class FragmentRecommends extends Fragment {
         return fragmentRecommendsProcess.getBookListByFriendsRead();
     }
 
-    private List<RelationshipUser> getRelationshipUserList() {
+    private List<RecommendedUser> getRecommendedUserList() {
         return fragmentRecommendsProcess.getRelationshipUserList();
     }
 }
