@@ -31,9 +31,15 @@ public interface RestApiUserService {
 
     @GET("followed/{userId}")
     Call<RestApiResponse<List<User>>> getFollowedList(@Path("userId") long userId);
-    @GET("followed/{userId}")
+
+    @GET("follower/{userId}")
     Call<RestApiResponse<List<User>>> getFollowerList(@Path("userId") long userId);
 
+    @DELETE("/users/{userId}/followed/{followedUserId}")
+    Call<RestApiResponse<List<User>>> removeFollowedUserRelationship(@Path("userId") long userId, @Path("followedUserId") long followedUserId);
+
+    @DELETE("/users/{userId}/follower/{followerUserId}")
+    Call<RestApiResponse<List<User>>> removeFollowerUserRelationship(@Path("userId") long userId, @Path("followerUserId") long followerUserId);
     /*
     This returns response.body() null
     @FormUrlEncodedw

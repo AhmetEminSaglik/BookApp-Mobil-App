@@ -21,7 +21,6 @@ public class HomeActivity extends AppCompatActivity {
     //    private User user = new User();
 
 
-
     private Fragment tempFragment = new FragmentMyReadBook(this);
     static int baseFragment = R.id.base_fragment;
 

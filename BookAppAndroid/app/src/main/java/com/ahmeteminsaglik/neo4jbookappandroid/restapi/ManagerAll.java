@@ -25,13 +25,25 @@ public class ManagerAll extends BaseManager {
 
 
     public Call<RestApiResponse<Object>> removeUserReadBookConection(long userId, long bookId) {
-        return getUserRestApiClient().removeUserReadBookConnection(userId,bookId);
+        return getUserRestApiClient().removeUserReadBookConnection(userId, bookId);
     }
-    public Call<RestApiResponse<List<User>>> getUserRelationshipFollowRequest(Long id) {
+
+    public Call<RestApiResponse<List<User>>> getUserRelationshipFollowedListRequest(long id) {
         return getUserRestApiClient().getFollowedList(id);
-    }  public Call<RestApiResponse<List<User>>> getUserRelationshipFollowerRequest(Long id) {
+    }
+
+    public Call<RestApiResponse<List<User>>> getUserRelationshipFollowerListRequest(long id) {
         return getUserRestApiClient().getFollowerList(id);
     }
+
+    public Call<RestApiResponse<List<User>>> removeFollowedUserRelationShipRequest(long userId, long followedUserId) {
+        return getUserRestApiClient().removeFollowedUserRelationship(userId, followedUserId);
+    }
+    public Call<RestApiResponse<List<User>>> removeFollowerUserRelationShipRequest(long userId, long followerUserId) {
+        return getUserRestApiClient().removeFollowerUserRelationship(userId, followerUserId);
+    }
+
+
     public Call<LoginResponse> getUserByLoginRequest(User user) {
         return getUserRestApiClient().loginUser(user);
     }
