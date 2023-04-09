@@ -39,10 +39,18 @@ public class ManagerAll extends BaseManager {
     public Call<RestApiResponse<List<User>>> removeFollowedUserRelationShipRequest(long userId, long followedUserId) {
         return getUserRestApiClient().removeFollowedUserRelationship(userId, followedUserId);
     }
+
     public Call<RestApiResponse<List<User>>> removeFollowerUserRelationShipRequest(long userId, long followerUserId) {
         return getUserRestApiClient().removeFollowerUserRelationship(userId, followerUserId);
     }
 
+    public Call<RestApiResponse<List<User>>> getRecommendedUserByFriendRead(long userId) {
+        return getUserRestApiClient().getRecommendedUserList(userId);
+    }
+
+    public Call<RestApiResponse> createConnectionFollowFriend(long userId, long friendUserId){
+        return getUserRestApiClient().createConnectionFollowFriend(userId,friendUserId);
+    }
 
     public Call<LoginResponse> getUserByLoginRequest(User user) {
         return getUserRestApiClient().loginUser(user);
@@ -66,9 +74,6 @@ public class ManagerAll extends BaseManager {
 
     public Call<RestApiResponse<List<Book>>> getRecommendedBookListByFriendRead(Long userId) {
         return getBookRestApiClient().getRecommendedBookListByFriendRead(userId);
-    }
-    public Call<RestApiResponse<List<User>>> getRecommendedUserByFriendRead(Long userId) {
-        return getUserRestApiClient().getRecommendedUserList(userId);
     }
 
     public Call<RestApiResponse<List<Author>>> getRecommendAuthorListByPoint() {

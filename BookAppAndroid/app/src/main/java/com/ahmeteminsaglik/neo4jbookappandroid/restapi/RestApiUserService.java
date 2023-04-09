@@ -43,6 +43,9 @@ public interface RestApiUserService {
 
     @GET("recommend/user/{userId}")
     Call<RestApiResponse<List<User>>> getRecommendedUserList(@Path("userId") long userId);
+
+    @POST("{userId}/follow/{friendUserId}")
+    Call<RestApiResponse> createConnectionFollowFriend(@Path("userId") long userId, @Path("friendUserId") long friendUserId);
     /*
     This returns response.body() null
     @FormUrlEncodedw

@@ -215,4 +215,15 @@ public class FragmentRecommendsProcess {
     }
 
 
+    public void createConnectionFollowRecommendedUser(long friendUserId) {
+        Call<RestApiResponse> call = ManagerAll.getInstance().createConnectionFollowFriend(
+                SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID),
+                friendUserId
+        );
+        try {
+            call.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
