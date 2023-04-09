@@ -65,6 +65,11 @@ public class UserManager implements UserService {
     }
 
     @Override
+    public void createConnectionFollowFriend(long userId, long friendUserId) {
+        userRepository.createConnectionFollowFriend(userId, friendUserId);
+    }
+
+    @Override
     public User findByUserNameAndPassword(String username, String password) {
         return userRepository.findByUsernameAndPassword(username, password);
     }

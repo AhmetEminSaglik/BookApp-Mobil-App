@@ -4,7 +4,6 @@ import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.UserService;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.LoginUser;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationLoginInput;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationSignUp;
-import com.ahmeteminsaglik.neo4jsocialmedya.model.Book;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.ApiRequestException;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.response.InvalidUsernameOrPasswordException;
@@ -12,15 +11,10 @@ import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.DataResult;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.Result;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessDataResult;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessResult;
-import org.apache.commons.lang3.ObjectUtils;
-import org.neo4j.cypher.internal.expressions.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import retrofit2.http.Body;
 
-import javax.xml.crypto.Data;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -76,7 +70,7 @@ public class UserController {
     }
 
     @DeleteMapping("/readbooks")
-    public Result removeUserReadBookConnection(@RequestParam long userId, @RequestParam Long bookId) {
+    public Result removeUserReadBookConnection(@RequestParam long userId, @RequestParam long bookId) {
         userService.removeUserReadBookConnection(userId, bookId);
         return new SuccessResult("Connection is removed successfully");
     }
@@ -91,6 +85,13 @@ public class UserController {
     public DataResult<List<User>> getAllFollowersOfUserId(@PathVariable long userId) {
         List<User> userList = userService.findAllFollowersOfUserId(userId);
         return new SuccessDataResult<>(userList, "User's followed users are retrived");
+    }
+
+    @PostMapping("/{userId}/follow/{friendUserId}")
+    public Result createNewConnectionFollowUser(@PathVariable long userId, @PathVariable long friendUserId) {
+        System.out.println("GELDIII buraya user id : "+userId+" friendUserId : "+friendUserId);
+        userService.createConnectionFollowFriend(userId, friendUserId);
+        return new SuccessResult("Connection is created");
     }
 
     @DeleteMapping("/{userId}/followed/{followedUserId}")
@@ -108,7 +109,7 @@ public class UserController {
     @GetMapping("/recommend/user/{userId}")
     public DataResult<List<User>> getRecommendedUserList(@PathVariable long userId) {
         List<User> userList = userService.findCommonUsersByFriends(userId);
-        return new SuccessDataResult<>(userList,"Recommended user list is succesfully retrived");
+        return new SuccessDataResult<>(userList, "Recommended user list is succesfully retrived");
     }
     /*@GetMapping("/recommend/friend/{userId}")
     public DataResult<List<User>> getByMostReadBookFromFollowings(@PathVariable Long userId) {
