@@ -5,24 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7c3c2a9-e6f6-43f3-8620-54c9f2a97509" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/java/com/ahmeteminsaglik/neo4jbookappandroid/activities/fragment/myreadbook/adapter/RecommendedBookRVAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/java/com/ahmeteminsaglik/neo4jbookappandroid/activities/fragment/myreadbook/adapter/RecommendedBookRVAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/java/com/ahmeteminsaglik/neo4jbookappandroid/activities/fragment/recommend/adapter/AuthorRVAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/java/com/ahmeteminsaglik/neo4jbookappandroid/activities/fragment/recommend/adapter/AuthorRVAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/java/com/ahmeteminsaglik/neo4jbookappandroid/activities/fragment/recommend/adapter/RecommendedUserRVAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/java/com/ahmeteminsaglik/neo4jbookappandroid/activities/fragment/recommend/adapter/RecommendedUserRVAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/java/com/ahmeteminsaglik/neo4jbookappandroid/utility/CardUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/java/com/ahmeteminsaglik/neo4jbookappandroid/utility/CardUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/read_book_card_design.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/read_book_card_design.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/recommend_book_card_design.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/recommend_book_card_design.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/recommended_user_card_design.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/recommended_user_card_design.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/relationship_card_design.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/layout/relationship_card_design.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/d/9d7659d2ee4aa699209e85b6873c0d449e6eaa27" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/f/bf3096bbb46b9825269757fdf0598e1d40674049" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-queries.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-queries.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/DataCreation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/Utility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/Utility.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/abstracts/ReadDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/abstracts/ReadService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/abstracts/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/abstracts/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/conretes/ReadDataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/conretes/ReadManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/controller/BookController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/controller/ReadDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/controller/ReadController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/conretes/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/business/conretes/UserManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/BookRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/ReadDataRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/ReadRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/ReadData.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Read.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../~$o4j-queries.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../~$oject-desing.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/UserRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,8 +62,8 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.ahmeteminsaglik.Main" />
+    <configuration name="DataCreation" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.ahmeteminsaglik.DataCreation" />
       <module name="Neo4jBookAppDataCreation" />
       <extension name="coverage">
         <pattern>
@@ -72,7 +77,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.DataCreation" />
       </list>
     </recent_temporary>
   </component>
@@ -101,6 +106,7 @@
       <workItem from="1680526578257" duration="599000" />
       <workItem from="1680528626534" duration="82000" />
       <workItem from="1680528737293" duration="1176000" />
+      <workItem from="1681086594902" duration="628000" />
     </task>
     <servers />
   </component>
