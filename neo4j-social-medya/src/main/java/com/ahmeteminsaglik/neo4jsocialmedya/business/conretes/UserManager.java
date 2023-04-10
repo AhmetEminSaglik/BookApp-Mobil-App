@@ -65,6 +65,12 @@ public class UserManager implements UserService {
     }
 
     @Override
+    public List<User> findRandomUserToRecommend(long userId) {
+        return userRepository.findRandomUserToRecommend(userId);
+    }
+
+
+    @Override
     public void createConnectionFollowFriend(long userId, long friendUserId) {
         userRepository.createConnectionFollowFriend(userId, friendUserId);
     }

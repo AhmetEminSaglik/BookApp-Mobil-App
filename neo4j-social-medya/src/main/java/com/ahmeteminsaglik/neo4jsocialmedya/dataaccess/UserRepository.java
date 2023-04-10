@@ -1,6 +1,7 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.dataaccess;
 
 import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
+import org.neo4j.cypherdsl.core.Match;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 
@@ -52,6 +53,11 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
             "ORDER BY num_followers DESC " +
             "RETURN f, num_followers LIMIT 5 ")
     List<User> findCommonUsersByFriends(long userId);
+
+    @Query("MATCH (u:User) " +
+            "WHERE NOT ID(u)= $userId " +
+            "RETURN u LIMIT 5")
+    List<User> findRandomUserToRecommend(long userId);
 
     @Query("MATCH (u:User) WHERE ID(u) = $userId " +
             "MATCH (u2:User) WHERE ID(u2) = $friendUserId " +

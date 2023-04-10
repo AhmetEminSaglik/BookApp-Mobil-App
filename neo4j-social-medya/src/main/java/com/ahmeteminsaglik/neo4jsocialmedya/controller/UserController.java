@@ -108,6 +108,13 @@ public class UserController {
     @GetMapping("/recommend/user/{userId}")
     public DataResult<List<User>> getRecommendedUserList(@PathVariable long userId) {
         List<User> userList = userService.findCommonUsersByFriends(userId);
+        int userSize = userList.size();
+        if (userSize < 5) {
+            List<User> userListRandom = userService.findRandomUserToRecommend(userId);
+            for (int i = userSize; i+userSize < 5; i++) {
+                userList.add(userListRandom.get(i - userSize));
+            }
+        }
         return new SuccessDataResult<>(userList, "Recommended user list is succesfully retrived");
     }
     /*@GetMapping("/recommend/friend/{userId}")
