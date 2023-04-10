@@ -16,45 +16,45 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
     @Query("MATCH (u:User)-[r:Read]->(b:Book) RETURN u,r,b LIMIT 3")
     List<User> findAllWithBooks();
 
-    @Query("MATCH (u:User)-[r:Read]->(b:Book)\n" +
-            "WHERE ID(u)=$userId\n" +
-            "AND ID(b)=$bookId\n" +
+    @Query("MATCH (u:User)-[r:Read]->(b:Book) " +
+            "WHERE ID(u)=$userId " +
+            "AND ID(b)=$bookId " +
             "DETACH DELETE r")
     void removeUserReadBookConnection(long userId, long bookId);
 
-    @Query("MATCH (u:User)-[:Follow]->(f:User)\n" +
-            "WHERE ID(u) = $userId\n" +
+    @Query("MATCH (u:User)-[:Follow]->(f:User) " +
+            "WHERE ID(u) = $userId " +
             "RETURN f")
     List<User> findAllFollowedUsersByUserId(long userId);
 
-    @Query("MATCH (u:User)<-[:Follow]-(f:User)\n" +
-            "WHERE ID(u) = $userId\n" +
+    @Query("MATCH (u:User)<-[:Follow]-(f:User) " +
+            "WHERE ID(u) = $userId " +
             "RETURN f")
     List<User> findAllFollowersOfUserId(long userId);
 
     @Query("MATCH (u1:User)-[f:Follow]->(u2:User)" +
-            "WHERE ID(u1) = $userId\n" +
-            "AND ID(u2) = $followedUserId\n" +
+            "WHERE ID(u1) = $userId " +
+            "AND ID(u2) = $followedUserId " +
             "DETACH DELETE f")
     void removeUserFollowedRelationShipUser(long userId, long followedUserId);
 
     @Query("MATCH (u1:User)<-[f:Follow]-(u2:User)" +
-            "WHERE ID(u1) = $userId\n" +
-            "AND ID(u2) = $followedUserId\n" +
+            "WHERE ID(u1) = $userId " +
+            "AND ID(u2) = $followedUserId " +
             "DETACH DELETE f")
     void removeUserFollowerRelationShipUser(long userId, long followedUserId);
 
     /*
      * This query return user's friends' most common following friends as recommened user*/
-    @Query("MATCH (u:User)-[:Follow]->(fu:User)-[:Follow]->(f:User)\n" +
-            "WHERE ID(u) = $userId AND NOT (u)-[:Follow]->(f)\n" +
-            "WITH f, COUNT(DISTINCT fu) AS num_followers\n" +
-            "ORDER BY num_followers DESC\n" +
-            "RETURN f, num_followers LIMIT 5\n")
+    @Query("MATCH (u:User)-[:Follow]->(fu:User)-[:Follow]->(f:User) " +
+            "WHERE ID(u) = $userId AND NOT (u)-[:Follow]->(f) " +
+            "WITH f, COUNT(DISTINCT fu) AS num_followers " +
+            "ORDER BY num_followers DESC " +
+            "RETURN f, num_followers LIMIT 5 ")
     List<User> findCommonUsersByFriends(long userId);
 
-    @Query("MATCH (u:User) WHERE ID(u) = $userId\n" +
-            "MATCH (u2:User) WHERE ID(u2) = $friendUserId\n" +
+    @Query("MATCH (u:User) WHERE ID(u) = $userId " +
+            "MATCH (u2:User) WHERE ID(u2) = $friendUserId " +
             "MERGE (u)-[f:Follow]->(u2)")
     void createConnectionFollowFriend(long userId, long friendUserId);
 }

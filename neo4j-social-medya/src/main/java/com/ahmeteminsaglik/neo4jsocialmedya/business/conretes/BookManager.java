@@ -29,7 +29,7 @@ public class BookManager implements BookService {
     }
 
     @Override
-    public List<Book> getAllReadBooksByUserId(Long userId) {
+    public List<Book> getAllReadBooksByUserId(long userId) {
         return bookRepository.getAllByUserIdMatches(userId);
     }
 
@@ -44,7 +44,12 @@ public class BookManager implements BookService {
     }
 
     @Override
-    public List<Book> findByMostReadBookFromFollowings(Long userId) {
+    public void createConnectionUserReadBook(long userId, long bookId) {
+        bookRepository.createConnectionUserReadBook(userId, bookId);
+    }
+
+    @Override
+    public List<Book> findByMostReadBookFromFollowings(long userId) {
         return bookRepository.findByMostReadBookFromFollowings(userId);
     }
 }

@@ -22,7 +22,7 @@ RETURN u,b*/
 //            "<-[ai:ACTED_IN]-(p:Person)-[d:DIRECTED]->(dm:Movie) return p, collect(ai), collect(d), collect(am), collect(dm)")
     List<Book> getAllByUserIdMatches(@PathVariable Long userId);
 
-    @Query("MATCH (b:Book) RETURN b ORDER BY b.point DESC LIMIT 5")
+    @Query("MATCH (b:Book)  RETURN b ORDER BY b.point DESC LIMIT 5")
     List<Book> findByHighestPoint();
 
     @Query("MATCH (b:Book) RETURN b ORDER BY b.totalRead DESC LIMIT 5")
@@ -31,6 +31,7 @@ RETURN u,b*/
     // returns user's following users' read common books to recommend users.
     @Query(" MATCH (u:User) WHERE ID(u) = $userId " +
             "MATCH (u)-[:Follow]->(u2:User)-[:Read]->(b:Book) " +
+            "WHERE  NOT (b)<-[:Read]-(u) " +
             "WITH b, COUNT(DISTINCT u2) AS num_readers " +
             "ORDER BY num_readers DESC " +
             "LIMIT 5 " +
@@ -38,4 +39,8 @@ RETURN u,b*/
             "RETURN DISTINCT b")
     List<Book> findByMostReadBookFromFollowings(@PathVariable Long userId);
 
+    @Query("MATCH (u:User) WHERE ID(u) = $userId " +
+            "MATCH (b:Book) WHERE ID(b) = $bookId " +
+            "MERGE (u)-[r:Read]->(b)")
+    void createConnectionUserReadBook(long userId, long bookId);
 }

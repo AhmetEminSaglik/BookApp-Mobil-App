@@ -89,7 +89,6 @@ public class UserController {
 
     @PostMapping("/{userId}/follow/{friendUserId}")
     public Result createNewConnectionFollowUser(@PathVariable long userId, @PathVariable long friendUserId) {
-        System.out.println("GELDIII buraya user id : "+userId+" friendUserId : "+friendUserId);
         userService.createConnectionFollowFriend(userId, friendUserId);
         return new SuccessResult("Connection is created");
     }

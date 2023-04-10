@@ -10,10 +10,10 @@ import com.ahmeteminsaglik.neo4jbookappandroid.utility.CardUtility;
 
 import java.util.List;
 
-public class RecommendedBookpageBookRVAdapter extends BookRVAdapter {
+public class RecommendedBookRVAdapter extends BookRVAdapter {
     private final List<RecommendedBook> bookList;
 
-    public RecommendedBookpageBookRVAdapter(AppCompatActivity activity, List<RecommendedBook> bookList) {
+    public RecommendedBookRVAdapter(AppCompatActivity activity, List<RecommendedBook> bookList) {
         super(activity, R.layout.recommend_book_card_design, bookList.size());
         this.bookList = bookList;
     }
