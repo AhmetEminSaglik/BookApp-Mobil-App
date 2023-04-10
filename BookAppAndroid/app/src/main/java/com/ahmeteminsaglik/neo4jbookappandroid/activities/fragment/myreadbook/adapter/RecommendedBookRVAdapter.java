@@ -1,5 +1,7 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter;
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,9 +37,10 @@ public class RecommendedBookRVAdapter extends BookRVAdapter {
         holder.bookCardIndexNo.setText(Integer.toString((bookList.size() - position)));
         holder.whyRecommend.setText(whyRecommend);
 //        holder.removeBookBtn.setOnClickListener();
-        holder.bookCardView.setBackgroundResource(CardUtility.getCardBackgroudColorByRecommendType(whyRecommend));
+        holder.bookCardView.setBackgroundResource(CardUtility.getCardBackgroudColorByRecommendTypeForBook(whyRecommend));
         holder.recBookAddReadButton.setOnClickListener(e -> {
             recommendsProcess.createConnectionUserReadBook(book.getId());
+            Toast.makeText(activity.getApplicationContext(), "Book is added to read list", Toast.LENGTH_SHORT).show();
             FragmentUtility.updateFragment(activity, new FragmentRecommends(activity));
         });
 /*        holder.bookCardView.setOnClickListener(new View.OnClickListener() {

@@ -83,6 +83,7 @@
                             android:layout_height="wrap_content"
                             android:text="Example Name"
                             android:textSize="19dp" />
+
                         <TextView
                             android:id="@+id/recUserLastname"
                             android:layout_width="wrap_content"
@@ -124,8 +125,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:layout_marginRight="10dp"
-                            app:backgroundTint="@color/btnInsertionBackgroundColor"
-                            android:text="Follow"  />
+                            android:text="Follow"
+                            android:textColor="@color/white"
+                            app:backgroundTint="@color/btnInsertionBackgroundColor" />
                     </LinearLayout>
                 </LinearLayout>
 

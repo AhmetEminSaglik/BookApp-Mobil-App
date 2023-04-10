@@ -5,7 +5,10 @@ import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumRecommendReason;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumRelationship;
 
 public class CardUtility {
-    public static int getCardBackgroudColorByRecommendType(String reason) {
+    public static int getCardBackgroudColorByRecommendTypeForUser(String reason) {
+        return R.color.card_constraintColor_0_default_light_blue;
+    }
+    public static int getCardBackgroudColorByRecommendTypeForBook(String reason) {
 
         if (reason.equals(EnumRecommendReason.BEST_SELLER.getName())) {
             return R.color.card_constraintColor_1_light_red;

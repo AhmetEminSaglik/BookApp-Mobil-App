@@ -172,7 +172,8 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginRight="10dp"
                             android:background="@color/btnInsertionBackgroundColor"
-                            android:text="Add As Read Book" />
+                            android:text="Add As Read Book"
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <!--              <LinearLayout

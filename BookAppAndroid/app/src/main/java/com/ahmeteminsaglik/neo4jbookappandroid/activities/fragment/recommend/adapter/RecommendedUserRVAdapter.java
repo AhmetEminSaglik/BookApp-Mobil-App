@@ -53,7 +53,7 @@ public class RecommendedUserRVAdapter extends RecyclerView.Adapter<RecommendedUs
         holder.name.setText(name);
         holder.lastname.setText(lastname);
         holder.whyRecommend.setText(whyRecommend);
-        holder.cardView.setBackgroundResource(CardUtility.getCardBackgroudColorByRecommendType(whyRecommend));
+        holder.cardView.setBackgroundResource(CardUtility.getCardBackgroudColorByRecommendTypeForUser(whyRecommend));
         holder.followBtn.setOnClickListener(e -> {
             recommendsProcess.createConnectionFollowRecommendedUser(user.getId());
             FragmentUtility.updateFragment(activity, new FragmentRecommends(activity));

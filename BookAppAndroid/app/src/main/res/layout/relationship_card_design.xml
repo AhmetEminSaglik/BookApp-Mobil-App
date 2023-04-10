@@ -142,7 +142,8 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginRight="30dp"
                             android:background="@color/btnRemoveBackgroundColor"
-                            android:text="Remove" />
+                            android:text="Remove"
+                            android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
 
