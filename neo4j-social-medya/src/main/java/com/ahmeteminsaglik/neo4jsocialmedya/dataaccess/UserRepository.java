@@ -55,8 +55,11 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
     List<User> findCommonUsersByFriends(long userId);
 
     @Query("MATCH (u:User) " +
-            "WHERE NOT ID(u)= $userId " +
-            "RETURN u LIMIT 5")
+            "MATCH (u2:User)" +
+            "WHERE ID(u)= $userId " +
+            "AND NOT ID(u2)= $userId " +
+            "AND NOT (u)-[:Follow]->(u2) " +
+            "RETURN u2 LIMIT 5")
     List<User> findRandomUserToRecommend(long userId);
 
     @Query("MATCH (u:User) WHERE ID(u) = $userId " +
