@@ -41,17 +41,17 @@ public class DataCreation {
     public StringBuilder getFixDataQueryText() {
         StringBuilder query = new StringBuilder("");
         query.append(
-                "MATCH (u:User)<-[:Follow]-(f:User)\n" +
+                "MATCH (u:User)<-[:FOLLOW]-(f:User)\n" +
                         "WITH u, COUNT(f) AS totalFollowers\n" +
                         "SET u.totalFollowers = totalFollowers\n" +
                         "\n" +
                         "WITH u\n" +
-                        "MATCH (u)-[:Follow]->(f:User)\n" +
+                        "MATCH (u)-[:FOLLOW]->(f:User)\n" +
                         "WITH u, COUNT(f) AS totalFollowed\n" +
                         "SET u.totalFollowed = totalFollowed\n" +
                         "\n" +
                         "WITH u\n" +
-                        "MATCH (a:Author)-[:Write]->(b:Book)\n" +
+                        "MATCH (a:Author)-[:WRITE]->(b:Book)\n" +
                         "WITH u, a, COUNT(b) AS totalBook\n" +
                         "SET a.totalBook = totalBook\n" +
                         "\n" +
@@ -71,7 +71,8 @@ public class DataCreation {
             returnQuery.append(abbrOfAuthorList.get(i) + ",");
         }
         Utility.deleteComma(returnQuery, 1);
-        System.out.println(returnQuery);
+//        System.out.println(returnQuery);
+        queryText.append(returnQuery);
     }
 
 
@@ -97,7 +98,7 @@ public class DataCreation {
             for (int j = 0; j < totalFollowingPeople; j++) {
                 int indexOfPeopleToFollow = Utility.getRandomInt(userNumber);
                 indexOfPeopleToFollow = Utility.getProperItemIndex(abbrOfUserList.size(), followedPeople, indexOfPeopleToFollow);
-                createFollowingAction.append("(u" + i + ")-[:Follow]->(u" + indexOfPeopleToFollow + "),\n");
+                createFollowingAction.append("(u" + i + ")-[:FOLLOW]->(u" + indexOfPeopleToFollow + "),\n");
                 followedPeople.add(indexOfPeopleToFollow);
             }
         }
@@ -126,7 +127,7 @@ public class DataCreation {
                 int bookIndex = Utility.getRandomInt(abbrOfBookList.size());
                 bookIndex = Utility.getProperItemIndex(abbrOfBookList.size(), readBookList, bookIndex);
                 readBookList.add(bookIndex);
-                userReadBookQueryBuilder.append("(" + abbrOfUserList.get(i) + ")-[:Read{rate:" + (Utility.getRandomInt(10) + 1) + "}]->(" + abbrOfBookList.get(Utility.getRandomInt(abbrOfBookList.size())) + "),\n");
+                userReadBookQueryBuilder.append("(" + abbrOfUserList.get(i) + ")-[:READ{rate:" + (Utility.getRandomInt(10) + 1) + "}]->(" + abbrOfBookList.get(Utility.getRandomInt(abbrOfBookList.size())) + "),\n");
             }
         }
         Utility.deleteComma(userReadBookQueryBuilder, 2);
@@ -152,11 +153,11 @@ public class DataCreation {
         queryText.append(authorCreationQuery + "\n");
     }
 
-    /*create (a2)-[:Write]->(n2)*/
+    /*create (a2)-[:WRITE]->(n2)*/
     private void createAuthorWriteBookQuery() {
         StringBuilder writeBookQuery = new StringBuilder("CREATE ");
         for (int i = 0; i < abbrOfBookList.size(); i++) {
-            writeBookQuery.append("(" + abbrOfBookList.get(i) + ")<-[:Write]-" + "(" + abbrOfAuthorList.get(Utility.getRandomInt(abbrOfAuthorList.size())) + "),\n");
+            writeBookQuery.append("(" + abbrOfBookList.get(i) + ")<-[:WRITE]-" + "(" + abbrOfAuthorList.get(Utility.getRandomInt(abbrOfAuthorList.size())) + "),\n");
         }
         Utility.deleteComma(writeBookQuery, 2);
 
@@ -168,20 +169,20 @@ public class DataCreation {
 //        StringBuilder fixUserFollowersDataQuery = new StringBuilder("");
 //        for (int i = 0; i < userNumber; i++) {
 //            fixUserFollowersDataQuery.append(
-//                    "MATCH (u" + userNumber + ":User)-[:Follow]->(u:User)" +
+//                    "MATCH (u" + userNumber + ":User)-[:FOLLOW]->(u:User)" +
 //                            "WHERE u" + userNumber + ".username = \"user" + userNumber + "\"" +
 //                            "WITH COUNT(u) AS totalFollowed, u0");
 //        }
 
 }
     /*
-    MATCH (u0:User)-[:Follow]->(u:User)
+    MATCH (u0:User)-[:FOLLOW]->(u:User)
     WHERE u0.username = "user0"
     WITH COUNT(u) AS totalFollowed, u0
     SET u0.totalFollowed = totalFollowed*/
     /*
     *
-    MATCH (a:Author{name:"Anthony", lastname:"Trollope"})-[:Write]->(b:Book)
+    MATCH (a:Author{name:"Anthony", lastname:"Trollope"})-[:WRITE]->(b:Book)
 WITH a, COUNT(b) AS totalBooks
 SET a.totalBook = totalBooks
 RETURN a
