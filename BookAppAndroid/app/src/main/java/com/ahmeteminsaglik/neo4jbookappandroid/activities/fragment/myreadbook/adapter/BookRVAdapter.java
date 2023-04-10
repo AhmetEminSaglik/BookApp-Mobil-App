@@ -43,7 +43,6 @@ public abstract class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.C
     }
 
 
-
     @Override
     public int getItemCount() {
         return listSize;
@@ -57,6 +56,7 @@ public abstract class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.C
         public TextView bookCardIndexNo;
         public TextView whyRecommend;
         public Button removeBookBtn;
+        public Button recBookAddReadButton;
 
         public CardViewHolder(@NonNull View view) {
             super(view);
@@ -67,6 +67,7 @@ public abstract class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.C
             bookCardIndexNo = view.findViewById(R.id.authorCardIndexNo);
             whyRecommend = view.findViewById(R.id.txtBookWhyRecommend);
             removeBookBtn = view.findViewById(R.id.removeReadBookBtn);
+            recBookAddReadButton = view.findViewById(R.id.recBookAddReadButton);
         }
     }
 

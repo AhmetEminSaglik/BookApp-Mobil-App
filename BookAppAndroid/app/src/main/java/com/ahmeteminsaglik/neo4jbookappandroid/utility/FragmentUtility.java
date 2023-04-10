@@ -1,13 +1,9 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.utility;
 
-import android.app.Activity;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
-import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.FragmentMyReadBook;
 
 public class FragmentUtility {
 

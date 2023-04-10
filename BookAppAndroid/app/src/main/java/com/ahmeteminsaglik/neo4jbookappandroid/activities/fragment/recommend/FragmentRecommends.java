@@ -1,6 +1,5 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.recommend;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,17 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter.BookRVAdapter;
-import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter.RecommendedBookpageBookRVAdapter;
-import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.profil.adapter.RelationshipUserRVAdapter;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter.RecommendedBookRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.recommend.adapter.AuthorRVAdapter;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.recommend.adapter.RecommendedUserRVAdapter;
-import com.ahmeteminsaglik.neo4jbookappandroid.model.Author;
-import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumRecommendReason;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedAuthor;
-import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedBook;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedUser;
-import com.ahmeteminsaglik.neo4jbookappandroid.model.RelationshipUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +55,7 @@ public class FragmentRecommends extends Fragment {
         allBookList.addAll(bookListFromFollowings);
         allBookList.addAll(bookList);
 
-        bookAdapter = new RecommendedBookpageBookRVAdapter(activity, allBookList);//new BookRVAdapter(activity, allBookList);
+        bookAdapter = new RecommendedBookRVAdapter(activity, allBookList);//new BookRVAdapter(activity, allBookList);
         authorAdapter = new AuthorRVAdapter(activity, authorList);
         recommendedUserRVAdapter = new RecommendedUserRVAdapter(activity, recommendedUserList);
         ConcatAdapter concatAdapter = new ConcatAdapter(recommendedUserRVAdapter, bookAdapter, authorAdapter);

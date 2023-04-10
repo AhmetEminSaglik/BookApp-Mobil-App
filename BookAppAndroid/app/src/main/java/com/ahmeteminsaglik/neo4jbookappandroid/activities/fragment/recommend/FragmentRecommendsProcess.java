@@ -226,4 +226,16 @@ public class FragmentRecommendsProcess {
             e.printStackTrace();
         }
     }
+
+    public void createConnectionUserReadBook(long bookId) {
+        Call<RestApiResponse> call = ManagerAll.getInstance().createConnectionUserReadBook(
+                SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID),
+                bookId
+        );
+        try {
+            call.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

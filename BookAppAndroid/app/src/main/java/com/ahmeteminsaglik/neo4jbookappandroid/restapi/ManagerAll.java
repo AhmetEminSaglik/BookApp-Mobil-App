@@ -76,6 +76,10 @@ public class ManagerAll extends BaseManager {
         return getBookRestApiClient().getRecommendedBookListByFriendRead(userId);
     }
 
+    public Call<RestApiResponse> createConnectionUserReadBook(long userId, long bookId){
+        return getBookRestApiClient().createConnectionUserReadBook(userId,bookId);
+    }
+
     public Call<RestApiResponse<List<Author>>> getRecommendAuthorListByPoint() {
         return getAuthorRestApiClient().getRecommendedAuthorListByPoint();
     }
