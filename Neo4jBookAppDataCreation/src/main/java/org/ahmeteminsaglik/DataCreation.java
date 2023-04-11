@@ -44,18 +44,38 @@ public class DataCreation {
                 "MATCH (u:User)<-[:FOLLOW]-(f:User)\n" +
                         "WITH u, COUNT(f) AS totalFollowers\n" +
                         "SET u.totalFollowers = totalFollowers\n" +
-                        "\n" +
                         "WITH u\n" +
                         "MATCH (u)-[:FOLLOW]->(f:User)\n" +
                         "WITH u, COUNT(f) AS totalFollowed\n" +
                         "SET u.totalFollowed = totalFollowed\n" +
-                        "\n" +
                         "WITH u\n" +
                         "MATCH (a:Author)-[:WRITE]->(b:Book)\n" +
                         "WITH u, a, COUNT(b) AS totalBook\n" +
                         "SET a.totalBook = totalBook\n" +
-                        "\n" +
-                        "RETURN u, a\n");
+                        "WITH a\n" +
+                        "MATCH (b:Book)<-[r:READ]-(u:User)\n" +
+                        "SET b.point = toFloat(round(((b.point * (b.totalRead) + r.rate) / (b.totalRead + 1)), 2))\n" +
+                        "SET b.totalRead = b.totalRead + 1");
+
+        /*
+        * MATCH (u:User)<-[:FOLLOW]-(f:User)
+WITH u, COUNT(f) AS totalFollowers
+SET u.totalFollowers = totalFollowers
+WITH u
+MATCH (u)-[:FOLLOW]->(f:User)
+WITH u, COUNT(f) AS totalFollowed
+SET u.totalFollowed = totalFollowed
+WITH u
+MATCH (a:Author)-[:WRITE]->(b:Book)
+WITH u, a, COUNT(b) AS totalBook
+SET a.totalBook = totalBook
+With u
+MATCH (b:Book)<-[:READ]-(u)
+MATCH (u:User)-[r:READ]->(b:Book)
+SET b.point = toFloat(round((b.point * b.totalRead + r.rate) / (b.totalRead + 1), 2))
+SET b.totalRead = b.totalRead + 1
+
+*/
         return query;
     }
 
@@ -80,7 +100,7 @@ public class DataCreation {
         //create users
         StringBuilder createUserText = new StringBuilder();
         for (int i = 0; i < userNumber; i++) {
-            createUserText.append("CREATE (u" + i + ":User{name:\"" + Utility.getRandomGenderName() + "\",lastname:\"" + Utility.getRandomGenderName() + "\",username:\"" + "user" + i + "\",password:\"pass\",totalFollowers:" + Utility.getRandomFollowers() + ",totalFollowed:" + Utility.getRandomFollowers() + "})\n");
+            createUserText.append("CREATE (u" + i + ":User{name:\"" + Utility.getRandomGenderName() + "\", lastname:\"" + Utility.getRandomGenderName() + "\", username:\"" + "user" + i + "\", password:\"pass\", totalFollowed:" + Utility.getRandomFollowers() + ", totalFollowers:" + Utility.getRandomFollowers() + "})\n");
             String abbr = "u" + i;
             abbrOfUserList.add(abbr);
         }
@@ -110,7 +130,7 @@ public class DataCreation {
     private void createBookCreationQuery() {
         StringBuilder bookCreationQuery = new StringBuilder();
         for (int i = 0; i < bookName.length; i++) {
-            bookCreationQuery.append("CREATE (b" + i + ":Book{name:\"" + bookName[i] + "\",totalRead:" + Utility.getRandomTotalRead() + ",point:" + Utility.getRandomDoublePoint() + "})\n");
+            bookCreationQuery.append("CREATE (b" + i + ":Book{name:\"" + bookName[i] + "\", totalRead:" + Utility.getRandomTotalRead() + ", point:" + Utility.getRandomDoublePoint() + "})\n");
             String abbr = "b" + i;
             abbrOfBookList.add(abbr);
         }
@@ -147,7 +167,7 @@ public class DataCreation {
                 name.append(nameArr[j] + " ");
             }
             Utility.deleteComma(name, 1);
-            authorCreationQuery.append("CREATE (a" + i + ":Author{name:\"" + name + "\",lastname:\"" + lastname + "\",totalBook:" + Utility.getRandomInt(50) + ",point:" + Utility.getRandomDoublePoint() + "})\n");
+            authorCreationQuery.append("CREATE (a" + i + ":Author{name:\"" + name + "\", lastname:\"" + lastname + "\", totalBook:" + Utility.getRandomInt(50) + ", point:" + Utility.getRandomDoublePoint() + "})\n");
         }
 //        System.out.println(authorCreationQuery);
         queryText.append(authorCreationQuery + "\n");
