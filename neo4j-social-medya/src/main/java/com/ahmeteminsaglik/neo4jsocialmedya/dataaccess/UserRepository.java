@@ -14,32 +14,32 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
 
     User findByUsername(String username);
 
-    @Query("MATCH (u:User)-[r:Read]->(b:Book) RETURN u,r,b LIMIT 3")
+    @Query("MATCH (u:User)-[r:READ]->(b:Book) RETURN u,r,b LIMIT 3")
     List<User> findAllWithBooks();
 
-    @Query("MATCH (u:User)-[r:Read]->(b:Book) " +
+    @Query("MATCH (u:User)-[r:READ]->(b:Book) " +
             "WHERE ID(u)=$userId " +
             "AND ID(b)=$bookId " +
             "DETACH DELETE r")
     void removeUserReadBookConnection(long userId, long bookId);
 
-    @Query("MATCH (u:User)-[:Follow]->(f:User) " +
+    @Query("MATCH (u:User)-[:FOLLOW]->(f:User) " +
             "WHERE ID(u) = $userId " +
             "RETURN f")
     List<User> findAllFollowedUsersByUserId(long userId);
 
-    @Query("MATCH (u:User)<-[:Follow]-(f:User) " +
+    @Query("MATCH (u:User)<-[:FOLLOW]-(f:User) " +
             "WHERE ID(u) = $userId " +
             "RETURN f")
     List<User> findAllFollowersOfUserId(long userId);
 
-    @Query("MATCH (u1:User)-[f:Follow]->(u2:User)" +
+    @Query("MATCH (u1:User)-[f:FOLLOW]->(u2:User)" +
             "WHERE ID(u1) = $userId " +
             "AND ID(u2) = $followedUserId " +
             "DETACH DELETE f")
     void removeUserFollowedRelationShipUser(long userId, long followedUserId);
 
-    @Query("MATCH (u1:User)<-[f:Follow]-(u2:User)" +
+    @Query("MATCH (u1:User)<-[f:FOLLOW]-(u2:User)" +
             "WHERE ID(u1) = $userId " +
             "AND ID(u2) = $followedUserId " +
             "DETACH DELETE f")
@@ -47,8 +47,8 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
 
     /*
      * This query return user's friends' most common following friends as recommened user*/
-    @Query("MATCH (u:User)-[:Follow]->(fu:User)-[:Follow]->(f:User) " +
-            "WHERE ID(u) = $userId AND NOT (u)-[:Follow]->(f) " +
+    @Query("MATCH (u:User)-[:FOLLOW]->(fu:User)-[:FOLLOW]->(f:User) " +
+            "WHERE ID(u) = $userId AND NOT (u)-[:FOLLOW]->(f) " +
             "WITH f, COUNT(DISTINCT fu) AS num_followers " +
             "ORDER BY num_followers DESC " +
             "RETURN f, num_followers LIMIT 5 ")
@@ -58,12 +58,12 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
             "MATCH (u2:User)" +
             "WHERE ID(u)= $userId " +
             "AND NOT ID(u2)= $userId " +
-            "AND NOT (u)-[:Follow]->(u2) " +
+            "AND NOT (u)-[:FOLLOW]->(u2) " +
             "RETURN u2 LIMIT 5")
     List<User> findRandomUserToRecommend(long userId);
 
     @Query("MATCH (u:User) WHERE ID(u) = $userId " +
             "MATCH (u2:User) WHERE ID(u2) = $friendUserId " +
-            "MERGE (u)-[f:Follow]->(u2)")
+            "MERGE (u)-[f:FOLLOW]->(u2)")
     void createConnectionFollowFriend(long userId, long friendUserId);
 }

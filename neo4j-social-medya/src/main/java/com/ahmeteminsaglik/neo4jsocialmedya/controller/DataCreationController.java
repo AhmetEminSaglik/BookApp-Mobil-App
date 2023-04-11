@@ -12,12 +12,17 @@ public class DataCreationController {
 
     @GetMapping("create")
     public String getRandomNeo4jData() {
-        return dataCreation.getQueryText().toString();
+        return getHTMLCode(dataCreation.getQueryText().toString());
     }
 
     @GetMapping("fix")
     public String getFixDataQuery() {
-        return dataCreation.getFixDataQueryText().toString();
+        String text = dataCreation.getFixDataQueryText().toString();
+        return getHTMLCode(text);
     }
 
+    private String getHTMLCode(String text) {
+        text = text.replaceAll("\n", "<br>");
+        return text;
+    }
 }

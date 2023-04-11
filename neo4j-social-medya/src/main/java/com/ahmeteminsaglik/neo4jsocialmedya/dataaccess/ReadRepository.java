@@ -7,6 +7,6 @@ import org.springframework.data.neo4j.repository.query.Query;
 import java.util.List;
 
 public interface ReadRepository extends Neo4jRepository<Read, Long> {
-    @Query("MATCH (u:User)-[r:Read]->(b:Book) RETURN u,r,b LIMIT 3")
+    @Query("MATCH (u:User)-[r:READ]->(b:Book) RETURN u,r,b LIMIT 3")
     List<Read> findAll();
 }
