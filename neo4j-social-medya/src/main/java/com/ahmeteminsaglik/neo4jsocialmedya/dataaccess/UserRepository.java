@@ -51,7 +51,7 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
             "WHERE ID(u) = $userId AND NOT (u)-[:FOLLOW]->(f) " +
             "WITH f, COUNT(DISTINCT fu) AS num_followers " +
             "ORDER BY num_followers DESC " +
-            "RETURN f, num_followers LIMIT 5 ")
+            "RETURN f LIMIT 5 ")
     List<User> findCommonUsersByFriends(long userId);
 
     @Query("MATCH (u:User) " +
