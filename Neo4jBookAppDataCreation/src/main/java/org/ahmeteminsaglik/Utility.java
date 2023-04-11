@@ -23,9 +23,9 @@ public class Utility {
 
     static String getRandomGenderName() {
         if (random.nextInt(100) > 50) {
-            return Main.maleName[getRandomInt(Main.maleName.length)];
+            return DataCreation.maleName[getRandomInt(DataCreation.maleName.length)];
         } else {
-            return Main.femaleName[getRandomInt(Main.femaleName.length)];
+            return DataCreation.femaleName[getRandomInt(DataCreation.femaleName.length)];
         }
 
     }
@@ -55,6 +55,7 @@ public class Utility {
 
     static int getRandomFollowers() {
         return random.nextInt(100);
+//        return 0;
     }
 
     static void deleteComma(StringBuilder stringBuilder, int commaIndexToMinusFromLength) {

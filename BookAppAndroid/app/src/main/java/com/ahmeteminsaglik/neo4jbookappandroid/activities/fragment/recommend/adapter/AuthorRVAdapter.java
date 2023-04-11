@@ -51,7 +51,7 @@ public class AuthorRVAdapter extends RecyclerView.Adapter<AuthorRVAdapter.CardVi
         holder.totalBook.setText(Integer.toString(totalBook));
         holder.point.setText(Double.toString(point));
         holder.whyRecommend.setText(whyRecommend);
-        holder.cardView.setBackgroundResource(CardUtility.getCardBackgroudColorByRecommendType(whyRecommend));
+        holder.cardView.setBackgroundResource(CardUtility.getCardBackgroudColorByRecommendTypeForUser(whyRecommend));
     }
 
     @Override

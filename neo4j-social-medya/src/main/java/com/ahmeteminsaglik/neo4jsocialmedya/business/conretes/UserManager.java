@@ -23,9 +23,56 @@ public class UserManager implements UserService {
     public User findByName(String name) {
         return userRepository.findByName(name);
     }
+
     @Override
     public User findByUsername(String name) {
         return userRepository.findByUsername(name);
+    }
+
+    @Override
+    public List<User> findAllWithReadBooks() {
+        return userRepository.findAllWithBooks();
+    }
+
+    @Override
+    public void removeUserReadBookConnection(long userId, long bookId) {
+        userRepository.removeUserReadBookConnection(userId, bookId);
+    }
+
+    @Override
+    public List<User> findAllFollowedUsersByUserId(long id) {
+        return userRepository.findAllFollowedUsersByUserId(id);
+    }
+
+    @Override
+    public List<User> findAllFollowersOfUserId(long id) {
+        return userRepository.findAllFollowersOfUserId(id);
+    }
+
+    @Override
+    public void removeUserFollowedRelationShipUser(long userId, long followedUserId) {
+        userRepository.removeUserFollowedRelationShipUser(userId, followedUserId);
+    }
+
+    @Override
+    public void removeUserFollowerRelationShipUser(long userId, long followerUserId) {
+        userRepository.removeUserFollowerRelationShipUser(userId, followerUserId);
+    }
+
+    @Override
+    public List<User> findCommonUsersByFriends(long userId) {
+        return userRepository.findCommonUsersByFriends(userId);
+    }
+
+    @Override
+    public List<User> findRandomUserToRecommend(long userId) {
+        return userRepository.findRandomUserToRecommend(userId);
+    }
+
+
+    @Override
+    public void createConnectionFollowFriend(long userId, long friendUserId) {
+        userRepository.createConnectionFollowFriend(userId, friendUserId);
     }
 
     @Override

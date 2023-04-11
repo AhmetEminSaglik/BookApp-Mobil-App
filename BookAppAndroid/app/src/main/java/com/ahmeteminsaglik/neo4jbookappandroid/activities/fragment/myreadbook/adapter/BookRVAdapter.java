@@ -1,84 +1,51 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter;
 
-import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
-import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumRecommendReason;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedBook;
 import com.ahmeteminsaglik.neo4jbookappandroid.utility.CardUtility;
 
 import java.util.List;
 
-public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHolder> {
-    private Context context;
-    private List<RecommendedBook> recommendedBookList;
-//    private List<Book> bookList;
+public abstract class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHolder> {
+    protected AppCompatActivity activity;
+    protected int cardDesignId;
+    protected int listSize;
+//    private List<RecommendedBook> recommendedBookList;
+    //    private List<Book> bookList;
 
-    public BookRVAdapter(Context context, List<RecommendedBook> recommendedBookList) {
-        this.context = context;
-        this.recommendedBookList = recommendedBookList;
+    public BookRVAdapter(AppCompatActivity activity, int cardDesignId, int listSize) {
+        this.activity = activity;
+        this.cardDesignId = cardDesignId;
+        this.listSize = listSize;
     }
-
-
-//    public BookRVAdapter(Context context) {
-//        this.context = context;
-//    }
-
-//    public List<RecommendedBook> getRecommendedBookList() {
-//        return recommendedBookList;
-//    }
-//
-//    public void setRecommendedBookList(List<RecommendedBook> recommendedBookList) {
-//        this.recommendedBookList = recommendedBookList;
-//    }
-//
-//    public List<Book> getBookList() {
-//        return bookList;
-//    }
-//
-//    public void setBookList(List<Book> bookList) {
-//        this.bookList = bookList;
-//    }
 
 
     @NonNull
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(context)
-                .inflate(R.layout.book_card_design, parent, false);
+        View itemView = LayoutInflater.from(activity.getApplicationContext())
+                .inflate(cardDesignId, parent, false);
 
         return new CardViewHolder(itemView);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        Book book = recommendedBookList.get(position).getBook();
-        String whyRecommend = recommendedBookList.get(position).getWhyRecommend();
-        String bookName = book.getName();
-        double point = book.getPoint();
-        int totalRead = book.getTotalRead();
-        holder.txtVBookName.setText(bookName);
-        holder.txtVBookPoint.setText(Double.toString(point));
-        holder.txtVTotalRead.setText(Integer.toString(totalRead));
-        holder.bookCardIndexNo.setText(Integer.toString(position + 1));
-        holder.whyRecommend.setText(whyRecommend);
-        holder.bookCardView.setBackgroundResource(CardUtility.getCardBackgroudColorByRecommendType(whyRecommend));
-    }
 
     @Override
     public int getItemCount() {
-        return recommendedBookList.size();
+        return listSize;
     }
 
     public class CardViewHolder extends RecyclerView.ViewHolder {
@@ -88,6 +55,8 @@ public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHo
         public TextView txtVTotalRead;
         public TextView bookCardIndexNo;
         public TextView whyRecommend;
+        public Button removeBookBtn;
+        public Button recBookAddReadButton;
 
         public CardViewHolder(@NonNull View view) {
             super(view);
@@ -97,8 +66,9 @@ public class BookRVAdapter extends RecyclerView.Adapter<BookRVAdapter.CardViewHo
             txtVTotalRead = view.findViewById(R.id.txtVAuthorTotalBookNumber);
             bookCardIndexNo = view.findViewById(R.id.authorCardIndexNo);
             whyRecommend = view.findViewById(R.id.txtBookWhyRecommend);
+            removeBookBtn = view.findViewById(R.id.removeReadBookBtn);
+            recBookAddReadButton = view.findViewById(R.id.recBookAddReadButton);
         }
     }
-
 
 }

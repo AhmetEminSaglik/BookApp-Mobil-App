@@ -8,6 +8,7 @@ import com.ahmeteminsaglik.neo4jbookappandroid.model.response.concrete.LoginResp
 import com.ahmeteminsaglik.neo4jbookappandroid.model.response.concrete.SignUpResponse;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 
@@ -20,6 +21,35 @@ public class ManagerAll extends BaseManager {
 
     public Call<List<User>> getAllUser() {
         return getUserRestApiClient().getAllUsers();
+    }
+
+
+    public Call<RestApiResponse<Object>> removeUserReadBookConection(long userId, long bookId) {
+        return getUserRestApiClient().removeUserReadBookConnection(userId, bookId);
+    }
+
+    public Call<RestApiResponse<List<User>>> getUserRelationshipFollowedListRequest(long id) {
+        return getUserRestApiClient().getFollowedList(id);
+    }
+
+    public Call<RestApiResponse<List<User>>> getUserRelationshipFollowerListRequest(long id) {
+        return getUserRestApiClient().getFollowerList(id);
+    }
+
+    public Call<RestApiResponse<List<User>>> removeFollowedUserRelationShipRequest(long userId, long followedUserId) {
+        return getUserRestApiClient().removeFollowedUserRelationship(userId, followedUserId);
+    }
+
+    public Call<RestApiResponse<List<User>>> removeFollowerUserRelationShipRequest(long userId, long followerUserId) {
+        return getUserRestApiClient().removeFollowerUserRelationship(userId, followerUserId);
+    }
+
+    public Call<RestApiResponse<List<User>>> getRecommendedUserByFriendRead(long userId) {
+        return getUserRestApiClient().getRecommendedUserList(userId);
+    }
+
+    public Call<RestApiResponse> createConnectionFollowFriend(long userId, long friendUserId){
+        return getUserRestApiClient().createConnectionFollowFriend(userId,friendUserId);
     }
 
     public Call<LoginResponse> getUserByLoginRequest(User user) {
@@ -40,6 +70,14 @@ public class ManagerAll extends BaseManager {
 
     public Call<RestApiResponse<List<Book>>> getRecommendedBookListByTotalRead() {
         return getBookRestApiClient().getRecommendedBookListByTotalRead();
+    }
+
+    public Call<RestApiResponse<List<Book>>> getRecommendedBookListByFriendRead(Long userId) {
+        return getBookRestApiClient().getRecommendedBookListByFriendRead(userId);
+    }
+
+    public Call<RestApiResponse> createConnectionUserReadBook(long userId, long bookId){
+        return getBookRestApiClient().createConnectionUserReadBook(userId,bookId);
     }
 
     public Call<RestApiResponse<List<Author>>> getRecommendAuthorListByPoint() {
