@@ -10,11 +10,7 @@
       <change beforePath="$PROJECT_DIR$/target/Neo4jBookAppDataCreation-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Neo4jBookAppDataCreation-1.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/DataCreation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/DataCreation.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/controller/DataCreationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/controller/DataCreationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/BookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/BookRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/ReadRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/ReadRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/dataaccess/UserRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +111,7 @@
       <workItem from="1680528626534" duration="82000" />
       <workItem from="1680528737293" duration="1176000" />
       <workItem from="1681086594902" duration="1325000" />
-      <workItem from="1681169889791" duration="5052000" />
+      <workItem from="1681169889791" duration="8782000" />
     </task>
     <servers />
   </component>

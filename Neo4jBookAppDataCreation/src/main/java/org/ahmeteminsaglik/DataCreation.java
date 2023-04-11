@@ -38,7 +38,7 @@ public class DataCreation {
         return queryText;
     }
 
-    public StringBuilder getFixDataQueryText() {
+    public StringBuilder getFixUserDataQueryText() {
         StringBuilder query = new StringBuilder("");
         query.append(
                 "MATCH (u:User)<-[:FOLLOW]-(f:User)\n" +
@@ -47,35 +47,30 @@ public class DataCreation {
                         "WITH u\n" +
                         "MATCH (u)-[:FOLLOW]->(f:User)\n" +
                         "WITH u, COUNT(f) AS totalFollowed\n" +
-                        "SET u.totalFollowed = totalFollowed\n" +
-                        "WITH u\n" +
-                        "MATCH (a:Author)-[:WRITE]->(b:Book)\n" +
-                        "WITH u, a, COUNT(b) AS totalBook\n" +
-                        "SET a.totalBook = totalBook\n" +
-                        "WITH a\n" +
-                        "MATCH (b:Book)<-[r:READ]-(u:User)\n" +
-                        "SET b.point = toFloat(round(((b.point * (b.totalRead) + r.rate) / (b.totalRead + 1)), 2))\n" +
-                        "SET b.totalRead = b.totalRead + 1");
+                        "SET u.totalFollowed = totalFollowed\n");
 
-        /*
-        * MATCH (u:User)<-[:FOLLOW]-(f:User)
-WITH u, COUNT(f) AS totalFollowers
-SET u.totalFollowers = totalFollowers
-WITH u
-MATCH (u)-[:FOLLOW]->(f:User)
-WITH u, COUNT(f) AS totalFollowed
-SET u.totalFollowed = totalFollowed
-WITH u
-MATCH (a:Author)-[:WRITE]->(b:Book)
-WITH u, a, COUNT(b) AS totalBook
-SET a.totalBook = totalBook
-With u
-MATCH (b:Book)<-[:READ]-(u)
-MATCH (u:User)-[r:READ]->(b:Book)
-SET b.point = toFloat(round((b.point * b.totalRead + r.rate) / (b.totalRead + 1), 2))
-SET b.totalRead = b.totalRead + 1
+        return query;
+    }
 
-*/
+    public StringBuilder getFixBookPointDataQueryText() {
+        StringBuilder query = new StringBuilder("");
+        query.append("MATCH (b:Book)<-[r:READ]-(u:User)\n" +
+                "SET b.point = toFloat(round(((b.point * (b.totalRead) + r.rate) / (b.totalRead + 1)), 2))\n" +
+                "SET b.totalRead = b.totalRead + 1\n");
+
+        return query;
+    }
+
+    public StringBuilder getFixAuthorDataQueryText() {
+        StringBuilder query = new StringBuilder("");
+        query.append("MATCH (a:Author)-[:WRITE]->(b:Book)\n" +
+                "WITH a, COUNT(b) AS totalBook\n" +
+                "SET a.totalBook = totalBook\n" +
+                "WITH a\n" +
+                "MATCH (a:Author)-[:WRITE]->(b:Book)\n" +
+                "WITH a, sum(b.point) as totalPoints, count(b) as totalBooks\n" +
+                "SET a.point = toFloat(round(totalPoints / totalBooks * 100) / 100.0)");
+
         return query;
     }
 
