@@ -9,6 +9,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 
@@ -23,5 +24,8 @@ public interface RestApiBookService {
     Call<RestApiResponse<List<Book>>> getRecommendedBookListByTotalRead();
 
     @GET("recommend/friend/{userId}")
-    Call<RestApiResponse<List<Book>>> getRecommendedBookListByByFriendRead(@Path("userId") Long id);
+    Call<RestApiResponse<List<Book>>> getRecommendedBookListByFriendRead(@Path("userId") Long id);
+
+    @POST("{userId}/read/{bookId}")
+    Call<RestApiResponse> createConnectionUserReadBook(@Path("userId") long userId, @Path("bookId") long bookId);
 }

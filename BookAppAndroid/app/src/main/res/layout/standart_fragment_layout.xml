@@ -7,7 +7,7 @@
     android:background="@color/background_constraintColor">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bookRecyleView"
+        android:id="@+id/standardRecyleView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

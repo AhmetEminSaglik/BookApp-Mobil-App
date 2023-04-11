@@ -13,19 +13,23 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.HomeActivity;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.FragmentMyReadBook;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.profil.FragmentProfil;
 import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.profil.FragmentProfilProcess;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumRelationship;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RelationshipUser;
 import com.ahmeteminsaglik.neo4jbookappandroid.utility.CardUtility;
+import com.ahmeteminsaglik.neo4jbookappandroid.utility.FragmentUtility;
 
 import java.util.List;
 
 public class RelationshipUserRVAdapter extends RecyclerView.Adapter<RelationshipUserRVAdapter.CardViewHolder> {
-    boolean btnFunctionInProgress = false;
     private AppCompatActivity activity;
     private List<RelationshipUser> list;
 
@@ -52,31 +56,27 @@ public class RelationshipUserRVAdapter extends RecyclerView.Adapter<Relationship
         holder.txtLastname.setText(relationshipUser.getLastname());
         holder.relationshipType.setText(relationshipUser.getEnumRelationship().getName());
         holder.cardView.setBackgroundResource(CardUtility.getCardBackgroundColorByRelationshipType(relationshipUser.getEnumRelationship().getName()));
-        holder.removeRelationshipBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public synchronized void onClick(View view) {
-                if (!btnFunctionInProgress) {
-                    btnFunctionInProgress = true;
-                    if (relationshipUser.getEnumRelationship().equals(EnumRelationship.FOLLOWED)) {
-                        FragmentProfilProcess.removeFollowedUserRelationship(relationshipUser.getId());
-                        Toast.makeText(activity, relationshipUser.getName() + " " + relationshipUser.getLastname() + "is not following any more.", Toast.LENGTH_LONG).show();
-                    }
-                    if (relationshipUser.getEnumRelationship().equals(EnumRelationship.FOLLOWER)) {
-                        FragmentProfilProcess.removeFollowerUserRelationship(relationshipUser.getId());
-                        Toast.makeText(activity, "Follower is removed", Toast.LENGTH_LONG).show();
-                    }
-//                    Intent intent = new Intent(activity.getApplicationContext(), HomeActivity.class);
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    activity.getApplicationContext().startActivity(intent);
-//                    activity.finish();
-                } else {
-                    Toast.makeText(activity, "Please wait relationship is removing.", Toast.LENGTH_LONG).show();
-                }
-
+        holder.removeRelationshipBtn.setOnClickListener(view -> {
+            if (relationshipUser.getEnumRelationship().equals(EnumRelationship.FOLLOWED)) {
+                FragmentProfilProcess.removeFollowedUserRelationship(relationshipUser.getId());
+                Toast.makeText(activity, relationshipUser.getName() + " " + relationshipUser.getLastname() + "is not following any more.", Toast.LENGTH_LONG).show();
             }
+            if (relationshipUser.getEnumRelationship().equals(EnumRelationship.FOLLOWER)) {
+                FragmentProfilProcess.removeFollowerUserRelationship(relationshipUser.getId());
+                Toast.makeText(activity, "Follower is removed", Toast.LENGTH_LONG).show();
+            }
+            FragmentUtility.updateFragment(activity, new FragmentProfil(activity));//   updateFragment();
         });
 
     }
+
+/*    private void updateFragment() {
+        FragmentProfil fragment = new FragmentProfil(activity);
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.base_fragment, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }*/
 
     @Override
     public int getItemCount() {

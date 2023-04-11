@@ -40,7 +40,7 @@ public class FragmentMyReadBook extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my_read_book_layout, container, false); // is used to connect desing in layout
+        return inflater.inflate(R.layout.standart_fragment_layout, container, false); // is used to connect desing in layout
     }
 
     @Override
@@ -53,7 +53,7 @@ public class FragmentMyReadBook extends Fragment {
     }
 
     private void createRecycleView(View view) {
-        rv = view.findViewById(R.id.bookRecyleView);
+        rv = view.findViewById(R.id.standardRecyleView);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }

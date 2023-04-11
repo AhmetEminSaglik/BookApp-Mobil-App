@@ -11,15 +11,12 @@ import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.DataResult;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.Result;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessDataResult;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessResult;
-import org.apache.commons.lang3.ObjectUtils;
-import org.neo4j.cypher.internal.expressions.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import retrofit2.http.Body;
 
-import javax.xml.crypto.Data;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/users")
@@ -75,7 +72,7 @@ public class UserController {
     }
 
     @DeleteMapping("/readbooks")
-    public Result removeUserReadBookConnection(@RequestParam long userId, @RequestParam Long bookId) {
+    public Result removeUserReadBookConnection(@RequestParam long userId, @RequestParam long bookId) {
         userService.removeUserReadBookConnection(userId, bookId);
         return new SuccessResult("Connection is removed successfully");
     }
@@ -92,16 +89,40 @@ public class UserController {
         return new SuccessDataResult<>(userList, "User's followed users are retrived");
     }
 
+    @PostMapping("/{userId}/follow/{friendUserId}")
+    public Result createNewConnectionFollowUser(@PathVariable long userId, @PathVariable long friendUserId) {
+        userService.createConnectionFollowFriend(userId, friendUserId);
+        return new SuccessResult("Connection is created");
+    }
+
     @DeleteMapping("/{userId}/followed/{followedUserId}")
     public Result removeUserFollowedRelationShipUser(@PathVariable long userId, @PathVariable long followedUserId) {
         userService.removeUserFollowedRelationShipUser(userId, followedUserId);
         return new SuccessResult("Relationship is deleted");
     }
+
     @DeleteMapping("/{userId}/follower/{followerUserId}")
     public Result removeUserFollowerRelationShipUser(@PathVariable long userId, @PathVariable long followerUserId) {
         userService.removeUserFollowerRelationShipUser(userId, followerUserId);
         return new SuccessResult("Relationship is deleted");
     }
+
+    @GetMapping("/recommend/user/{userId}")
+    public DataResult<List<User>> getRecommendedUserList(@PathVariable long userId) {
+        List<User> userList = userService.findCommonUsersByFriends(userId);
+        int userSize = userList.size();
+        if (userSize < 5) {
+            List<User> userListRandom = userService.findRandomUserToRecommend(userId);
+            userList.addAll(userListRandom);
+            Set<User> set = new HashSet<>(userList);
+            userList = set.stream().toList();
+        }
+        return new SuccessDataResult<>(userList, "Recommended user list is succesfully retrived");
+    }
+    /*@GetMapping("/recommend/friend/{userId}")
+    public DataResult<List<User>> getByMostReadBookFromFollowings(@PathVariable Long userId) {
+        return new SuccessDataResult<>(userService.findCommonUsersByFriends(userId), "Data retrived Successfully");
+    }*/
 /*    @PostMapping("/post/followed")
     public DataResult<List<User>> getFollowedUserList2(@Body int userId) {
         List<User> userList = userService.findAllFollowedUsersByUserId(userId);

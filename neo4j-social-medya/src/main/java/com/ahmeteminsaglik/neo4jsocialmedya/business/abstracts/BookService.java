@@ -12,10 +12,13 @@ public interface BookService {
 
     Book save(Book book);
 
-    List<Book> getAllReadBooksByUserId(Long userId);
+    List<Book> getAllReadBooksByUserId(long userId);
 
     List<Book> findByHighestPoint();
-    List<Book> findByHighestTotalRead();
-    List<Book> findByMostReadBookFromFollowings(Long userId);
 
+    List<Book> findByHighestTotalRead();
+
+    List<Book> findByMostReadBookFromFollowings(long userId);
+
+    void createConnectionUserReadBook(long userId, long bookId);
 }

@@ -33,7 +33,7 @@ public class FragmentProfil extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_relationship_layout, container, false); // is used to connect desing in layout
+        return inflater.inflate(R.layout.standart_fragment_layout, container, false); // is used to connect desing in layout
     }
 
 
@@ -50,7 +50,7 @@ public class FragmentProfil extends Fragment {
     }
 
     private void createRecycleView(View view) {
-        rv = view.findViewById(R.id.relationshipRecyleView);
+        rv = view.findViewById(R.id.standardRecyleView);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }

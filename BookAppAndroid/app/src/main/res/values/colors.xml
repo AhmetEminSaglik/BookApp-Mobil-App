@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="constraintColor">#0644A1</color>
     <color name="background_constraintColor">#1E68B6</color>
-    <color name="card_constraintColor_0_default_light_blue">#8CD7F8</color>
+    <color name="card_constraintColor_0_default_light_blue">#BAD7FB</color>
     <color name="card_constraintColor_1_light_red">#F1BBD2</color>
     <color name="card_constraintColor_2_light_green">#BEEAE0</color>
     <color name="card_constraintColor_3_light_purple">#D4B7E8</color>
@@ -18,5 +18,6 @@
     <color name="btnColor">#3075DC</color>
     <color name="btnRemoveBackgroundColor">#F3001C</color>
     <color name="btnRemoveTextColor">#000000</color>
+    <color name="btnInsertionBackgroundColor">#21BF28</color>
     <color name="recommendTxtColor">#D80404</color>
 </resources>

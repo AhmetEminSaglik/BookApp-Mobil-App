@@ -10,6 +10,9 @@ import com.ahmeteminsaglik.neo4jbookappandroid.model.EnumUser;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedAuthor;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedBook;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedUser;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.RelationshipUser;
+import com.ahmeteminsaglik.neo4jbookappandroid.model.User;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.response.abstracts.RestApiErrorResponse;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.response.abstracts.RestApiResponse;
 import com.ahmeteminsaglik.neo4jbookappandroid.restapi.ManagerAll;
@@ -44,6 +47,10 @@ public class FragmentRecommendsProcess {
 
     public List<RecommendedBook> getBookListByFriendsRead() {
         return sendRecommendBookByFriendReadRequest();
+    }
+
+    public List<RecommendedUser> getRelationshipUserList() {
+        return sendRecommendUserListRequest();
     }
 
 
@@ -128,7 +135,7 @@ public class FragmentRecommendsProcess {
 
     private List<RecommendedBook> sendRecommendBookByFriendReadRequest() {
         Call<RestApiResponse<List<Book>>> call = ManagerAll.getInstance().
-                getRecommendedBookListByByFriendRead(SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID));
+                getRecommendedBookListByFriendRead(SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID));
 
         try {
             List<Book> readBookList = null;
@@ -153,6 +160,33 @@ public class FragmentRecommendsProcess {
         }
     }
 
+    private List<RecommendedUser> sendRecommendUserListRequest() {
+        Call<RestApiResponse<List<User>>> call = ManagerAll.getInstance().
+                getRecommendedUserByFriendRead(SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID));
+
+        try {
+            List<User> userList = null;
+            Response<RestApiResponse<List<User>>> response = call.execute();
+            if (response.code() == 200) {
+                userList = response.body().getData();
+            } else/* if (response.code() == 400) */ {
+                Gson gson = new Gson();
+                RestApiErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(), RestApiErrorResponse.class);
+                String errMsg = errorResponse.getMessage();
+                if (errMsg != null) {
+                    Log.e("Error  ", errMsg);
+                } else {
+                    Log.e("Error Message is empty : ", "no mesage");
+                }
+                Toast.makeText(context, errMsg, Toast.LENGTH_LONG).show();
+            }
+            return convertUserListToRecomendedUserList(userList, EnumRecommendReason.FRIEND.getName());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     private List<RecommendedAuthor> getRecommendedAuthor(List<Author> authorList, String reason) {
         List<RecommendedAuthor> recommendedAuthorList = new ArrayList<>();
@@ -171,5 +205,37 @@ public class FragmentRecommendsProcess {
         return recommendedBookList;
     }
 
+    private List<RecommendedUser> convertUserListToRecomendedUserList(List<User> userList, String reason) {
+        List<RecommendedUser> recommendedUserList = new ArrayList<>();
+        for (User tmp : userList) {
+            RecommendedUser recommendedUser = new RecommendedUser(tmp, reason);
+            recommendedUserList.add(recommendedUser);
+        }
+        return recommendedUserList;
+    }
 
+
+    public void createConnectionFollowRecommendedUser(long friendUserId) {
+        Call<RestApiResponse> call = ManagerAll.getInstance().createConnectionFollowFriend(
+                SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID),
+                friendUserId
+        );
+        try {
+            call.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createConnectionUserReadBook(long bookId) {
+        Call<RestApiResponse> call = ManagerAll.getInstance().createConnectionUserReadBook(
+                SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID),
+                bookId
+        );
+        try {
+            call.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

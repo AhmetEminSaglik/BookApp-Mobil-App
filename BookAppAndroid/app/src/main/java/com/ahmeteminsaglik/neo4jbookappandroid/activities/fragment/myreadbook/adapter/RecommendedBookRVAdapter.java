@@ -1,22 +1,29 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.myreadbook.adapter;
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.ahmeteminsaglik.neo4jbookappandroid.R;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.recommend.FragmentRecommends;
+import com.ahmeteminsaglik.neo4jbookappandroid.activities.fragment.recommend.FragmentRecommendsProcess;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.Book;
 import com.ahmeteminsaglik.neo4jbookappandroid.model.RecommendedBook;
 import com.ahmeteminsaglik.neo4jbookappandroid.utility.CardUtility;
+import com.ahmeteminsaglik.neo4jbookappandroid.utility.FragmentUtility;
 
 import java.util.List;
 
-public class RecommendedBookpageBookRVAdapter extends BookRVAdapter {
+public class RecommendedBookRVAdapter extends BookRVAdapter {
     private final List<RecommendedBook> bookList;
+    private FragmentRecommendsProcess recommendsProcess = new FragmentRecommendsProcess(activity);
 
-    public RecommendedBookpageBookRVAdapter(AppCompatActivity activity, List<RecommendedBook> bookList) {
+    public RecommendedBookRVAdapter(AppCompatActivity activity, List<RecommendedBook> bookList) {
         super(activity, R.layout.recommend_book_card_design, bookList.size());
         this.bookList = bookList;
     }
+
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         Book book = bookList.get(position).getBook();
@@ -30,7 +37,12 @@ public class RecommendedBookpageBookRVAdapter extends BookRVAdapter {
         holder.bookCardIndexNo.setText(Integer.toString((bookList.size() - position)));
         holder.whyRecommend.setText(whyRecommend);
 //        holder.removeBookBtn.setOnClickListener();
-        holder.bookCardView.setBackgroundResource(CardUtility.getCardBackgroudColorByRecommendType(whyRecommend));
+        holder.bookCardView.setBackgroundResource(CardUtility.getCardBackgroudColorByRecommendTypeForBook(whyRecommend));
+        holder.recBookAddReadButton.setOnClickListener(e -> {
+            recommendsProcess.createConnectionUserReadBook(book.getId());
+            Toast.makeText(activity.getApplicationContext(), "Book is added to read list", Toast.LENGTH_SHORT).show();
+            FragmentUtility.updateFragment(activity, new FragmentRecommends(activity));
+        });
 /*        holder.bookCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

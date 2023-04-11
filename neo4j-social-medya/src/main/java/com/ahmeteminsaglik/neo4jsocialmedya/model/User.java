@@ -8,6 +8,7 @@ import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @NoArgsConstructor
@@ -50,5 +51,18 @@ public class User {
                 ", password='" + password + '\'' +
                 ", totalFollowers=" + totalFollowers +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return totalFollowers == user.totalFollowers && totalFollowed == user.totalFollowed && Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(lastname, user.lastname) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, lastname, username, password, totalFollowers, totalFollowed);
     }
 }

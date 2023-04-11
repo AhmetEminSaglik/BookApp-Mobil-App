@@ -25,5 +25,11 @@ public interface UserService {
     List<User> findAllFollowersOfUserId(long id);
 
     void removeUserFollowedRelationShipUser(long userId, long followedUserId);
+
     void removeUserFollowerRelationShipUser(long userId, long followedUserId);
+
+    List<User> findCommonUsersByFriends(long userId);
+    List<User> findRandomUserToRecommend(long userId);
+
+    void createConnectionFollowFriend(long userId, long friendUserId);
 }
