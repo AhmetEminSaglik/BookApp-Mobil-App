@@ -1,0 +1,12 @@
+
+c
+java:S1192e"HDefine a constant instead of duplicating this literal "CREATE " 3 times.(Ëô¥Üýÿÿÿÿ
+7
+java:S1170"!Make this final field static too.(¦´å¬
+V	java:S125S"<This block of commented-out lines of code should be removed.(ÀòôÜùÿÿÿÿ
+V	java:S125`"<This block of commented-out lines of code should be removed.(§¥Ãòøÿÿÿÿ
+V	java:S125s"<This block of commented-out lines of code should be removed.(Úû°—úÿÿÿÿ
+V	java:S125~"<This block of commented-out lines of code should be removed.(¥š¹Ôøÿÿÿÿ
+R	java:S125"<This block of commented-out lines of code should be removed.(´›ëÔ
+W	java:S125¡"<This block of commented-out lines of code should be removed.(ä¥ùÂúÿÿÿÿ
+R	java:S125¬"<This block of commented-out lines of code should be removed.(É¯Àó
