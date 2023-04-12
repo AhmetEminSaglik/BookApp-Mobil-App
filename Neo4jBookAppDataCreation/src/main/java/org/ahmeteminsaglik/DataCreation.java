@@ -63,7 +63,7 @@ public class DataCreation {
                 "WITH a\n" +
                 "MATCH (a:Author)-[:WRITE]->(b:Book)\n" +
                 "WITH a, sum(b.point) as totalPoints, count(b) as totalBooks\n" +
-                "SET a.point = toFloat(round(totalPoints / totalBooks * 100) / 100.0)");
+                "SET a.point = round(totalPoints / totalBooks,2)");
 
         return query;
     }
@@ -136,7 +136,7 @@ public class DataCreation {
                 int bookIndex = Utility.getRandomInt(abbrOfBookList.size());
                 bookIndex = Utility.getProperItemIndex(abbrOfBookList.size(), readBookList, bookIndex);
                 readBookList.add(bookIndex);
-                userReadBookQueryBuilder.append("(" + abbrOfUserList.get(i) + ")-[:READ{rate:" + (Utility.getRandomInt(10) + 1) + "}]->(b" +readBookList.get(j) + "),\n");
+                userReadBookQueryBuilder.append("(" + abbrOfUserList.get(i) + ")-[:READ{rate:" + (Utility.getRandomInt(10) + 1) + "}]->(b" + readBookList.get(j) + "),\n");
             }
         }
         Utility.deleteComma(userReadBookQueryBuilder, 2);

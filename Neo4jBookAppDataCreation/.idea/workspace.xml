@@ -7,7 +7,8 @@
     <list default="true" id="d7c3c2a9-e6f6-43f3-8620-54c9f2a97509" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/DataCreation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/DataCreation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/DataCreation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/DataCreation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Neo4jBookAppDataCreation-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Neo4jBookAppDataCreation-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +112,7 @@
       <workItem from="1681169889791" duration="8782000" />
       <workItem from="1681226685083" duration="153000" />
       <workItem from="1681297387855" duration="755000" />
-      <workItem from="1681318152928" duration="1923000" />
+      <workItem from="1681318152928" duration="2865000" />
     </task>
     <servers />
   </component>
