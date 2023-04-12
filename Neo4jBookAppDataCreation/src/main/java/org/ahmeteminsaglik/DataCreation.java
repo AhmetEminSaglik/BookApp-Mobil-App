@@ -28,13 +28,7 @@ public class DataCreation {
 
         createReturnQuery();
 
-        // to fix data :
-//        createFixUserFollowedDataQuery();
 
-
-//        for (int i = 0; i < 100; i++) {
-//            System.out.println(getRandomDoublePoint());
-//        }
         return queryText;
     }
 
@@ -55,8 +49,8 @@ public class DataCreation {
     public StringBuilder getFixBookPointDataQueryText() {
         StringBuilder query = new StringBuilder("");
         query.append("MATCH (b:Book)<-[r:READ]-(u:User)\n" +
-                "SET b.point = toFloat(round(((b.point * (b.totalRead) + r.rate) / (b.totalRead + 1)), 2))\n" +
-                "SET b.totalRead = b.totalRead + 1\n");
+                "WITH b, avg(r.rate) as point, count(u) as totalReaders\n" +
+                "SET b.totalRead = totalReaders, b.point = round(point, 2)\n");
 
         return query;
     }
@@ -69,7 +63,7 @@ public class DataCreation {
                 "WITH a\n" +
                 "MATCH (a:Author)-[:WRITE]->(b:Book)\n" +
                 "WITH a, sum(b.point) as totalPoints, count(b) as totalBooks\n" +
-                "SET a.point = toFloat(round(totalPoints / totalBooks * 100) / 100.0)");
+                "SET a.point = round(totalPoints / totalBooks,2)");
 
         return query;
     }
@@ -142,7 +136,7 @@ public class DataCreation {
                 int bookIndex = Utility.getRandomInt(abbrOfBookList.size());
                 bookIndex = Utility.getProperItemIndex(abbrOfBookList.size(), readBookList, bookIndex);
                 readBookList.add(bookIndex);
-                userReadBookQueryBuilder.append("(" + abbrOfUserList.get(i) + ")-[:READ{rate:" + (Utility.getRandomInt(10) + 1) + "}]->(" + abbrOfBookList.get(Utility.getRandomInt(abbrOfBookList.size())) + "),\n");
+                userReadBookQueryBuilder.append("(" + abbrOfUserList.get(i) + ")-[:READ{rate:" + (Utility.getRandomInt(10) + 1) + "}]->(b" + readBookList.get(j) + "),\n");
             }
         }
         Utility.deleteComma(userReadBookQueryBuilder, 2);
@@ -168,7 +162,6 @@ public class DataCreation {
         queryText.append(authorCreationQuery + "\n");
     }
 
-    /*create (a2)-[:WRITE]->(n2)*/
     private void createAuthorWriteBookQuery() {
         StringBuilder writeBookQuery = new StringBuilder("CREATE ");
         for (int i = 0; i < abbrOfBookList.size(); i++) {
@@ -180,26 +173,5 @@ public class DataCreation {
         queryText.append(writeBookQuery + "\n");
     }
 
-//    private  void createFixUserFollowedDataQuery() {
-//        StringBuilder fixUserFollowersDataQuery = new StringBuilder("");
-//        for (int i = 0; i < userNumber; i++) {
-//            fixUserFollowersDataQuery.append(
-//                    "MATCH (u" + userNumber + ":User)-[:FOLLOW]->(u:User)" +
-//                            "WHERE u" + userNumber + ".username = \"user" + userNumber + "\"" +
-//                            "WITH COUNT(u) AS totalFollowed, u0");
-//        }
-
 }
-    /*
-    MATCH (u0:User)-[:FOLLOW]->(u:User)
-    WHERE u0.username = "user0"
-    WITH COUNT(u) AS totalFollowed, u0
-    SET u0.totalFollowed = totalFollowed*/
-    /*
-    *
-    MATCH (a:Author{name:"Anthony", lastname:"Trollope"})-[:WRITE]->(b:Book)
-WITH a, COUNT(b) AS totalBooks
-SET a.totalBook = totalBooks
-RETURN a
-* */
 
