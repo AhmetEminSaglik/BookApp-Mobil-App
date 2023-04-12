@@ -5,11 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7c3c2a9-e6f6-43f3-8620-54c9f2a97509" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/e/7e49f972322807a71363f293c5fe01c7fc9877eb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/d/9d7659d2ee4aa699209e85b6873c0d449e6eaa27" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/f/bf3096bbb46b9825269757fdf0598e1d40674049" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/DataCreation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ahmeteminsaglik/DataCreation.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/DataCreation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/ahmeteminsaglik/DataCreation.class" afterDir="false" />
@@ -116,7 +111,7 @@
       <workItem from="1681169889791" duration="8782000" />
       <workItem from="1681226685083" duration="153000" />
       <workItem from="1681297387855" duration="755000" />
-      <workItem from="1681318152928" duration="1098000" />
+      <workItem from="1681318152928" duration="1923000" />
     </task>
     <servers />
   </component>
