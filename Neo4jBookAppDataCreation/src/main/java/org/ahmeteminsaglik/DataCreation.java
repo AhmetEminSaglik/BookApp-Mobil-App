@@ -15,6 +15,18 @@ public class DataCreation {
     private List<String> abbrOfUserList = new ArrayList<>();
     private List<String> abbrOfAuthorList = new ArrayList<>();
 
+    public void clearProcessedData() {
+        if(abbrOfUserList!=null){
+            abbrOfUserList.clear();
+        }
+        if(abbrOfBookList!=null){
+            abbrOfBookList.clear();
+        }
+        if(abbrOfAuthorList!=null){
+            abbrOfAuthorList.clear();
+        }
+    }
+
     public StringBuilder getQueryText() {
         queryText = new StringBuilder("");
         createUserCreationQuery();
