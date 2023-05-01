@@ -23,6 +23,7 @@ public class DataCreationController {
 
     @GetMapping("/create")
     public String getRandomNeo4jData() {
+        dataCreation.clearProcessedData();
         return getHTMLCode(dataCreation.getQueryText().toString());
     }
 
