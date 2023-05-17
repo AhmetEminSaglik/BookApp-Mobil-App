@@ -48,7 +48,9 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
     /*
      * This query return user's friends' most common following friends as recommened user*/
     @Query("MATCH (u:User)-[:FOLLOW]->(fu:User)-[:FOLLOW]->(f:User) " +
-            "WHERE ID(u) = $userId AND NOT (u)-[:FOLLOW]->(f) " +
+            "WHERE ID(u) = $userId " +
+            "AND NOT (u)-[:FOLLOW]->(f) " +
+            "AND NOT ID(u)=ID(f)" +
             "WITH f, COUNT(DISTINCT fu) AS num_followers " +
             "ORDER BY num_followers DESC " +
             "RETURN f LIMIT 5 ")
