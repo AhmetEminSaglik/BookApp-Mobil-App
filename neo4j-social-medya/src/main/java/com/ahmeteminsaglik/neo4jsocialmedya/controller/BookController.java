@@ -41,6 +41,12 @@ public class BookController {
         return new SuccessDataResult<>(book);
     }
 
+    public ResponseEntity<DataResult<BookOL>> save(@RequestBody BookOL bookOL) {
+        bookOL = bookOLService.save(bookOL);
+        DataResult result = new SuccessDataResult(bookOL, "BookOL is saved.");
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
     public ResponseEntity<DataResult<List<BookOL>>> saveAllBookOL(@RequestBody List<BookOL> list) {
         list = bookOLService.save(list);
         DataResult result = new SuccessDataResult(list, "BookOL list is saved.");

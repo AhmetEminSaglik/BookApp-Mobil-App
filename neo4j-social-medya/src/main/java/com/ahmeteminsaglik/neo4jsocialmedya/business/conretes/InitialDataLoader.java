@@ -1,9 +1,7 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.business.conretes;
 
-import com.ahmeteminsaglik.neo4jsocialmedya.DemoMain;
 import com.ahmeteminsaglik.neo4jsocialmedya.controller.BookController;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.AuthorOL;
-import com.ahmeteminsaglik.neo4jsocialmedya.model.Book;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.BookOL;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.CustomLog;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -42,17 +40,32 @@ public class InitialDataLoader implements CommandLineRunner {
 
     private void retrieveBookDataFromOpenLibrary() {
         String bookUrl;
-        int range = 1;
+        int range = 10;
         List<BookOL> listBookOL = new ArrayList<>();
         for (int i = startIndex; i < startIndex + range; i++) {
+            log.info("Working on : "+i);
             bookUrl = apiPrefix + i + apiInfix + apiForbook + apiSuffix;
             String json = sendGetRequest(bookUrl);
-            BookOL bookOL = parseJsonToBookOL(json);
-            listBookOL.add(bookOL);
+            try {
+
+                BookOL bookOL = parseJsonToBookOL(json);
+                if (!bookOL.getTitle().isEmpty()) {
+                    log.info("(" + i + ")Parsed BookOL successfully  : " + bookOL);
+                    bookOL= bookController.save(bookOL).getBody().getData();
+                    log.info("("+i+")SAVED BOOK : id : "+bookOL.getId()+", title : "+bookOL.getTitle());
+
+                }else{
+                    log.info("Parsed Failed  JSON : "+json);
+                }
+//                listBookOL.add(bookOL);
+            } catch (Exception e) {
+//                log.error("Exception Occured : INDEX :(" + i + ")" + e.getMessage() + " \n Error : JSON : "+json);
+            }
         }
-        List<BookOL> bookOLList = bookController.saveAllBookOL(listBookOL).getBody().getData();
-        log.info("Saved BookOL List : ");
-        bookOLList.forEach(e -> log.info(e.toString()));
+//        List<BookOL> bookOLList = bookController.saveAllBookOL(listBookOL).getBody().getData();
+//        log.info("Saved BookOL List : ");
+//        bookOLList.forEach(e -> log.info(e.toString()));
+        log.info("All Book Data is retrieved and saved to Neo4j DB");
     }
 
 
@@ -68,7 +81,8 @@ public class InitialDataLoader implements CommandLineRunner {
             bookOL.setAuthorKey(authorOL.getKey());
             return bookOL;
         } catch (JsonProcessingException e) {
-            log.error("BookOL parse has been failed");
+//            log.error("BookOL parse has been failed : "+e.getMessage());
+//            System.exit(0);
         }
         return null;
     }
