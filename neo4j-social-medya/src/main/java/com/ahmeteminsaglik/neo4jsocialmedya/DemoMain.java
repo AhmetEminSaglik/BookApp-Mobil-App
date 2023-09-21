@@ -5,7 +5,9 @@ import com.ahmeteminsaglik.neo4jsocialmedya.model.*;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.CustomLog;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.neo4j.cypher.internal.expressions.functions.E;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -56,7 +58,7 @@ public class DemoMain {
             RatingOL summaryOL = demoMain.parseJsonToSummaryOL(bookRatingJson);
             log.info("summaryOL :  " + summaryOL);
 
-            ReadDataOL readDataOL= demoMain.parseJsonToReadDataOL(bookReadDataJson);
+            ReadDataOL readDataOL = demoMain.parseJsonToReadDataOL(bookReadDataJson);
             log.info(": " + readDataOL);
 
 
@@ -128,6 +130,37 @@ public class DemoMain {
     }
 
     private AuthorOL parseJsonToAuthorOL(String json) {
+
+        log.info("AuthorOL Gelen Json : " + json);
+        try {
+            String authorKey = null;
+            JsonNode rootNode = objectMapper.readTree(json);
+            JsonNode authorsNode = rootNode.get("authors");
+            if (authorsNode.isArray() && authorsNode.size() > 0) {
+                JsonNode authorNode = authorsNode.get(0).get("author");
+                if (authorNode != null && authorNode.has("key")) {
+                    authorKey = authorNode.get("key").asText();
+                    System.out.println("Author Key: " + authorKey);
+                } else {
+                    System.out.println("Author key not found.");
+                }
+            } else {
+                System.out.println("Authors array not found or empty.");
+            }
+
+            String arr[] = authorKey.split("/");
+            authorKey =arr[arr.length - 1];
+
+            AuthorOL authorOL = new AuthorOL();
+            authorOL.setKey(authorKey);
+            log.info("Donecek authorOL Degeri : " + authorOL);
+            return authorOL;
+        } catch (Exception e) {
+            log.error(" ERROR OCCURED >> parseJsonToAuthorOL >> : " + e.getMessage());
+        }
+        return null;
+
+        /*
         AuthorOL authorOL = null;
         try {
             log.info("Author Json : " + json);
@@ -138,7 +171,7 @@ public class DemoMain {
         }
         String arr[] = authorOL.getKey().split("/");
         authorOL.setKey(arr[arr.length - 1]);
-        return authorOL;
+        return authorOL;*/
     }
 
     private RatingOL parseJsonToSummaryOL(String json) {
