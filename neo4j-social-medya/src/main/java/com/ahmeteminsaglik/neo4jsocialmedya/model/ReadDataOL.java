@@ -5,13 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AuthorOL {
-    private Long id;
-    private String key;
+public class ReadDataOL {
+    CountOL counts;
+
     @Override
     public String toString() {
-        return "AuthorOL{" +
-                "key='" + key + '\'' +
+        return "ReadDataOL{" +
+                "counts=" + counts +
                 '}';
     }
 }

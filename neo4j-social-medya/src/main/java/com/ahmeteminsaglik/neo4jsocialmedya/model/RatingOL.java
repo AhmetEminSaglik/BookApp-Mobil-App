@@ -5,13 +5,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Rating {
+public class RatingOL {
 
     private Summary summary;
 
     @Override
     public String toString() {
-        return "Rating{" +
+        return "RatingOL{" +
                 "summary=" + summary +
                 '}';
     }

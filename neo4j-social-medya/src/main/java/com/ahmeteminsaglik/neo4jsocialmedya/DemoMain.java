@@ -19,23 +19,29 @@ public class DemoMain {
     private final String apiSuffix = ".json";
     private final String apiForbook = "";
     private final String apiForRating = "/ratings";
+    private final String apiForReadData = "/bookshelves";
     private final static ObjectMapper objectMapper = new ObjectMapper();
 
     public static void main(String[] args) {
         DemoMain demoMain = new DemoMain();
         int range = 1;
         String bookUrl;
-        String bookJson;
         String bookRatingUrl;
+        String bookReadDataUrl;
+
+        String bookJson;
         String bookRatingJson;
+        String bookReadDataJson;
         for (int i = startIndex; i < startIndex + range; i++) {
             bookUrl = demoMain.createBookUrl(i);
-            bookJson = demoMain.sendGetRequest(bookUrl);
-
             bookRatingUrl = demoMain.createBookRatingUrl(i);
-            bookRatingJson = demoMain.sendGetRequest(bookRatingUrl);
-            BookOL bookOL = demoMain.parseJsonToBookOL(bookJson);
+            bookReadDataUrl = demoMain.createBookReadDataUrl(i);
 
+            bookJson = demoMain.sendGetRequest(bookUrl);
+            bookRatingJson = demoMain.sendGetRequest(bookRatingUrl);
+            bookReadDataJson = demoMain.sendGetRequest(bookReadDataUrl);
+
+            BookOL bookOL = demoMain.parseJsonToBookOL(bookJson);
 
             if (bookOL == null) {
                 continue;
@@ -47,8 +53,11 @@ public class DemoMain {
             log.info("Author Key : " + authorOL);
 
 
-            Rating summaryOL = demoMain.parseJsonToSummaryOL(bookRatingJson);
+            RatingOL summaryOL = demoMain.parseJsonToSummaryOL(bookRatingJson);
             log.info("summaryOL :  " + summaryOL);
+
+            ReadDataOL readDataOL= demoMain.parseJsonToReadDataOL(bookReadDataJson);
+            log.info(": " + readDataOL);
 
 
         }
@@ -71,6 +80,11 @@ public class DemoMain {
 
     private String createBookRatingUrl(int index) {
         String bookUrl = apiPrefix + index + apiInfix + apiForRating + apiSuffix;
+        return bookUrl;
+    }
+
+    private String createBookReadDataUrl(int index) {
+        String bookUrl = apiPrefix + index + apiInfix + apiForReadData + apiSuffix;
         return bookUrl;
     }
 
@@ -127,17 +141,29 @@ public class DemoMain {
         return authorOL;
     }
 
-    private Rating parseJsonToSummaryOL(String json) {
-        Rating rating;
+    private RatingOL parseJsonToSummaryOL(String json) {
+        RatingOL ratingOL;
         Summary summary;
-        log.info("Rating Json : " + json);
+        log.info("RatingOL Json : " + json);
         try {
-            rating = objectMapper.readValue(json, Rating.class);
-            log.info("rating  : ObjectManager ....  : " + rating);
+            ratingOL = objectMapper.readValue(json, RatingOL.class);
+            log.info("ratingOL  : ObjectManager ....  : " + ratingOL);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return rating;
+        return ratingOL;
+    }
+
+    private ReadDataOL parseJsonToReadDataOL(String json) {
+        ReadDataOL readData;
+        try {
+            log.info("Read Data Json : " + json);
+            readData = objectMapper.readValue(json, ReadDataOL.class);
+            log.info("readData  : ObjectManager ....  : " + readData);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return readData;
     }
 
     private Book convertBookOLToBook(BookOL bookOL) {
