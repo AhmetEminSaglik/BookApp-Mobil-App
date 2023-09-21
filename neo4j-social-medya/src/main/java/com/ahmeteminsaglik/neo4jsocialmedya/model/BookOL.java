@@ -14,15 +14,19 @@ public class BookOL {
     private Long id;
     private String title;
     private String description;
-//    private AuthorOL authorOL;
-private  String authorKey;
+    private String isbn;
+    private String imgUrl;
+
+    private String authorKey;
+
     @Override
     public String toString() {
         return "BookOL{" +
                 "\nid='" + id +
                 ",\ntitle='" + title +
                 ",\ndescription='" + description +
-//                ",authors=" + authorOL +
+                ",\nimgUrl=" + imgUrl +
+                ",\nisbn=" + isbn +
                 ",\nauthorKey=" + authorKey +
                 '}';
     }

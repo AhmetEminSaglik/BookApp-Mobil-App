@@ -1,6 +1,5 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.controller;
 
-import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.BookOLService;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.BookService;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.Book;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.BookOL;
@@ -13,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @RestController
@@ -22,8 +20,6 @@ import java.util.List;
 public class BookController {
     @Autowired
     private BookService bookService;
-    @Autowired
-    private BookOLService bookOLService;
 
     @GetMapping
     public List<Book> getAll() {
@@ -41,18 +37,19 @@ public class BookController {
         return new SuccessDataResult<>(book);
     }
 
-    public ResponseEntity<DataResult<BookOL>> save(@RequestBody BookOL bookOL) {
+    public ResponseEntity<DataResult<List<Book>>> saveAllBook(@RequestBody List<Book> list) {
+        list = bookService.save(list);
+        DataResult result = new SuccessDataResult(list, "BookOL list is saved.");
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+    /*public ResponseEntity<DataResult<BookOL>> save(@RequestBody BookOL bookOL) {
         bookOL = bookOLService.save(bookOL);
         DataResult result = new SuccessDataResult(bookOL, "BookOL is saved.");
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    public ResponseEntity<DataResult<List<BookOL>>> saveAllBookOL(@RequestBody List<BookOL> list) {
-        list = bookOLService.save(list);
-        DataResult result = new SuccessDataResult(list, "BookOL list is saved.");
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
-    }
 
+*/
     @GetMapping("/readby/{userId}")
 
     public DataResult<List<Book>> getAllReadBookByUserId(@PathVariable long userId) {

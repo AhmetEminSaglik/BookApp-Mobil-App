@@ -29,6 +29,11 @@ public class BookManager implements BookService {
     }
 
     @Override
+    public List<Book> save(List<Book> list) {
+        return bookRepository.saveAll(list);
+    }
+
+    @Override
     public List<Book> getAllReadBooksByUserId(long userId) {
         return bookRepository.getAllByUserIdMatches(userId);
     }

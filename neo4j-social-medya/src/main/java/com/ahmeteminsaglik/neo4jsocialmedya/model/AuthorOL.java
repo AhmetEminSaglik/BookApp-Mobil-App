@@ -8,10 +8,14 @@ import lombok.Setter;
 public class AuthorOL {
     private Long id;
     private String key;
+    private String name;
+
     @Override
     public String toString() {
         return "AuthorOL{" +
-                "key='" + key + '\'' +
+                "id=" + id +
+                ", key='" + key + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

@@ -17,15 +17,20 @@ public class Book {
     private Long id;
     private String name;
     private double point;
+    private String imgUrl;
     private int totalRead;
+    private String description;
+    private String isbn_13;
 
     @Override
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + name +
                 ", point=" + point +
+                ", imgUrl=" + imgUrl +
                 ", totalRead=" + totalRead +
+                ", description='" + description +
                 '}';
     }
 }

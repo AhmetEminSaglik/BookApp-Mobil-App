@@ -10,6 +10,7 @@ import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.List;
+import java.util.Random;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,13 +18,15 @@ import java.util.List;
 @Setter
 @NodeEntity
 public class Author {
+    private static Random random = new Random();
     @Id
     @GeneratedValue
     private Long id;
     private String name;
     private String lastname;
-    private int totalBook;
-    private double point;
+    private int totalBook = random.nextInt(50) + 10;
+    private double point = random.nextInt(5) + 1;
+    private  String key;
 
     @Relationship(type = "Write", direction = Relationship.Direction.OUTGOING)
     private List<Book> bookList;
@@ -36,6 +39,8 @@ public class Author {
                 ", lastname='" + lastname + '\'' +
                 ", totalBook=" + totalBook +
                 ", point=" + point +
+                ", key='" + key + '\'' +
+                ", bookList=" + bookList +
                 '}';
     }
 }
