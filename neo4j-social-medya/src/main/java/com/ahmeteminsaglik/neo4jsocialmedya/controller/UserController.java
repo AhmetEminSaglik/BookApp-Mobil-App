@@ -14,6 +14,7 @@ import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -115,7 +116,8 @@ public class UserController {
             List<User> userListRandom = userService.findRandomUserToRecommend(userId);
             userList.addAll(userListRandom);
             Set<User> set = new HashSet<>(userList);
-            userList = set.stream().toList();
+//            userList = set.stream().toList();
+            userList = new ArrayList<>(set);
         }
         return new SuccessDataResult<>(userList, "Recommended user list is succesfully retrived");
     }
