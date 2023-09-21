@@ -1,18 +1,13 @@
 package com.ahmeteminsaglik.neo4jsocialmedya;
 
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.InitialDataLoader;
-import com.ahmeteminsaglik.neo4jsocialmedya.model.AuthorOL;
-import com.ahmeteminsaglik.neo4jsocialmedya.model.BookOL;
+import com.ahmeteminsaglik.neo4jsocialmedya.model.*;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.CustomLog;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class DemoMain {
     //    String apiUrl = "https://openlibrary.org/works/12/ratings.json"; // API URL
@@ -23,61 +18,136 @@ public class DemoMain {
     private final String apiInfix = "W";
     private final String apiSuffix = ".json";
     private final String apiForbook = "";
+    private final String apiForRating = "/ratings";
+    private final static ObjectMapper objectMapper = new ObjectMapper();
 
     public static void main(String[] args) {
-        new DemoMain().retrieveBookDataFromOpenLibrary();
+        DemoMain demoMain = new DemoMain();
+        int range = 1;
+        String bookUrl;
+        String bookJson;
+        String bookRatingUrl;
+        String bookRatingJson;
+        for (int i = startIndex; i < startIndex + range; i++) {
+            bookUrl = demoMain.createBookUrl(i);
+            bookJson = demoMain.sendGetRequest(bookUrl);
+
+            bookRatingUrl = demoMain.createBookRatingUrl(i);
+            bookRatingJson = demoMain.sendGetRequest(bookRatingUrl);
+            BookOL bookOL = demoMain.parseJsonToBookOL(bookJson);
+
+
+            if (bookOL == null) {
+                continue;
+            } else {
+                log.info("bookOL : " + bookOL);
+            }
+
+            AuthorOL authorOL = demoMain.parseJsonToAuthorOL(bookJson);
+            log.info("Author Key : " + authorOL);
+
+
+            Rating summaryOL = demoMain.parseJsonToSummaryOL(bookRatingJson);
+            log.info("summaryOL :  " + summaryOL);
+
+
+        }
+
+        /*
+         * retrieve book
+         * retrieve rating
+         * retrieve author
+         *
+         * */
     }
 //    public void saveInitilizateData() {
 //        retrieveBookDataFromOpenLibrary();
 //    }
 
-    private void retrieveBookDataFromOpenLibrary() {
-        String bookUrl;
-        int range = 100;
-        List<BookOL> listBookOL = new ArrayList<>();
-        for (int i = startIndex; i < startIndex + range; i++) {
-            bookUrl = apiPrefix + i + apiInfix + apiForbook + apiSuffix;
-            String json = sendGetRequest(bookUrl);
-            try {
-
-                BookOL bookOL = parseJsonToBookOL(json);
-                if (!bookOL.getTitle().isEmpty()) {
-                    log.info("(" + i + ")Parsed BookOL successfully  : " + bookOL);
-                }else{
-                    log.info("Parsed Failed  JSON : "+json);
-                }
-                listBookOL.add(bookOL);
-            } catch (Exception e) {
-                log.error("Exception Occured : INDEX :(" + i + ")" + e.getMessage() + " \n Error : JSON : "+json);
-            }
-        }
-//        List<BookOL> bookOLList = bookController.saveAllBookOL(listBookOL).getBody().getData();
-        log.info("Saved BookOL List : ");
-//        bookOLList.forEach(e -> log.info(e.toString()));
+    private String createBookUrl(int index) {
+        String bookUrl = apiPrefix + index + apiInfix + apiForbook + apiSuffix;
+        return bookUrl;
     }
+
+    private String createBookRatingUrl(int index) {
+        String bookUrl = apiPrefix + index + apiInfix + apiForRating + apiSuffix;
+        return bookUrl;
+    }
+
+/*    private BookOL retrieveBookOL(String url) {
+        String bookUrl;
+//        int range = 10;
+//        List<BookOL> listBookOL = new ArrayList<>();
+//        for (int i = startIndex; i < startIndex + range; i++) {
+//        bookUrl = apiPrefix + index + apiInfix + apiForbook + apiSuffix;
+        String json = sendGetRequest(bookUrl);
+        try {
+
+            BookOL bookOL = parseJsonToBookOL(json);
+            if (!bookOL.getTitle().isEmpty()) {
+                log.info("(" + index + ")Parsed BookOL successfully  : " + bookOL);
+            } else {
+                log.info("Parsed Failed  JSON : " + json);
+            }
+//                listBookOL.add(bookOL);
+            return bookOL;
+        } catch (Exception e) {
+            log.error("Exception Occured : INDEX :(" + i + ")" + e.getMessage() + " \n Error : JSON : " + json);
+        }
+        return null;
+//        }
+//        List<BookOL> bookOLList = bookController.saveAllBookOL(listBookOL).getBody().getData();
+//        log.info("Saved BookOL List : ");
+//        bookOLList.forEach(e -> log.info(e.toString()));
+    }*/
 
 
     private BookOL parseJsonToBookOL(String json) {
-        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         try {
             BookOL bookOL = objectMapper.readValue(json, BookOL.class);
-            AuthorOL authorOL = objectMapper.readValue(json, AuthorOL.class);
-            String arr[] = authorOL.getKey().split("/");
-            authorOL.setKey(arr[arr.length - 1]);
-//            bookOL.setAuthorOL(authorOL);
-            bookOL.setAuthorKey(authorOL.getKey());
             return bookOL;
         } catch (JsonProcessingException e) {
-            log.error("BookOL parse has been failed : "+e.getMessage());
-//            System.exit(0);
+            log.error("BookOL parse has been failed : " + e.getMessage());
         }
         return null;
     }
 
+    private AuthorOL parseJsonToAuthorOL(String json) {
+        AuthorOL authorOL = null;
+        try {
+            log.info("Author Json : " + json);
+
+            authorOL = objectMapper.readValue(json, AuthorOL.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        String arr[] = authorOL.getKey().split("/");
+        authorOL.setKey(arr[arr.length - 1]);
+        return authorOL;
+    }
+
+    private Rating parseJsonToSummaryOL(String json) {
+        Rating rating;
+        Summary summary;
+        log.info("Rating Json : " + json);
+        try {
+            rating = objectMapper.readValue(json, Rating.class);
+            log.info("rating  : ObjectManager ....  : " + rating);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return rating;
+    }
+
+    private Book convertBookOLToBook(BookOL bookOL) {
+        Book book = new Book();
+        book.setName(bookOL.getTitle());
+        return book;
+    }
+
     private String sendGetRequest(String apiUrl) {
         ResponseEntity<String> response = restTemplate.getForEntity(apiUrl, String.class);
-
         if (response.getStatusCode().is2xxSuccessful()) {
             return response.getBody();
         } else {
