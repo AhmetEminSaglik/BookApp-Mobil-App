@@ -79,7 +79,7 @@ public class InitialDataLoader implements CommandLineRunner {
         System.out.println("User List Size : " + userList.size());
         System.out.println("Book List Size : " + bookList.size());
         for (int i = 0; i < userList.size(); i++) {
-            int totalBookSize = getRandomTotalBookListSize(bookList.size() / 5);
+            int totalBookSize = getRandomTotalBookListSize(bookList.size() /3);
 //            int totalBookSize = 1;//getRandomTotalBookListSize(bookList.size());
             List<Book> bookListOfUser = getRandomBooks(bookList, totalBookSize);
             System.out.println("bookListOfUser Size : " + bookListOfUser.size());

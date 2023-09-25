@@ -61,9 +61,16 @@ public class OpenLibraryFreeAPIData {
         String authorDataJson;
         String bookEditionJson;
         String bookImgJson;
-        for (int i = startIndex; i < startIndex + range; i++) {
+        int i = startIndex - 1;
+//        for (int i = startIndex; i < startIndex + range; i++) {
+        while (bookList.size() < range){
+            System.out.println("while'a girdi : "+bookList.size());
+            i++;
+
+
             try {
-                log.info("[" + (i + 1 - startIndex) + "/" + range + "] Processing Index : " + i);
+//                log.info("[" + (i + 1 - startIndex) + "/" + range + "] Processing Index : " + i);
+                log.info((i + 1 - startIndex) + "-) [" + bookList.size() + "/" + range + "] Processing Index : " + i);
                 bookUrl = demoMain.createBookUrl(i);
                 bookRatingUrl = demoMain.createBookRatingUrl(i);
                 bookReadDataUrl = demoMain.createBookReadDataUrl(i);
@@ -139,9 +146,9 @@ public class OpenLibraryFreeAPIData {
         Book book = new Book();
         book.setName(bookOL.getTitle());
         book.setImgUrl(bookOL.getImgUrl());
-//        if (bookOL.getDescription() == null) {
-//            throw new Exception("Description is null");
-//        }
+        if (bookOL.getDescription() == null) {
+            throw new Exception("Description is null");
+        }
         book.setDescription(bookOL.getDescription());
         book.setPoint(ratingOL.getSummary().getAverage());
         book.setTotalRead(ratingOL.getSummary().getCount());
