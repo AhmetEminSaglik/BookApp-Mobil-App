@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 
+import java.text.DecimalFormat;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -21,6 +23,7 @@ public class Book {
     private int totalRead;
     private String description;
     private String isbn_13;
+    private String webUrl;
 
     @Override
     public String toString() {
@@ -31,6 +34,20 @@ public class Book {
                 ", imgUrl=" + imgUrl +
                 ", totalRead=" + totalRead +
                 ", description='" + description +
+                ", webUrl='" + webUrl +
                 '}';
+    }
+
+    public void setPoint(double point) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
+        decimalFormat.setMaximumFractionDigits(1);
+        this.point = Double.parseDouble(decimalFormat.format(point));
+    }
+
+    public void setDescription(String description) {
+        if (description != null) {
+            String[] descArr = description.split("Contains");
+            this.description = descArr[0];
+        }
     }
 }

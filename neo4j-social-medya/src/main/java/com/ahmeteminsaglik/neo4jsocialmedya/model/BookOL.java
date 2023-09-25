@@ -16,7 +16,7 @@ public class BookOL {
     private String description;
     private String isbn;
     private String imgUrl;
-
+    private String webUrl;
     private String authorKey;
 
     @Override
@@ -27,7 +27,15 @@ public class BookOL {
                 ",\ndescription='" + description +
                 ",\nimgUrl=" + imgUrl +
                 ",\nisbn=" + isbn +
+                ",\nwebUrl=" + webUrl +
                 ",\nauthorKey=" + authorKey +
                 '}';
     }
+
+    public void setImgUrl(String imgUrl) {
+        imgUrl = imgUrl.replace("-S", "");
+        this.imgUrl = imgUrl;
+    }
+
+
 }

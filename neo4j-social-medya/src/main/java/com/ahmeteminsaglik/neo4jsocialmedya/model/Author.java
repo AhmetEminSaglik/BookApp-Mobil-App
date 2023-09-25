@@ -24,8 +24,8 @@ public class Author {
     private Long id;
     private String name;
     private String lastname;
-    private int totalBook = random.nextInt(50) + 10;
-    private double point = random.nextInt(5) + 1;
+//    private int totalBook = random.nextInt(50) + 10;
+//    private double point = random.nextInt(5) + 1;
     private  String key;
 
     @Relationship(type = "Write", direction = Relationship.Direction.OUTGOING)
@@ -37,8 +37,8 @@ public class Author {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastname='" + lastname + '\'' +
-                ", totalBook=" + totalBook +
-                ", point=" + point +
+//                ", totalBook=" + totalBook +
+//                ", point=" + point +
                 ", key='" + key + '\'' +
                 ", bookList=" + bookList +
                 '}';
