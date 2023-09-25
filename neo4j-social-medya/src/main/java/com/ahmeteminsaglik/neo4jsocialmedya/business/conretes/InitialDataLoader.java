@@ -38,7 +38,7 @@ public class InitialDataLoader implements CommandLineRunner {
     static int counter = 0;
 
     public void saveInitilizateData() {
-        freeAPIData.createBookData(100);
+        freeAPIData.createBookData(30);
 //        Map<String, List<Book>> map = freeAPIData.getBookListMap();
         List<Author> authorList = freeAPIData.getAuthorList();
         System.out.println("Alinan Author List size : " + authorList.size());
