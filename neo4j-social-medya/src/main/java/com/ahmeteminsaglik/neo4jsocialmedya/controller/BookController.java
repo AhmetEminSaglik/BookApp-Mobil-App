@@ -19,29 +19,30 @@ import java.util.List;
 @CrossOrigin
 public class BookController {
     @Autowired
-    private BookService bookService;
+    private BookService service;
 
     @GetMapping
     public List<Book> getAll() {
-        return bookService.findAll();
+        return service.findAll();
     }
 
     @GetMapping("/{name}")
     public Book getBookByName(@PathVariable String name) {
-        return bookService.findByName(name);
+        return service.findByName(name);
     }
 
     @PostMapping()
     public DataResult<Book> save(@RequestBody Book book) {
-        book = bookService.save(book);
+        book = service.save(book);
         return new SuccessDataResult<>(book);
     }
 
     public ResponseEntity<DataResult<List<Book>>> saveAllBook(@RequestBody List<Book> list) {
-        list = bookService.save(list);
+        list = service.save(list);
         DataResult result = new SuccessDataResult(list, "BookOL list is saved.");
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
+
     /*public ResponseEntity<DataResult<BookOL>> save(@RequestBody BookOL bookOL) {
         bookOL = bookOLService.save(bookOL);
         DataResult result = new SuccessDataResult(bookOL, "BookOL is saved.");
@@ -53,29 +54,33 @@ public class BookController {
     @GetMapping("/readby/{userId}")
 
     public DataResult<List<Book>> getAllReadBookByUserId(@PathVariable long userId) {
-        return new SuccessDataResult<>(bookService.getAllReadBooksByUserId(userId), "Read book data is retrived successfuly");
+        return new SuccessDataResult<>(service.getAllReadBooksByUserId(userId), "Read book data is retrived successfuly");
     }
 
     @GetMapping("/recommend/point")
     public DataResult<List<Book>> getRecommenedAuthorListByHighestPoint() {
-        return new SuccessDataResult<>(bookService.findByHighestPoint(), "Data retrived Successfully");
+        return new SuccessDataResult<>(service.findByHighestPoint(), "Data retrived Successfully");
     }
 
     @GetMapping("/recommend/totalread")
     public DataResult<List<Book>> getByHighestTotalRead() {
-        return new SuccessDataResult<>(bookService.findByHighestTotalRead(), "Data retrived Successfully");
+        return new SuccessDataResult<>(service.findByHighestTotalRead(), "Data retrived Successfully");
     }
 
     @GetMapping("/recommend/friend/{userId}")
     public DataResult<List<Book>> getByMostReadBookFromFollowings(@PathVariable long userId) {
-        return new SuccessDataResult<>(bookService.findByMostReadBookFromFollowings(userId), "Data retrived Successfully");
+        return new SuccessDataResult<>(service.findByMostReadBookFromFollowings(userId), "Data retrived Successfully");
     }
 
     @PostMapping("/{userId}/read/{bookId}")
     public Result createNewConnectionFollowUser(@PathVariable long userId, @PathVariable long bookId) {
-        bookService.createConnectionUserReadBook(userId, bookId);
+        service.createConnectionUserReadBook(userId, bookId);
         return new SuccessResult("Connection is created");
     }
 
+    @GetMapping("/fix")
+    public void fixBookData() {
+        service.fixBookData();
+    }
 
 }

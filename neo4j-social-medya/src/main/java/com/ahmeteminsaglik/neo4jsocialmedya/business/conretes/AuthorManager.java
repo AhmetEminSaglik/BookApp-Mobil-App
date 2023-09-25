@@ -11,15 +11,35 @@ import java.util.List;
 @Service
 public class AuthorManager implements AuthorService {
     @Autowired
-    AuthorRepository authorRepository;
+    AuthorRepository repo;
 
     @Override
     public List<Author> findByHighestPoint() {
-        return authorRepository.findByHighestPoint();
+        return repo.findByHighestPoint();
+    }
+
+    @Override
+    public void fixAuthorData() {
+        repo.fixAuthorData();
     }
 
     @Override
     public List<Author> findAll() {
-        return authorRepository.findAll();
+        return repo.findAll();
+    }
+
+    @Override
+    public List<Author> saveAll(List<Author> authorList) {
+        return repo.saveAll(authorList);
+    }
+
+    @Override
+    public void setWriteConnection(long authorId, long bookId) {
+        repo.setWriteConnection(authorId, bookId);
+    }
+
+    @Override
+    public Author findByKey(String authorKey) {
+        return repo.findByKey(authorKey);
     }
 }

@@ -13,7 +13,6 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
     @Query("MATCH (u:User) WHERE ID(u) = $userId " +
             "MATCH (u)-[:READ]->(b:Book) " +
             "RETURN u,b")
-
     List<Book> getAllByUserIdMatches(@PathVariable Long userId);
 
     @Query("MATCH (b:Book)  RETURN b ORDER BY b.point DESC LIMIT 5")
@@ -37,4 +36,7 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
             "MATCH (b:Book) WHERE ID(b) = $bookId " +
             "MERGE (u)-[r:READ]->(b)")
     void createConnectionUserReadBook(long userId, long bookId);
+
+    @Query("MATCH (b:Book)<-[r:READ]-(u:User)\nWITH b, avg(r.rate) as point, count(u) as totalReaders\nSET b.totalRead = totalReaders, b.point = round(point, 2)\n")
+    void fixBookData();
 }

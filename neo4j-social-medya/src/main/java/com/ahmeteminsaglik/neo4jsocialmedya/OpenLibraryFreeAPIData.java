@@ -10,10 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OpenLibraryFreeAPIData {
     //    String apiUrl = "https://openlibrary.org/works/12/ratings.json"; // API URL
@@ -30,11 +27,25 @@ public class OpenLibraryFreeAPIData {
     private final String apiForEditions = "/editions";
     private final String apiForReadData = "/bookshelves";
     private final static ObjectMapper objectMapper = new ObjectMapper();
+    private Map<String, List<Book>> map = new HashMap<>();
+    private static List<Author> authorList = new ArrayList<>();
 
     /* public static void main(String[] args) {
          new OpenLibraryFreeAPIData().retrieveData(10);
      }*/
-    public Map<String, List<Book>> retrieveData(int range) {
+
+    public Map<String, List<Book>> getBookListMap() {
+        return map;
+    }
+
+    public List<Author> getAuthorList() {
+        System.out.println("Normalde author List size: " + authorList.size());
+        System.out.println("hashset size : " + new HashSet<>(authorList).size());
+        System.out.println("tekrar arraylist'e donen hashset size : " + new HashSet<>(authorList).size());
+        return new ArrayList<>(new HashSet<>(authorList));
+    }
+
+    public void createBookData(int range) {
         OpenLibraryFreeAPIData demoMain = new OpenLibraryFreeAPIData();
         List<Book> bookList = new ArrayList<>();
         String bookUrl;
@@ -52,7 +63,7 @@ public class OpenLibraryFreeAPIData {
         String bookImgJson;
         for (int i = startIndex; i < startIndex + range; i++) {
             try {
-                log.info("[" + (i - startIndex) + "/" + range + "] Processing Index : " + i);
+                log.info("[" + (i + 1 - startIndex) + "/" + range + "] Processing Index : " + i);
                 bookUrl = demoMain.createBookUrl(i);
                 bookRatingUrl = demoMain.createBookRatingUrl(i);
                 bookReadDataUrl = demoMain.createBookReadDataUrl(i);
@@ -103,22 +114,22 @@ public class OpenLibraryFreeAPIData {
         for (Book book : bookList) {
             log.info("title : " + book.getName() + " / img : " + book.getImgUrl());
         }
-        return map;
+//        return map;
     }
 
     private void addBookToAuthorKeyMap(Book book, Author author) {
         List<Book> bookList = map.get(author.getKey());
-        System.out.println("Author key :" + author);
+//        System.out.println("Author key :" + author);
         if (bookList == null) {
             bookList = new ArrayList<>();
             bookList.add(book);
             map.put(author.getKey(), bookList);
-            System.out.println("map.keySet().size() : " + map.keySet().size());
-            System.out.println("map.size() : " + map.size());
+//            System.out.println("map.keySet().size() : " + map.keySet().size());
+//            System.out.println("map.size() : " + map.size());
 
         } else {
             bookList.add(book);
-            System.out.println("Mapteki booklist sayisi en az 2 olmali: " + bookList.size());
+//            System.out.println("Mapteki booklist sayisi en az 2 olmali: " + bookList.size());
         }
 
     }
@@ -133,6 +144,7 @@ public class OpenLibraryFreeAPIData {
 //        }
         book.setDescription(bookOL.getDescription());
         book.setPoint(ratingOL.getSummary().getAverage());
+        book.setTotalRead(ratingOL.getSummary().getCount());
         book.setIsbn_13(bookOL.getIsbn());
         book.setWebUrl(bookOL.getWebUrl());
         int totalRead = readDataOL.getCounts().getAlready_read() + readDataOL.getCounts().getCurrently_reading();
@@ -142,7 +154,10 @@ public class OpenLibraryFreeAPIData {
 
     private Author createAuthorFromAPIData(AuthorOL authorOL) {
         Author author = new Author();
-        author.setKey(authorOL.getKey());
+        String arrKey[] = authorOL.getKey().split("/");
+//        System.out.println("arrKey.length --> "+arrKey.length+ " > "+arrKey[arrKey.length-1]);
+        author.setKey(arrKey[arrKey.length - 1]);
+
         String arr[] = authorOL.getName().split(" ");
         String name = "";
         String lastname = arr[arr.length - 1];
@@ -153,6 +168,10 @@ public class OpenLibraryFreeAPIData {
 
         author.setName(name);
         author.setLastname(lastname);
+        System.out.println("------------authorList : " + authorList.size());
+        authorList.add(author);
+        System.out.println("------------authorList : " + authorList.size());
+
         return author;
     }
 
@@ -173,7 +192,6 @@ public class OpenLibraryFreeAPIData {
 
     private String createBookEditionUrl(int index) {
         String bookUrl = apiPrefixBook + index + apiInfix + apiForEditions + apiSuffix;
-        System.out.println("edition : " + bookUrl);
         return bookUrl;
     }
 
@@ -262,7 +280,6 @@ public class OpenLibraryFreeAPIData {
         return bookOL;
     }
 
-    private Map<String, List<Book>> map = new HashMap<>();
 
     private AuthorOL parseJsonToAuthorOL(String json) throws JsonProcessingException {
 //        try {
@@ -275,7 +292,7 @@ public class OpenLibraryFreeAPIData {
                 authorKey = authorNode.get("key").asText();
             }
         } else {
-            System.out.println("Authors array not found or empty.");
+//            System.out.println("Authors array not found or empty.");
         }
 
         String arr[] = authorKey.split("/");
@@ -303,7 +320,7 @@ public class OpenLibraryFreeAPIData {
 
     private RatingOL parseJsonToSummaryOL(String json) throws JsonProcessingException {
         RatingOL ratingOL;
-        Summary summary;
+//        Summary summary;
 //        try {
         ratingOL = objectMapper.readValue(json, RatingOL.class);
 //        } catch (JsonProcessingException e) {

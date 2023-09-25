@@ -11,50 +11,55 @@ import java.util.List;
 @Service
 public class BookManager implements BookService {
     @Autowired
-    private BookRepository bookRepository;
+    private BookRepository repo;
 
     @Override
     public List<Book> findAll() {
-        return bookRepository.findAll();
+        return repo.findAll();
     }
 
     @Override
     public Book findByName(String name) {
-        return bookRepository.findByName(name);
+        return repo.findByName(name);
     }
 
     @Override
     public Book save(Book book) {
-        return bookRepository.save(book);
+        return repo.save(book);
     }
 
     @Override
     public List<Book> save(List<Book> list) {
-        return bookRepository.saveAll(list);
+        return repo.saveAll(list);
     }
 
     @Override
     public List<Book> getAllReadBooksByUserId(long userId) {
-        return bookRepository.getAllByUserIdMatches(userId);
+        return repo.getAllByUserIdMatches(userId);
     }
 
     @Override
     public List<Book> findByHighestPoint() {
-        return bookRepository.findByHighestPoint();
+        return repo.findByHighestPoint();
     }
 
     @Override
     public List<Book> findByHighestTotalRead() {
-        return bookRepository.findByHighestTotalRead();
+        return repo.findByHighestTotalRead();
     }
 
     @Override
     public void createConnectionUserReadBook(long userId, long bookId) {
-        bookRepository.createConnectionUserReadBook(userId, bookId);
+        repo.createConnectionUserReadBook(userId, bookId);
+    }
+
+    @Override
+    public void fixBookData() {
+        repo.fixBookData();
     }
 
     @Override
     public List<Book> findByMostReadBookFromFollowings(long userId) {
-        return bookRepository.findByMostReadBookFromFollowings(userId);
+        return repo.findByMostReadBookFromFollowings(userId);
     }
 }

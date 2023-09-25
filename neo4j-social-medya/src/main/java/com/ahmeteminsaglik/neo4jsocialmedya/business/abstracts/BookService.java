@@ -23,4 +23,7 @@ public interface BookService {
     List<Book> findByMostReadBookFromFollowings(long userId);
 
     void createConnectionUserReadBook(long userId, long bookId);
+
+    void fixBookData();
+
 }

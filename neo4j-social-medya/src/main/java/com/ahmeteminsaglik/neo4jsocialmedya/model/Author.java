@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Relationship;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 @NoArgsConstructor
@@ -24,9 +27,10 @@ public class Author {
     private Long id;
     private String name;
     private String lastname;
-//    private int totalBook = random.nextInt(50) + 10;
+    //    private int totalBook = random.nextInt(50) + 10;
 //    private double point = random.nextInt(5) + 1;
-    private  String key;
+    @Index(unique = true)
+    private String key;
 
     @Relationship(type = "Write", direction = Relationship.Direction.OUTGOING)
     private List<Book> bookList;
@@ -42,5 +46,18 @@ public class Author {
                 ", key='" + key + '\'' +
                 ", bookList=" + bookList +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Author)) return false;
+        Author author = (Author) o;
+        return Objects.equals(key, author.key);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key);
     }
 }

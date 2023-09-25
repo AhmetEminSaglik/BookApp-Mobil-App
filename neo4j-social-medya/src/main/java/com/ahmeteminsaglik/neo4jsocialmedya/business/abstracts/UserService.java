@@ -29,7 +29,14 @@ public interface UserService {
     void removeUserFollowerRelationShipUser(long userId, long followedUserId);
 
     List<User> findCommonUsersByFriends(long userId);
+
     List<User> findRandomUserToRecommend(long userId);
 
     void createConnectionFollowFriend(long userId, long friendUserId);
+
+    List<User> saveAll(List<User> userList);
+
+    void fixUserData();
+
+    void setConnectionUserReadBook(long userId, long bookId, int rate);
 }

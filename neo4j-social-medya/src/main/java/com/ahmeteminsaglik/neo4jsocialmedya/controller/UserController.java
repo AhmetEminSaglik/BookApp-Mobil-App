@@ -1,5 +1,6 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.controller;
 
+import com.ahmeteminsaglik.neo4jsocialmedya.business.StaticData;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.UserService;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.LoginUser;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationLoginInput;
@@ -72,6 +73,10 @@ public class UserController {
         throw new ApiRequestException(result.getMessage(), new InvalidUsernameOrPasswordException());
     }
 
+    public List<User> saveAll(List<User> userList) {
+        return userService.saveAll(userList);
+    }
+
     @DeleteMapping("/readbooks")
     public Result removeUserReadBookConnection(@RequestParam long userId, @RequestParam long bookId) {
         userService.removeUserReadBookConnection(userId, bookId);
@@ -120,6 +125,19 @@ public class UserController {
             userList = new ArrayList<>(set);
         }
         return new SuccessDataResult<>(userList, "Recommended user list is succesfully retrived");
+    }
+
+    @GetMapping("/fix")
+    public void fixUserData() {
+        userService.fixUserData();
+    }
+
+    //@PostMapping("/read-book")
+    @PostMapping("/read-book")
+    public void setConnectionUserReadBook(@RequestParam long userId, @RequestParam long bookId, @RequestParam int rate) {
+        System.out.println(userId+"-[r:Read{rate:"+rate+"}]->"+bookId);
+        userService.setConnectionUserReadBook(userId, bookId, rate);
+
     }
     /*@GetMapping("/recommend/friend/{userId}")
     public DataResult<List<User>> getByMostReadBookFromFollowings(@PathVariable Long userId) {

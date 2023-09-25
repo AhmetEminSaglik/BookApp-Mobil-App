@@ -68,4 +68,16 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
             "MATCH (u2:User) WHERE ID(u2) = $friendUserId " +
             "MERGE (u)-[f:FOLLOW]->(u2)")
     void createConnectionFollowFriend(long userId, long friendUserId);
+
+    @Query("MATCH (u:User)<-[:FOLLOW]-(f:User)\nWITH u, COUNT(f) AS totalFollowers\nSET u.totalFollowers = totalFollowers\nWITH u\nMATCH (u)-[:FOLLOW]->(f:User)\nWITH u, COUNT(f) AS totalFollowed\nSET u.totalFollowed = totalFollowed\n")
+    void fixUserData();
+
+
+    @Query("MATCH (u:User) WHERE ID(u) = $userId " +
+            "MATCH (b:Book) WHERE ID(b) = $bookId " +
+            "MERGE (u)-[r:READ{rate:$rate}]->(b)")
+        /*@Query("CREATE (u:User)-[:READ{rate:$rate}]->(b:Book)" +
+            "WHERE ID(u) = $userId" +
+            "AND ID(b) = $bookId")*/
+    void setConnectionUserReadBook(long userId, long bookId, int rate);
 }
