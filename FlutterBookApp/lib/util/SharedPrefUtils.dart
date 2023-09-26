@@ -1,10 +1,12 @@
+import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../model/EnumUserProp.dart';
+import '../enum/EnumUserProp.dart';
 import '../model/User.dart';
 
 class SharedPrefUtils {
   static var _sp;
+  static var log = Logger(printer: PrettyPrinter(colors: false));
 
   static Future<void> setLoginDataUser(User user) async {
     await initiliazeSharedPref();
@@ -31,12 +33,12 @@ class SharedPrefUtils {
   }
 
   static String getUsername() {
-    var value = _sp.getString(EnumUserProp.USERNAME.name);
+    String? value = _sp.getString(EnumUserProp.USERNAME.name);
     return value ?? "";
   }
 
   static String getPassword() {
-    var value = _sp.getString(EnumUserProp.PASSWORD.name);
+    String? value = _sp.getString(EnumUserProp.PASSWORD.name);
     return value ?? "";
   }
 
