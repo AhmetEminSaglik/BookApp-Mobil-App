@@ -152,7 +152,7 @@ public class OpenLibraryFreeAPIData {
         book.setDescription(bookOL.getDescription());
         book.setPoint(ratingOL.getSummary().getAverage());
         book.setTotalRead(ratingOL.getSummary().getCount());
-        book.setIsbn_13(bookOL.getIsbn());
+        book.setIsbn(bookOL.getIsbn());
         book.setWebUrl(bookOL.getWebUrl());
         int totalRead = readDataOL.getCounts().getAlready_read() + readDataOL.getCounts().getCurrently_reading();
         book.setTotalRead(totalRead);

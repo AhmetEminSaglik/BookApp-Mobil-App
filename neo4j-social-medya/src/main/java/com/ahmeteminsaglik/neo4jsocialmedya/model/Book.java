@@ -22,7 +22,7 @@ public class Book {
     private String imgUrl;
     private int totalRead;
     private String description;
-    private String isbn_13;
+    private String isbn;
     private String webUrl;
 
     @Override
