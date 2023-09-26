@@ -95,4 +95,9 @@ class Book {
   }
 
   int get id => _id;
+
+  @override
+  String toString() {
+    return 'Book{_id: $_id, _desc: $_desc, _imgUrl: $_imgUrl, _isbn: $_isbn, _name: $_name, _point: $_point, _totalRead: $_totalRead, _webUrl: $_webUrl}';
+  }
 }

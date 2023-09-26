@@ -86,4 +86,9 @@ class User {
   }
 
   int get id => _id;
+
+  @override
+  String toString() {
+    return 'User{_id: $_id, _name: $_name, _lastname: $_lastname, _username: $_username, _password: $_password, _totalFollowers: $_totalFollowers, _totalFollowed: $_totalFollowed}';
+  }
 }

@@ -73,4 +73,9 @@ class Author {
   }
 
   int get id => _id;
+
+  @override
+  String toString() {
+    return 'Author{_id: $_id, _key: $_key, _name: $_name, _lastname: $_lastname, _point: $_point, _totalBook: $_totalBook}';
+  }
 }
