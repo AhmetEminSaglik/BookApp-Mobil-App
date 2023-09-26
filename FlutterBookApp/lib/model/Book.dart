@@ -39,7 +39,7 @@ class Book {
       "point": point,
       "totalRead": totalRead,
       "webUrl": webUrl
-    }
+    };
   }
 
   String get webUrl => _webUrl;

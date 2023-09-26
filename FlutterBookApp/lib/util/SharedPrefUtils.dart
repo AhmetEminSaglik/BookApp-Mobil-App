@@ -1,0 +1,44 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../model/EnumUserProp.dart';
+import '../model/User.dart';
+
+class SharedPrefUtils {
+  static var _sp;
+
+  static Future<void> setLoginDataUser(User user) async {
+    await initiliazeSharedPref();
+    _addDataToSP(user);
+  }
+
+  static Future<void> initiliazeSharedPref() async {
+    _sp ??= await SharedPreferences.getInstance(); // if null, create instance
+  }
+
+  static void _addDataToSP(User user) {
+    _sp.setInt(EnumUserProp.ID.name, user.id);
+    _sp.setString(EnumUserProp.USERNAME.name, user.username);
+    _sp.setString(EnumUserProp.NAME.name, user.name);
+    _sp.setString(EnumUserProp.LASTNAME.name, user.lastname);
+    _sp.setString(EnumUserProp.PASSWORD.name, user.password);
+    _sp.setInt(EnumUserProp.TOTAL_FOLLOWED.name, user.totalFollowed);
+    _sp.setInt(EnumUserProp.TOTAL_FOLLOWERS.name, user.totalFollowers);
+  }
+
+  static int getUserId() {
+    var value = _sp.getInt(EnumUserProp.ID.name);
+    return value ?? -1;
+  }
+
+  static String getUsername() {
+    var value = _sp.getString(EnumUserProp.USERNAME.name);
+    return value ?? "";
+  }
+
+  static String getPassword() {
+    var value = _sp.getString(EnumUserProp.PASSWORD.name);
+    return value ?? "";
+  }
+
+  static get sp => _sp;
+}
