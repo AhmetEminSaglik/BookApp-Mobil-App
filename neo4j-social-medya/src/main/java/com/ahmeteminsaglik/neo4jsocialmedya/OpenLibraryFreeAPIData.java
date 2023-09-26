@@ -39,9 +39,6 @@ public class OpenLibraryFreeAPIData {
     }
 
     public List<Author> getAuthorList() {
-        System.out.println("Normalde author List size: " + authorList.size());
-        System.out.println("hashset size : " + new HashSet<>(authorList).size());
-        System.out.println("tekrar arraylist'e donen hashset size : " + new HashSet<>(authorList).size());
         return new ArrayList<>(new HashSet<>(authorList));
     }
 
@@ -64,7 +61,6 @@ public class OpenLibraryFreeAPIData {
         int i = startIndex - 1;
 //        for (int i = startIndex; i < startIndex + range; i++) {
         while (bookList.size() < range){
-            System.out.println("while'a girdi : "+bookList.size());
             i++;
 
 
@@ -175,10 +171,7 @@ public class OpenLibraryFreeAPIData {
 
         author.setName(name);
         author.setLastname(lastname);
-        System.out.println("------------authorList : " + authorList.size());
         authorList.add(author);
-        System.out.println("------------authorList : " + authorList.size());
-
         return author;
     }
 

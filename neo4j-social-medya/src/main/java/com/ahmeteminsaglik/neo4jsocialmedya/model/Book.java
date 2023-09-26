@@ -29,12 +29,13 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", name='" + name +
+                ", name='" + name + '\'' +
                 ", point=" + point +
-                ", imgUrl=" + imgUrl +
+                ", imgUrl='" + imgUrl + '\'' +
                 ", totalRead=" + totalRead +
-                ", description='" + description +
-                ", webUrl='" + webUrl +
+                ", description='" + description + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", webUrl='" + webUrl + '\'' +
                 '}';
     }
 
