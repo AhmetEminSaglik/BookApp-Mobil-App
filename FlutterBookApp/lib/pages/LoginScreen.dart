@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_book_app/cubit/login/LoginCubit.dart';
+import 'package:flutter_book_app/enum/EnumLoginState.dart';
+import 'package:flutter_book_app/util/SharedPrefUtils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:logger/logger.dart';
 
 import '../util/ProductColor.dart';
 
@@ -21,11 +26,15 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  var log = Logger(printer: PrettyPrinter(colors: false));
+  final TextEditingController _usernameController =
+      TextEditingController(text: "user1");
+  final TextEditingController _passwordController =
+      TextEditingController(text: "pass");
 
   @override
   Widget build(BuildContext context) {
+    autoLogin();
     return Padding(
       padding: const EdgeInsets.all(25.0),
       child: SingleChildScrollView(
@@ -85,11 +94,20 @@ class _LoginFormState extends State<LoginForm> {
             const SizedBox(
               height: 50,
             ),
+            /*
+            *  return BlocBuilder<ProfilUpdatedCubit, bool>(
+      builder: (builder, isUpdated) {}
+      * */
+            getWidgetFoLoginState() ?? Container(),
             SizedBox(
               width: 150,
               height: 40,
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    manuelLogin(
+                        username: _usernameController.text,
+                        password: _passwordController.text);
+                  },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateColor.resolveWith(
                           (states) => ProductColor.darkBlue),
@@ -104,38 +122,43 @@ class _LoginFormState extends State<LoginForm> {
         ),
       ),
     );
-    /*
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          TextFormField(
-            controller: _usernameController,
-            decoration: InputDecoration(
-              labelText: 'Kullanıcı Adı',
-              prefixIcon: Icon(Icons.person), // Kullanıcı adı ikonu
-            ),
-          ),
-          TextFormField(
-            controller: _passwordController,
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: 'Şifre',
-              prefixIcon: Icon(Icons.lock), // Şifre ikonu
-            ),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              // Burada kullanıcı girişi doğrulama ve yönlendirme kodlarını ekleyebilirsiniz.
-              // Örnek: Navigator.pushReplacementNamed(context, '/ana_ekran');
-            },
-            child: Text('Giriş Yap'),
-          ),
-        ],
-      ),
-    );
-  */
   }
+
+  Widget getWidgetFoLoginState() {
+    return BlocBuilder<LoginCubit, EnumLoginState>(
+      builder: (builder, state) {
+        if (state == EnumLoginState.LoginLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        /* else if (state == EnumLoginState.LoginSuccess) {
+          navigatePage();
+        }*/
+        return const SizedBox();
+      },
+    );
+  }
+
+  void autoLogin() async {
+    await SharedPrefUtils.initiliazeSharedPref();
+    String username = SharedPrefUtils.getUsername();
+    String pass = SharedPrefUtils.getPassword();
+    if (username.isNotEmpty && pass.isNotEmpty) {
+      // print("Username is not Empty : ($username)");
+      // print("password is not Empty : ($pass)");
+      login(username: username, password: pass);
+    }
+  }
+
+  void manuelLogin({required String username, required String password}) {
+    login(username: username, password: password);
+  }
+
+  void login({required String username, required String password}) {
+    context.read<LoginCubit>().login(context, username, password);
+  }
+
+/*void navigatePage() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const RecommendScreen()));
+  }*/
 }
