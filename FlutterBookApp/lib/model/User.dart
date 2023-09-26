@@ -4,8 +4,8 @@ class User {
   late String _lastname;
   late String _username;
   late String _password;
-  late String _totalFollowers;
-  late String _totalFollowed;
+  late int _totalFollowers;
+  late int _totalFollowed;
 
   User(
       {required id,
@@ -15,6 +15,7 @@ class User {
       required password,
       required totalFollowers,
       required totalFollowed}) {
+    _id = id;
     _name = name;
     _lastname = lastname;
     _username = username;
@@ -24,6 +25,7 @@ class User {
   }
 
   factory User.fromJson(Map<String, dynamic> json) {
+    print("gelen json : $json");
     return User(
       id: json["id"] as int,
       name: json["name"] as String,
@@ -41,21 +43,21 @@ class User {
       'name': name,
       'lastname': lastname,
       'username': username,
-      '_password': _password,
-      '_totalFollowers': _totalFollowers,
+      '_password': password,
+      '_totalFollowers': totalFollowers,
       'totalFollowed': totalFollowed,
     };
   }
 
-  String get totalFollowed => _totalFollowed;
+  int get totalFollowed => _totalFollowed;
 
-  set totalFollowed(String value) {
+  set totalFollowed(int value) {
     _totalFollowed = value;
   }
 
-  String get totalFollowers => _totalFollowers;
+  int get totalFollowers => _totalFollowers;
 
-  set totalFollowers(String value) {
+  set totalFollowers(int value) {
     _totalFollowers = value;
   }
 

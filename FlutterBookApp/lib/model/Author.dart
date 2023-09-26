@@ -12,7 +12,14 @@ class Author {
       required name,
       required lastname,
       required point,
-      required totalBook});
+      required totalBook}) {
+    _id = id;
+    _key = key;
+    _name = name;
+    _lastname = lastname;
+    _point = point;
+    _totalBook = totalBook;
+  }
 
   factory Author.fromJson(Map<String, dynamic> json) {
     return Author(

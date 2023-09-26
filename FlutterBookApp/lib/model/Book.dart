@@ -8,14 +8,24 @@ class Book {
   late int _totalRead;
   late String _webUrl;
 
-  Book({required id,
-    required desc,
-    required imgUrl,
-    required isbn,
-    required name,
-    required point,
-    required totalRead,
-    required webUrl});
+  Book(
+      {required id,
+      required desc,
+      required imgUrl,
+      required isbn,
+      required name,
+      required point,
+      required totalRead,
+      required webUrl}) {
+    _id = id;
+    _desc = desc;
+    _imgUrl = imgUrl;
+    _isbn = isbn;
+    _name = name;
+    _point = point;
+    _totalRead = totalRead;
+    _webUrl = webUrl;
+  }
 
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
@@ -85,5 +95,4 @@ class Book {
   }
 
   int get id => _id;
-
 }
