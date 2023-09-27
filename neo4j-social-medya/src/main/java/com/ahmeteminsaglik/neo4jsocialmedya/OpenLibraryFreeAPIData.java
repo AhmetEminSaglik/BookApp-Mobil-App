@@ -16,8 +16,8 @@ public class OpenLibraryFreeAPIData {
     //    String apiUrl = "https://openlibrary.org/works/12/ratings.json"; // API URL
     private static CustomLog log = new CustomLog(InitialDataLoader.class);
     private RestTemplate restTemplate = new RestTemplate();
-    private final static int startIndex = 45804;
-    //    private final static int startIndex = 45904;
+//    private final static int startIndex = 45804;
+    private final static int startIndex = 45847;
     private final String apiPrefixBook = "https://openlibrary.org/works/OL";
     private final String apiPrefixAuthor = "https://openlibrary.org/authors/";
     private final String apiInfix = "W";

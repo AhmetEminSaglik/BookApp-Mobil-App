@@ -22,19 +22,24 @@ public class BookController {
     private BookService service;
 
     @GetMapping
-    public List<Book> getAll() {
-        return service.findAll();
+    public ResponseEntity<DataResult<List<Book>>> getAll() {
+        List<Book> bookList = service.findAll();
+        DataResult result = new SuccessDataResult(bookList, "All Book data is retrieved");
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+
     }
 
     @GetMapping("/{name}")
-    public Book getBookByName(@PathVariable String name) {
-        return service.findByName(name);
+    public ResponseEntity<DataResult<Book>> getBookByName(@PathVariable String name) {
+        Book book = service.findByName(name);
+        DataResult result = new SuccessDataResult(book, "Book is retrieved.");
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @PostMapping()
-    public DataResult<Book> save(@RequestBody Book book) {
+    public ResponseEntity<DataResult<Book>> save(@RequestBody Book book) {
         book = service.save(book);
-        return new SuccessDataResult<>(book);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new SuccessDataResult<>(book, "Book is saved "));
     }
 
     public ResponseEntity<DataResult<List<Book>>> saveAllBook(@RequestBody List<Book> list) {
