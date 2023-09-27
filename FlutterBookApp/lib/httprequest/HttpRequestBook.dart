@@ -18,6 +18,7 @@ class HttpRequestBook {
   static Future<List<Book>> getRecommendedBookListByPoint() async {
     List<Book> bookList = [];
     Uri url = Uri.parse("$_baseUrl/recommend/point");
+    // Uri url = Uri.parse("$_baseUrl");
     log.i("URL : $url");
     var resp = await http.get(url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
