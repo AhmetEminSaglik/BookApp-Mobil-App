@@ -6,7 +6,12 @@ class ProductColor {
   static const darkBlue = Color(0xFF063B86);
 
   // static const ratingColor = Color(0xFFCB5ED0);
-  static const red = Color(0xFFEA6318);
+  static const red = Color(0xFFE70C3B);
+  static const BY_FRIEND = Color(0xFFEA6707);
+  static const HIGHEST_RATING = Color(0xFFB60A0A);
+  static const MOST_READ = Color(0xFF1E972A);
+  // static const ratingColor = Color(0xFFA50926);
+  // static const ratingColor = darkBlue;
   static const ratingColor = red;
   static const unRatingColor = Color(0xFF7F7878);
   static const transparent = Colors.transparent;
