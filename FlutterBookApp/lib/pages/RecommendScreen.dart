@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_book_app/enum/EnumRecommendBy.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
@@ -35,7 +33,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
     await retrieveBookList();
     // book = bookList[0];
     print(" recbookArr size : ${recBookArr.length}");
-    recBook = recBookArr[recBookArr.length-1];
+    recBook = recBookArr[recBookArr.length - 1];
     setState(() {
       isLoading = false;
     });
@@ -119,7 +117,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
   Widget build(BuildContext context) {
     // print("book img : ${recBook.data.imgUrl}");
     return Scaffold(
-        backgroundColor: ProductColor.darkBlue,
+        backgroundColor: ProductColor.white,
         body: isLoading
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
@@ -158,7 +156,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
 }
 
 class _BookCard extends StatefulWidget {
-  late RecommendData recBook;
+  late RecommendData<Book> recBook;
 
   _BookCard({required this.recBook});
 
@@ -167,123 +165,88 @@ class _BookCard extends StatefulWidget {
 }
 
 class _BookCardState extends State<_BookCard> {
-  final double imgWidth = 70;
-  final double imgHeight = 120;
+  // final double imgWidth = 70;
+  // final double imgHeight = 120;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 250,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Card(
-          color: ProductColor.cardBackground,
-          child: Column(
+      child: Column(
+        children: [
+          Row(
             children: [
-              /*
-              Image.network(
-                widget.recBook.data.imgUrl,
-                fit: BoxFit.fill, height :100,width: 100,
-              ),*/
-              /*Container(
-                color: ProductColor.red,
-                child: Image.network(
-                  widget.recBook.data.imgUrl,
-                  fit: BoxFit.fill, height :100,//width: 100,
-                ),
-              ),*/
               Container(
+                decoration: BoxDecoration(
+                    border: Border.all(width: 5, color: ProductColor.white),
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    color: ProductColor.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5), // Gölge rengi
+                        spreadRadius: 5, // Gölge yayılma yarıçapı
+                        blurRadius: 7, // Gölge bulanıklık yarıçapı
+                        offset: Offset(0, 3), // Gölge ofseti (x, y)
+                      ),
+                    ]),
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Image.network(
+                    widget.recBook.data.imgUrl,
+                    fit: BoxFit.cover,
+                    height: 200,
+                    width: 120,
+                  ),
+                ),
+              ),
+            ],
+          )
+          /*Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            BookDetailPage(book: widget.recBook.data)));
+              },
+
+              child: Card(
+                // clipBehavior: Clip.,
+                color: ProductColor.cardBackground,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ListTile(
-                      leading: Container(
-                        color: ProductColor.red,
-                        constraints: BoxConstraints(
-                            maxHeight: imgHeight + 1,
-                            maxWidth: imgWidth + 1,
-                            minWidth: imgWidth,
-                            minHeight: imgHeight),
-                        child: Image.network(
-                          widget.recBook.data.imgUrl,
-                          fit: BoxFit.fill,
-                          // height: 100,
-                          // width: 100,
-                        ),
-                      ),
-                      title: Container(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 10, right: 20, bottom: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Text(book.name),
-                              Text(widget.recBook.by,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: widget.recBook.color,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              SizedBox(
-                                  // width: 140,
-                                  child: Text(
-                                getShortTitle(widget.recBook.data.name),
-                                maxLines: 2,
-                                style: const TextStyle(
-                                    fontSize: 20, color: Colors.black),
-                              )),
-                              // const Spacer(),
-                            ],
-                          ),
-                        ),
-                      ),
-                      //Text(book.name),
 
-                      // titleTextStyle: const TextStyle(fontSize: 10),
-                      // subtitle: ,
-
-                      // subtitle: Text(getShortDesc(widget.recBook.data.desc)),
-                      // subtitleTextStyle: const TextStyle(fontSize: 14),
-                    ),
-                    Padding(
+                 */ /*   Padding(
                       padding: const EdgeInsets.only(
-                          top: 5, left: 20, right: 20, bottom: 5),
-                      child: Text(
-                        getShortDesc(widget.recBook.data.desc),
-                        style: const TextStyle(fontSize: 17),
-                        maxLines: 2,
+                          left: 10, right: 25, bottom: 10, top: 10),
+                      child: Row(
+                        children: [
+                          getPointOfBookStar(widget.recBook.data.point),
+                          const Spacer(),
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateColor.resolveWith(
+                                    (states) => ProductColor.red)),
+                            child: const Text(
+                              "Add As Read",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                        ],
                       ),
-                    )
+                    )*/ /*
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 10, right: 25, bottom: 10, top: 10),
-                child: Row(
-                  children: [
-                    getPointOfBookStar(widget.recBook.data.point),
-                    Spacer(),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "Add As Read",
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateColor.resolveWith(
-                              (states) => ProductColor.red)),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+            ),
+          ),*/
+        ],
       ),
     );
   }
@@ -327,5 +290,4 @@ class _BookCardState extends State<_BookCard> {
   }
 }
 
-mixin heart {
-}
+mixin heart {}

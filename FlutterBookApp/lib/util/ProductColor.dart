@@ -17,6 +17,7 @@ class ProductColor {
   static const transparent = Colors.transparent;
   static const cardBackground = Color(0xFFC5E0F3);
   static const white = Colors.white;
+  static const darkWhite = Color(0xFFC3CCCE);
 
   // static const cyan = Color(0xFF4BF1D8);
   static const cyan = Colors.cyanAccent;
