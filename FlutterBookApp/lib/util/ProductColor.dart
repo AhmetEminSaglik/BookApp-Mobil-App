@@ -12,12 +12,15 @@ class ProductColor {
   static const MOST_READ = Color(0xFF1E972A);
   // static const ratingColor = Color(0xFFA50926);
   // static const ratingColor = darkBlue;
-  static const ratingColor = red;
-  static const unRatingColor = Color(0xFF7F7878);
+  // static const ratingColor = red;
+  static const ratingColor = Color(0xFFF3CF22);
+  static const unRatingColor = Color(0xFFE3E3E5);
   static const transparent = Colors.transparent;
   static const cardBackground = Color(0xFFC5E0F3);
-  static const white = Colors.white;
-  static const darkWhite = Color(0xFFC3CCCE);
+  static const white = Color(0xFFFFFFFF);
+  static const darkWhite = Color(0xFFF5F6FA);
+  // static const darkWhite = Color(0xFFE3E3E5);
+  static const grey = Colors.grey;
 
   // static const cyan = Color(0xFF4BF1D8);
   static const cyan = Colors.cyanAccent;

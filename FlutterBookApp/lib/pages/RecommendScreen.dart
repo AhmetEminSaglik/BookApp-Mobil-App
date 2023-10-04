@@ -3,6 +3,7 @@ import 'package:flutter_book_app/enum/EnumRecommendBy.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
+import 'package:flutter_book_app/util/ResponsiveDesign.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:logger/logger.dart';
 
@@ -117,30 +118,17 @@ class _RecommendScreenState extends State<RecommendScreen> {
   Widget build(BuildContext context) {
     // print("book img : ${recBook.data.imgUrl}");
     return Scaffold(
-        backgroundColor: ProductColor.white,
+        backgroundColor: ProductColor.darkWhite,
         body: isLoading
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    /* SizedBox(
-                      height: 100,
-                    ),*/
-                    // getBookCardColumn(),
-                    SingleChildScrollView(child: _BookCardColumn()),
-                    // _BookCard(recBook: recBook),
-
-                    /*        Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _BookCard(recBook: recBook),
-                        _BookCard(recBook: recBook),
-                        _BookCard(recBook: recBook),
-                        _BookCard(recBook: recBook),
-                        _BookCard(recBook: recBook),
-                      ],
-                    )*/
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      SingleChildScrollView(child: _BookCardColumn()),
+                    ],
+                  ),
                 ),
               ));
   }
@@ -165,8 +153,9 @@ class _BookCard extends StatefulWidget {
 }
 
 class _BookCardState extends State<_BookCard> {
-  // final double imgWidth = 70;
-  // final double imgHeight = 120;
+  final double imgWidth = 90;
+  final double imgHeight = 140;
+  final double paddingTop = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -176,95 +165,129 @@ class _BookCardState extends State<_BookCard> {
         children: [
           Row(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(width: 5, color: ProductColor.white),
-                    borderRadius: const BorderRadius.all(Radius.circular(12)),
-                    color: ProductColor.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5), // Gölge rengi
-                        spreadRadius: 5, // Gölge yayılma yarıçapı
-                        blurRadius: 7, // Gölge bulanıklık yarıçapı
-                        offset: Offset(0, 3), // Gölge ofseti (x, y)
+              Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: imgWidth * 3 / 5, right: 10),
+                    child: _ContainerWithBoxDecoration(
+                      widget: Container(
+                        width: 270,
+                        height: imgHeight + 3 * paddingTop,
+                        color: ProductColor.white,
+                        child: Container(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: imgWidth, top: 15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  getShortTitle(widget.recBook.data.name),
+                                  maxLines: 2,
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: getBookRatingShape(
+                                      widget.recBook.data.point),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "${widget.recBook.data.totalRead} Reviews",
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: ProductColor.grey),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  child: Text(
+                                    getShortDesc(widget.recBook.data.desc),
+                                    maxLines: 3,
+                                    style: const TextStyle(
+                                        fontSize: 15, color: ProductColor.grey),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ]),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Image.network(
-                    widget.recBook.data.imgUrl,
-                    fit: BoxFit.cover,
-                    height: 200,
-                    width: 120,
+                    ),
                   ),
-                ),
+                  Row(
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.only(top: paddingTop),
+                          child: _ContainerWithBoxDecoration(
+                            widget: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Image.network(
+                                widget.recBook.data.imgUrl,
+                                fit: BoxFit.cover,
+                                height: imgHeight,
+                                width: imgWidth,
+                              ),
+                            ),
+                          )),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 205),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 2, color: ProductColor.white),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(50)),
+                              color: ProductColor.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.deepOrange.withOpacity(0.7),
+                                  spreadRadius: 2,
+                                  blurRadius: 3,
+                                  offset:
+                                      const Offset(0, 1), // Gölge ofseti (x, y)
+                                ),
+                              ]),
+                          height: 25,
+                          width: 25,
+                          // color: ProductColor.red,
+                          child: Icon(Icons.chevron_right,
+                              color: ProductColor.red),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           )
-          /*Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            BookDetailPage(book: widget.recBook.data)));
-              },
-
-              child: Card(
-                // clipBehavior: Clip.,
-                color: ProductColor.cardBackground,
-                child: Column(
-                  children: [
-
-                 */ /*   Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10, right: 25, bottom: 10, top: 10),
-                      child: Row(
-                        children: [
-                          getPointOfBookStar(widget.recBook.data.point),
-                          const Spacer(),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStateColor.resolveWith(
-                                    (states) => ProductColor.red)),
-                            child: const Text(
-                              "Add As Read",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )*/ /*
-                  ],
-                ),
-              ),
-            ),
-          ),*/
         ],
       ),
     );
   }
 
-  Widget getPointOfBookStar(double rating) {
-    rating /= 2;
+  Widget getBookRatingShape(double rating) {
+    // rating /= 2;
+    double currentRating = rating;
     return RatingBar.builder(
         initialRating: rating,
+        tapOnlyMode: false,
         allowHalfRating: true,
         itemBuilder: (context, _) => const Icon(
               // Icons.star,
-              Icons.favorite,
+              Icons.star,
               color: ProductColor.ratingColor,
             ),
         unratedColor: ProductColor.unRatingColor,
-        itemSize: 27,
+        itemSize: 25,
         onRatingUpdate: (rating) {
-          print("rating Update worked : $rating");
+          setState(() {
+            rating=currentRating ;
+          });
+
         });
   }
 
@@ -282,7 +305,7 @@ class _BookCardState extends State<_BookCard> {
   }
 
   String getShortTitle(String title) {
-    int index = 40;
+    int index = 35;
     if (title.trim().length > index) {
       return "${title.substring(0, index).trim()}...";
     }
@@ -290,4 +313,27 @@ class _BookCardState extends State<_BookCard> {
   }
 }
 
-mixin heart {}
+class _ContainerWithBoxDecoration extends StatelessWidget {
+  late Widget widget;
+
+  _ContainerWithBoxDecoration({required this.widget});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          border: Border.all(width: 5, color: ProductColor.white),
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+          color: ProductColor.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.7),
+              spreadRadius: 6,
+              blurRadius: 5,
+              offset: const Offset(0, 1), // Gölge ofseti (x, y)
+            ),
+          ]),
+      child: widget,
+    );
+  }
+}
