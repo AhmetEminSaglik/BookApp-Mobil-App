@@ -15,10 +15,10 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
             "RETURN u,b")
     List<Book> getAllByUserIdMatches(@PathVariable Long userId);
 
-    @Query("MATCH (b:Book)  RETURN b ORDER BY b.point DESC LIMIT 5")
+    @Query("MATCH (b:Book)  RETURN b ORDER BY b.point DESC LIMIT 2 ")
     List<Book> findByHighestPoint();
 
-    @Query("MATCH (b:Book) RETURN b ORDER BY b.totalRead DESC LIMIT 5")
+    @Query("MATCH (b:Book) RETURN b ORDER BY b.totalRead DESC LIMIT 2 ")
     List<Book> findByHighestTotalRead();
 
     // returns user's following users' read common books to recommend users.
@@ -27,7 +27,7 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
             "WHERE  NOT (b)<-[:READ]-(u) " +
             "WITH b, COUNT(DISTINCT u2) AS num_readers " +
             "ORDER BY num_readers DESC " +
-            "LIMIT 5 " +
+            "LIMIT 2  " +
             "MATCH (u:User)-[:READ]->(b) " +
             "RETURN DISTINCT b")
     List<Book> findByMostReadBookFromFollowings(@PathVariable Long userId);
@@ -37,6 +37,6 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
             "MERGE (u)-[r:READ]->(b)")
     void createConnectionUserReadBook(long userId, long bookId);
 
-    @Query("MATCH (b:Book)<-[r:READ]-(u:User)\nWITH b, avg(r.rate) as point, count(u) as totalReaders\nSET b.totalRead = totalReaders, b.point = round(point, 2)\n")
+    @Query("MATCH (b:Book)<-[r:READ]-(u:User)\nWITH b, avg(r.rate) as point, count(u) as totalReaders\nSET b.totalRead = totalReaders, b.point = round(point, 1)\n")
     void fixBookData();
 }
