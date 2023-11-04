@@ -15,8 +15,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.book.name)),
-      backgroundColor: ProductColor.darkBlue,
+      appBar: AppBar(title: Text("Recommended Book Page")),
+      backgroundColor: ProductColor.darkWhite,
       body: Container(
         height: 100,
       ),

@@ -34,7 +34,7 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    autoLogin();
+    // Login();
     return Padding(
       padding: const EdgeInsets.all(25.0),
       child: SingleChildScrollView(

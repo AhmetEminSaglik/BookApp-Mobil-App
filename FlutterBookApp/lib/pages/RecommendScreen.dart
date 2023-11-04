@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_book_app/cubit/recommendedbook/RecommendedBookCubit.dart';
 import 'package:flutter_book_app/enum/EnumRecommendBy.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
@@ -160,58 +162,65 @@ class _BookCardState extends State<_BookCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,
+      height: 255,
       child: Column(
         children: [
           Row(
             children: [
               Stack(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: imgWidth * 3 / 5, right: 10),
-                    child: _ContainerWithBoxDecoration(
-                      widget: Container(
-                        width: 270,
-                        height: imgHeight + 3 * paddingTop,
-                        color: ProductColor.white,
-                        child: Container(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: imgWidth, top: 15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  getShortTitle(widget.recBook.data.name),
-                                  maxLines: 2,
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: getBookRatingShape(
-                                      widget.recBook.data.point),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "${widget.recBook.data.totalRead} Reviews",
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: ProductColor.grey),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: Text(
-                                    getShortDesc(widget.recBook.data.desc),
-                                    maxLines: 3,
+                  InkWell(
+                    onTap: () {
+                      goToDetailPageOfBook(context, widget.recBook.data);
+                    },
+                    child: Padding(
+                      padding:
+                          EdgeInsets.only(left: imgWidth * 3 / 5, right: 10),
+                      child: _ContainerWithBoxDecoration(
+                        widget: Container(
+                          width: 270,
+                          height: imgHeight + 4 * paddingTop,
+                          color: ProductColor.white,
+                          child: Container(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: imgWidth, top: 15),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    getShortTitle(widget.recBook.data.name),
+                                    maxLines: 2,
                                     style: const TextStyle(
-                                        fontSize: 15, color: ProductColor.grey),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: getBookRatingShape(
+                                        widget.recBook.data.point),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    "${widget.recBook.data.totalRead} Reviews",
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: ProductColor.grey),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 15),
+                                    child: Text(
+                                      getShortDesc(widget.recBook.data.desc),
+                                      maxLines: 3,
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          color: ProductColor.grey),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -222,14 +231,20 @@ class _BookCardState extends State<_BookCard> {
                     children: [
                       Padding(
                           padding: EdgeInsets.only(top: paddingTop),
-                          child: _ContainerWithBoxDecoration(
-                            widget: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Image.network(
-                                widget.recBook.data.imgUrl,
-                                fit: BoxFit.cover,
-                                height: imgHeight,
-                                width: imgWidth,
+                          child: InkWell(
+                            onTap: () {
+                              goToDetailPageOfBook(
+                                  context, widget.recBook.data);
+                            },
+                            child: _ContainerWithBoxDecoration(
+                              widget: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Image.network(
+                                  widget.recBook.data.imgUrl,
+                                  fit: BoxFit.cover,
+                                  height: imgHeight,
+                                  width: imgWidth,
+                                ),
                               ),
                             ),
                           )),
@@ -269,6 +284,11 @@ class _BookCardState extends State<_BookCard> {
     );
   }
 
+  void goToDetailPageOfBook(BuildContext context, Book book) {
+    context.read<RecommendedBookCubit>().setBook(book);
+    context.read<RecommendedBookCubit>().goToDetailPageOfBook(context);
+  }
+
   Widget getBookRatingShape(double rating) {
     // rating /= 2;
     double currentRating = rating;
@@ -285,9 +305,8 @@ class _BookCardState extends State<_BookCard> {
         itemSize: 25,
         onRatingUpdate: (rating) {
           setState(() {
-            rating=currentRating ;
+            rating = currentRating;
           });
-
         });
   }
 
