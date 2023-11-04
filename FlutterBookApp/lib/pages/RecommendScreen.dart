@@ -12,6 +12,7 @@ import 'package:logger/logger.dart';
 import '../model/Book.dart';
 import '../model/Recommend.dart';
 import '../model/User.dart';
+import '../product/BookDesignDecoration.dart';
 
 class RecommendScreen extends StatefulWidget {
   const RecommendScreen({Key? key}) : super(key: key);
@@ -176,8 +177,8 @@ class _BookCardState extends State<_BookCard> {
                     child: Padding(
                       padding:
                           EdgeInsets.only(left: imgWidth * 3 / 5, right: 10),
-                      child: _ContainerWithBoxDecoration(
-                        widget: Container(
+                      child: ContainerWithBoxDecoration(
+                        child: Container(
                           width: 270,
                           height: imgHeight + 4 * paddingTop,
                           color: ProductColor.white,
@@ -196,8 +197,12 @@ class _BookCardState extends State<_BookCard> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 10),
-                                    child: getBookRatingShape(
-                                        widget.recBook.data.point),
+                                    child: Row(
+                                      children: [
+                                        getBookRatingShape(
+                                            widget.recBook.data.point),
+                                      ],
+                                    ),
                                   ),
                                   const SizedBox(
                                     width: 10,
@@ -236,8 +241,8 @@ class _BookCardState extends State<_BookCard> {
                               goToDetailPageOfBook(
                                   context, widget.recBook.data);
                             },
-                            child: _ContainerWithBoxDecoration(
-                              widget: Padding(
+                            child: ContainerWithBoxDecoration(
+                              child: Padding(
                                 padding: const EdgeInsets.all(10),
                                 child: Image.network(
                                   widget.recBook.data.imgUrl,
@@ -289,7 +294,7 @@ class _BookCardState extends State<_BookCard> {
     context.read<RecommendedBookCubit>().goToDetailPageOfBook(context);
   }
 
-  Widget getBookRatingShape(double rating) {
+  /*Widget getBookRatingShape(double rating) {
     // rating /= 2;
     double currentRating = rating;
     return RatingBar.builder(
@@ -309,7 +314,7 @@ class _BookCardState extends State<_BookCard> {
           });
         });
   }
-
+*/
   String getShortDesc(String desc) {
     if (desc.trim().length == 0) {
       return "- - -";
@@ -329,30 +334,5 @@ class _BookCardState extends State<_BookCard> {
       return "${title.substring(0, index).trim()}...";
     }
     return title;
-  }
-}
-
-class _ContainerWithBoxDecoration extends StatelessWidget {
-  late Widget widget;
-
-  _ContainerWithBoxDecoration({required this.widget});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(width: 5, color: ProductColor.white),
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
-          color: ProductColor.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.7),
-              spreadRadius: 6,
-              blurRadius: 5,
-              offset: const Offset(0, 1), // Gölge ofseti (x, y)
-            ),
-          ]),
-      child: widget,
-    );
   }
 }

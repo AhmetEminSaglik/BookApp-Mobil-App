@@ -1,3 +1,5 @@
+import 'package:flutter_book_app/model/Author.dart';
+
 import '../model/Book.dart';
 
 class BookRepository {
@@ -17,7 +19,8 @@ class BookRepository {
           name: tmp["name"],
           point: tmp["point"],
           totalRead: tmp["totalRead"],
-          webUrl: tmp["webUrl"]);
+          webUrl: tmp["webUrl"],
+          author: Author.fromJson(tmp['author']));
       bookList.add(user);
     }
     return bookList;

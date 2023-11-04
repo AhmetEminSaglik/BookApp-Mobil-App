@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_book_app/cubit/UserBookActionCubit.dart';
 import 'package:flutter_book_app/cubit/login/LoginCubit.dart';
 import 'package:flutter_book_app/cubit/recommendedbook/RecommendedBookCubit.dart';
 import 'package:flutter_book_app/model/Book.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => LoginCubit()),
           BlocProvider(create: (context) => RecommendedBookCubit()),
+          BlocProvider(create: (context) => UserBookActionCubit(0)),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

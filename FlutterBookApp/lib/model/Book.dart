@@ -1,3 +1,5 @@
+import 'package:flutter_book_app/model/Author.dart';
+
 class Book {
   late int _id;
   late String _desc;
@@ -7,6 +9,7 @@ class Book {
   late double _point;
   late int _totalRead;
   late String _webUrl;
+  late Author _author;
 
   Book(
       {required id,
@@ -16,7 +19,8 @@ class Book {
       required name,
       required point,
       required totalRead,
-      required webUrl}) {
+      required webUrl,
+      required author}) {
     _id = id;
     _desc = desc;
     _imgUrl = imgUrl;
@@ -25,6 +29,7 @@ class Book {
     _point = point;
     _totalRead = totalRead;
     _webUrl = webUrl;
+    _author = author;
   }
 
   factory Book.fromJson(Map<String, dynamic> json) {
@@ -36,7 +41,8 @@ class Book {
         name: json["name"] as String,
         point: json["point"] as double,
         totalRead: json["totalRead"] as int,
-        webUrl: json["webUrl"] as String);
+        webUrl: json["webUrl"] as String,
+        author: Author.fromJson(json));
   }
 
   Map<String, dynamic> toJson() {
@@ -48,7 +54,9 @@ class Book {
       "name": name,
       "point": point,
       "totalRead": totalRead,
-      "webUrl": webUrl
+      "webUrl": webUrl,
+      "author": _author.toJson()
+
     };
   }
 
@@ -95,6 +103,12 @@ class Book {
   }
 
   int get id => _id;
+
+  Author get author => _author;
+
+  set author(Author value) {
+    _author = value;
+  }
 
   @override
   String toString() {

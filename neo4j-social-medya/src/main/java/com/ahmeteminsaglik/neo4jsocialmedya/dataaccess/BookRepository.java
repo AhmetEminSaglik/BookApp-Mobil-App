@@ -1,5 +1,6 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.dataaccess;
 
+import com.ahmeteminsaglik.neo4jsocialmedya.model.Author;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.Book;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
@@ -39,4 +40,9 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
 
     @Query("MATCH (b:Book)<-[r:READ]-(u:User)\nWITH b, avg(r.rate) as point, count(u) as totalReaders\nSET b.totalRead = totalReaders, b.point = round(point, 1)\n")
     void fixBookData();
+
+/*    @Query("MATCH (book:Book)<-[:WRITE]-(author:Author) " +
+            "WHERE ID(book)= $bookId " +
+            "return author")
+    Author findAuthorOfBook(long bookId);*/
 }

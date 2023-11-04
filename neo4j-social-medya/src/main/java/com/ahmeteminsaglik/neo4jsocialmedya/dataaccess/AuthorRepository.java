@@ -20,4 +20,8 @@ public interface AuthorRepository extends Neo4jRepository<Author, Long> {
     void setWriteConnection(long authorId, long bookId);
 
     Author findByKey(String key);
+    @Query("MATCH (book:Book)<-[:WRITE]-(author:Author) " +
+            "WHERE ID(book)= $bookId " +
+            "return author")
+    Author findAuthorOfBook(long bookId);
 }
