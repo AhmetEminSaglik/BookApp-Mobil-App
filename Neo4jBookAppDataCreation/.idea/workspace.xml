@@ -5,24 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d7c3c2a9-e6f6-43f3-8620-54c9f2a97509" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/.idea/deploymentTargetDropDown.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../FlutterBookApp/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../FlutterBookApp/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Author.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/AuthorOL.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/AuthorOL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/BookInfoISBN.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/BookInfoISBN.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/BookOL.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/BookOL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/CountOL.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/CountOL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Movie.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Movie.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/RatingOL.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/RatingOL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/ReadDataOL.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/ReadDataOL.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Summary.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Summary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BookAppAndroid/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../BookAppAndroid/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../neo4j-social-medya/src/main/java/com/ahmeteminsaglik/neo4jsocialmedya/model/Role.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +48,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "work/flutter/book-detail-page",
+    "git-widget-placeholder": "work/remove-unnecessary-classes",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/projects/intelijidea/BookAppDemo/neo4j-social-medya",
     "project.structure.last.edited": "Project",

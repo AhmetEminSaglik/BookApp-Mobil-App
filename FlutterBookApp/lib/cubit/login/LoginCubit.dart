@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
 import 'package:flutter_book_app/httprequest/Model/ResponseEntity.dart';
+import 'package:flutter_book_app/pages/HomeScreen.dart';
+import 'package:flutter_book_app/pages/MyReadBookScreen.dart';
 import 'package:flutter_book_app/repo/UserRepository.dart';
 import 'package:flutter_book_app/util/SharedPrefUtils.dart';
 import 'package:logger/logger.dart';
@@ -34,6 +36,6 @@ class LoginCubit extends Cubit<EnumLoginState> {
 
   void _navigatePage(BuildContext context) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const RecommendScreen()));
+        MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 }
