@@ -4,12 +4,14 @@ import 'package:flutter_book_app/cubit/recommendedbook/BookCubit.dart';
 import 'package:flutter_book_app/enum/EnumRecommendBy.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
+import 'package:flutter_book_app/product/RecommendBookCard.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:logger/logger.dart';
 
 import '../model/Book.dart';
 import '../model/Recommend.dart';
 import '../model/User.dart';
+import '../product/BookCard.dart';
 import '../product/BookDesignDecoration.dart';
 
 class RecommendScreen extends StatefulWidget {
@@ -123,8 +125,8 @@ class _RecommendScreenState extends State<RecommendScreen> {
   Column _BookCardColumn() {
     Column column = Column(children: []);
     for (int i = 0; i < recBookArr.length; i++) {
-      BookCard _bookCard = BookCard(book: recBookArr[i].data);
-      column.children.add(_bookCard);
+      RecommendBookCard _recBookCard = RecommendBookCard(recData: recBookArr[i]);
+      column.children.add(_recBookCard);
     }
     return column;
   }

@@ -5,6 +5,7 @@ import 'package:logger/logger.dart';
 import '../cubit/recommendedbook/BookCubit.dart';
 import '../httprequest/HttpRequestBook.dart';
 import '../model/Book.dart';
+import '../product/BookCard.dart';
 import '../product/BookDesignDecoration.dart';
 import '../util/ProductColor.dart';
 
