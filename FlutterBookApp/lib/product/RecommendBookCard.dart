@@ -6,6 +6,7 @@ import '../cubit/recommendedbook/BookCubit.dart';
 import '../httprequest/HttpRequestBook.dart';
 import '../model/Book.dart';
 import '../util/ProductColor.dart';
+import '../util/ResponsiveDesign.dart';
 import 'BookDesignDecoration.dart';
 
 class RecommendBookCard extends StatefulWidget {
@@ -20,8 +21,8 @@ class RecommendBookCard extends StatefulWidget {
 
 class _RecommendBookCardState extends State<RecommendBookCard> {
   var log = Logger(printer: PrettyPrinter(colors: false));
-  final double imgWidth = 90;
-  final double imgHeight = 120;
+  final double imgWidth = ResponsiveDesign.width() / 6;
+  final double imgHeight = ResponsiveDesign.height() / 6;
   final double padding = 15;
   bool isLoading = true;
   List<Book> bookList = [];
@@ -56,10 +57,8 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
                 children: [
                   InkWell(
                     onTap: () {
-                      goToDetailPageOfBook(
-                        context,
-                        widget.recData.data,isBookReadByUser(widget.recData.data)
-                      );
+                      goToDetailPageOfBook(context, widget.recData.data,
+                          isBookReadByUser(widget.recData.data));
                     },
                     child: getRecommendBookCardContent(),
                   ),
@@ -92,10 +91,11 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
 
   Padding getRecommendBookCardContent() {
     return Padding(
-      padding: EdgeInsets.only(left: imgWidth / 2),
+      padding: EdgeInsets.only(left: imgWidth ),
       child: ContainerWithBoxDecoration(
         child: Container(
-          width: 295,
+          // width: 295,
+          width: ResponsiveDesign.width() - imgWidth - 4 * padding,
           height: imgHeight + 4.5 * padding,
           color: ProductColor.white,
           child: Padding(
@@ -154,7 +154,8 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
 
   Padding getChevron() {
     return Padding(
-      padding: const EdgeInsets.only(left: 215),
+      padding: EdgeInsets.only(
+          left: ResponsiveDesign.width() - imgWidth - 6 * padding),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2, color: ProductColor.white),
@@ -181,7 +182,8 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
         padding: EdgeInsets.only(top: padding),
         child: InkWell(
           onTap: () {
-            goToDetailPageOfBook(context, widget.recData.data,isBookReadByUser(widget.recData.data));
+            goToDetailPageOfBook(context, widget.recData.data,
+                isBookReadByUser(widget.recData.data));
           },
           child: ContainerWithBoxDecoration(
             child: Padding(

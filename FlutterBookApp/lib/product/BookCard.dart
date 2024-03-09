@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_book_app/util/ResponsiveDesign.dart';
 import '../cubit/recommendedbook/BookCubit.dart';
 import '../model/Book.dart';
 import '../util/ProductColor.dart';
@@ -10,15 +13,15 @@ class BookCard extends StatefulWidget {
   late int index;
   late bool isBookRead;
 
-  BookCard({required this.book, required this.index,required this.isBookRead});
+  BookCard({required this.book, required this.index, required this.isBookRead});
 
   @override
   State<BookCard> createState() => _BookCardState();
 }
 
 class _BookCardState extends State<BookCard> {
-  final double imgWidth = 90;
-  final double imgHeight = 120;
+  final double imgWidth = ResponsiveDesign.width() / 6;
+  final double imgHeight = ResponsiveDesign.height() / 6;
   final double padding = 15;
 
   @override
@@ -33,7 +36,8 @@ class _BookCardState extends State<BookCard> {
                 children: [
                   InkWell(
                     onTap: () {
-                      goToDetailPageOfBook(context, widget.book, widget.isBookRead);
+                      goToDetailPageOfBook(
+                          context, widget.book, widget.isBookRead);
                     },
                     child: getBookCardContent(),
                   ),
@@ -54,10 +58,11 @@ class _BookCardState extends State<BookCard> {
 
   Padding getBookCardContent() {
     return Padding(
-      padding: EdgeInsets.only(left: imgWidth / 2),
+      padding: EdgeInsets.only(left: imgWidth),
       child: ContainerWithBoxDecoration(
         child: Container(
-          width: 295,
+          // width: 295,
+          width: ResponsiveDesign.width() - imgWidth - 4 * padding,
           height: imgHeight + 4.5 * padding,
           color: ProductColor.white,
           child: Padding(
@@ -108,7 +113,8 @@ class _BookCardState extends State<BookCard> {
 
   Padding getChevron() {
     return Padding(
-      padding: const EdgeInsets.only(left: 215),
+      padding: EdgeInsets.only(
+          left: ResponsiveDesign.width() - imgWidth - 6 * padding),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2, color: ProductColor.white),

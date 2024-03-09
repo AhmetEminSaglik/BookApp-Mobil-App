@@ -14,6 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ResponsiveDesign(mediaQueryData: MediaQuery.of(context));
+    print("ResponsiveDesign : height : ${ResponsiveDesign.height()} , width : ${ResponsiveDesign.width()}");
+
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => LoginCubit()),
