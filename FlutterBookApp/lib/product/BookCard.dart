@@ -24,7 +24,7 @@ class _BookCardState extends State<BookCard> {
   var log = Logger(printer: PrettyPrinter(colors: false));
 
   final double imgWidth = ResponsiveDesign.width() / 6.5;
-  final double imgHeight = ResponsiveDesign.height() / 7;
+  final double imgHeight = ResponsiveDesign.height() / 6.5;
   final double padding = ResponsiveDesign.height() / 65;
 
   @override
@@ -69,7 +69,7 @@ class _BookCardState extends State<BookCard> {
         child: Container(
           // width: 295,
           width: ResponsiveDesign.width() - contentWidth - 4.5 * padding,
-          height: imgHeight + 4.5 * padding,
+          height: imgHeight + 5.5 * padding,
           color: ProductColor.white,
           child: Padding(
             padding: EdgeInsets.only(left: imgWidth, top: 10),

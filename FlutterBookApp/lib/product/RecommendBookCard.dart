@@ -23,7 +23,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
   var log = Logger(printer: PrettyPrinter(colors: false));
 
   final double imgWidth = ResponsiveDesign.width() / 6.5;
-  final double imgHeight = ResponsiveDesign.height() / 7;
+  final double imgHeight = ResponsiveDesign.height() / 6.5;
   final double padding = ResponsiveDesign.height() / 65;
 
   bool isLoading = true;
