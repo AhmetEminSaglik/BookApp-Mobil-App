@@ -18,13 +18,13 @@ class RecommendBookCard extends StatefulWidget {
 
 class _RecommendBookCardState extends State<RecommendBookCard> {
   final double imgWidth = 90;
-  final double imgHeight = 140;
+  final double imgHeight = 120;
   final double padding = 15;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,
+      height: imgHeight*7/4,
       child: Column(
         children: [
           Row(
@@ -57,22 +57,23 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
       padding: EdgeInsets.only(left: imgWidth / 2),
       child: ContainerWithBoxDecoration(
         child: Container(
-          width: 283,
+          width: 295,
           height: imgHeight + 4.5 * padding,
           color: ProductColor.white,
           child: Padding(
-            padding: EdgeInsets.only(left: imgWidth, top: 10),
+            padding: EdgeInsets.only(left: imgWidth, top: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   getShortTitle("${widget.index}-) ${widget.recData.data.name}"),
                   maxLines: 2,
+
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 5),
                   child: Row(
                     children: [
                       getBookRatingShape(widget.recData.data.point),
@@ -116,7 +117,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
 
   Padding getChevron() {
     return Padding(
-      padding: const EdgeInsets.only(left: 205),
+      padding: const EdgeInsets.only(left: 215),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2, color: ProductColor.white),

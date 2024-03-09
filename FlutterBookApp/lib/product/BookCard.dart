@@ -17,13 +17,13 @@ class BookCard extends StatefulWidget {
 
 class _BookCardState extends State<BookCard> {
   final double imgWidth = 90;
-  final double imgHeight = 140;
+  final double imgHeight = 120;
   final double padding = 15;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: imgHeight * 5 / 3,
+      height: imgHeight * 7 / 4,
       child: Column(
         children: [
           Row(
@@ -56,8 +56,8 @@ class _BookCardState extends State<BookCard> {
       padding: EdgeInsets.only(left: imgWidth / 2),
       child: ContainerWithBoxDecoration(
         child: Container(
-          width: 283,
-          height: imgHeight + 3.5 * padding,
+          width: 295,
+          height: imgHeight + 4.5 * padding,
           color: ProductColor.white,
           child: Padding(
             padding: EdgeInsets.only(left: imgWidth, top: 10),
@@ -107,7 +107,7 @@ class _BookCardState extends State<BookCard> {
 
   Padding getChevron() {
     return Padding(
-      padding: const EdgeInsets.only(left: 205),
+      padding: const EdgeInsets.only(left: 215),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2, color: ProductColor.white),
