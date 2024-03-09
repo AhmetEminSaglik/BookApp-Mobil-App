@@ -54,28 +54,6 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   ],
                 ),
                 _BigCardDesign(widget.book),
-                /*,
-                Text(
-                  widget.book.name,
-                  style: const TextStyle(
-                      fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        getBookRatingShape(widget.book.point),
-                        // getAveragePointText(widget.book.point)
-                      ],
-                    ),
-                    getReviewText(widget.book.totalRead),
-                    Text(
-                        "Author: ${widget.book.author.name} ${widget.book.author.lastname}"),
-                  ],
-                )*/
               ],
             ),
           )
@@ -151,13 +129,7 @@ class _BigCardDesign extends StatelessWidget {
                 width: 200,
                 child: _AddAsReadButton(
                     bookId: book
-                        .id) /*connectionIsNotCreated
-                    ? _AddAsReadButton(
-                        bookId: book.id,
-                        connectionFound: connectionIsNotCreated)
-                    : _RemoveUserReadConnectionButton(
-                        bookId: book.id,
-                        connectionFound: connectionIsNotCreated)*/
+                        .id)
                 ,
               )
             ],
@@ -188,10 +160,7 @@ class _AddAsReadButtonState extends State<_AddAsReadButton> {
         await context
             .read<UserBookActionCubit>()
             .createUserReadBookConnection(widget.bookId);
-        /*setState(() {
-          print("ESLESME BASARILI ");
-          widget.connectionFound = !widget.connectionFound;
-        });*/
+
       },
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -212,49 +181,6 @@ class _AddAsReadButtonState extends State<_AddAsReadButton> {
   }
 }
 
-/*class _RemoveUserReadConnectionButton extends StatefulWidget {
-  final int bookId;
-  bool connectionFound;
-
-  _RemoveUserReadConnectionButton(
-      {required this.bookId, required this.connectionFound});
-
-  @override
-  State<_RemoveUserReadConnectionButton> createState() =>
-      _RemoveUserReadConnectionButtonState();
-}
-
-class _RemoveUserReadConnectionButtonState
-    extends State<_RemoveUserReadConnectionButton> {
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        context
-            .read<UserBookActionCubit>()
-            .destroyUserReadBookConnection(widget.bookId);
-        setState(() {
-          widget.connectionFound = !widget.connectionFound;
-        });
-      },
-      style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                side: const BorderSide(color: Colors.red))),
-        backgroundColor:
-            MaterialStateColor.resolveWith((states) => ProductColor.orange),
-        foregroundColor:
-            MaterialStateColor.resolveWith((states) => ProductColor.white),
-      ),
-      child: const Text(
-        "Remove From Read List",
-        style: TextStyle(fontSize: 18),
-      ),
-    );
-    ;
-  }
-}*/
 
 class _TextForBigCardDesign extends StatelessWidget {
   final String text;
@@ -275,129 +201,3 @@ class _TextForBigCardDesign extends StatelessWidget {
             fontSize: textSize, fontWeight: fontWeight, color: textColor));
   }
 }
-
-/*SizedBox getBigBookCardDesign() {
-  return SizedBox(
-    height: 255,
-    child: Column(
-      children: [
-        Row(
-          children: [
-            Stack(
-              children: [
-                InkWell(
-                  onTap: () {
-                    goToDetailPageOfBook(context, widget.recBook.data);
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.only(left: imgWidth * 3 / 5, right: 10),
-                    child: ContainerWithBoxDecoration(
-                      widget: Container(
-                        width: 270,
-                        height: imgHeight + 4 * paddingTop,
-                        color: ProductColor.white,
-                        child: Container(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: imgWidth, top: 15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  getShortTitle(widget.recBook.data.name),
-                                  maxLines: 2,
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: Row(
-                                    children: [
-                                      getBookRatingShape(
-                                          widget.recBook.data.point),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "${widget.recBook.data.totalRead} Reviews",
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: ProductColor.grey),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: Text(
-                                    getShortDesc(widget.recBook.data.desc),
-                                    maxLines: 3,
-                                    style: const TextStyle(
-                                        fontSize: 15, color: ProductColor.grey),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Padding(
-                        padding: EdgeInsets.only(top: paddingTop),
-                        child: InkWell(
-                          onTap: () {
-                            goToDetailPageOfBook(context, widget.recBook.data);
-                          },
-                          child: ContainerWithBoxDecoration(
-                            widget: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Image.network(
-                                widget.recBook.data.imgUrl,
-                                fit: BoxFit.cover,
-                                height: imgHeight,
-                                width: imgWidth,
-                              ),
-                            ),
-                          ),
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 205),
-                      child: Container(
-                        decoration: BoxDecoration(
-                        decoration: BoxDecoration(
-                            border:
-                                Border.all(width: 2, color: ProductColor.white),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(50)),
-                            color: ProductColor.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.deepOrange.withOpacity(0.7),
-                                spreadRadius: 2,
-                                blurRadius: 3,
-                                offset:
-                                    const Offset(0, 1), // Gölge ofseti (x, y)
-                              ),
-                            ]),
-                        height: 25,
-                        width: 25,
-                        // color: ProductColor.red,
-                        child:
-                            Icon(Icons.chevron_right, color: ProductColor.red),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        )
-      ],
-    ),
-  );
-}*/

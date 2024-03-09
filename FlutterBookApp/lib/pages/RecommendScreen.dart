@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_book_app/cubit/recommendedbook/BookCubit.dart';
 import 'package:flutter_book_app/enum/EnumRecommendBy.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
 import 'package:flutter_book_app/product/RecommendBookCard.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:logger/logger.dart';
-
 import '../model/Book.dart';
 import '../model/Recommend.dart';
 import '../model/User.dart';
-import '../product/BookCard.dart';
-import '../product/BookDesignDecoration.dart';
 
 class RecommendScreen extends StatefulWidget {
   const RecommendScreen({Key? key}) : super(key: key);
@@ -112,7 +107,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.only(left: 20,right: 10,top: 20,bottom: 20),
                   child: Column(
                     children: [
                       SingleChildScrollView(child: _BookCardColumn()),
@@ -135,191 +130,3 @@ class _RecommendScreenState extends State<RecommendScreen> {
   }
 }
 
-/*class _BookCard extends StatefulWidget {
-  late RecommendData<Book> recBook;
-
-  _BookCard({required this.recBook});
-
-  @override
-  State<_BookCard> createState() => _BookCardState();
-}
-
-class _BookCardState extends State<_BookCard> {
-  final double imgWidth = 90;
-  final double imgHeight = 140;
-  final double paddingTop = 20;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 255,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Stack(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      goToDetailPageOfBook(context, widget.recBook.data);
-                    },
-                    child: Padding(
-                      padding:
-                          EdgeInsets.only(left: imgWidth * 3 / 5, right: 10),
-                      child: ContainerWithBoxDecoration(
-                        child: Container(
-                          width: 270,
-                          height: imgHeight + 4 * paddingTop,
-                          color: ProductColor.white,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: imgWidth, top: 15),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  getShortTitle(widget.recBook.data.name),
-                                  maxLines: 2,
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10),
-                                  child: Row(
-                                    children: [
-                                      getBookRatingShape(
-                                          widget.recBook.data.point),
-                                    ],
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Text(
-                                  "${widget.recBook.data.totalRead} Reviews",
-                                  style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                      color: ProductColor.grey),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 15),
-                                  child: Text(
-                                    getShortDesc(widget.recBook.data.desc),
-                                    maxLines: 3,
-                                    style: const TextStyle(
-                                        fontSize: 15,
-                                        color: ProductColor.grey),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.only(top: paddingTop),
-                          child: InkWell(
-                            onTap: () {
-                              goToDetailPageOfBook(
-                                  context, widget.recBook.data);
-                            },
-                            child: ContainerWithBoxDecoration(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Image.network(
-                                  widget.recBook.data.imgUrl,
-                                  fit: BoxFit.cover,
-                                  height: imgHeight,
-                                  width: imgWidth,
-                                ),
-                              ),
-                            ),
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 205),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 2, color: ProductColor.white),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(50)),
-                              color: ProductColor.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.deepOrange.withOpacity(0.7),
-                                  spreadRadius: 2,
-                                  blurRadius: 3,
-                                  offset:
-                                      const Offset(0, 1), // Gölge ofseti (x, y)
-                                ),
-                              ]),
-                          height: 25,
-                          width: 25,
-                          // color: ProductColor.red,
-                          child: Icon(Icons.chevron_right,
-                              color: ProductColor.red),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
-
-  void goToDetailPageOfBook(BuildContext context, Book book) {
-    context.read<RecommendedBookCubit>().setBook(book);
-    context.read<RecommendedBookCubit>().goToDetailPageOfBook(context);
-  }
-
-  */ /*Widget getBookRatingShape(double rating) {
-    // rating /= 2;
-    double currentRating = rating;
-    return RatingBar.builder(
-        initialRating: rating,
-        tapOnlyMode: false,
-        allowHalfRating: true,
-        itemBuilder: (context, _) => const Icon(
-              // Icons.star,
-              Icons.star,
-              color: ProductColor.ratingColor,
-            ),
-        unratedColor: ProductColor.unRatingColor,
-        itemSize: 25,
-        onRatingUpdate: (rating) {
-          setState(() {
-            rating = currentRating;
-          });
-        });
-  }
-*/ /*
-  String getShortDesc(String desc) {
-    if (desc.trim().length == 0) {
-      return "- - -";
-    }
-    int index = 70;
-    String shortDesc = desc;
-    if (desc.trim().length > index) {
-      shortDesc = shortDesc.replaceAll("\n", " ");
-      shortDesc = "${shortDesc.substring(0, index).trim()}...";
-    }
-    return shortDesc;
-  }
-
-  String getShortTitle(String title) {
-    int index = 35;
-    if (title.trim().length > index) {
-      return "${title.substring(0, index).trim()}...";
-    }
-    return title;
-  }
-}*/

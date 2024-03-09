@@ -56,7 +56,7 @@ class _BookCardState extends State<BookCard> {
       padding: EdgeInsets.only(left: imgWidth / 2),
       child: ContainerWithBoxDecoration(
         child: Container(
-          width: 285,
+          width: 283,
           height: imgHeight + 3.5 * padding,
           color: ProductColor.white,
           child: Padding(

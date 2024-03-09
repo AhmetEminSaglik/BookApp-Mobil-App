@@ -57,7 +57,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
       padding: EdgeInsets.only(left: imgWidth / 2),
       child: ContainerWithBoxDecoration(
         child: Container(
-          width: 285,
+          width: 283,
           height: imgHeight + 4.5 * padding,
           color: ProductColor.white,
           child: Padding(
@@ -94,7 +94,8 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: widget.recData.color),
+                      color: widget.recData.color
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 5),
