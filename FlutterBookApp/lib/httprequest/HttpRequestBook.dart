@@ -28,6 +28,19 @@ class HttpRequestBook {
     }
     return bookList;
   }
+  static Future<List<Book>> getReadBookList() async {
+    List<Book> bookList = [];
+    Uri url = Uri.parse("$_baseUrl/readby/${SharedPrefUtils.getUserId()}");
+    // Uri url = Uri.parse("$_baseUrl");
+    log.i("URL : $url");
+    var resp = await http.get(url);
+    Map<String, dynamic> jsonData = json.decode(resp.body);
+    ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
+    if (respEntity.success) {
+      bookList = BookRepository.parseBookList(respEntity.data);
+    }
+    return bookList;
+  }
 
   static Future<List<Book>> getRecommendedBookListByTotalRead() async {
     List<Book> bookList = [];

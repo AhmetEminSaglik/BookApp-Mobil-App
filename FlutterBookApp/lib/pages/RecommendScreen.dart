@@ -5,8 +5,6 @@ import 'package:flutter_book_app/enum/EnumRecommendBy.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
-import 'package:flutter_book_app/util/ResponsiveDesign.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:logger/logger.dart';
 
 import '../model/Book.dart';
@@ -35,25 +33,12 @@ class _RecommendScreenState extends State<RecommendScreen> {
   retrieveRecommendData() async {
     await retrieveUserList();
     await retrieveBookList();
-    // book = bookList[0];
     print(" recbookArr size : ${recBookArr.length}");
     recBook = recBookArr[recBookArr.length - 1];
     setState(() {
       isLoading = false;
     });
-    // print("-------------- USER LIST :  ");
-    // userList.forEach((element) {
-    //   print(element);
-    // });
-    // print("-------------- Book LIST :  ");
-    // bookList.forEach((element) {
-    //   print(element);
-    // });
-    //
-    // print("-------------- Recommend Object LIST :  ");
-    // list.forEach((element) {
-    //   print(element);
-    // });
+
   }
 
   retrieveUserList() async {

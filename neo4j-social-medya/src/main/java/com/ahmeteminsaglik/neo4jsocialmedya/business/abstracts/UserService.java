@@ -7,6 +7,8 @@ import java.util.List;
 public interface UserService {
     List<User> findAll();
 
+    User findById(Long id);
+
     User findByName(String name);
 
     User findByUserNameAndPassword(String username, String password);

@@ -35,6 +35,11 @@ public class UserController {
         return userService.findAll();
     }
 
+    @GetMapping("/id/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.findById(id);
+    }
+
     @GetMapping("/readbooks")
     public List<User> getAllWithReadBooksoca() {
         return userService.findAll();
@@ -135,7 +140,7 @@ public class UserController {
     //@PostMapping("/read-book")
     @PostMapping("/read-book")
     public void setConnectionUserReadBook(@RequestParam long userId, @RequestParam long bookId, @RequestParam int rate) {
-        System.out.println(userId+"-[r:Read{rate:"+rate+"}]->"+bookId);
+        System.out.println(userId + "-[r:Read{rate:" + rate + "}]->" + bookId);
         userService.setConnectionUserReadBook(userId, bookId, rate);
 
     }

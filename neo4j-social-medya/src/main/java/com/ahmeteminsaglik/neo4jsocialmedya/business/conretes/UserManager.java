@@ -20,6 +20,11 @@ public class UserManager implements UserService {
     }
 
     @Override
+    public User findById(Long id) {
+        return repo.findById(id).get();
+    }
+
+    @Override
     public User findByName(String name) {
         return repo.findByName(name);
     }
@@ -81,7 +86,7 @@ public class UserManager implements UserService {
     }
 
     @Override
-        public void setConnectionUserReadBook(long userId, long bookId, int rate) {
+    public void setConnectionUserReadBook(long userId, long bookId, int rate) {
         repo.setConnectionUserReadBook(userId, bookId, rate);
     }
 
