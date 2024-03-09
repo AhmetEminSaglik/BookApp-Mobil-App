@@ -125,7 +125,10 @@ class _RecommendScreenState extends State<RecommendScreen> {
   Column _BookCardColumn() {
     Column column = Column(children: []);
     for (int i = 0; i < recBookArr.length; i++) {
-      RecommendBookCard _recBookCard = RecommendBookCard(recData: recBookArr[i]);
+      RecommendBookCard _recBookCard = RecommendBookCard(
+        recData: recBookArr[i],
+        index: recBookArr.length - i,
+      );
       column.children.add(_recBookCard);
     }
     return column;

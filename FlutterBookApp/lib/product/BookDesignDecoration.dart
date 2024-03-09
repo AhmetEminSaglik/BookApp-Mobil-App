@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
-import '../cubit/recommendedbook/BookCubit.dart';
-import '../model/Book.dart';
 import '../util/ProductColor.dart';
 
 
 class ContainerWithBoxDecoration extends StatelessWidget {
   late Widget child;
 
-  ContainerWithBoxDecoration({required this.child});
+  ContainerWithBoxDecoration({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: width,
-      // height: height,
       decoration: BoxDecoration(
           border: Border.all(width: 5, color: ProductColor.white),
           borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -35,7 +29,6 @@ class ContainerWithBoxDecoration extends StatelessWidget {
 }
 
 Widget getBookRatingShape(double rating) {
-  // rating /= 2;
   double currentRating = rating;
   return RatingBar.builder(
       initialRating: rating,
@@ -50,9 +43,6 @@ Widget getBookRatingShape(double rating) {
       itemSize: 25,
       onRatingUpdate: (rating) {
         rating = currentRating;
-        /*   setState(() {
-          rating = currentRating;
-        });*/
       });
 }
 

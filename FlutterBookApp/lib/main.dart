@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/UserBookActionCubit.dart';
 import 'package:flutter_book_app/cubit/login/LoginCubit.dart';
 import 'package:flutter_book_app/cubit/recommendedbook/BookCubit.dart';
-import 'package:flutter_book_app/model/Book.dart';
 import 'package:flutter_book_app/pages/LoginScreen.dart';
 import 'package:flutter_book_app/util/ResponsiveDesign.dart';
 

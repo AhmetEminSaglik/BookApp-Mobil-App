@@ -7,8 +7,9 @@ import 'BookDesignDecoration.dart';
 
 class BookCard extends StatefulWidget {
   late Book book;
+  late int index;
 
-  BookCard({required this.book});
+  BookCard({required this.book, required this.index});
 
   @override
   State<BookCard> createState() => _BookCardState();
@@ -64,10 +65,10 @@ class _BookCardState extends State<BookCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  getShortTitle(widget.book.name),
+                  getShortTitle("${widget.index}-) ${widget.book.name}"),
                   maxLines: 2,
                   style: const TextStyle(
-                      fontSize: 19, fontWeight: FontWeight.bold),
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
@@ -78,7 +79,7 @@ class _BookCardState extends State<BookCard> {
                   ),
                 ),
                 const SizedBox(
-                  width: 10,
+                  height: 10,
                 ),
                 Text(
                   "${widget.book.totalRead} Reviews",
@@ -88,7 +89,7 @@ class _BookCardState extends State<BookCard> {
                       color: ProductColor.grey),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 5),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Text(
                     getShortDesc(widget.book.desc),
                     maxLines: 3,
@@ -158,7 +159,7 @@ class _BookCardState extends State<BookCard> {
     if (desc.trim().length == 0) {
       return "- - -";
     }
-    int index = 70;
+    int index = 45;
     String shortDesc = desc;
     if (desc.trim().length > index) {
       shortDesc = shortDesc.replaceAll("\n", " ");
@@ -168,7 +169,7 @@ class _BookCardState extends State<BookCard> {
   }
 
   String getShortTitle(String title) {
-    int index = 35;
+    int index = 40;
     if (title.trim().length > index) {
       return "${title.substring(0, index).trim()}...";
     }

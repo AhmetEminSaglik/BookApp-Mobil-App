@@ -8,8 +8,9 @@ import 'BookDesignDecoration.dart';
 
 class RecommendBookCard extends StatefulWidget {
   late RecommendData recData;
+  late int index;
 
-  RecommendBookCard({required this.recData});
+  RecommendBookCard({required this.index, required this.recData});
 
   @override
   State<RecommendBookCard> createState() => _RecommendBookCardState();
@@ -23,7 +24,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: imgHeight * 5 / 3,
+      height: 250,
       child: Column(
         children: [
           Row(
@@ -57,7 +58,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
       child: ContainerWithBoxDecoration(
         child: Container(
           width: 285,
-          height: imgHeight + 3.5 * padding,
+          height: imgHeight + 4.5 * padding,
           color: ProductColor.white,
           child: Padding(
             padding: EdgeInsets.only(left: imgWidth, top: 10),
@@ -65,10 +66,10 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  getShortTitle(widget.recData.data.name),
-                  maxLines: 1,
+                  getShortTitle("${widget.index}-) ${widget.recData.data.name}"),
+                  maxLines: 2,
                   style: const TextStyle(
-                      fontSize: 17, fontWeight: FontWeight.bold),
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
@@ -79,7 +80,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
                   ),
                 ),
                 const SizedBox(
-                  width: 10,
+                  height: 10,
                 ),
                 Text(
                   "${widget.recData.data.totalRead} Reviews",
@@ -166,7 +167,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
     if (desc.trim().length == 0) {
       return "- - -";
     }
-    int index = 70;
+    int index = 45;
     String shortDesc = desc;
     if (desc.trim().length > index) {
       shortDesc = shortDesc.replaceAll("\n", " ");
@@ -176,7 +177,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
   }
 
   String getShortTitle(String title) {
-    int index = 20;
+    int index = 40;
     if (title.trim().length > index) {
       return "${title.substring(0, index).trim()}...";
     }
