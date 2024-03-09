@@ -18,12 +18,12 @@ class BookCard extends StatefulWidget {
 class _BookCardState extends State<BookCard> {
   final double imgWidth = 90;
   final double imgHeight = 140;
-  final double paddingTop = 20;
+  final double padding = 15;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 255,
+      height: imgHeight * 5 / 3,
       child: Column(
         children: [
           Row(
@@ -34,108 +34,12 @@ class _BookCardState extends State<BookCard> {
                     onTap: () {
                       goToDetailPageOfBook(context, widget.book);
                     },
-                    child: Padding(
-                      padding:
-                          EdgeInsets.only(left: imgWidth * 3 / 5, right: 10),
-                      child: ContainerWithBoxDecoration(
-                        child: Container(
-                          width: 270,
-                          height: imgHeight + 4 * paddingTop,
-                          color: ProductColor.white,
-                          child: Container(
-                            child: Padding(
-                              padding: EdgeInsets.only(left: imgWidth, top: 15),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    getShortTitle(widget.book.name),
-                                    maxLines: 2,
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Row(
-                                      children: [
-                                        getBookRatingShape(widget.book.point),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "${widget.book.totalRead} Reviews",
-                                    style: const TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: ProductColor.grey),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 15),
-                                    child: Text(
-                                      getShortDesc(widget.book.desc),
-                                      maxLines: 3,
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          color: ProductColor.grey),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    child: getBookCardContent(),
                   ),
                   Row(
                     children: [
-                      Padding(
-                          padding: EdgeInsets.only(top: paddingTop),
-                          child: InkWell(
-                            onTap: () {
-                              goToDetailPageOfBook(context, widget.book);
-                            },
-                            child: ContainerWithBoxDecoration(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Image.network(
-                                  widget.book.imgUrl,
-                                  fit: BoxFit.cover,
-                                  height: imgHeight,
-                                  width: imgWidth,
-                                ),
-                              ),
-                            ),
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 205),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 2, color: ProductColor.white),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(50)),
-                              color: ProductColor.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.deepOrange.withOpacity(0.7),
-                                  spreadRadius: 2,
-                                  blurRadius: 3,
-                                  offset:
-                                      const Offset(0, 1), // Gölge ofseti (x, y)
-                                ),
-                              ]),
-                          height: 25,
-                          width: 25,
-                          // color: ProductColor.red,
-                          child: Icon(Icons.chevron_right,
-                              color: ProductColor.red),
-                        ),
-                      ),
+                      getbookImage(context),
+                      getChevron(),
                     ],
                   ),
                 ],
@@ -145,6 +49,105 @@ class _BookCardState extends State<BookCard> {
         ],
       ),
     );
+  }
+
+  Padding getBookCardContent() {
+    return Padding(
+      padding: EdgeInsets.only(left: imgWidth / 2),
+      child: ContainerWithBoxDecoration(
+        child: Container(
+          width: 285,
+          height: imgHeight + 3.5 * padding,
+          color: ProductColor.white,
+          child: Padding(
+            padding: EdgeInsets.only(left: imgWidth, top: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  getShortTitle(widget.book.name),
+                  maxLines: 2,
+                  style: const TextStyle(
+                      fontSize: 19, fontWeight: FontWeight.bold),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Row(
+                    children: [
+                      getBookRatingShape(widget.book.point),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "${widget.book.totalRead} Reviews",
+                  style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: ProductColor.grey),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Text(
+                    getShortDesc(widget.book.desc),
+                    maxLines: 3,
+                    style:
+                        const TextStyle(fontSize: 15, color: ProductColor.grey),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding getChevron() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 205),
+      child: Container(
+        decoration: BoxDecoration(
+            border: Border.all(width: 2, color: ProductColor.white),
+            borderRadius: const BorderRadius.all(Radius.circular(50)),
+            color: ProductColor.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.deepOrange.withOpacity(0.7),
+                spreadRadius: 2,
+                blurRadius: 3,
+                offset: const Offset(0, 1), // Gölge ofseti (x, y)
+              ),
+            ]),
+        height: 25,
+        width: 25,
+        // color: ProductColor.red,
+        child: const Icon(Icons.chevron_right, color: ProductColor.red),
+      ),
+    );
+  }
+
+  Padding getbookImage(BuildContext context) {
+    return Padding(
+        padding: EdgeInsets.only(top: padding),
+        child: InkWell(
+          onTap: () {
+            goToDetailPageOfBook(context, widget.book);
+          },
+          child: ContainerWithBoxDecoration(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Image.network(
+                widget.book.imgUrl,
+                fit: BoxFit.cover,
+                height: imgHeight,
+                width: imgWidth,
+              ),
+            ),
+          ),
+        ));
   }
 
   void goToDetailPageOfBook(BuildContext context, Book book) {
