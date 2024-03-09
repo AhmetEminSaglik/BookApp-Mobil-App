@@ -5,10 +5,10 @@ import 'package:flutter_book_app/model/Book.dart';
 import 'package:flutter_book_app/pages/BookDetailPage.dart';
 import 'package:logger/logger.dart';
 
-class RecommendedBookCubit extends Cubit<bool> {
+class BookCubit extends Cubit<bool> {
   bool isBookExist = false;
 
-  RecommendedBookCubit() : super(false);
+  BookCubit() : super(false);
   Book? book;
   var log = Logger(printer: PrettyPrinter(colors: false));
 

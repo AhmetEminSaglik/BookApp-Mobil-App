@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/UserBookActionCubit.dart';
 import 'package:flutter_book_app/cubit/login/LoginCubit.dart';
-import 'package:flutter_book_app/cubit/recommendedbook/RecommendedBookCubit.dart';
+import 'package:flutter_book_app/cubit/recommendedbook/BookCubit.dart';
 import 'package:flutter_book_app/model/Book.dart';
 import 'package:flutter_book_app/pages/LoginScreen.dart';
 import 'package:flutter_book_app/util/ResponsiveDesign.dart';
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => LoginCubit()),
-          BlocProvider(create: (context) => RecommendedBookCubit()),
+          BlocProvider(create: (context) => BookCubit()),
           BlocProvider(create: (context) => UserBookActionCubit(0)),
         ],
         child: MaterialApp(

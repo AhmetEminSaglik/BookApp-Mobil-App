@@ -16,8 +16,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   final screens = [
     const MyReadBookScreen(),
-    const ProfilScreen(),
-    const RecommendScreen()
+    const RecommendScreen(),
+    const ProfilScreen()
   ];
   final backgroundColor = Colors.blue;
 

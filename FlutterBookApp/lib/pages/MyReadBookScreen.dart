@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:logger/logger.dart';
-import '../cubit/recommendedbook/RecommendedBookCubit.dart';
+import '../cubit/recommendedbook/BookCubit.dart';
 import '../httprequest/HttpRequestBook.dart';
 import '../model/Book.dart';
 import '../product/BookDesignDecoration.dart';
@@ -59,13 +59,13 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
   Column _BookCardColumn() {
     Column column = Column(children: []);
     for (int i = 0; i < bookList.length; i++) {
-      _BookCard _bookCard = _BookCard(book: bookList[i]);
+      BookCard _bookCard = BookCard(book: bookList[i]);
       column.children.add(_bookCard);
     }
     return column;
   }
 }
-
+/*
 class _BookCard extends StatefulWidget {
   late Book book;
 
@@ -206,52 +206,29 @@ class _BookCardState extends State<_BookCard> {
         ],
       ),
     );
-  }
+  }*/
 
-  void goToDetailPageOfBook(BuildContext context, Book book) {
+/*  void goToDetailPageOfBook(BuildContext context, Book book) {
     context.read<RecommendedBookCubit>().setBook(book);
     context.read<RecommendedBookCubit>().goToDetailPageOfBook(context);
+  }*/
+String getShortDesc(String desc) {
+  if (desc.trim().length == 0) {
+    return "- - -";
   }
+  int index = 70;
+  String shortDesc = desc;
+  if (desc.trim().length > index) {
+    shortDesc = shortDesc.replaceAll("\n", " ");
+    shortDesc = "${shortDesc.substring(0, index).trim()}...";
+  }
+  return shortDesc;
+}
 
-  /*Widget getBookRatingShape(double rating) {
-    // rating /= 2;
-    double currentRating = rating;
-    return RatingBar.builder(
-        initialRating: rating,
-        tapOnlyMode: false,
-        allowHalfRating: true,
-        itemBuilder: (context, _) => const Icon(
-              // Icons.star,
-              Icons.star,
-              color: ProductColor.ratingColor,
-            ),
-        unratedColor: ProductColor.unRatingColor,
-        itemSize: 25,
-        onRatingUpdate: (rating) {
-          setState(() {
-            rating = currentRating;
-          });
-        });
+String getShortTitle(String title) {
+  int index = 35;
+  if (title.trim().length > index) {
+    return "${title.substring(0, index).trim()}...";
   }
-*/
-  String getShortDesc(String desc) {
-    if (desc.trim().length == 0) {
-      return "- - -";
-    }
-    int index = 70;
-    String shortDesc = desc;
-    if (desc.trim().length > index) {
-      shortDesc = shortDesc.replaceAll("\n", " ");
-      shortDesc = "${shortDesc.substring(0, index).trim()}...";
-    }
-    return shortDesc;
-  }
-
-  String getShortTitle(String title) {
-    int index = 35;
-    if (title.trim().length > index) {
-      return "${title.substring(0, index).trim()}...";
-    }
-    return title;
-  }
+  return title;
 }

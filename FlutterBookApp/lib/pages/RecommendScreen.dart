@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_book_app/cubit/recommendedbook/RecommendedBookCubit.dart';
+import 'package:flutter_book_app/cubit/recommendedbook/BookCubit.dart';
 import 'package:flutter_book_app/enum/EnumRecommendBy.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
@@ -38,7 +38,6 @@ class _RecommendScreenState extends State<RecommendScreen> {
     setState(() {
       isLoading = false;
     });
-
   }
 
   retrieveUserList() async {
@@ -124,14 +123,14 @@ class _RecommendScreenState extends State<RecommendScreen> {
   Column _BookCardColumn() {
     Column column = Column(children: []);
     for (int i = 0; i < recBookArr.length; i++) {
-      _BookCard _bookCard = _BookCard(recBook: recBookArr[i]);
+      BookCard _bookCard = BookCard(book: recBookArr[i].data);
       column.children.add(_bookCard);
     }
     return column;
   }
 }
 
-class _BookCard extends StatefulWidget {
+/*class _BookCard extends StatefulWidget {
   late RecommendData<Book> recBook;
 
   _BookCard({required this.recBook});
@@ -167,50 +166,48 @@ class _BookCardState extends State<_BookCard> {
                           width: 270,
                           height: imgHeight + 4 * paddingTop,
                           color: ProductColor.white,
-                          child: Container(
-                            child: Padding(
-                              padding: EdgeInsets.only(left: imgWidth, top: 15),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    getShortTitle(widget.recBook.data.name),
-                                    maxLines: 2,
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: imgWidth, top: 15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  getShortTitle(widget.recBook.data.name),
+                                  maxLines: 2,
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: Row(
+                                    children: [
+                                      getBookRatingShape(
+                                          widget.recBook.data.point),
+                                    ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Row(
-                                      children: [
-                                        getBookRatingShape(
-                                            widget.recBook.data.point),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "${widget.recBook.data.totalRead} Reviews",
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  "${widget.recBook.data.totalRead} Reviews",
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                      color: ProductColor.grey),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 15),
+                                  child: Text(
+                                    getShortDesc(widget.recBook.data.desc),
+                                    maxLines: 3,
                                     style: const TextStyle(
                                         fontSize: 15,
-                                        fontWeight: FontWeight.bold,
                                         color: ProductColor.grey),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 15),
-                                    child: Text(
-                                      getShortDesc(widget.recBook.data.desc),
-                                      maxLines: 3,
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          color: ProductColor.grey),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -279,7 +276,7 @@ class _BookCardState extends State<_BookCard> {
     context.read<RecommendedBookCubit>().goToDetailPageOfBook(context);
   }
 
-  /*Widget getBookRatingShape(double rating) {
+  */ /*Widget getBookRatingShape(double rating) {
     // rating /= 2;
     double currentRating = rating;
     return RatingBar.builder(
@@ -299,7 +296,7 @@ class _BookCardState extends State<_BookCard> {
           });
         });
   }
-*/
+*/ /*
   String getShortDesc(String desc) {
     if (desc.trim().length == 0) {
       return "- - -";
@@ -320,4 +317,4 @@ class _BookCardState extends State<_BookCard> {
     }
     return title;
   }
-}
+}*/
