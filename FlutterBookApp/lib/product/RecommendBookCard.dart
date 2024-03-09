@@ -21,9 +21,11 @@ class RecommendBookCard extends StatefulWidget {
 
 class _RecommendBookCardState extends State<RecommendBookCard> {
   var log = Logger(printer: PrettyPrinter(colors: false));
-  final double imgWidth = ResponsiveDesign.width() / 6;
-  final double imgHeight = ResponsiveDesign.height() / 6;
-  final double padding = 15;
+
+  final double imgWidth = ResponsiveDesign.width() / 6.5;
+  final double imgHeight = ResponsiveDesign.height() / 7;
+  final double padding = ResponsiveDesign.height() / 65;
+
   bool isLoading = true;
   List<Book> bookList = [];
 
@@ -90,12 +92,13 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
   }
 
   Padding getRecommendBookCardContent() {
+    final double contentWidth = imgWidth / 2 + ResponsiveDesign.width() / 25;
     return Padding(
-      padding: EdgeInsets.only(left: imgWidth ),
+      padding: EdgeInsets.only(left: contentWidth),
       child: ContainerWithBoxDecoration(
         child: Container(
           // width: 295,
-          width: ResponsiveDesign.width() - imgWidth - 4 * padding,
+          width: ResponsiveDesign.width() - contentWidth - 4.5 * padding,
           height: imgHeight + 4.5 * padding,
           color: ProductColor.white,
           child: Padding(
@@ -119,7 +122,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
                   ),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 12,
                 ),
                 Text(
                   "${widget.recData.data.totalRead} Reviews",
@@ -155,7 +158,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
   Padding getChevron() {
     return Padding(
       padding: EdgeInsets.only(
-          left: ResponsiveDesign.width() - imgWidth - 6 * padding),
+          left: ResponsiveDesign.width() - imgWidth - 7.2 * padding),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2, color: ProductColor.white),

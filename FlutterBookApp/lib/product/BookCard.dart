@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/util/ResponsiveDesign.dart';
+import 'package:logger/logger.dart';
 import '../cubit/recommendedbook/BookCubit.dart';
 import '../model/Book.dart';
 import '../util/ProductColor.dart';
@@ -20,9 +21,11 @@ class BookCard extends StatefulWidget {
 }
 
 class _BookCardState extends State<BookCard> {
-  final double imgWidth = ResponsiveDesign.width() / 6;
-  final double imgHeight = ResponsiveDesign.height() / 6;
-  final double padding = 15;
+  var log = Logger(printer: PrettyPrinter(colors: false));
+
+  final double imgWidth = ResponsiveDesign.width() / 6.5;
+  final double imgHeight = ResponsiveDesign.height() / 7;
+  final double padding = ResponsiveDesign.height() / 65;
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +60,15 @@ class _BookCardState extends State<BookCard> {
   }
 
   Padding getBookCardContent() {
+    final double contentWidth = imgWidth / 2 + ResponsiveDesign.width() / 25;
     return Padding(
-      padding: EdgeInsets.only(left: imgWidth),
+      padding: EdgeInsets.only(
+        left: contentWidth,
+      ),
       child: ContainerWithBoxDecoration(
         child: Container(
           // width: 295,
-          width: ResponsiveDesign.width() - imgWidth - 4 * padding,
+          width: ResponsiveDesign.width() - contentWidth - 4.5 * padding,
           height: imgHeight + 4.5 * padding,
           color: ProductColor.white,
           child: Padding(
@@ -114,7 +120,7 @@ class _BookCardState extends State<BookCard> {
   Padding getChevron() {
     return Padding(
       padding: EdgeInsets.only(
-          left: ResponsiveDesign.width() - imgWidth - 6 * padding),
+          left: ResponsiveDesign.width() - imgWidth - 7.2 * padding),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2, color: ProductColor.white),
