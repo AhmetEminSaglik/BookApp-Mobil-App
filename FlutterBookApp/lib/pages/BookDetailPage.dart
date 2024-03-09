@@ -4,19 +4,23 @@ import 'package:flutter_book_app/cubit/UserBookActionCubit.dart';
 import 'package:flutter_book_app/model/Book.dart';
 import 'package:flutter_book_app/product/BookDesignDecoration.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
+import 'package:logger/logger.dart';
 
 class BookDetailPage extends StatefulWidget {
   late Book book;
   double imgWidth = 90;
   double imgHeight = 140;
+  bool isBookRead;
 
-  BookDetailPage({required this.book});
+  BookDetailPage({required this.book, required this.isBookRead});
 
   @override
   State<BookDetailPage> createState() => _BookDetailPageState();
 }
 
 class _BookDetailPageState extends State<BookDetailPage> {
+  var log = Logger(printer: PrettyPrinter(colors: false));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +57,10 @@ class _BookDetailPageState extends State<BookDetailPage> {
                     )),
                   ],
                 ),
-                _BigCardDesign(widget.book),
+                _BigCardDesign(
+                  book: widget.book,
+                  isBookRead: widget.isBookRead,
+                ),
               ],
             ),
           )
@@ -66,8 +73,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
 class _BigCardDesign extends StatelessWidget {
   final Book book;
   bool connectionIsNotCreated = true;
+  late bool isBookRead;
 
-  _BigCardDesign(this.book);
+  _BigCardDesign({required this.book, required this.isBookRead});
 
   @override
   Widget build(BuildContext context) {
@@ -127,10 +135,9 @@ class _BigCardDesign extends StatelessWidget {
               const SizedBox(height: 20),
               SizedBox(
                 width: 200,
-                child: _AddAsReadButton(
-                    bookId: book
-                        .id)
-                ,
+                child: isBookRead
+                    ? _RemoveReadBookButton(bookId: book.id)
+                    : _AddAsReadButton(bookId: book.id),
               )
             ],
           )
@@ -140,13 +147,47 @@ class _BigCardDesign extends StatelessWidget {
   }
 }
 
+class _RemoveReadBookButton extends StatefulWidget {
+  final int bookId;
+
+  _RemoveReadBookButton({required this.bookId});
+
+  @override
+  State<_RemoveReadBookButton> createState() => _RemoveReadBookButtonState();
+}
+
+class _RemoveReadBookButtonState extends State<_RemoveReadBookButton> {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () async {
+        await context
+            .read<UserBookActionCubit>()
+            .createUserReadBookConnection(widget.bookId);
+      },
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          // side: const BorderSide(color: Colors.red)
+        )),
+        backgroundColor:
+            MaterialStateColor.resolveWith((states) => ProductColor.red),
+        foregroundColor:
+            MaterialStateColor.resolveWith((states) => ProductColor.white),
+      ),
+      child: const Text(
+        "Remove Book",
+        style: TextStyle(fontSize: 18),
+      ),
+    );
+  }
+}
+
 class _AddAsReadButton extends StatefulWidget {
   final int bookId;
 
-  // bool connectionFound;
-
-  _AddAsReadButton({required this.bookId /*, required this.connectionFound*/
-      });
+  _AddAsReadButton({required this.bookId});
 
   @override
   State<_AddAsReadButton> createState() => _AddAsReadButtonState();
@@ -160,7 +201,6 @@ class _AddAsReadButtonState extends State<_AddAsReadButton> {
         await context
             .read<UserBookActionCubit>()
             .createUserReadBookConnection(widget.bookId);
-
       },
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -169,18 +209,17 @@ class _AddAsReadButtonState extends State<_AddAsReadButton> {
           // side: const BorderSide(color: Colors.red)
         )),
         backgroundColor:
-            MaterialStateColor.resolveWith((states) => ProductColor.orange),
+            MaterialStateColor.resolveWith((states) => ProductColor.green),
         foregroundColor:
             MaterialStateColor.resolveWith((states) => ProductColor.white),
       ),
       child: const Text(
-        "Add As Read",
+        "Add Book",
         style: TextStyle(fontSize: 18),
       ),
     );
   }
 }
-
 
 class _TextForBigCardDesign extends StatelessWidget {
   final String text;

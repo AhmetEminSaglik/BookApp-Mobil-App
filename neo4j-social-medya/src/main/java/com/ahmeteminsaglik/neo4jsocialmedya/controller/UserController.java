@@ -1,10 +1,12 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.controller;
 
 import com.ahmeteminsaglik.neo4jsocialmedya.business.StaticData;
+import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.BookService;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.UserService;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.LoginUser;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationLoginInput;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationSignUp;
+import com.ahmeteminsaglik.neo4jsocialmedya.model.Book;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.ApiRequestException;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.response.InvalidUsernameOrPasswordException;
@@ -24,27 +26,29 @@ import java.util.Set;
 @RequestMapping("/users")
 @CrossOrigin
 public class UserController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
     private ValidationSignUp validationSignUp = new ValidationSignUp();
     private ValidationLoginInput validationLogin = new ValidationLoginInput();
 
+    @Autowired
+    public UserController( UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping()
     public List<User> getAll() {
         return userService.findAll();
     }
 
-    @GetMapping("/id/{id}")per
-    
+    @GetMapping("/id/{id}")
     public User getUserById(@PathVariable Long id) {
         return userService.findById(id);
     }
 
-    @GetMapping("/readbooks")
-    public List<User> getAllWithReadBooksoca() {
-        return userService.findAll();
-    }
+//    @GetMapping("/readbooks")
+//    public List<User> getAllReadBookByUser() {
+//        return userService.findAll();
+//    }
 
     @GetMapping("/{name}")
     public User getUserByName(@PathVariable String name) {

@@ -8,8 +8,9 @@ import 'BookDesignDecoration.dart';
 class BookCard extends StatefulWidget {
   late Book book;
   late int index;
+  late bool isBookRead;
 
-  BookCard({required this.book, required this.index});
+  BookCard({required this.book, required this.index,required this.isBookRead});
 
   @override
   State<BookCard> createState() => _BookCardState();
@@ -32,7 +33,7 @@ class _BookCardState extends State<BookCard> {
                 children: [
                   InkWell(
                     onTap: () {
-                      goToDetailPageOfBook(context, widget.book);
+                      goToDetailPageOfBook(context, widget.book, widget.isBookRead);
                     },
                     child: getBookCardContent(),
                   ),
@@ -134,7 +135,7 @@ class _BookCardState extends State<BookCard> {
         padding: EdgeInsets.only(top: padding),
         child: InkWell(
           onTap: () {
-            goToDetailPageOfBook(context, widget.book);
+            goToDetailPageOfBook(context, widget.book, true);
           },
           child: ContainerWithBoxDecoration(
             child: Padding(
@@ -150,9 +151,9 @@ class _BookCardState extends State<BookCard> {
         ));
   }
 
-  void goToDetailPageOfBook(BuildContext context, Book book) {
+  void goToDetailPageOfBook(BuildContext context, Book book, bool isBookAdded) {
     context.read<BookCubit>().setBook(book);
-    context.read<BookCubit>().goToDetailPageOfBook(context);
+    context.read<BookCubit>().goToDetailPageOfBook(context, isBookAdded);
   }
 
   String getShortDesc(String desc) {

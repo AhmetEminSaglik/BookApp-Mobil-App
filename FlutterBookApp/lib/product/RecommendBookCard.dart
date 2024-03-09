@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/model/Recommend.dart';
+import 'package:logger/logger.dart';
 import '../cubit/recommendedbook/BookCubit.dart';
+import '../httprequest/HttpRequestBook.dart';
 import '../model/Book.dart';
 import '../util/ProductColor.dart';
 import 'BookDesignDecoration.dart';
@@ -17,14 +19,35 @@ class RecommendBookCard extends StatefulWidget {
 }
 
 class _RecommendBookCardState extends State<RecommendBookCard> {
+  var log = Logger(printer: PrettyPrinter(colors: false));
   final double imgWidth = 90;
   final double imgHeight = 120;
   final double padding = 15;
+  bool isLoading = true;
+  List<Book> bookList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _retrieveReadBookData();
+  }
+
+  _retrieveReadBookData() async {
+    await _retrieveReadBookList();
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  _retrieveReadBookList() async {
+    bookList = await HttpRequestBook.getReadBookList();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: imgHeight*7/4,
+      height: imgHeight * 7 / 4,
       child: Column(
         children: [
           Row(
@@ -33,7 +56,10 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
                 children: [
                   InkWell(
                     onTap: () {
-                      goToDetailPageOfBook(context, widget.recData.data);
+                      goToDetailPageOfBook(
+                        context,
+                        widget.recData.data,isBookReadByUser(widget.recData.data)
+                      );
                     },
                     child: getRecommendBookCardContent(),
                   ),
@@ -52,6 +78,18 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
     );
   }
 
+  bool isBookReadByUser(Book book) {
+    bool isBookRead = false;
+    bookList.forEach((element) {
+      if (element.id == book.id) {
+        isBookRead = true;
+        return;
+      }
+    });
+    log.i("Book is Read : $isBookRead");
+    return isBookRead;
+  }
+
   Padding getRecommendBookCardContent() {
     return Padding(
       padding: EdgeInsets.only(left: imgWidth / 2),
@@ -66,9 +104,9 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  getShortTitle("${widget.index}-) ${widget.recData.data.name}"),
+                  getShortTitle(
+                      "${widget.index}-) ${widget.recData.data.name}"),
                   maxLines: 2,
-
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                 ),
@@ -95,8 +133,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: widget.recData.color
-                  ),
+                      color: widget.recData.color),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 5),
@@ -144,7 +181,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
         padding: EdgeInsets.only(top: padding),
         child: InkWell(
           onTap: () {
-            goToDetailPageOfBook(context, widget.recData.data);
+            goToDetailPageOfBook(context, widget.recData.data,isBookReadByUser(widget.recData.data));
           },
           child: ContainerWithBoxDecoration(
             child: Padding(
@@ -160,9 +197,9 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
         ));
   }
 
-  void goToDetailPageOfBook(BuildContext context, Book book) {
+  void goToDetailPageOfBook(BuildContext context, Book book, bool isBookRead) {
     context.read<BookCubit>().setBook(book);
-    context.read<BookCubit>().goToDetailPageOfBook(context);
+    context.read<BookCubit>().goToDetailPageOfBook(context, isBookRead);
   }
 
   String getShortDesc(String desc) {

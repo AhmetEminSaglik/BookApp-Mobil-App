@@ -18,14 +18,19 @@ class BookCubit extends Cubit<bool> {
     emit(isBookExist);
   }
 
-  void goToDetailPageOfBook(BuildContext context) {
+  void goToDetailPageOfBook(BuildContext context, bool isBookRead) {
     if (isBookExist && book != null) {
-      _navigatePage(context, book!);
+      _navigatePage(context, book!, isBookRead);
     }
   }
 
-  void _navigatePage(BuildContext context, Book book) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => BookDetailPage(book: book)));
+  void _navigatePage(BuildContext context, Book book, bool isBookRead) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => BookDetailPage(
+                  book: book,
+                  isBookRead: isBookRead,
+                )));
   }
 }

@@ -44,7 +44,8 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
             ? const Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 20,right: 10,top: 10,bottom: 10),
+                  padding: const EdgeInsets.only(
+                      left: 20, right: 10, top: 10, bottom: 10),
                   child: Column(
                     children: [
                       SingleChildScrollView(child: _BookCardColumn()),
@@ -60,10 +61,23 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
       BookCard _bookCard = BookCard(
         book: bookList[i],
         index: (bookList.length - i),
+        isBookRead: isBookReadByUser(bookList[i]),
       );
       column.children.add(_bookCard);
     }
     return column;
+  }
+
+  bool isBookReadByUser(Book book) {
+    bool isBookRead = false;
+    bookList.forEach((element) {
+      if (element.id == book.id) {
+        isBookRead = true;
+        return;
+      }
+    });
+    log.i("Book is Read : $isBookRead");
+    return isBookRead;
   }
 }
 
