@@ -16,6 +16,11 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
             "RETURN u,b")
     List<Book> getAllByUserIdMatches(@PathVariable Long userId);
 
+    @Query("MATCH (u:User) WHERE ID(u) = $userId " +
+            "MATCH (u)-[:READ]->(b:Book) WHERE ID(b) = $bookId " +
+            "RETURN b")
+    Book getBookByUserIdReadBookId(@PathVariable Long userId, @PathVariable Long bookId);
+
     @Query("MATCH (b:Book)  RETURN b ORDER BY b.point DESC LIMIT 2 ")
     List<Book> findByHighestPoint();
 

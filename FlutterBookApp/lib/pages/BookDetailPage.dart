@@ -6,23 +6,51 @@ import 'package:flutter_book_app/product/BookDesignDecoration.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:logger/logger.dart';
 
+import '../httprequest/HttpRequestBook.dart';
+
 class BookDetailPage extends StatefulWidget {
   late Book book;
   double imgWidth = 90;
   double imgHeight = 140;
-  bool isBookRead;
 
-  BookDetailPage({required this.book, required this.isBookRead});
+  BookDetailPage({required this.book});
 
   @override
   State<BookDetailPage> createState() => _BookDetailPageState();
 }
 
 class _BookDetailPageState extends State<BookDetailPage> {
+  bool isLoading = true;
+  bool isBookRead = false;
+
+  _retrieveUserReadThisBook() async {
+    if (isLoading == true) {
+      await _retrieveReadBookList();
+      setState(() {
+        isLoading = false;
+        log.i("isLoading : $isLoading > isBookRead : $isBookRead");
+      });
+    }
+  }
+
+  _retrieveReadBookList() async {
+    // Book book = await HttpRequestBook.getIfUserReadBook(widget.book.id);
+    isBookRead = false;
+    List<Book> bookList = await HttpRequestBook.getReadBookList();
+
+    bookList.forEach((element) {
+      if (element.id == widget.book.id) {
+        isBookRead = true;
+        return;
+      }
+    });
+  }
+
   var log = Logger(printer: PrettyPrinter(colors: false));
 
   @override
   Widget build(BuildContext context) {
+    _retrieveUserReadThisBook();
     return Scaffold(
       appBar: AppBar(title: const Text("Recommended Book Page")),
       backgroundColor: ProductColor.darkWhite,
@@ -59,7 +87,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
                 ),
                 _BigCardDesign(
                   book: widget.book,
-                  isBookRead: widget.isBookRead,
+                  isBookRead: isBookRead,
+                  isLoading: isLoading,
                 ),
               ],
             ),
@@ -74,8 +103,10 @@ class _BigCardDesign extends StatelessWidget {
   final Book book;
   bool connectionIsNotCreated = true;
   late bool isBookRead;
+  late bool isLoading;
 
-  _BigCardDesign({required this.book, required this.isBookRead});
+  _BigCardDesign(
+      {required this.book, required this.isBookRead, required this.isLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -134,16 +165,21 @@ class _BigCardDesign extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               SizedBox(
-                width: 200,
-                child: isBookRead
-                    ? _RemoveReadBookButton(bookId: book.id)
-                    : _AddAsReadButton(bookId: book.id),
-              )
+                  width: 200,
+                  child: isLoading
+                      ? const Center(child: CircularProgressIndicator())
+                      : getButton())
             ],
           )
         ],
       ),
     );
+  }
+
+  Widget getButton() {
+    return isBookRead
+        ? _RemoveReadBookButton(bookId: book.id)
+        : _AddAsReadButton(bookId: book.id);
   }
 }
 
@@ -163,7 +199,7 @@ class _RemoveReadBookButtonState extends State<_RemoveReadBookButton> {
       onPressed: () async {
         await context
             .read<UserBookActionCubit>()
-            .createUserReadBookConnection(widget.bookId);
+            .destroyUserReadBookConnection(widget.bookId);
       },
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(

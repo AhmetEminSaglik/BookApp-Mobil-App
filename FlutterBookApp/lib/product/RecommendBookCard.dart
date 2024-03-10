@@ -204,7 +204,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
 
   void goToDetailPageOfBook(BuildContext context, Book book, bool isBookRead) {
     context.read<BookCubit>().setBook(book);
-    context.read<BookCubit>().goToDetailPageOfBook(context, isBookRead);
+    context.read<BookCubit>().goToDetailPageOfBook(context);
   }
 
   String getShortDesc(String desc) {

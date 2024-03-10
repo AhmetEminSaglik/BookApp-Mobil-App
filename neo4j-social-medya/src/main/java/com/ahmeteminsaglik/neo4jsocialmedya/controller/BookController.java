@@ -29,9 +29,18 @@ public class BookController {
 
     }
 
+    @GetMapping("/{userId}/{bookId}")
+    public ResponseEntity<DataResult<Book>> getBookByUserIdReadBookId(@PathVariable long userId, @PathVariable long bookId) {
+        Book book = service.getBookByUserIdReadBookId(userId, bookId);
+        System.out.println("User + Book >>>>>>>>>>>> book : "+book);
+        DataResult result = new SuccessDataResult(book, "User(" + userId + ") read Book(" + bookId + ") data is retrieved.");
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
+    }
+
     @GetMapping("/{name}")
     public ResponseEntity<DataResult<Book>> getBookByName(@PathVariable String name) {
         Book book = service.findByName(name);
+        System.out.println(" Book >>>>>>>>>>>> book : "+book);
         DataResult result = new SuccessDataResult(book, "Book is retrieved.");
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }

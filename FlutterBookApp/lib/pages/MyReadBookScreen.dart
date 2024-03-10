@@ -61,7 +61,7 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
       BookCard _bookCard = BookCard(
         book: bookList[i],
         index: (bookList.length - i),
-        isBookRead: isBookReadByUser(bookList[i]),
+        // isBookRead: isBookReadByUser(bookList[i]),
       );
       column.children.add(_bookCard);
     }

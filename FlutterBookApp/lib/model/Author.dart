@@ -1,4 +1,5 @@
 import 'package:flutter_book_app/model/Book.dart';
+import 'package:logger/logger.dart';
 
 class Author {
   late int _id;
@@ -9,12 +10,13 @@ class Author {
   // late double _point;
   late List<dynamic> _totalBook;
 
-  Author({required id,
-    required key,
-    required name,
-    required lastname,
-    // required point,
-    required totalBook}) {
+  Author(
+      {required id,
+      required key,
+      required name,
+      required lastname,
+      // required point,
+      required totalBook}) {
     _id = id;
     _key = key;
     _name = name;
@@ -23,11 +25,14 @@ class Author {
     _totalBook = totalBook;
   }
 
+  static var log = Logger(printer: PrettyPrinter(colors: false));
+
   factory Author.fromJson(Map<String, dynamic> json) {
     // List<String> list = json["totalBook"];
-    List<dynamic> list = json["bookList"]
-        .map((book) => Book.fromJson(book))
-        .toList();
+    log.i("Author.dart : json : $json");
+    // List<dynamic> list = json["bookList"].map((book) => Book.fromJson(book)).toList();
+    List<dynamic> list = json["totalBook"] != null ?
+    json["totalBook"].map((book) => Book.fromJson(book)).toList() : [];
     return Author(
         id: json["id"] as int,
         key: json["key"] as String,
@@ -47,7 +52,6 @@ class Author {
       "totalBook": totalBook
     };
   }
-
 
   List<dynamic> get totalBook => _totalBook;
 
@@ -78,7 +82,7 @@ class Author {
   @override
   String toString() {
     return 'Author{_id: $_id, _key: $_key, _name: $_name, _lastname: $_lastname, '
-    // '_point: $_point, '
+        // '_point: $_point, '
         '_totalBook: $_totalBook}';
   }
 }

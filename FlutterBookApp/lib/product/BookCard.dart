@@ -1,10 +1,12 @@
 import 'dart:developer';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/util/ResponsiveDesign.dart';
 import 'package:logger/logger.dart';
 import '../cubit/recommendedbook/BookCubit.dart';
+import '../httprequest/HttpRequestBook.dart';
 import '../model/Book.dart';
 import '../util/ProductColor.dart';
 import 'BookDesignDecoration.dart';
@@ -14,7 +16,7 @@ class BookCard extends StatefulWidget {
   late int index;
   late bool isBookRead;
 
-  BookCard({required this.book, required this.index, required this.isBookRead});
+  BookCard({required this.book, required this.index});
 
   @override
   State<BookCard> createState() => _BookCardState();
@@ -26,9 +28,25 @@ class _BookCardState extends State<BookCard> {
   final double imgWidth = ResponsiveDesign.width() / 6.5;
   final double imgHeight = ResponsiveDesign.height() / 6.5;
   final double padding = ResponsiveDesign.height() / 65;
+  bool isLoading = true;
+/*
+  _retrieveUserReadThisBook() async {
+    await _retrieveReadBookList();
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  _retrieveReadBookList() async {
+    Book book = await HttpRequestBook.getIfUserReadBook(widget.book.id);
+    if (book.id == widget.book.id) {
+      widget.isBookRead = true;
+    }
+  }*/
 
   @override
   Widget build(BuildContext context) {
+    // _retrieveUserReadThisBook();
     return SizedBox(
       height: imgHeight * 7 / 4,
       child: Column(
@@ -40,7 +58,7 @@ class _BookCardState extends State<BookCard> {
                   InkWell(
                     onTap: () {
                       goToDetailPageOfBook(
-                          context, widget.book, widget.isBookRead);
+                          context, widget.book);
                     },
                     child: getBookCardContent(),
                   ),
@@ -147,7 +165,7 @@ class _BookCardState extends State<BookCard> {
         padding: EdgeInsets.only(top: padding),
         child: InkWell(
           onTap: () {
-            goToDetailPageOfBook(context, widget.book, true);
+            goToDetailPageOfBook(context, widget.book);
           },
           child: ContainerWithBoxDecoration(
             child: Padding(
@@ -163,9 +181,9 @@ class _BookCardState extends State<BookCard> {
         ));
   }
 
-  void goToDetailPageOfBook(BuildContext context, Book book, bool isBookAdded) {
+  void goToDetailPageOfBook(BuildContext context, Book book) {
     context.read<BookCubit>().setBook(book);
-    context.read<BookCubit>().goToDetailPageOfBook(context, isBookAdded);
+    context.read<BookCubit>().goToDetailPageOfBook(context);
   }
 
   String getShortDesc(String desc) {
