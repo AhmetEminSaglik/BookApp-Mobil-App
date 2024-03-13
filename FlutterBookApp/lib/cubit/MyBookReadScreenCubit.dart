@@ -11,12 +11,12 @@ class MyReadBookScreenCubit extends Cubit<bool> {
     _willBeUpdated = true;
     _log.i("update Book List func calisti ");
     emit(_willBeUpdated);
+    resetUpdateValue();
   }
 
   void resetUpdateValue() {
     _willBeUpdated = false;
     _log.i("reset Update Value func calisti ");
     emit(_willBeUpdated);
-
   }
 }

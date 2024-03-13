@@ -31,7 +31,6 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
   }
 
   _retrieveReadBookList() async {
-    bookList.clear();
     bookList = await HttpRequestBook.getReadBookList();
   }
 
@@ -48,14 +47,12 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
       body: BlocBuilder<MyReadBookScreenCubit, bool>(
         builder: (context, state) {
           log.i("state false olmus olmali : $state");
-          // var duration = const Duration(seconds: 1);
-          // sleep(duration);
-
           if (state) {
             _retrieveReadBookData();
             context.read<MyReadBookScreenCubit>().resetUpdateValue();
+            log.i(">>>>>>> state false olmus olmali : $state");
+
           }
-          state = false;
           return state
               ? const Center(child: CircularProgressIndicator())
               : SingleChildScrollView(
