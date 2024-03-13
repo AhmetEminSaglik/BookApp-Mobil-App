@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_book_app/pages/MyReadBookScreen.dart';
 import 'package:flutter_book_app/pages/ProfilScreen.dart';
 import 'package:flutter_book_app/pages/RecommendScreen.dart';
+import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:flutter_book_app/util/SafeLogoutDrawerItem.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,6 +15,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
+  final titles = ["My Books", "Recommends", "Profile"];
+  final colors = [
+    ProductColor.green,
+    ProductColor.lightBlue,
+    ProductColor.pink
+  ];
   final screens = [
     const MyReadBookScreen(),
     const RecommendScreen(),
@@ -25,9 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: backgroundColor,
+        backgroundColor: colors[currentIndex],
+        foregroundColor: Colors.white,
         //Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("Home Screen"),
+        title: Text(titles[currentIndex]),
       ),
       body: screens[currentIndex],
       backgroundColor: Colors.red,
@@ -41,22 +49,23 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         }),
         backgroundColor: Colors.blue,
-        items: const [
+        items: [
           BottomNavigationBarItem(
-              icon: Icon(
+              icon: const Icon(
                 Icons.my_library_books,
               ),
-              label: "My Books",
-              backgroundColor: Colors.green),
+              label: titles[0],
+              backgroundColor: colors[0]),
           BottomNavigationBarItem(
-              icon: Icon(Icons.recommend),
-              label: "Recommends",
-              backgroundColor: Colors.orange),
+              icon: const Icon(Icons.recommend),
+              label: titles[1],
+              backgroundColor: colors[1]),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: "Profil",
-              backgroundColor: Colors.red),
-          BottomNavigationBarItem(icon: Icon(Icons.exit_to_app), label: "Exit"),
+              icon: const Icon(Icons.person),
+              label: titles[2],
+              backgroundColor: colors[2]),
+          const BottomNavigationBarItem(
+              icon: Icon(Icons.exit_to_app), label: "Exit"),
         ],
       ),
     );

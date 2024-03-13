@@ -10,6 +10,8 @@ class ProductColor {
   // static const ratingColor = Color(0xFFCB5ED0);
   static const red = Color(0xFFE70C3B);
   static const green = Color(0xFF41C70C);
+  static const pink = Colors.pink;
+  // static const lightBlue = Colors.lightBlue;
 
   static const BY_FRIEND = Color(0xFFEA6707);
   static const HIGHEST_RATING = Color(0xFFB60A0A);

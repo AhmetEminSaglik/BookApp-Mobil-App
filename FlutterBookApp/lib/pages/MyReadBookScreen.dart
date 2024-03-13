@@ -1,8 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/MyBookReadScreenCubit.dart';
-import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 import '../httprequest/HttpRequestBook.dart';
 import '../model/Book.dart';
@@ -30,6 +31,7 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
   }
 
   _retrieveReadBookList() async {
+    bookList.clear();
     bookList = await HttpRequestBook.getReadBookList();
   }
 
@@ -45,10 +47,15 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
       backgroundColor: ProductColor.darkWhite,
       body: BlocBuilder<MyReadBookScreenCubit, bool>(
         builder: (context, state) {
-          _retrieveReadBookData();
-          if (state == true) {
+          log.i("state false olmus olmali : $state");
+          // var duration = const Duration(seconds: 1);
+          // sleep(duration);
+
+          if (state) {
+            _retrieveReadBookData();
             context.read<MyReadBookScreenCubit>().resetUpdateValue();
           }
+          state = false;
           return state
               ? const Center(child: CircularProgressIndicator())
               : SingleChildScrollView(
