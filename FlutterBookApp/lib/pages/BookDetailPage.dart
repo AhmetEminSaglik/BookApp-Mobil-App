@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/BookAddRemoveCubit.dart';
+import 'package:flutter_book_app/cubit/MyBookReadScreenCubit.dart';
 import 'package:flutter_book_app/cubit/UserBookActionCubit.dart';
 import 'package:flutter_book_app/model/Book.dart';
 import 'package:flutter_book_app/product/BookDesignDecoration.dart';
@@ -37,7 +38,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
   }
 
   _updateBookAddRemoveCubitValue() {
-    context.read<BookAddRemoveCubit>().updateisBookRead(isBookRead);
+    context.read<BookAddRemoveCubit>().updateBookReadValue(isBookRead);
   }
 
   _retrieveReadBookList() async {
@@ -214,7 +215,8 @@ class _RemoveReadBookButtonState extends State<_RemoveReadBookButton> {
         await context
             .read<UserBookActionCubit>()
             .destroyUserReadBookConnection(widget.bookId);
-        context.read<BookAddRemoveCubit>().updateisBookRead(false);
+        context.read<BookAddRemoveCubit>().updateBookReadValue(false);
+        context.read<MyReadBookScreenCubit>().updateBookList();
       },
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -252,7 +254,8 @@ class _AddAsReadButtonState extends State<_AddAsReadButton> {
         await context
             .read<UserBookActionCubit>()
             .createUserReadBookConnection(widget.bookId);
-        context.read<BookAddRemoveCubit>().updateisBookRead(true);
+        context.read<BookAddRemoveCubit>().updateBookReadValue(true);
+        context.read<MyReadBookScreenCubit>().updateBookList();
       },
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(

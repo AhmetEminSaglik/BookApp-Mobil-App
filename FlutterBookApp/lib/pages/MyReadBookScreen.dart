@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_book_app/cubit/MyBookReadScreenCubit.dart';
+import 'package:http/http.dart';
 import 'package:logger/logger.dart';
 import '../httprequest/HttpRequestBook.dart';
 import '../model/Book.dart';
@@ -39,6 +42,44 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ProductColor.darkWhite,
+      body: BlocBuilder<MyReadBookScreenCubit, bool>(
+        builder: (context, state) {
+          _retrieveReadBookData();
+          if (state == true) {
+            context.read<MyReadBookScreenCubit>().resetUpdateValue();
+          }
+          return state
+              ? const Center(child: CircularProgressIndicator())
+              : SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 20, right: 10, top: 10, bottom: 10),
+                    child: Column(
+                      children: [
+                        SingleChildScrollView(child: _BookCardColumn()),
+                      ],
+                    ),
+                  ),
+                );
+        },
+      ),
+    );
+  }
+
+  /*@override
+  Widget build(BuildContext context) {
+    BlocBuilder<MyReadBookScreenCubit, bool>(builder: (context, state) {
+      log.i("setstate calisti ");
+
+      if (state == true) {
+        context.read<MyReadBookScreenCubit>().resetUpdateValue();
+        setState(() {});
+      }
+      return Container();
+    });
+
+    return Scaffold(
         backgroundColor: ProductColor.darkWhite,
         body: isLoading
             ? const Center(child: CircularProgressIndicator())
@@ -53,7 +94,7 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
                   ),
                 ),
               ));
-  }
+  }*/
 
   Column _BookCardColumn() {
     Column column = Column(children: []);

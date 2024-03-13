@@ -8,7 +8,7 @@ class BookAddRemoveCubit extends Cubit<bool> {
   bool isBookRead = false;
   var log = Logger(printer: PrettyPrinter(colors: false));
 
-  void updateisBookRead(bool isBookRead) {
+  void updateBookReadValue(bool isBookRead) {
     this.isBookRead = isBookRead;
     emit(this.isBookRead);
   }
