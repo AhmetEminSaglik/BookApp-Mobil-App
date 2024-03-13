@@ -4,6 +4,7 @@ import '../model/Book.dart';
 
 class BookRepository {
   static Book parseBook(Map<String, dynamic> json) {
+    print("-------JSON : $json");
     return Book.fromJson(json);
   }
 

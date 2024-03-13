@@ -34,7 +34,7 @@ class Book {
 
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
-        id: json["id"] as String,
+        id: json["id"] as int,
         desc: json["description"] as String,
         imgUrl: json["imgUrl"] as String,
         isbn: json["isbn"] as String,
@@ -42,7 +42,8 @@ class Book {
         point: json["point"] as double,
         totalRead: json["totalRead"] as int,
         webUrl: json["webUrl"] as String,
-        author: Author.fromJson(json));
+        author: Author.fromJson(json["author"]));
+
   }
 
   Map<String, dynamic> toJson() {

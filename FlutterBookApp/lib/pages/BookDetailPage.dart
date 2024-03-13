@@ -25,12 +25,13 @@ class BookDetailPage extends StatefulWidget {
 }
 
 class _BookDetailPageState extends State<BookDetailPage> {
+  var log = Logger(printer: PrettyPrinter(colors: false));
   bool isLoading = true;
   bool isBookRead = false;
 
   _retrieveUserReadThisBook() async {
     if (isLoading == true) {
-      await _retrieveReadBookList();
+      await _sendRequestIsBookRead();
       _updateBookAddRemoveCubitValue();
       setState(() {
         isLoading = false;
@@ -43,20 +44,20 @@ class _BookDetailPageState extends State<BookDetailPage> {
     context.read<BookAddRemoveCubit>().updateBookReadValue(isBookRead);
   }
 
-  _retrieveReadBookList() async {
-    // Book book = await HttpRequestBook.getIfUserReadBook(widget.book.id);
-    isBookRead = false;
-    List<Book> bookList = await HttpRequestBook.getReadBookList();
-
+  _sendRequestIsBookRead() async {
+    Book book = await HttpRequestBook.getIfUserReadBook(widget.book.id);
+    if (book.id > 0) {
+      isBookRead = true;
+    }
+    /*List<Book> bookList = await HttpRequestBook.getReadBookList();
     bookList.forEach((element) {
       if (element.id == widget.book.id) {
         isBookRead = true;
         return;
       }
-    });
+    });*/
   }
 
-  var log = Logger(printer: PrettyPrinter(colors: false));
 
   @override
   Widget build(BuildContext context) {

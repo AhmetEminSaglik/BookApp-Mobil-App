@@ -69,8 +69,7 @@ class HttpRequestBook {
     }
     return bookList;
   }
-
-  /*static Future<Book> getIfUserReadBook(int bookId) async {
+  static Future<Book> getIfUserReadBook(int bookId) async {
     Book book;
     Uri url = Uri.parse("$_baseUrl/${SharedPrefUtils.getUserId()}/$bookId");
     log.i("URL : $url");
@@ -81,5 +80,5 @@ class HttpRequestBook {
       book = BookRepository.parseBook(respEntity.data);
     // }
     return book;
-  }*/
+  }
 }

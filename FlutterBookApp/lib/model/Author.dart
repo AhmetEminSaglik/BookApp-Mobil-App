@@ -35,7 +35,7 @@ class Author {
     json["totalBook"].map((book) => Book.fromJson(book)).toList() : [];
     return Author(
         id: json["id"] as int,
-        key: json["key"] as String,
+        key: json["key"] as String ,
         name: json["name"] as String,
         lastname: json["lastname"] as String,
         // point: json["point"] as double,

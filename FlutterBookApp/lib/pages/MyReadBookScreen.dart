@@ -24,6 +24,7 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
   bool isLoading = true;
 
   _retrieveReadBookData() async {
+    log.i("Read book data is retrieved");
     await _retrieveReadBookList();
     setState(() {
       isLoading = false;
@@ -46,12 +47,9 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
       backgroundColor: ProductColor.darkWhite,
       body: BlocBuilder<MyReadBookScreenCubit, bool>(
         builder: (context, state) {
-          log.i("state false olmus olmali : $state");
           if (state) {
             _retrieveReadBookData();
             context.read<MyReadBookScreenCubit>().resetUpdateValue();
-            log.i(">>>>>>> state false olmus olmali : $state");
-
           }
           return state
               ? const Center(child: CircularProgressIndicator())
