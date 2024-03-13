@@ -131,9 +131,6 @@ class _LoginFormState extends State<LoginForm> {
         if (state == EnumLoginState.LoginLoading) {
           return const Center(child: CircularProgressIndicator());
         }
-        /* else if (state == EnumLoginState.LoginSuccess) {
-          navigatePage();
-        }*/
         return const SizedBox();
       },
     );

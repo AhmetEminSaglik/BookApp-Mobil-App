@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_book_app/cubit/BookAddRemoveCubit.dart';
 import 'package:flutter_book_app/cubit/UserBookActionCubit.dart';
 import 'package:flutter_book_app/model/Book.dart';
 import 'package:flutter_book_app/product/BookDesignDecoration.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:logger/logger.dart';
 
+import '../cubit/recommendedbook/BookCubit.dart';
 import '../httprequest/HttpRequestBook.dart';
 
 class BookDetailPage extends StatefulWidget {
@@ -26,11 +28,16 @@ class _BookDetailPageState extends State<BookDetailPage> {
   _retrieveUserReadThisBook() async {
     if (isLoading == true) {
       await _retrieveReadBookList();
+      _updateBookAddRemoveCubitValue();
       setState(() {
         isLoading = false;
         log.i("isLoading : $isLoading > isBookRead : $isBookRead");
       });
     }
+  }
+
+  _updateBookAddRemoveCubitValue() {
+    context.read<BookAddRemoveCubit>().updateisBookRead(isBookRead);
   }
 
   _retrieveReadBookList() async {
@@ -177,9 +184,16 @@ class _BigCardDesign extends StatelessWidget {
   }
 
   Widget getButton() {
-    return isBookRead
+    return BlocBuilder<BookAddRemoveCubit, bool>(builder: (context, state) {
+      if (state == true) {
+        return _RemoveReadBookButton(bookId: book.id);
+      }
+      return _AddAsReadButton(bookId: book.id);
+    });
+
+    /*return isBookRead
         ? _RemoveReadBookButton(bookId: book.id)
-        : _AddAsReadButton(bookId: book.id);
+        : _AddAsReadButton(bookId: book.id);*/
   }
 }
 
@@ -200,6 +214,7 @@ class _RemoveReadBookButtonState extends State<_RemoveReadBookButton> {
         await context
             .read<UserBookActionCubit>()
             .destroyUserReadBookConnection(widget.bookId);
+        context.read<BookAddRemoveCubit>().updateisBookRead(false);
       },
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -237,6 +252,7 @@ class _AddAsReadButtonState extends State<_AddAsReadButton> {
         await context
             .read<UserBookActionCubit>()
             .createUserReadBookConnection(widget.bookId);
+        context.read<BookAddRemoveCubit>().updateisBookRead(true);
       },
       style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
