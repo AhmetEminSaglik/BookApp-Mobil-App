@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/BookAddRemoveCubit.dart';
 import 'package:flutter_book_app/cubit/MyBookReadScreenCubit.dart';
@@ -69,7 +71,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
             padding: const EdgeInsets.only(top: 90, left: 25, right: 25),
             child: ContainerWithBoxDecoration(
               child: Container(
-                height: 500,
+                height: 550,
                 color: ProductColor.white,
               ),
             ),
@@ -119,69 +121,102 @@ class _BigCardDesign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
+      // padding: const EdgeInsets.all(30),
       padding: const EdgeInsets.all(30),
       child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.center,
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _TextForBigCardDesign(
-            text: book.name,
-            textSize: 25,
-            textColor: ProductColor.black,
-            fontWeight: FontWeight.bold,
-          ),
-          Column(
-            children: [
-              Row(
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  getBookRatingShape(book.point),
-                  // getAveragePointText(widget.book.point)
-                ],
-              ),
-              getReviewText(book.totalRead),
-            ],
-          ),
-          const SizedBox(height: 25),
-          Column(
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _TextForBigCardDesign(
-                      text:
-                          "Author: ${book.author.name} ${book.author.lastname}",
-                      textSize: 17,
-                      textColor: ProductColor.black,
-                      fontWeight: FontWeight.bold),
-                ],
-              ),
-              const SizedBox(height: 15),
-              Container(
-                color: ProductColor.darkWhite,
-                height: 120,
-                child: SingleChildScrollView(
-                  // scrollDirection: Axis.vertical,
-                  child: _TextForBigCardDesign(
-                      text: book.desc,
-                      textSize: 17,
-                      textColor: ProductColor.darkGrey,
-                      fontWeight: FontWeight.bold),
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            getBookHeader(),
+            const SizedBox(height: 25),
+            getAuthorData(),
+            const SizedBox(height: 45),
+            SizedBox(width: 250, child: getButton())
+          ]),
+    );
+  }
+
+  SizedBox getBookHeader() {
+    return SizedBox(
+      height: 100,
+      child: SingleChildScrollView(
+        child: Column(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _TextForBigCardDesign(
+              text: book.name,
+              textSize: book.name.length <= 20 ? 25 : 20,
+              textColor: ProductColor.black,
+              fontWeight: FontWeight.bold,
+            ),
+            Column(
+              children: [
+                Row(
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    getBookRatingShape(book.point),
+                    // getAveragePointText(widget.book.point)
+                  ],
                 ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                  width: 200,
-                  child: isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : getButton())
-            ],
-          )
-        ],
+                getReviewText(book.totalRead),
+              ],
+            ),
+            /*const SizedBox(height: 25),
+            getAuthorData()*/
+          ],
+        ),
       ),
     );
+  }
+
+  Column getAuthorData() {
+    return Column(
+      // crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            _TextForBigCardDesign(
+                text: "Author: ${book.author.name} ${book.author.lastname}",
+                textSize: 17,
+                textColor: ProductColor.black,
+                fontWeight: FontWeight.bold),
+          ],
+        ),
+        const SizedBox(height: 15),
+        getBookDesc(),
+        // const SizedBox(height: 20),
+        /*     SizedBox(
+                width: 200,
+                height: 45,
+                child: isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : getButton()),*/
+      ],
+    );
+  }
+
+  Container getBookDesc() {
+    if (book.desc.isNotEmpty) {
+      return Container(
+        color: ProductColor.darkWhite,
+        height: 90,
+        child: SingleChildScrollView(
+          // scrollDirection: Axis.vertical,
+          child: _TextForBigCardDesign(
+              text: book.desc,
+              textSize: 17,
+              textColor: ProductColor.darkGrey,
+              fontWeight: FontWeight.bold),
+        ),
+      );
+    } else {
+      return Container(
+        child: const Text("- - -"),
+        alignment: Alignment.centerLeft,
+      );
+    }
   }
 
   Widget getButton() {
@@ -291,6 +326,7 @@ class _TextForBigCardDesign extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(text,
+        textAlign: TextAlign.center,
         style: TextStyle(
             fontSize: textSize, fontWeight: fontWeight, color: textColor));
   }

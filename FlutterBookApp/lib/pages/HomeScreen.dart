@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final titles = ["My Books", "Recommends", "Profile"];
   final colors = [
     ProductColor.green,
-    ProductColor.lightBlue,
+    ProductColor.blue,
     ProductColor.pink
   ];
   final screens = [
