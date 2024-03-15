@@ -25,8 +25,8 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
 
   _retrieveReadBookData() async {
     log.i("Read book data is retrieved");
-    await _retrieveReadBookList();
     context.read<MyReadBookScreenCubit>().resetUpdateValue();
+    await _retrieveReadBookList();
     setState(() {
       isLoading = false;
     });
@@ -70,12 +70,15 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
     );
   }
 
+
+
   Column _BookCardColumn() {
     Column column = Column(children: []);
     for (int i = 0; i < bookList.length; i++) {
       BookCard _bookCard = BookCard(
         book: bookList[i],
         index: (bookList.length - i),
+        // isBookRead: isBookReadByUser(bookList[i]),
       );
       column.children.add(_bookCard);
     }
@@ -90,12 +93,13 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
         return;
       }
     });
+    log.i("Book is Read : $isBookRead");
     return isBookRead;
   }
 }
 
 String getShortDesc(String desc) {
-  if (desc.trim().isEmpty) {
+  if (desc.trim().length == 0) {
     return "- - -";
   }
   int index = 70;

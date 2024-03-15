@@ -50,7 +50,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: imgHeight * 7 / 4,
+      height: imgHeight * 1.8,
       child: Column(
         children: [
           Row(
@@ -99,7 +99,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
         child: Container(
           // width: 295,
           width: ResponsiveDesign.width() - contentWidth - 4.5 * padding,
-          height: imgHeight + 4.5 * padding,
+          height: imgHeight + 5.5 * padding,
           color: ProductColor.white,
           child: Padding(
             padding: EdgeInsets.only(left: imgWidth, top: 5),

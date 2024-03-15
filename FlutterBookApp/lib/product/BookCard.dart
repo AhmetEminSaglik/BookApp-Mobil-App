@@ -48,7 +48,7 @@ class _BookCardState extends State<BookCard> {
   Widget build(BuildContext context) {
     // _retrieveUserReadThisBook();
     return SizedBox(
-      height: imgHeight * 7 / 4,
+      height: imgHeight * 1.8,
       child: Column(
         children: [
           Row(
