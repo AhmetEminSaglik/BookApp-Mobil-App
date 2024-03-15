@@ -102,7 +102,7 @@ String getShortDesc(String desc) {
   if (desc.trim().length == 0) {
     return "- - -";
   }
-  int index = 70;
+  int index = 60;
   String shortDesc = desc;
   if (desc.trim().length > index) {
     shortDesc = shortDesc.replaceAll("\n", " ");

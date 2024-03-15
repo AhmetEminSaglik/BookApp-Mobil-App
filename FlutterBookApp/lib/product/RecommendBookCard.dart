@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/model/Recommend.dart';
@@ -66,7 +67,10 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
                   ),
                   Row(
                     children: [
-                      getBookImage(context),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              top: ResponsiveDesign.height() / 100),
+                          child: getBookImage(context)),
                       getChevron(),
                     ],
                   ),
@@ -211,7 +215,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
     if (desc.trim().length == 0) {
       return "- - -";
     }
-    int index = 45;
+    int index = 60;
     String shortDesc = desc;
     if (desc.trim().length > index) {
       shortDesc = shortDesc.replaceAll("\n", " ");
