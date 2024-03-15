@@ -4,6 +4,7 @@ class User {
   late String _lastname;
   late String _username;
   late String _password;
+  late String _gender;
   late int _totalFollowers;
   late int _totalFollowed;
   late String _imgurl;
@@ -14,6 +15,7 @@ class User {
       required lastname,
       required username,
       required password,
+      required gender,
       required totalFollowers,
       required totalFollowed,
       required imgurl}) {
@@ -25,16 +27,18 @@ class User {
     _totalFollowers = totalFollowers;
     _totalFollowed = totalFollowed;
     _imgurl = imgurl;
+    _gender = gender;
   }
 
   factory User.fromJson(Map<String, dynamic> json) {
-    print("gelen json : $json");
+    print("USER ICIN gelen json : $json");
     return User(
       id: json["id"] as int,
       name: json["name"] as String,
       lastname: json["lastname"] as String,
       username: json["username"] as String,
       password: json["password"] as String,
+      gender: json["gender"] as String,
       totalFollowers: json["totalFollowers"] as int,
       totalFollowed: json["totalFollowed"] as int,
       imgurl: json["imgUrl"] as String,
@@ -72,6 +76,12 @@ class User {
     _password = value;
   }
 
+  String get gender => _gender;
+
+  set gender(String value) {
+    _gender = value;
+  }
+
   String get username => _username;
 
   set username(String value) {
@@ -100,6 +110,6 @@ class User {
 
   @override
   String toString() {
-    return 'User{_id: $_id, _name: $_name, _lastname: $_lastname, _username: $_username, _password: $_password, _totalFollowers: $_totalFollowers, _totalFollowed: $_totalFollowed, _imgUrl: $_imgurl}';
+    return 'User{_id: $_id, _name: $_name, _lastname: $_lastname, _username: $_username, _password: $_password, _gender: $_gender, _totalFollowers: $_totalFollowers, _totalFollowed: $_totalFollowed, _imgUrl: $_imgurl}';
   }
 }

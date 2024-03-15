@@ -26,6 +26,7 @@ public class User {
     private String lastname;
     private String username;
     private String password;
+    private String gender;
     private int totalFollowers;
     private int totalFollowed;
     private String imgUrl;
