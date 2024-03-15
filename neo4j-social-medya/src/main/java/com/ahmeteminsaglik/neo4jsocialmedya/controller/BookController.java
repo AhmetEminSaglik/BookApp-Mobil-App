@@ -33,13 +33,18 @@ public class BookController {
     public ResponseEntity<DataResult<Book>> getBookByUserIdReadBookId(@PathVariable long userId, @PathVariable long bookId) {
         List<Book> booklist = service.getAllReadBooksByUserId(userId);
         Book book=null;// = service.getBookByUserIdReadBookId(userId, bookId);
+        System.out.println("bookId ="+bookId);
+
         for (Book tmp : booklist) {
+            System.out.println("tmp id : "+tmp.getId());
             if (tmp.getId() == bookId) {
                 book = tmp;
+                System.out.println("ESLESDI ");
                 break;
             }
         }
         DataResult result = new SuccessDataResult(book, "User(" + userId + ") read Book(" + bookId + ") data is retrieved.");
+        System.out.println(" result : "+result.getData());
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 

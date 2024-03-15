@@ -10,7 +10,7 @@ class BookRepository {
 
   static List<Book> parseBookList(List<dynamic> json) {
     List<Book> bookList = [];
-    print("-------JSON : $json");
+    print(">>>> -------JSON : $json");
     for (var tmp in json) {
       Book user = Book(
           id: tmp["id"],

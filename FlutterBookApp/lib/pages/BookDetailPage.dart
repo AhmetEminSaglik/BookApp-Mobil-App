@@ -45,9 +45,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
   }
 
   _sendRequestIsBookRead() async {
-    Book book = await HttpRequestBook.getIfUserReadBook(widget.book.id);
-    if (book.id > 0) {
-      isBookRead = true;
+    Book? book = await HttpRequestBook.getIfUserReadBook(widget.book.id);
+    if(book!=null){
+      isBookRead=true;
     }
     /*List<Book> bookList = await HttpRequestBook.getReadBookList();
     bookList.forEach((element) {
