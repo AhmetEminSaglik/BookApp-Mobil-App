@@ -19,22 +19,29 @@ class LoginCubit extends Cubit<EnumLoginState> {
 
   void login(BuildContext context, String username, String password) async {
     emit(EnumLoginState.LoginLoading);
-    ResponseEntity respEntity = await HttpRequestUser.login(username, password);
-    if (respEntity.success) {
-      user = UserRepository.parseUser(respEntity.data);
-      SharedPrefUtils.setLoginDataUser(user!);
-      emit(EnumLoginState.LoginSuccess);
-      _navigatePage(context);
-    } else {
-      emit(EnumLoginState.LoginError);
-      log.e("ERROR OCCURED : ${respEntity.message}");
+    ResponseEntity? respEntity;
+    try {
+      respEntity = await HttpRequestUser.login(username, password);
+    } catch (e) {
+    }
+    if (respEntity != null) {
+      if (respEntity.success) {
+        user = UserRepository.parseUser(respEntity.data);
+        log.i("USER : >>> $user");
+        SharedPrefUtils.setLoginDataUser(user!);
+        emit(EnumLoginState.LoginSuccess);
+        _navigatePage(context);
+      } else {
+        emit(EnumLoginState.LoginError);
+        log.e("ERROR OCCURED : ${respEntity.message}");
+      }
     }
     // print("Gelen User : $user");
     // emit(EnumLoginState.LoginSuccess);
   }
 
   void _navigatePage(BuildContext context) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => HomeScreen()));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => HomeScreen()));
   }
 }

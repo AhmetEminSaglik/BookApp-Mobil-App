@@ -28,6 +28,7 @@ public class User {
     private String password;
     private int totalFollowers;
     private int totalFollowed;
+    private String imgUrl;
 //    @Relationship(type = "Read",direction = Relationship.Direction.OUTGOING)
 //    private  List<Book> bookList;
 
@@ -50,6 +51,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", totalFollowers=" + totalFollowers +
+                ", imgUrl=" + imgUrl +
                 '}';
     }
 

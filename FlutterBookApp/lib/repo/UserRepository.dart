@@ -15,6 +15,7 @@ class UserRepository {
         password: tmp['password'],
         totalFollowers: tmp['totalFollowers'],
         totalFollowed: tmp['totalFollowed'],
+        imgurl: tmp['imgUrl'],
       );
       userList.add(user);
     }
