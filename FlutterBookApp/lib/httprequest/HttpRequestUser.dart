@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/repo/UserRepository.dart';
 import 'package:flutter_book_app/util/SharedPrefUtils.dart';
 import 'package:logger/logger.dart';
@@ -68,8 +69,8 @@ class HttpRequestUser {
     return respEntity.data;
   }
 
-  static Future<List<User>> getFollowingUserList() async {
-    List<User> userList = [];
+  static Future<List<UserFriendDTO>> getFollowingUserList() async {
+    List<UserFriendDTO> userList = [];
     Uri url =
     Uri.parse("$_baseUrl/following/${SharedPrefUtils.getUserId()}");
     log.i("URL : $url");
@@ -77,13 +78,13 @@ class HttpRequestUser {
     Map<String, dynamic> jsonData = json.decode(resp.body);
     ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
     if (respEntity.success) {
-      userList = UserRepository.parseUserList(respEntity.data);
+      userList = UserRepository.parseUserFriendDTOList(respEntity.data);
     }
     return userList;
   }
 
-  static Future<List<User>> getFollowerUserList() async {
-    List<User> userList = [];
+  static Future<List<UserFriendDTO>> getFollowerUserList() async {
+    List<UserFriendDTO> userList = [];
     Uri url =
     Uri.parse("$_baseUrl/follower/${SharedPrefUtils.getUserId()}");
     log.i("URL : $url");
@@ -91,7 +92,7 @@ class HttpRequestUser {
     Map<String, dynamic> jsonData = json.decode(resp.body);
     ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
     if (respEntity.success) {
-      userList = UserRepository.parseUserList(respEntity.data);
+      userList = UserRepository.parseUserFriendDTOList(respEntity.data);
     }
     return userList;
   }

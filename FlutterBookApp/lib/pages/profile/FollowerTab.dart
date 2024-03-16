@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
-import '../../model/User.dart';
 import '../../util/ResponsiveDesign.dart';
 import 'UserCard.dart';
 
 class FollowersTab extends StatefulWidget {
   FollowersTab({super.key, required this.list});
 
-  List<User> list;
+  List<UserFriendDTO> list;
 
   @override
   State<FollowersTab> createState() => _FollowersTabState();
@@ -27,7 +27,7 @@ class _FollowersTabState extends State<FollowersTab> {
     Column column = Column(children: []);
     for (int i = 0; i < widget.list.length; i++) {
       UserCard userCard = UserCard(
-        user: widget.list[i],
+        userDTO: widget.list[i],
         index: i,
       );
       column.children.add(userCard);

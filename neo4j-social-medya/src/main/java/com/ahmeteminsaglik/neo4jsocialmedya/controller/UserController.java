@@ -1,14 +1,13 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.controller;
 
-import com.ahmeteminsaglik.neo4jsocialmedya.business.StaticData;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.BookService;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.UserService;
-import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.InitialDataLoader;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.LoginUser;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationLoginInput;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationSignUp;
-import com.ahmeteminsaglik.neo4jsocialmedya.model.Book;
+import com.ahmeteminsaglik.neo4jsocialmedya.mapper.UserMapper;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
+import com.ahmeteminsaglik.neo4jsocialmedya.model.dto.UserFriendDTO;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.CustomLog;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.ApiRequestException;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.response.InvalidUsernameOrPasswordException;
@@ -23,6 +22,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
@@ -34,6 +34,8 @@ public class UserController {
     private ValidationLoginInput validationLogin = new ValidationLoginInput();
     private BookService bookService;
 
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
     public UserController(UserService userService, BookService bookService) {
@@ -100,15 +102,23 @@ public class UserController {
     }
 
     @GetMapping("/following/{userId}")
-    public DataResult<List<User>> getfollowingUserList(@PathVariable long userId) {
+    public DataResult<List<UserFriendDTO>> getfollowingUserList(@PathVariable long userId) {
         List<User> userList = userService.findAllfollowingUsersByUserId(userId);
-        return new SuccessDataResult<>(userList, "User's following users are retrived");
+        List<UserFriendDTO> userFriendDTOList = userList
+                .stream()
+                .map(userMapper::toUserFriendDTO)
+                .collect(Collectors.toList());
+        return new SuccessDataResult<>(userFriendDTOList, "User's following users are retrived");
     }
 
     @GetMapping("/follower/{userId}")
-    public DataResult<List<User>> getAllFollowersOfUserId(@PathVariable long userId) {
+    public DataResult<List<UserFriendDTO>> getAllFollowersOfUserId(@PathVariable long userId) {
         List<User> userList = userService.findAllFollowersOfUserId(userId);
-        return new SuccessDataResult<>(userList, "User's following users are retrived");
+        List<UserFriendDTO> userFriendDTOList = userList
+                .stream()
+                .map(userMapper::toUserFriendDTO)
+                .collect(Collectors.toList());
+        return new SuccessDataResult<>(userFriendDTOList, "User's following users are retrived");
     }
 
     @PostMapping("/{userId}/follow/{friendUserId}")

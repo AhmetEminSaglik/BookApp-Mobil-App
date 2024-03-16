@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
+import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/pages/profile/FollowingTab.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:flutter_book_app/util/ResponsiveDesign.dart';
@@ -22,13 +23,13 @@ class ProfilScreen extends StatefulWidget {
 
 class _ProfilScreenState extends State<ProfilScreen> {
   final User _user = SharedPrefUtils.getUser();
-  final double _fontSize = ResponsiveDesign.height() / 52;
+  final double _fontSize = ResponsiveDesign.height() / 50;
   final double _numberFontSize = ResponsiveDesign.height() / 35;
   int bookCount = 0;
   bool isLoading = true;
   final double _profileItemSpace = 10;
-  late List<User> followingList;
-  late List<User> followerList;
+  late List<UserFriendDTO> followingList;
+  late List<UserFriendDTO> followerList;
 
   @override
   void initState() {
@@ -82,10 +83,10 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                     Tab(
                                         child: Text("Followers",
                                             style: TextStyle(
-                                                fontSize: _fontSize))),
+                                                fontSize: _fontSize+1))),
                                     Tab(child: Text("Following",
                                         style: TextStyle(
-                                            fontSize: _fontSize))),
+                                            fontSize: _fontSize+1))),
                                   ],
                                 ),
                               ),

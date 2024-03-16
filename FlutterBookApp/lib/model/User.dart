@@ -31,7 +31,6 @@ class User {
   }
 
   factory User.fromJson(Map<String, dynamic> json) {
-    print("USER ICIN gelen json : $json");
     return User(
       id: json["id"] as int,
       name: json["name"] as String,
