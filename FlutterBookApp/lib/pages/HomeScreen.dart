@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_book_app/pages/MyReadBookScreen.dart';
-import 'package:flutter_book_app/pages/ProfilScreen.dart';
+import 'package:flutter_book_app/pages/profile/ProfilScreen.dart';
 import 'package:flutter_book_app/pages/RecommendScreen.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:flutter_book_app/util/SafeLogoutDrawerItem.dart';

@@ -5,8 +5,8 @@ class User {
   late String _username;
   late String _password;
   late String _gender;
-  late int _totalFollowers;
-  late int _totalFollowed;
+  late int _followers;
+  late int _following;
   late String _imgurl;
 
   User(
@@ -16,16 +16,16 @@ class User {
       required username,
       required password,
       required gender,
-      required totalFollowers,
-      required totalFollowed,
+      required followers,
+      required following,
       required imgurl}) {
     _id = id;
     _name = name;
     _lastname = lastname;
     _username = username;
     _password = password;
-    _totalFollowers = totalFollowers;
-    _totalFollowed = totalFollowed;
+    _followers = followers;
+    _following = following;
     _imgurl = imgurl;
     _gender = gender;
   }
@@ -39,8 +39,8 @@ class User {
       username: json["username"] as String,
       password: json["password"] as String,
       gender: json["gender"] as String,
-      totalFollowers: json["totalFollowers"] as int,
-      totalFollowed: json["totalFollowed"] as int,
+      followers: json["followers"] as int,
+      following: json["following"] as int,
       imgurl: json["imgUrl"] as String,
     );
   }
@@ -52,22 +52,22 @@ class User {
       'lastname': lastname,
       'username': username,
       '_password': password,
-      '_totalFollowers': totalFollowers,
-      'totalFollowed': totalFollowed,
+      '_followers': followers,
+      'following': following,
       'imgUrl': imgurl,
     };
   }
 
-  int get totalFollowed => _totalFollowed;
+  int get following => _following;
 
-  set totalFollowed(int value) {
-    _totalFollowed = value;
+  set following(int value) {
+    _following = value;
   }
 
-  int get totalFollowers => _totalFollowers;
+  int get followers => _followers;
 
-  set totalFollowers(int value) {
-    _totalFollowers = value;
+  set followers(int value) {
+    _followers = value;
   }
 
   String get password => _password;
@@ -110,6 +110,6 @@ class User {
 
   @override
   String toString() {
-    return 'User{_id: $_id, _name: $_name, _lastname: $_lastname, _username: $_username, _password: $_password, _gender: $_gender, _totalFollowers: $_totalFollowers, _totalFollowed: $_totalFollowed, _imgUrl: $_imgurl}';
+    return 'User{_id: $_id, _name: $_name, _lastname: $_lastname, _username: $_username, _password: $_password, _gender: $_gender, _followers: $_followers, _following: $_following, _imgUrl: $_imgurl}';
   }
 }

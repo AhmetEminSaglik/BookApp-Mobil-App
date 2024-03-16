@@ -15,37 +15,36 @@ public class StaticData {
 
     public static List<User> getUserList() {
         if (userList.isEmpty()) {
-            userList.add(new User(-1l, "Michael", "Donna", "user1", "pass", EnumGender.MAN.getName(), 97, 67, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "James", "Charles", "user3", "pass", EnumGender.MAN.getName(), 69, 41, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Thomas", "Sarah", "user5", "pass", EnumGender.MAN.getName(), 95, 10, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Donna", "Paul", "user7", "pass", EnumGender.MAN.getName(), 7, 32, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "William", "Donna", "user9", "pass", EnumGender.MAN.getName(), 43, 46, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Andrew", "Daniel", "user11", "pass", EnumGender.MAN.getName(), 22, 12, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Steven", "Daniel", "user13", "pass", EnumGender.MAN.getName(), 89, 88, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Paul", "David", "user15", "pass", EnumGender.MAN.getName(), 83, 37, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Matthew", "Michael", "user17", "pass", EnumGender.MAN.getName(), 60, 57, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Daniel", "Susan", "user19", "pass", EnumGender.MAN.getName(), 61, 8, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Matthew", "Mark", "user21", "pass", EnumGender.MAN.getName(), 34, 68, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "John", "William", "user23", "pass", EnumGender.MAN.getName(), 93, 20, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Thomas", "Elizabeth", "user25", "pass", EnumGender.MAN.getName(), 24, 85, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Andrew", "Jennifer", "user27", "pass", EnumGender.MAN.getName(), 65, 93, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Thomas", "Nancy", "user29", "pass", EnumGender.MAN.getName(), 63, 28, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-
-            userList.add(new User(-1l, "Michelle", "Mark", "user2", "pass", EnumGender.WOMAN.getName(), 94, 17, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Kimberly", "Mary", "user4", "pass", EnumGender.WOMAN.getName(), 13, 48, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Patricia", "Elizabeth", "user6", "pass", EnumGender.WOMAN.getName(), 86, 0, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Mary", "Michael", "user8", "pass", EnumGender.WOMAN.getName(), 57, 68, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Ashley", "Karen", "user10", "pass", EnumGender.WOMAN.getName(), 86, 86, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Barbara", "Karen", "user12", "pass", EnumGender.WOMAN.getName(), 97, 9, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Betty", "Matthew", "user14", "pass", EnumGender.WOMAN.getName(), 34, 0, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Kimberly", "Margaret", "user16", "pass", EnumGender.WOMAN.getName(), 26, 90, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Margaret", "Mark", "user18", "pass", EnumGender.WOMAN.getName(), 37, 2, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Michelle", "William", "user20", "pass", EnumGender.WOMAN.getName(), 75, 61, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Amanda", "Barbara", "user22", "pass", EnumGender.WOMAN.getName(), 34, 19, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Elizabeth", "Jessica", "user24", "pass", EnumGender.WOMAN.getName(), 17, 22, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Mary", "Michael", "user26", "pass", EnumGender.WOMAN.getName(), 42, 69, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Jennifer", "Margaret", "user28", "pass", EnumGender.WOMAN.getName(), 49, 15, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1l, "Sarah", "Margaret", "user30", "pass", EnumGender.WOMAN.getName(), 98, 51, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Michael", "Donna", "user1", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "James", "Charles", "user3", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Thomas", "Sarah", "user5", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Donna", "Paul", "user7", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "William", "Donna", "user9", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Andrew", "Daniel", "user11", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Steven", "Daniel", "user13", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Paul", "David", "user15", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Matthew", "Michael", "user17", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Daniel", "Susan", "user19", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Matthew", "Mark", "user21", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "John", "William", "user23", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Thomas", "Elizabeth", "user25", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Andrew", "Jennifer", "user27", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Thomas", "Nancy", "user29", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Michelle", "Mark", "user2", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Kimberly", "Mary", "user4", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Patricia", "Elizabeth", "user6", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Mary", "Michael", "user8", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Ashley", "Karen", "user10", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Barbara", "Karen", "user12", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Betty", "Matthew", "user14", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Kimberly", "Margaret", "user16", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Margaret", "Mark", "user18", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Michelle", "William", "user20", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Amanda", "Barbara", "user22", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Elizabeth", "Jessica", "user24", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Mary", "Michael", "user26", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Jennifer", "Margaret", "user28", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+            userList.add(new User(-1l, "Sarah", "Margaret", "user30", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
 
         }
         return userList;

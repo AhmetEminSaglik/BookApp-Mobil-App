@@ -45,8 +45,8 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public List<User> findAllFollowedUsersByUserId(long id) {
-        return repo.findAllFollowedUsersByUserId(id);
+    public List<User> findAllfollowingUsersByUserId(long id) {
+        return repo.findAllfollowingUsersByUserId(id);
     }
 
     @Override
@@ -55,8 +55,8 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public void removeUserFollowedRelationShipUser(long userId, long followedUserId) {
-        repo.removeUserFollowedRelationShipUser(userId, followedUserId);
+    public void removeUserfollowingRelationShipUser(long userId, long followingUserId) {
+        repo.removeUserfollowingRelationShipUser(userId, followingUserId);
     }
 
     @Override

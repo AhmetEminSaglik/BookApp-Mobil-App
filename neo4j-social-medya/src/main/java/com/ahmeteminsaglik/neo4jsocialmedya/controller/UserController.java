@@ -99,16 +99,16 @@ public class UserController {
         return new SuccessResult("Connection is removed successfully");
     }
 
-    @GetMapping("/followed/{userId}")
-    public DataResult<List<User>> getFollowedUserList(@PathVariable long userId) {
-        List<User> userList = userService.findAllFollowedUsersByUserId(userId);
-        return new SuccessDataResult<>(userList, "User's followed users are retrived");
+    @GetMapping("/following/{userId}")
+    public DataResult<List<User>> getfollowingUserList(@PathVariable long userId) {
+        List<User> userList = userService.findAllfollowingUsersByUserId(userId);
+        return new SuccessDataResult<>(userList, "User's following users are retrived");
     }
 
     @GetMapping("/follower/{userId}")
     public DataResult<List<User>> getAllFollowersOfUserId(@PathVariable long userId) {
         List<User> userList = userService.findAllFollowersOfUserId(userId);
-        return new SuccessDataResult<>(userList, "User's followed users are retrived");
+        return new SuccessDataResult<>(userList, "User's following users are retrived");
     }
 
     @PostMapping("/{userId}/follow/{friendUserId}")
@@ -117,9 +117,9 @@ public class UserController {
         return new SuccessResult("Connection is created");
     }
 
-    @DeleteMapping("/{userId}/followed/{followedUserId}")
-    public Result removeUserFollowedRelationShipUser(@PathVariable long userId, @PathVariable long followedUserId) {
-        userService.removeUserFollowedRelationShipUser(userId, followedUserId);
+    @DeleteMapping("/{userId}/following/{followingUserId}")
+    public Result removeUserfollowingRelationShipUser(@PathVariable long userId, @PathVariable long followingUserId) {
+        userService.removeUserfollowingRelationShipUser(userId, followingUserId);
         return new SuccessResult("Relationship is deleted");
     }
 
@@ -165,10 +165,10 @@ public class UserController {
     public DataResult<List<User>> getByMostReadBookFromFollowings(@PathVariable Long userId) {
         return new SuccessDataResult<>(userService.findCommonUsersByFriends(userId), "Data retrived Successfully");
     }*/
-/*    @PostMapping("/post/followed")
-    public DataResult<List<User>> getFollowedUserList2(@Body int userId) {
-        List<User> userList = userService.findAllFollowedUsersByUserId(userId);
-        return new SuccessDataResult<>(userList, "User's followed users are retrived");
+/*    @PostMapping("/post/following")
+    public DataResult<List<User>> getfollowingUserList2(@Body int userId) {
+        List<User> userList = userService.findAllfollowingUsersByUserId(userId);
+        return new SuccessDataResult<>(userList, "User's following users are retrived");
     }*/
 /*    @GetMapping("/read")
     public List<Read> getReadData() {

@@ -26,7 +26,7 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
     @Query("MATCH (u:User)-[:FOLLOW]->(f:User) " +
             "WHERE ID(u) = $userId " +
             "RETURN f")
-    List<User> findAllFollowedUsersByUserId(long userId);
+    List<User> findAllfollowingUsersByUserId(long userId);
 
     @Query("MATCH (u:User)<-[:FOLLOW]-(f:User) " +
             "WHERE ID(u) = $userId " +
@@ -35,15 +35,15 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
 
     @Query("MATCH (u1:User)-[f:FOLLOW]->(u2:User)" +
             "WHERE ID(u1) = $userId " +
-            "AND ID(u2) = $followedUserId " +
+            "AND ID(u2) = $followingUserId " +
             "DETACH DELETE f")
-    void removeUserFollowedRelationShipUser(long userId, long followedUserId);
+    void removeUserfollowingRelationShipUser(long userId, long followingUserId);
 
     @Query("MATCH (u1:User)<-[f:FOLLOW]-(u2:User)" +
             "WHERE ID(u1) = $userId " +
-            "AND ID(u2) = $followedUserId " +
+            "AND ID(u2) = $followingUserId " +
             "DETACH DELETE f")
-    void removeUserFollowerRelationShipUser(long userId, long followedUserId);
+    void removeUserFollowerRelationShipUser(long userId, long followingUserId);
 
     /*
      * This query return user's friends' most common following friends as recommened user*/
@@ -69,7 +69,7 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
             "MERGE (u)-[f:FOLLOW]->(u2)")
     void createConnectionFollowFriend(long userId, long friendUserId);
 
-    @Query("MATCH (u:User)<-[:FOLLOW]-(f:User)\nWITH u, COUNT(f) AS totalFollowers\nSET u.totalFollowers = totalFollowers\nWITH u\nMATCH (u)-[:FOLLOW]->(f:User)\nWITH u, COUNT(f) AS totalFollowed\nSET u.totalFollowed = totalFollowed\n")
+    @Query("MATCH (u:User)<-[:FOLLOW]-(f:User)\nWITH u, COUNT(f) AS followers\nSET u.followers = followers\nWITH u\nMATCH (u)-[:FOLLOW]->(f:User)\nWITH u, COUNT(f) AS following\nSET u.following = following\n")
     void fixUserData();
 
 

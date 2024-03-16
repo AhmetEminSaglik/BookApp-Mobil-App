@@ -22,13 +22,13 @@ public interface UserService {
     //    List<Read> findAllReadData();
     void removeUserReadBookConnection(long userId, long bookId);
 
-    List<User> findAllFollowedUsersByUserId(long id);
+    List<User> findAllfollowingUsersByUserId(long id);
 
     List<User> findAllFollowersOfUserId(long id);
 
-    void removeUserFollowedRelationShipUser(long userId, long followedUserId);
+    void removeUserfollowingRelationShipUser(long userId, long followingUserId);
 
-    void removeUserFollowerRelationShipUser(long userId, long followedUserId);
+    void removeUserFollowerRelationShipUser(long userId, long followingUserId);
 
     List<User> findCommonUsersByFriends(long userId);
 

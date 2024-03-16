@@ -26,6 +26,8 @@ class ProductColor {
   static const cardBackground = Color(0xFFC5E0F3);
   static const white = Color(0xFFFFFFFF);
   static const darkWhite = Color(0xFFEBECEF);
+  static const darkWhite1 = Color(0xFFE8E7E6);
+
 
   // static const darkWhite = Color(0xFFE3E3E5);
   static const grey = Colors.grey;

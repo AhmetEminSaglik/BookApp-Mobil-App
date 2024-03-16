@@ -67,4 +67,32 @@ class HttpRequestUser {
     ResponseEntity respEntity = ResponseEntity.fromJson(resp.data);
     return respEntity.data;
   }
+
+  static Future<List<User>> getFollowingUserList() async {
+    List<User> userList = [];
+    Uri url =
+    Uri.parse("$_baseUrl/following/${SharedPrefUtils.getUserId()}");
+    log.i("URL : $url");
+    var resp = await http.get(url);
+    Map<String, dynamic> jsonData = json.decode(resp.body);
+    ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
+    if (respEntity.success) {
+      userList = UserRepository.parseUserList(respEntity.data);
+    }
+    return userList;
+  }
+
+  static Future<List<User>> getFollowerUserList() async {
+    List<User> userList = [];
+    Uri url =
+    Uri.parse("$_baseUrl/follower/${SharedPrefUtils.getUserId()}");
+    log.i("URL : $url");
+    var resp = await http.get(url);
+    Map<String, dynamic> jsonData = json.decode(resp.body);
+    ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
+    if (respEntity.success) {
+      userList = UserRepository.parseUserList(respEntity.data);
+    }
+    return userList;
+  }
 }
