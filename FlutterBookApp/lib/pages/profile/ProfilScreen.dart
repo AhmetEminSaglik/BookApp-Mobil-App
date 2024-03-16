@@ -22,7 +22,7 @@ class ProfilScreen extends StatefulWidget {
 
 class _ProfilScreenState extends State<ProfilScreen> {
   final User _user = SharedPrefUtils.getUser();
-  final double _fontSize = ResponsiveDesign.height() / 55;
+  final double _fontSize = ResponsiveDesign.height() / 52;
   final double _numberFontSize = ResponsiveDesign.height() / 35;
   int bookCount = 0;
   bool isLoading = true;
@@ -57,7 +57,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        left: 20, right: 20, top: 10, bottom: 10),
+                        left: 20, right: 20, top: 25, bottom: 10),
                     child: SizedBox(
                       width: ResponsiveDesign.width(),
                       // height: 300,
@@ -70,14 +70,22 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                 toolbarHeight: 0,
                                 leading: null,
                                 automaticallyImplyLeading: false,
-                                bottom: const TabBar(
+                                bottom: TabBar(
                                   indicatorColor: ProductColor.pink,
-                                  dividerColor: ProductColor.darkWhite1 ,
+                                  dividerColor: ProductColor.lightBlue,
+                                  labelColor: ProductColor.pink,
                                   // labelColor: ProductColor.pink ,
-                                  unselectedLabelColor: ProductColor.darkGrey,
+                                  overlayColor: MaterialStateColor.resolveWith(
+                                      (states) => ProductColor.lightPurple),
+                                  unselectedLabelColor: ProductColor.black,
                                   tabs: [
-                                    Tab(text: "Followers"),
-                                    Tab(text: "Following"),
+                                    Tab(
+                                        child: Text("Followers",
+                                            style: TextStyle(
+                                                fontSize: _fontSize))),
+                                    Tab(child: Text("Following",
+                                        style: TextStyle(
+                                            fontSize: _fontSize))),
                                   ],
                                 ),
                               ),
@@ -137,8 +145,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
   Column getFollowingNumber() {
     return Column(
       children: [
-        Text("${_user.following}",
-            style: TextStyle(fontSize: _numberFontSize)),
+        Text("${_user.following}", style: TextStyle(fontSize: _numberFontSize)),
         Text(
           "Following",
           style: TextStyle(fontSize: _fontSize),
@@ -150,8 +157,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
   Column getFollowersNumber() {
     return Column(
       children: [
-        Text("${_user.followers}",
-            style: TextStyle(fontSize: _numberFontSize)),
+        Text("${_user.followers}", style: TextStyle(fontSize: _numberFontSize)),
         Text(
           "Followers",
           style: TextStyle(fontSize: _fontSize),

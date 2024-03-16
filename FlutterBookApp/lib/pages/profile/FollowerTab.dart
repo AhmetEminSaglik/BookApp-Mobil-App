@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
-
 import '../../model/User.dart';
 import '../../util/ResponsiveDesign.dart';
 import 'UserCard.dart';
@@ -26,7 +26,10 @@ class _FollowersTabState extends State<FollowersTab> {
   Column getUserList() {
     Column column = Column(children: []);
     for (int i = 0; i < widget.list.length; i++) {
-      UserCard userCard = UserCard(user: widget.list[i],index: i,);
+      UserCard userCard = UserCard(
+        user: widget.list[i],
+        index: i,
+      );
       column.children.add(userCard);
     }
     return column;
@@ -34,27 +37,37 @@ class _FollowersTabState extends State<FollowersTab> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Column(
+    return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 30,top: 10,bottom: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                "User Profile",
-                style: TextStyle(fontSize: _fontSize),
-              ),
-              Text(
-                "Total Book Read",
-                style: TextStyle(fontSize: _fontSize),
-              ),
-            ],
+        Container(
+          color: ProductColor.lightBlue,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 30, top: 10, bottom: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  "User Profile",
+                  style: TextStyle(fontSize: _fontSize),
+                ),
+                Text(
+                  "Total Book Read",
+                  style: TextStyle(fontSize: _fontSize),
+                ),
+              ],
+            ),
           ),
         ),
-        getUserList(),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                getUserList(),
+              ],
+            ),
+          ),
+        ),
       ],
-    ));
+    );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProductColor {
-  static const lightBlue = Color(0xFF62CEFC);
+  static const lightBlue = Color(0xFFC0E8F8);
   static const blue = Color(0xFF1166C6);
   static const darkBlue = Color(0xFF063B86);
   static const black = Colors.black;
@@ -23,10 +23,11 @@ class ProductColor {
   static const ratingColor = Color(0xFFF3CF22);
   static const unRatingColor = Color(0xFFE3E3E5);
   static const transparent = Colors.transparent;
-  static const cardBackground = Color(0xFFC5E0F3);
+  static const cardBackground = Color(0xFFACAEAF);
   static const white = Color(0xFFFFFFFF);
   static const darkWhite = Color(0xFFEBECEF);
-  static const darkWhite1 = Color(0xFFE8E7E6);
+  static const darkWhite1 = Color(0xFFEAE9E6);
+  static const lightPurple = Color(0xFFE0BDD6);
 
 
   // static const darkWhite = Color(0xFFE3E3E5);
