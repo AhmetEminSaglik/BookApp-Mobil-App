@@ -50,7 +50,7 @@ class _UserCardState extends State<UserCard> {
         child: Row(
           children: [
             Container(
-              width: ResponsiveDesign.width()/12,
+              width: ResponsiveDesign.width() / 12,
               child: Text("${widget.index + 1}-) ",
                   style: TextStyle(fontSize: _fontSize)),
             ),
@@ -61,6 +61,14 @@ class _UserCardState extends State<UserCard> {
               padding: EdgeInsets.only(right: ResponsiveDesign.width() / 8),
               child: getUsersReadBookCount(),
             ),
+             InkWell(
+              onTap: () => print("TIKLANDI"),
+              child: const Icon(
+                Icons.delete,
+                color: ProductColor.red,
+              ),
+            )
+            /*child: const Icon(Icons.chevron_right, color: ProductColor.red),*/
           ],
         ),
       ),
@@ -68,7 +76,8 @@ class _UserCardState extends State<UserCard> {
   }
 
   Text getUsersReadBookCount() {
-    return Text("${userDTO.totalReadBook}",
+    return Text(
+      "${userDTO.totalReadBook}",
       style: TextStyle(fontSize: _fontSize),
     );
   }

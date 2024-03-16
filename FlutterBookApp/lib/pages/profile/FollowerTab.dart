@@ -44,12 +44,13 @@ class _FollowersTabState extends State<FollowersTab> {
           child: Padding(
             padding: const EdgeInsets.only(left: 30, top: 10, bottom: 10),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   "User Profile",
                   style: TextStyle(fontSize: _fontSize),
                 ),
+                SizedBox(width: ResponsiveDesign.width()/12,),
                 Text(
                   "Total Book Read",
                   style: TextStyle(fontSize: _fontSize),
