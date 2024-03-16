@@ -45,6 +45,11 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
 
     @Query("MATCH (b:Book)<-[r:READ]-(u:User)\nWITH b, avg(r.rate) as point, count(u) as totalReaders\nSET b.totalRead = totalReaders, b.point = round(point, 1)\n")
     void fixBookData();
+    @Query("match (u:User)-[:READ]->(b:Book) \n " +
+            "WHERE ID(u) = $userId " +
+            " RETURN COUNT(b)")
+    int getUserReadBookCount(long userId);
+
 
 /*    @Query("MATCH (book:Book)<-[:WRITE]-(author:Author) " +
             "WHERE ID(book)= $bookId " +

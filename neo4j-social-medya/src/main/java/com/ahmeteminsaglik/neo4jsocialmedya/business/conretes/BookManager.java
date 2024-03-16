@@ -80,6 +80,11 @@ public class BookManager implements BookService {
     }
 
     @Override
+    public int getUserReadBookCount(long userId) {
+        return repo.getUserReadBookCount(userId);
+    }
+
+    @Override
     public List<Book> findByMostReadBookFromFollowings(long userId) {
 //        return repo.findByMostReadBookFromFollowings(userId);
         List<Book> bookList = repo.findByMostReadBookFromFollowings(userId);

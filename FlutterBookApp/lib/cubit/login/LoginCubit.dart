@@ -17,6 +17,7 @@ class LoginCubit extends Cubit<EnumLoginState> {
   User? user;
   var log = Logger(printer: PrettyPrinter(colors: false));
 
+
   void login(BuildContext context, String username, String password) async {
     emit(EnumLoginState.LoginLoading);
     ResponseEntity? respEntity;

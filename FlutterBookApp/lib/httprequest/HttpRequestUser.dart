@@ -59,4 +59,12 @@ class HttpRequestUser {
     var resp = await Dio().delete(url);
     log.i("DESTROY CONNECTION  RESPOND : " + resp.toString());
   }
+
+  static Future<int> getUserBookCount() async {
+    String url = "$_baseUrl/count/book?userId=${SharedPrefUtils.getUserId()}";
+    log.i("URL : $url");
+    var resp = await Dio().get(url);
+    ResponseEntity respEntity = ResponseEntity.fromJson(resp.data);
+    return respEntity.data;
+  }
 }

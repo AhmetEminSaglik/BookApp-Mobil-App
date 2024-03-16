@@ -3,11 +3,13 @@ package com.ahmeteminsaglik.neo4jsocialmedya.controller;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.StaticData;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.BookService;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.UserService;
+import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.InitialDataLoader;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.LoginUser;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationLoginInput;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationSignUp;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.Book;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
+import com.ahmeteminsaglik.neo4jsocialmedya.utility.CustomLog;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.ApiRequestException;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.response.InvalidUsernameOrPasswordException;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.DataResult;
@@ -26,13 +28,17 @@ import java.util.Set;
 @RequestMapping("/users")
 @CrossOrigin
 public class UserController {
+    private static CustomLog log = new CustomLog(UserController.class);
     private final UserService userService;
     private ValidationSignUp validationSignUp = new ValidationSignUp();
     private ValidationLoginInput validationLogin = new ValidationLoginInput();
+    private BookService bookService;
+
 
     @Autowired
-    public UserController( UserService userService) {
+    public UserController(UserService userService, BookService bookService) {
         this.userService = userService;
+        this.bookService = bookService;
     }
 
     @GetMapping()
@@ -145,9 +151,15 @@ public class UserController {
     //@PostMapping("/read-book")
     @PostMapping("/read-book")
     public void setConnectionUserReadBook(@RequestParam long userId, @RequestParam long bookId, @RequestParam int rate) {
-        System.out.println(userId + "-[r:Read{rate:" + rate + "}]->" + bookId);
         userService.setConnectionUserReadBook(userId, bookId, rate);
+    }
 
+    @GetMapping("/count/book")
+    public DataResult<Integer> getUserReadBookCount(@RequestParam long userId) {
+        int count = bookService.getUserReadBookCount(userId);
+        String msg = "User(" + userId + " book count (" + count + ") is retrieved.";
+        log.info("Msg : " + msg);
+        return new SuccessDataResult<>(count, msg);
     }
     /*@GetMapping("/recommend/friend/{userId}")
     public DataResult<List<User>> getByMostReadBookFromFollowings(@PathVariable Long userId) {

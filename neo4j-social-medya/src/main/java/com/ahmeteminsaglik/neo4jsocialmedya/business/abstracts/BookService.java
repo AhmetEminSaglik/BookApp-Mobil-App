@@ -27,5 +27,6 @@ public interface BookService {
     void createConnectionUserReadBook(long userId, long bookId);
 
     void fixBookData();
+    int getUserReadBookCount(long userId);
 
 }
