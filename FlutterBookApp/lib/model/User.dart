@@ -7,7 +7,7 @@ class User {
   late String _gender;
   late int _followers;
   late int _following;
-  late String _imgurl;
+  late String _imgUrl;
 
   User(
       {required id,
@@ -18,7 +18,7 @@ class User {
       required gender,
       required followers,
       required following,
-      required imgurl}) {
+      required imgUrl}) {
     _id = id;
     _name = name;
     _lastname = lastname;
@@ -26,7 +26,7 @@ class User {
     _password = password;
     _followers = followers;
     _following = following;
-    _imgurl = imgurl;
+    _imgUrl = imgUrl;
     _gender = gender;
   }
 
@@ -40,7 +40,7 @@ class User {
       gender: json["gender"] as String,
       followers: json["followers"] as int,
       following: json["following"] as int,
-      imgurl: json["imgUrl"] as String,
+      imgUrl: json["imgUrl"] as String,
     );
   }
 
@@ -53,7 +53,7 @@ class User {
       '_password': password,
       '_followers': followers,
       'following': following,
-      'imgUrl': imgurl,
+      'imgUrl': imgUrl,
     };
   }
 
@@ -101,14 +101,14 @@ class User {
 
   int get id => _id;
 
-  String get imgurl => _imgurl;
+  String get imgUrl => _imgUrl;
 
-  set imgurl(String value) {
-    _imgurl = value;
+  set imgUrl(String value) {
+    _imgUrl = value;
   }
 
   @override
   String toString() {
-    return 'User{_id: $_id, _name: $_name, _lastname: $_lastname, _username: $_username, _password: $_password, _gender: $_gender, _followers: $_followers, _following: $_following, _imgUrl: $_imgurl}';
+    return 'User{_id: $_id, _name: $_name, _lastname: $_lastname, _username: $_username, _password: $_password, _gender: $_gender, _followers: $_followers, _following: $_following, _imgUrl: $_imgUrl}';
   }
 }

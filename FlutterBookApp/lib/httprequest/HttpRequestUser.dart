@@ -27,8 +27,8 @@ class HttpRequestUser {
     return respEntity;
   }
 
-  static Future<List<User>> getRecommendUserList() async {
-    List<User> userList = [];
+  static Future<List<UserFriendDTO>> getRecommendUserList() async {
+    List<UserFriendDTO> userList = [];
     Uri url =
         Uri.parse("$_baseUrl/recommend/user/${SharedPrefUtils.getUserId()}");
     log.i("URL : $url");
@@ -36,7 +36,7 @@ class HttpRequestUser {
     Map<String, dynamic> jsonData = json.decode(resp.body);
     ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
     if (respEntity.success) {
-      userList = UserRepository.parseUserList(respEntity.data);
+      userList = UserRepository.parseUserFriendDTOList(respEntity.data);
     }
     return userList;
   }

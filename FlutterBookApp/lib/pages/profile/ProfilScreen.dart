@@ -117,7 +117,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
               children: [
                 Column(
                   children: [
-                    // Image.network(user.imgurl,width:ResponsiveDesign.width()/2,fit: BoxFit.fill),
+                    // Image.network(user.imgUrl,width:ResponsiveDesign.width()/2,fit: BoxFit.fill),
                     getProfilImage(),
                     getProfileFullName()
                   ],
@@ -190,7 +190,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
   ClipRRect getProfilImage() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(100),
-      child: Image.network(_user.imgurl,
+      child: Image.network(_user.imgUrl,
           height: ResponsiveDesign.height() / 10, fit: BoxFit.fill),
     );
   }

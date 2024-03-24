@@ -8,8 +8,6 @@ import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:flutter_book_app/util/ResponsiveDesign.dart';
 import 'package:logger/logger.dart';
 
-import '../../model/User.dart';
-
 class UserCard extends StatefulWidget {
   UserCard({super.key, required this.userDTO, required this.index});
 
@@ -93,7 +91,7 @@ class _UserCardState extends State<UserCard> {
     return ClipRRect(
       borderRadius: BorderRadius.circular(100),
       child: Image.network(
-        userDTO.imgurl,
+        userDTO.imgUrl,
         width: 50,
         height: 50,
         fit: BoxFit.fill,

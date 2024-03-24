@@ -3,7 +3,9 @@ class UserFriendDTO {
   late String _name;
   late String _lastname;
   late String _gender;
-  late String _imgurl;
+  late String _imgUrl;
+  late int _totalFollowers;
+  late int _totalFollowing;
   late int _totalReadBook;
 
   UserFriendDTO(
@@ -12,13 +14,17 @@ class UserFriendDTO {
       required lastname,
       required gender,
       required totalReadBook,
-      required imgurl}) {
+      required totalFollowers,
+      required totalFollowing,
+      required imgUrl}) {
     _id = id;
     _name = name;
     _lastname = lastname;
     _gender = gender;
     _totalReadBook = totalReadBook;
-    _imgurl = imgurl;
+    _imgUrl = imgUrl;
+    _totalFollowers = totalFollowers;
+    _totalFollowing = totalFollowing;
   }
 
   factory UserFriendDTO.fromJson(Map<String, dynamic> json) {
@@ -28,7 +34,9 @@ class UserFriendDTO {
         lastname: json['lastname'],
         gender: json['gender'],
         totalReadBook: json['totaReadBook'],
-        imgurl: json['imgurl']);
+        totalFollowers: json['totalFollowers'],
+        totalFollowing: json['totalFollowing'],
+        imgUrl: json['imgUrl']);
   }
 
   Map<String, dynamic> toJson() {
@@ -38,10 +46,16 @@ class UserFriendDTO {
       'lastname': lastname,
       'gender': gender,
       'totalReadBook': totalReadBook,
-      'imgurl': imgurl
+      'totalFollowing':totalFollowing,
+      'totalFollowers': totalFollowers,
+      'imgUrl': imgUrl
     };
   }
 
+  @override
+  String toString() {
+    return "UserFriendDTO{id:$id,name:$name,lastname:$lastname,gender:$gender,totalReadBook:$totalReadBook,totalFollowers:$totalFollowers,totalFollowing:$totalFollowing,imgUrl:$imgUrl}";
+  }
 
   int get totalReadBook => _totalReadBook;
 
@@ -49,16 +63,23 @@ class UserFriendDTO {
     _totalReadBook = value;
   }
 
-  String get imgurl => _imgurl;
+  String get imgUrl => _imgUrl;
 
-  set imgurl(String value) {
-    _imgurl = value;
+  set imgUrl(String value) {
+    _imgUrl = value;
   }
 
   String get gender => _gender;
 
   set gender(String value) {
     _gender = value;
+  }
+
+
+  int get totalFollowers => _totalFollowers;
+
+  set totalFollowers(int value) {
+    _totalFollowers = value;
   }
 
   String get lastname => _lastname;
@@ -77,5 +98,11 @@ class UserFriendDTO {
 
   set id(int value) {
     _id = value;
+  }
+
+  int get totalFollowing => _totalFollowing;
+
+  set totalFollowing(int value) {
+    _totalFollowing = value;
   }
 }

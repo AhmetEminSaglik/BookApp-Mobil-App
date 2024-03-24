@@ -19,7 +19,7 @@ class UserRepository {
         gender: tmp['gender'],
         followers: tmp['followers'],
         following: tmp['following'],
-        imgurl: tmp['imgUrl'],
+        imgUrl: tmp['imgUrl'],
       );
       userList.add(user);
     }
@@ -35,7 +35,9 @@ class UserRepository {
         lastname: tmp['lastname'],
         gender: tmp['gender'],
         totalReadBook: tmp['totalReadBook'],
-        imgurl: tmp['imgUrl'],
+        totalFollowing: tmp['totalFollowing'],
+        totalFollowers: tmp['totalFollowers'],
+        imgUrl: tmp['imgUrl'],
       );
       userList.add(user);
     }

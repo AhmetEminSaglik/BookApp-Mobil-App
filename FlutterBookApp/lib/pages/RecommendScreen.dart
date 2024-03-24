@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_book_app/enum/EnumRecommendBy.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
+import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/product/RecommendBookCard.dart';
+import 'package:flutter_book_app/product/RecommendUserCard.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:logger/logger.dart';
 import '../model/Book.dart';
@@ -18,9 +20,10 @@ class RecommendScreen extends StatefulWidget {
 
 class _RecommendScreenState extends State<RecommendScreen> {
   var log = Logger(printer: PrettyPrinter(colors: false));
-  List<User> userList = [];
+  List<UserFriendDTO> userFrienDTOList = [];
   List<Book> bookList = [];
   List<RecommendData<Book>> recBookArr = [];
+  List<RecommendData<UserFriendDTO>> recUserFriendDTOArr = [];
   List<RecommendData<Object>> list = [];
 
   // late Book book;
@@ -38,10 +41,9 @@ class _RecommendScreenState extends State<RecommendScreen> {
   }
 
   retrieveUserList() async {
-    List<RecommendData<User>> recUser = [];
-    userList = await HttpRequestUser.getRecommendUserList();
-    userList.forEach((element) {
-      recUser.add(RecommendData(
+    userFrienDTOList = await HttpRequestUser.getRecommendUserList();
+    userFrienDTOList.forEach((element) {
+      recUserFriendDTOArr.add(RecommendData(
           by: EnumRecommendBy.BY_FRIEND.name,
           data: element,
           color: ProductColor.BY_FRIEND));
@@ -50,6 +52,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
           data: element,
           color: ProductColor.BY_FRIEND));
     });
+    log.i("recUser data recUserFriendDTOArr length:${recUserFriendDTOArr.length} userFrienDTOList length: ${userFrienDTOList.length}");
   }
 
   retrieveBookList() async {
@@ -78,8 +81,8 @@ class _RecommendScreenState extends State<RecommendScreen> {
 
   void addBookListToRecBookList(
       {required EnumRecommendBy recommendBy,
-      required List<Book> bookList,
-      required Color color}) {
+        required List<Book> bookList,
+        required Color color}) {
     bookList.forEach((element) {
       recBookArr.add(
           RecommendData(by: recommendBy.name, data: element, color: color));
@@ -89,18 +92,30 @@ class _RecommendScreenState extends State<RecommendScreen> {
     });
   }
 
+  /*
+  * Todo: User Card Column : 0 geliyor. muhtemelen user to DTO'da sorun var.  User listesi almak yerine direk
+  *  dto almak daha dogru olucak*/
+  void addUserListToRecUserList(
+      {required EnumRecommendBy recommendBy,
+        required List<User> userList,
+        required Color color}) {
+    userList.forEach((element) {
+      recUserFriendDTOArr.add(
+          RecommendData(by: recommendBy.name, data: element, color: color));
+      log.i("User ID : ${element.name}: ${element.imgUrl}");
+      list.add(
+          RecommendData(by: recommendBy.name, data: element, color: color));
+    });
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // retrieveUserList();
-    // retrieveBookList();
     retrieveRecommendData();
   }
 
   @override
   Widget build(BuildContext context) {
-    // print("book img : ${recBook.data.imgUrl}");
     return Scaffold(
         backgroundColor: ProductColor.darkWhite,
         body: isLoading
@@ -110,6 +125,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
                   padding: const EdgeInsets.only(left: 20,right: 10,top: 10,bottom: 10),
                   child: Column(
                     children: [
+                      SingleChildScrollView(child: _UserCardColumn()),
                       SingleChildScrollView(child: _BookCardColumn()),
                     ],
                   ),
@@ -126,6 +142,20 @@ class _RecommendScreenState extends State<RecommendScreen> {
       );
       column.children.add(_recBookCard);
     }
+    return column;
+  }
+
+  Column _UserCardColumn() {
+
+    Column column = Column(children: []);
+    for (int i = 0; i < recUserFriendDTOArr.length; i++) {
+      RecommendUserCard _recUserCard = RecommendUserCard(
+        recData:recUserFriendDTOArr[i],
+        index:/* recUserFriendDTOArr.length - */i+1,
+      );
+      column.children.add(_recUserCard);
+    }
+    print("User Card Column : ${recUserFriendDTOArr.length}");
     return column;
   }
 }
