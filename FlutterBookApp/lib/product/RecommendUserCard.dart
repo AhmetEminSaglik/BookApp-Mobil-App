@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/model/Recommend.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
+import 'package:flutter_book_app/pages/UserFriendDetailPage.dart';
 import 'package:flutter_book_app/product/RecommendUserDesignDecoration.dart';
 import 'package:logger/logger.dart';
 import '../cubit/recommendedbook/BookCubit.dart';
@@ -64,10 +65,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
                 children: [
                   InkWell(
                     onTap: () {
-                      /*
-                      goToDetailPageOfBook(context, widget.recData.data,
-                          isBookReadByUser(widget.recData.data));
-                    */
+                      goToDetailPage(context, widget.recData.data);
                     },
                     child: getRecommendCardContent(),
                   ),
@@ -217,10 +215,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
         padding: EdgeInsets.only(top: padding),
         child: InkWell(
           onTap: () {
-            /*
-            goToDetailPageOfBook(context, widget.recData.data,
-                isBookReadByUser(widget.recData.data));
-          */
+            goToDetailPage(context, widget.recData.data);
           },
           child: Padding(
             padding: const EdgeInsets.all(10),
@@ -239,9 +234,19 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
         ));
   }
 
-  void goToDetailPageOfBook(BuildContext context, Book book, bool isBookRead) {
-    context.read<BookCubit>().setBook(book);
-    context.read<BookCubit>().goToDetailPageOfBook(context);
+  void goToDetailPage(BuildContext context, UserFriendDTO userFriendDTO) {
+    // context.read<BookCubit>().setBook(book);
+    // context.read<BookCubit>().goToDetailPage(context);
+    _navigatePage(context, userFriendDTO);
+  }
+
+  void _navigatePage(BuildContext context, UserFriendDTO userFriendDTO) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => UserFriendDetailPage(
+                  userDTO: userFriendDTO,
+                )));
   }
 
   String getShortDesc(String desc) {

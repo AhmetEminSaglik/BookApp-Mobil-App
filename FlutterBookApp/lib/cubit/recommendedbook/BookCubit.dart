@@ -18,7 +18,7 @@ class BookCubit extends Cubit<bool> {
     emit(isBookExist);
   }
 
-  void goToDetailPageOfBook(BuildContext context) {
+  void goToDetailPage(BuildContext context) {
     if (isBookExist && book != null) {
       _navigatePage(context, book!);
     }

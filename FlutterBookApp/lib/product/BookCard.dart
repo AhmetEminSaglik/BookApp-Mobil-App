@@ -185,7 +185,7 @@ class _BookCardState extends State<BookCard> {
 
   void goToDetailPageOfBook(BuildContext context, Book book) {
     context.read<BookCubit>().setBook(book);
-    context.read<BookCubit>().goToDetailPageOfBook(context);
+    context.read<BookCubit>().goToDetailPage(context);
   }
 
   String getShortDesc(String desc) {

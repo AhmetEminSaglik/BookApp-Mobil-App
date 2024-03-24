@@ -60,7 +60,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
                 children: [
                   InkWell(
                     onTap: () {
-                      goToDetailPageOfBook(context, widget.recData.data,
+                      goToDetailPage(context, widget.recData.data,
                           isBookReadByUser(widget.recData.data));
                     },
                     child: getRecommendCardContent(),
@@ -189,7 +189,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
         padding: EdgeInsets.only(top: padding),
         child: InkWell(
           onTap: () {
-            goToDetailPageOfBook(context, widget.recData.data,
+            goToDetailPage(context, widget.recData.data,
                 isBookReadByUser(widget.recData.data));
           },
           child: ContainerWithBoxDecoration(
@@ -206,9 +206,9 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
         ));
   }
 
-  void goToDetailPageOfBook(BuildContext context, Book book, bool isBookRead) {
+  void goToDetailPage(BuildContext context, Book book, bool isBookRead) {
     context.read<BookCubit>().setBook(book);
-    context.read<BookCubit>().goToDetailPageOfBook(context);
+    context.read<BookCubit>().goToDetailPage(context);
   }
 
   String getShortDesc(String desc) {
