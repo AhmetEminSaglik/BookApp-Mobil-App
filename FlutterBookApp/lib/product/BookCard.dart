@@ -49,7 +49,7 @@ class _BookCardState extends State<BookCard> {
   Widget build(BuildContext context) {
     // _retrieveUserReadThisBook();
     return SizedBox(
-      height: imgHeight * 1.8,
+      height: imgHeight * 1.7,
       child: Column(
         children: [
           Row(
@@ -88,7 +88,7 @@ class _BookCardState extends State<BookCard> {
       child: ContainerWithBoxDecoration(
         child: Container(
           // width: 295,
-          width: ResponsiveDesign.width() - contentWidth - 4.5 * padding,
+          width: ResponsiveDesign.width() - contentWidth - 5.5 * padding,
           height: imgHeight + 5.5 * padding,
           color: ProductColor.white,
           child: Padding(
@@ -140,7 +140,7 @@ class _BookCardState extends State<BookCard> {
   Padding getChevron() {
     return Padding(
       padding: EdgeInsets.only(
-          left: ResponsiveDesign.width() - imgWidth - 7.2 * padding),
+          left: ResponsiveDesign.width() - imgWidth - 8* padding),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2, color: ProductColor.white),

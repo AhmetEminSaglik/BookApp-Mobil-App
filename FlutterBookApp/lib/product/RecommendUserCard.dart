@@ -52,7 +52,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   Widget build(BuildContext context) {
     print("Gelen User Card ${widget.recData.data}");
     return SizedBox(
-      height: imgHeight * 1.8,
+      height: imgHeight * 1.7,
       child: Column(
         children: [
           Row(
@@ -103,7 +103,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
       child: ContainerWithBoxDecoration(
         child: Container(
           // width: 295,
-          width: ResponsiveDesign.width() - contentWidth - 4.5 * padding,
+          width: ResponsiveDesign.width() - contentWidth - 5 * padding,
           height: imgHeight + 5.5 * padding,
           color: ProductColor.white,
           child: Padding(
@@ -163,7 +163,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   Padding getChevron() {
     return Padding(
       padding: EdgeInsets.only(
-          left: ResponsiveDesign.width() - imgWidth - 7.2 * padding),
+          left: ResponsiveDesign.width() - imgWidth - 7.5* padding),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2, color: ProductColor.white),

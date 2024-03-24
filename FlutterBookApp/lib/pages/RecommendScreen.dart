@@ -3,6 +3,8 @@ import 'package:flutter_book_app/enum/EnumRecommendBy.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
+import 'package:flutter_book_app/pages/profile/FollowerTab.dart';
+import 'package:flutter_book_app/pages/profile/FollowingTab.dart';
 import 'package:flutter_book_app/product/RecommendBookCard.dart';
 import 'package:flutter_book_app/product/RecommendUserCard.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
@@ -10,6 +12,7 @@ import 'package:logger/logger.dart';
 import '../model/Book.dart';
 import '../model/Recommend.dart';
 import '../model/User.dart';
+import '../util/ResponsiveDesign.dart';
 
 class RecommendScreen extends StatefulWidget {
   const RecommendScreen({Key? key}) : super(key: key);
@@ -19,6 +22,7 @@ class RecommendScreen extends StatefulWidget {
 }
 
 class _RecommendScreenState extends State<RecommendScreen> {
+  final double _fontSize = ResponsiveDesign.height() / 50;
   var log = Logger(printer: PrettyPrinter(colors: false));
   List<UserFriendDTO> userFrienDTOList = [];
   List<Book> bookList = [];
@@ -114,6 +118,70 @@ class _RecommendScreenState extends State<RecommendScreen> {
     retrieveRecommendData();
   }
 
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: ProductColor.darkWhite,
+        body:DefaultTabController(
+          length: 2,
+          child: Scaffold(
+            appBar: AppBar(
+              toolbarHeight: 0,
+              leading: null,
+              automaticallyImplyLeading: false,
+              bottom: TabBar(
+                indicatorColor: ProductColor.pink,
+                dividerColor: ProductColor.lightBlue,
+                labelColor: ProductColor.pink,
+                // labelColor: ProductColor.pink ,
+                overlayColor: MaterialStateColor.resolveWith(
+                        (states) => ProductColor.lightPurple),
+                unselectedLabelColor: ProductColor.black,
+                tabs: [
+                  Tab(
+                      child: Text("Book",
+                          style: TextStyle(
+                              fontSize: _fontSize+5))),
+                  Tab(child: Text("User",
+                      style: TextStyle(
+                          fontSize: _fontSize+5))),
+                ],
+
+
+              ),
+            ),
+            body:
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TabBarView(
+                children: [
+                  SingleChildScrollView(child: _BookCardColumn()),
+                  SingleChildScrollView(child: _UserCardColumn()),
+                ],
+              ),
+            )
+            /*
+            isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20,right: 10,top: 10,bottom: 10),
+                child: Column(
+                  children: [
+                    SingleChildScrollView(child: _UserCardColumn()),
+                    SingleChildScrollView(child: _BookCardColumn()),
+                  ],
+                ),
+              ),
+            )
+          */
+          ),
+        )
+    );
+  }
+
+  /*
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,6 +200,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
                 ),
               ));
   }
+*/
 
   Column _BookCardColumn() {
     Column column = Column(children: []);
@@ -140,7 +209,10 @@ class _RecommendScreenState extends State<RecommendScreen> {
         recData: recBookArr[i],
         index: recBookArr.length - i,
       );
-      column.children.add(_recBookCard);
+      column.children.add(Padding(
+        padding: const EdgeInsets.only(left: 10,top: 10),
+        child: _recBookCard,
+      ));
     }
     return column;
   }
@@ -153,9 +225,11 @@ class _RecommendScreenState extends State<RecommendScreen> {
         recData:recUserFriendDTOArr[i],
         index:/* recUserFriendDTOArr.length - */i+1,
       );
-      column.children.add(_recUserCard);
+      column.children.add(Padding(
+        padding: const EdgeInsets.only(left: 20,top: 20),
+        child: _recUserCard,
+      ));
     }
-    print("User Card Column : ${recUserFriendDTOArr.length}");
     return column;
   }
 }

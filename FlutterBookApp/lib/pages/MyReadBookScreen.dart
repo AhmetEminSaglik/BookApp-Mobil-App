@@ -80,7 +80,10 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
         index: (bookList.length - i),
         // isBookRead: isBookReadByUser(bookList[i]),
       );
-      column.children.add(_bookCard);
+      column.children.add(Padding(
+        padding: const EdgeInsets.only(left: 10,top: 10),
+        child: _bookCard,
+      ));
     }
     return column;
   }

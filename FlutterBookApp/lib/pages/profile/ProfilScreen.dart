@@ -77,7 +77,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                   labelColor: ProductColor.pink,
                                   // labelColor: ProductColor.pink ,
                                   overlayColor: MaterialStateColor.resolveWith(
-                                      (states) => ProductColor.lightPurple),
+                                          (states) => ProductColor.lightPurple),
                                   unselectedLabelColor: ProductColor.black,
                                   tabs: [
                                     Tab(
