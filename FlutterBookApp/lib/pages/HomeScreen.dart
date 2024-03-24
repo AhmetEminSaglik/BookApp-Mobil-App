@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 0;
+  int currentIndex = 1;
   final titles = ["My Books", "Recommends", "Profile"];
   final colors = [
     ProductColor.green,

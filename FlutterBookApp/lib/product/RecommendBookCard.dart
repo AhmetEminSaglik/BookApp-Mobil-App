@@ -63,7 +63,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
                       goToDetailPageOfBook(context, widget.recData.data,
                           isBookReadByUser(widget.recData.data));
                     },
-                    child: getRecommendBookCardContent(),
+                    child: getRecommendCardContent(),
                   ),
                   Row(
                     children: [
@@ -95,7 +95,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
     return isBookRead;
   }
 
-  Padding getRecommendBookCardContent() {
+  Padding getRecommendCardContent() {
     final double contentWidth = imgWidth / 2 + ResponsiveDesign.width() / 25;
     return Padding(
       padding: EdgeInsets.only(left: contentWidth),

@@ -140,10 +140,10 @@ class _RecommendScreenState extends State<RecommendScreen> {
                 unselectedLabelColor: ProductColor.black,
                 tabs: [
                   Tab(
-                      child: Text("Book",
+                      child: Text("User",
                           style: TextStyle(
                               fontSize: _fontSize+5))),
-                  Tab(child: Text("User",
+                  Tab(child: Text("Book",
                       style: TextStyle(
                           fontSize: _fontSize+5))),
                 ],
@@ -156,8 +156,8 @@ class _RecommendScreenState extends State<RecommendScreen> {
               padding: const EdgeInsets.all(8.0),
               child: TabBarView(
                 children: [
-                  SingleChildScrollView(child: _BookCardColumn()),
                   SingleChildScrollView(child: _UserCardColumn()),
+                  SingleChildScrollView(child: _BookCardColumn()),
                 ],
               ),
             )
@@ -226,7 +226,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
         index:/* recUserFriendDTOArr.length - */i+1,
       );
       column.children.add(Padding(
-        padding: const EdgeInsets.only(left: 20,top: 20),
+        padding: const EdgeInsets.only(left: 10,top: 10),
         child: _recUserCard,
       ));
     }

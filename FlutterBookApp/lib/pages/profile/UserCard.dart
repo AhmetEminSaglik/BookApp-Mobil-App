@@ -52,7 +52,7 @@ class _UserCardState extends State<UserCard> {
               child: Text("${widget.index + 1}-) ",
                   style: TextStyle(fontSize: _fontSize)),
             ),
-            getUserImage(),
+            getImage(),
             const SizedBox(width: 10),
             Expanded(child: getUserFullName()),
             Padding(
@@ -87,7 +87,7 @@ class _UserCardState extends State<UserCard> {
     );
   }
 
-  ClipRRect getUserImage() {
+  ClipRRect getImage() {
     return ClipRRect(
       borderRadius: BorderRadius.circular(100),
       child: Image.network(

@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/model/Recommend.dart';
+import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
+import 'package:flutter_book_app/product/RecommendUserDesignDecoration.dart';
 import 'package:logger/logger.dart';
 import '../cubit/recommendedbook/BookCubit.dart';
 import '../httprequest/HttpRequestBook.dart';
@@ -11,7 +13,7 @@ import '../util/ResponsiveDesign.dart';
 import 'BookDesignDecoration.dart';
 
 class RecommendUserCard extends StatefulWidget {
-  late RecommendData recData;
+  late RecommendData<UserFriendDTO> recData;
   late int index;
 
   RecommendUserCard({required this.index, required this.recData});
@@ -23,11 +25,12 @@ class RecommendUserCard extends StatefulWidget {
 class _RecommendUserCardState extends State<RecommendUserCard> {
   var log = Logger(printer: PrettyPrinter(colors: false));
 
-  final double imgWidth = ResponsiveDesign.width() / 6.5;
+  final double imgWidth = ResponsiveDesign.width() / 5;
   final double imgHeight = ResponsiveDesign.height() / 6.5;
   final double padding = ResponsiveDesign.height() / 65;
 
   bool isLoading = true;
+
   // List<Book> bookList = [];
 
   @override
@@ -52,7 +55,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   Widget build(BuildContext context) {
     print("Gelen User Card ${widget.recData.data}");
     return SizedBox(
-      height: imgHeight * 1.7,
+      height: imgHeight * 1.8,
       child: Column(
         children: [
           Row(
@@ -60,20 +63,23 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
               Stack(
                 children: [
                   InkWell(
-                    onTap: () {/*
+                    onTap: () {
+                      /*
                       goToDetailPageOfBook(context, widget.recData.data,
                           isBookReadByUser(widget.recData.data));
-                    */},
-                    child: getRecommendUserCardContent(),
+                    */
+                    },
+                    child: getRecommendCardContent(),
                   ),
-                  Row(
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.only(
-                              top: ResponsiveDesign.height() / 100),
-                          child: getImage(context)),
-                      getChevron(),
-                    ],
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: ResponsiveDesign.height() / 30),
+                    child: Row(
+                      children: [
+                        getImage(context),
+                        getChevron(),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -96,7 +102,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
     return isBookRead;
   }
 
-  Padding getRecommendUserCardContent() {
+  Padding getRecommendCardContent() {
     final double contentWidth = imgWidth / 2 + ResponsiveDesign.width() / 25;
     return Padding(
       padding: EdgeInsets.only(left: contentWidth),
@@ -107,34 +113,24 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
           height: imgHeight + 5.5 * padding,
           color: ProductColor.white,
           child: Padding(
-            padding: EdgeInsets.only(left: imgWidth, top: 5),
+            padding: EdgeInsets.only(left: imgWidth * 0.75, top: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   getShortTitle(
-                      "${widget.index}-) ${widget.recData.data.name}"),
+                      "${widget.index}-) ${widget.recData.data.name} ${widget.recData.data.lastname}"),
                   maxLines: 2,
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-             /*   Padding(
+                /*   Padding(
                   padding: const EdgeInsets.only(top: 5),
                   child: Row(
                     children: [
                       getBookRatingShape(widget.recData.data.point),
                     ],
                   ),
-                ),*/
-                const SizedBox(
-                  height: 12,
-                ),
-                /*Text(
-                  "${widget.recData.data.totalRead} Reviews",
-                  style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: ProductColor.grey),
                 ),*/
                 Text(
                   widget.recData.by,
@@ -143,7 +139,38 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
                       fontWeight: FontWeight.bold,
                       color: widget.recData.color),
                 ),
-            /*    Padding(
+                const SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  "Total Read Book : ${widget.recData.data.totalReadBook}",
+                  style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: ProductColor.grey),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "Following : ${widget.recData.data.totalFollowing}",
+                  style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: ProductColor.grey),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  "Followers : ${widget.recData.data.totalFollowers}",
+                  style: const TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                      color: ProductColor.grey),
+                ),
+
+                /*    Padding(
                   padding: const EdgeInsets.only(top: 5),
                   child: Text(
                     getShortDesc(widget.recData.data.desc),
@@ -163,7 +190,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   Padding getChevron() {
     return Padding(
       padding: EdgeInsets.only(
-          left: ResponsiveDesign.width() - imgWidth - 7.5* padding),
+          left: ResponsiveDesign.width() - imgWidth - 7.5 * padding),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2, color: ProductColor.white),
@@ -189,18 +216,23 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
     return Padding(
         padding: EdgeInsets.only(top: padding),
         child: InkWell(
-          onTap: () {/*
+          onTap: () {
+            /*
             goToDetailPageOfBook(context, widget.recData.data,
                 isBookReadByUser(widget.recData.data));
-          */},
-          child: ContainerWithBoxDecoration(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Image.network(
-                widget.recData.data.imgUrl,
-                fit: BoxFit.cover,
-                height: imgHeight,
-                width: imgWidth,
+          */
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: RecommendUserDesignDecoration(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.network(
+                  widget.recData.data.imgUrl,
+                  fit: BoxFit.fitWidth,
+                  // height: imgHeight,
+                  width: imgWidth,
+                ),
               ),
             ),
           ),
