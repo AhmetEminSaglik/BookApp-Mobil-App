@@ -140,17 +140,21 @@ public class UserController {
     }
 
     @GetMapping("/recommend/user/{userId}")
-    public DataResult<List<User>> getRecommendedUserList(@PathVariable long userId) {
+    public DataResult<List<UserFriendDTO>> getRecommendedUserList(@PathVariable long userId) {
         List<User> userList = userService.findCommonUsersByFriends(userId);
         int userSize = userList.size();
         if (userSize < 5) {
             List<User> userListRandom = userService.findRandomUserToRecommend(userId);
             userList.addAll(userListRandom);
             Set<User> set = new HashSet<>(userList);
-//            userList = set.stream().toList();
             userList = new ArrayList<>(set);
         }
-        return new SuccessDataResult<>(userList, "Recommended user list is succesfully retrived");
+        List<UserFriendDTO> userDTOList = userList
+                .stream()
+                .map(userMapper::toUserFriendDTO)
+                .collect(Collectors.toList());
+
+        return new SuccessDataResult<>(userDTOList, "Recommended userDTO list is succesfully retrived");
     }
 
     @GetMapping("/fix")

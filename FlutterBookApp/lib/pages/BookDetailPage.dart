@@ -8,6 +8,7 @@ import 'package:flutter_book_app/cubit/UserBookActionCubit.dart';
 import 'package:flutter_book_app/model/Book.dart';
 import 'package:flutter_book_app/product/BookDesignDecoration.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
+import 'package:flutter_book_app/util/ResponsiveDesign.dart';
 import 'package:logger/logger.dart';
 
 import '../cubit/recommendedbook/BookCubit.dart';
@@ -46,8 +47,8 @@ class _BookDetailPageState extends State<BookDetailPage> {
 
   _sendRequestIsBookRead() async {
     Book? book = await HttpRequestBook.getIfUserReadBook(widget.book.id);
-    if(book!=null){
-      isBookRead=true;
+    if (book != null) {
+      isBookRead = true;
     }
     /*List<Book> bookList = await HttpRequestBook.getReadBookList();
     bookList.forEach((element) {
@@ -57,7 +58,6 @@ class _BookDetailPageState extends State<BookDetailPage> {
       }
     });*/
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +145,7 @@ class _BigCardDesign extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _TextForBigCardDesign(
+              textAlign: TextAlign.center,
               text: book.name,
               textSize: book.name.length <= 20 ? 25 : 20,
               textColor: ProductColor.black,
@@ -179,6 +180,7 @@ class _BigCardDesign extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _TextForBigCardDesign(
+                textAlign: TextAlign.center,
                 text: "Author: ${book.author.name} ${book.author.lastname}",
                 textSize: 17,
                 textColor: ProductColor.black,
@@ -199,25 +201,42 @@ class _BigCardDesign extends StatelessWidget {
   }
 
   Container getBookDesc() {
-    if (book.desc.isNotEmpty) {
-      return Container(
+    // if (book.desc.`isNotEmpty`) {
+    bool descIsEmpty = book.desc.isEmpty;
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
         color: ProductColor.darkWhite,
-        height: 90,
+      ),
+      height: 150,
+      width: ResponsiveDesign.width(),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
           // scrollDirection: Axis.vertical,
-          child: _TextForBigCardDesign(
-              text: book.desc,
-              textSize: 17,
-              textColor: ProductColor.darkGrey,
-              fontWeight: FontWeight.bold),
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: descIsEmpty ? 50 : 10,
+              bottom: 10,
+              right: 10,
+              left: 10,
+            ),
+            child: _TextForBigCardDesign(
+                text: descIsEmpty ? "- - -" : book.desc,
+                textAlign: descIsEmpty ? TextAlign.center : TextAlign.start,
+                textSize: 17,
+                textColor: ProductColor.darkGrey,
+                fontWeight: FontWeight.bold),
+          ),
         ),
-      );
-    } else {
-      return Container(
-        child: const Text("- - -"),
-        alignment: Alignment.centerLeft,
-      );
-    }
+      ),
+    );
+    // } else {
+    //   return Container(
+    //     child: const Text("- - -"),
+    //     alignment: Alignment.centerLeft,
+    //   );
+    // }
   }
 
   Widget getButton() {
@@ -317,17 +336,19 @@ class _TextForBigCardDesign extends StatelessWidget {
   final Color textColor;
   final FontWeight fontWeight;
   final double textSize;
+  final TextAlign textAlign;
 
-  _TextForBigCardDesign(
+  const _TextForBigCardDesign(
       {required this.text,
       required this.textColor,
       required this.fontWeight,
-      required this.textSize});
+      required this.textSize,
+      required this.textAlign});
 
   @override
   Widget build(BuildContext context) {
     return Text(text,
-        textAlign: TextAlign.center,
+        textAlign: textAlign,
         style: TextStyle(
             fontSize: textSize, fontWeight: fontWeight, color: textColor));
   }

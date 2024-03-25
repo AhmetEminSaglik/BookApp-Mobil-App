@@ -211,6 +211,13 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   }
 
   Padding getImage(BuildContext context) {
+    print(">>>>>>>>>>>>>>>>>>>>>>>>>${ Image.network(
+      widget.recData.data.imgUrl,
+      fit: BoxFit.fitWidth,
+      // height: imgHeight,
+      width: imgWidth,
+    )}");
+
     return Padding(
         padding: EdgeInsets.only(top: padding),
         child: InkWell(

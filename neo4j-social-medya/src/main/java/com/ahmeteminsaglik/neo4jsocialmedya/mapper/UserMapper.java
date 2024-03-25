@@ -23,6 +23,10 @@ public class UserMapper {
 
     public UserFriendDTO toUserFriendDTO(User user) {
         int readBookCount = bookService.getUserReadBookCount(user.getId());
-        return new UserFriendDTO(user.getId(), user.getName(), user.getLastname(), user.getGender(), readBookCount, user.getImgUrl());
+        int totalFollowers = userService.findAllFollowersOfUserId(user.getId()).size();
+        int totalFollowing = userService.findAllfollowingUsersByUserId(user.getId()).size();
+        UserFriendDTO userDTO=new UserFriendDTO(user.getId(), user.getName(), user.getLastname(), user.getGender(), readBookCount, totalFollowers, totalFollowing, user.getImgUrl());
+        log.info("Gonderilecek user : "+userDTO);
+        return userDTO;
     }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/model/Recommend.dart';
 import 'package:logger/logger.dart';
@@ -110,45 +111,53 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                getShortTitle("${widget.index}-) ${widget.recData.data.name}"),
+                /*Text(
                   getShortTitle(
                       "${widget.index}-) ${widget.recData.data.name}"),
                   maxLines: 2,
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Row(
+                ),*/
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      getBookRatingShape(widget.recData.data.point),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Row(
+                          children: [
+                            getBookRatingShape(widget.recData.data.point),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        "${widget.recData.data.totalRead} Reviews",
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: ProductColor.grey),
+                      ),
+                      Text(
+                        widget.recData.by,
+                        style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: widget.recData.color),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Text(
+                          getShortDesc(widget.recData.data.desc),
+                          maxLines: 3,
+                          style: const TextStyle(
+                              fontSize: 15, color: ProductColor.grey),
+                        ),
+                      ),
                     ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
-                Text(
-                  "${widget.recData.data.totalRead} Reviews",
-                  style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: ProductColor.grey),
-                ),
-                Text(
-                  widget.recData.by,
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: widget.recData.color),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Text(
-                    getShortDesc(widget.recData.data.desc),
-                    maxLines: 3,
-                    style:
-                        const TextStyle(fontSize: 15, color: ProductColor.grey),
                   ),
                 ),
               ],
@@ -224,11 +233,31 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
     return shortDesc;
   }
 
+  Text getShortTitle(String title) {
+    final int maxChar = 40;
+    final int firstLineMaxChar = 20;
+    double fontSize = 18;
+    if (title.trim().length > maxChar) {
+      title = "${title.substring(0, maxChar).trim()}...";
+    }
+    if (title.length > firstLineMaxChar) {
+      fontSize = 17;
+    }
+
+    Text text = Text(
+      title,
+      maxLines: 2,
+      style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
+    );
+
+    return text;
+  }
+/*
   String getShortTitle(String title) {
     int index = 40;
     if (title.trim().length > index) {
       return "${title.substring(0, index).trim()}...";
     }
     return title;
-  }
+  }*/
 }

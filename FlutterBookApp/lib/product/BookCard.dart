@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/util/ResponsiveDesign.dart';
 import 'package:logger/logger.dart';
@@ -30,6 +31,7 @@ class _BookCardState extends State<BookCard> {
   final double imgHeight = ResponsiveDesign.height() / 6.5;
   final double padding = ResponsiveDesign.height() / 65;
   bool isLoading = true;
+
 /*
   _retrieveUserReadThisBook() async {
     await _retrieveReadBookList();
@@ -58,15 +60,16 @@ class _BookCardState extends State<BookCard> {
                 children: [
                   InkWell(
                     onTap: () {
-                      goToDetailPageOfBook(
-                          context, widget.book);
+                      goToDetailPageOfBook(context, widget.book);
                     },
                     child: getBookCardContent(),
                   ),
                   Row(
                     children: [
-                      Padding(padding: EdgeInsets.only(top: ResponsiveDesign.height()/100),
-                      child: getBookImage(context)),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              top: ResponsiveDesign.height() / 100),
+                          child: getBookImage(context)),
                       getChevron(),
                     ],
                   ),
@@ -96,38 +99,46 @@ class _BookCardState extends State<BookCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                getShortTitle("${widget.index}-) ${widget.book.name}")
+                /*Text(
                   getShortTitle("${widget.index}-) ${widget.book.name}"),
                   maxLines: 2,
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Row(
+                )*/
+                ,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      getBookRatingShape(widget.book.point),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "${widget.book.totalRead} Reviews",
-                  style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: ProductColor.grey),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Text(
-                    getShortDesc(widget.book.desc),
-                    maxLines: 3,
-                    style:
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Row(
+                        children: [
+                          getBookRatingShape(widget.book.point),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "${widget.book.totalRead} Reviews",
+                      style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: ProductColor.grey),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Text(
+                        getShortDesc(widget.book.desc),
+                        maxLines: 2,
+                        style:
                         const TextStyle(fontSize: 15, color: ProductColor.grey),
-                  ),
+                      ),
+                    )
+                  ],),
                 ),
               ],
             ),
@@ -140,7 +151,7 @@ class _BookCardState extends State<BookCard> {
   Padding getChevron() {
     return Padding(
       padding: EdgeInsets.only(
-          left: ResponsiveDesign.width() - imgWidth - 8* padding),
+          left: ResponsiveDesign.width() - imgWidth - 8 * padding),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2, color: ProductColor.white),
@@ -192,7 +203,7 @@ class _BookCardState extends State<BookCard> {
     if (desc.trim().length == 0) {
       return "- - -";
     }
-    int index = 60;
+    int index = 50;
     String shortDesc = desc;
     if (desc.trim().length > index) {
       shortDesc = shortDesc.replaceAll("\n", " ");
@@ -201,11 +212,23 @@ class _BookCardState extends State<BookCard> {
     return shortDesc;
   }
 
-  String getShortTitle(String title) {
-    int index = 40;
-    if (title.trim().length > index) {
-      return "${title.substring(0, index).trim()}...";
+  Text getShortTitle(String title) {
+    final int maxChar = 40;
+    final int firstLineMaxChar = 20;
+    double fontSize = 18;
+    if (title.trim().length > maxChar) {
+      title = "${title.substring(0, maxChar).trim()}...";
     }
-    return title;
+    if (title.length > firstLineMaxChar) {
+      fontSize = 17;
+    }
+
+    Text text = Text(
+      title,
+      maxLines: 2,
+      style:  TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
+    );
+
+    return text;
   }
 }

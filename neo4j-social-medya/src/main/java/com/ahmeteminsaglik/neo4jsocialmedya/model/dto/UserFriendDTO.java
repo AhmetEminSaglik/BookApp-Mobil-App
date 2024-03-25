@@ -15,5 +15,8 @@ public class UserFriendDTO {
     private String lastname;
     private String gender;
     private int totalReadBook;
+    private int totalFollowers;
+    private int totalFollowing;
+
     private String imgUrl;
 }
