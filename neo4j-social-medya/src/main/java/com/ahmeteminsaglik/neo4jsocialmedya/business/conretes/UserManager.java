@@ -55,13 +55,13 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public void removeUserfollowingRelationShipUser(long userId, long followingUserId) {
-        repo.removeUserfollowingRelationShipUser(userId, followingUserId);
+    public void removeUserfollowingRelationshipUser(long userId, long followingUserId) {
+        repo.removeUserfollowingRelationshipUser(userId, followingUserId);
     }
 
     @Override
-    public void removeUserFollowerRelationShipUser(long userId, long followerUserId) {
-        repo.removeUserFollowerRelationShipUser(userId, followerUserId);
+    public void removeUserFollowerRelationshipUser(long userId, long followerUserId) {
+        repo.removeUserFollowerRelationshipUser(userId, followerUserId);
     }
 
     @Override

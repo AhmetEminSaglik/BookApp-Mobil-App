@@ -1,6 +1,4 @@
-import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/MyBookReadScreenCubit.dart';
@@ -85,16 +83,16 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
   }
 
   Column _BookCardColumn() {
-    Column column = Column(children: []);
+    Column column =  Column(children: []);
     for (int i = 0; i < bookList.length; i++) {
-      BookCard _bookCard = BookCard(
+      BookCard bookCard = BookCard(
         book: bookList[i],
         index: (bookList.length - i),
         // isBookRead: isBookReadByUser(bookList[i]),
       );
       column.children.add(Padding(
         padding: const EdgeInsets.only(left: 10, top: 10),
-        child: _bookCard,
+        child: bookCard,
       ));
     }
     return column;
@@ -102,12 +100,12 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
 
   bool isBookReadByUser(Book book) {
     bool isBookRead = false;
-    bookList.forEach((element) {
+    for (var element in bookList) {
       if (element.id == book.id) {
         isBookRead = true;
-        return;
+        continue;
       }
-    });
+    }
     log.i("Book is Read : $isBookRead");
     return isBookRead;
   }

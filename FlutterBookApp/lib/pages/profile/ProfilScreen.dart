@@ -1,16 +1,16 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/pages/profile/FollowingTab.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:flutter_book_app/util/ResponsiveDesign.dart';
 import 'package:flutter_book_app/util/SharedPrefUtils.dart';
+import 'package:logger/logger.dart';
 
+import '../../cubit/FollowerRemoveCubit.dart';
 import '../../model/User.dart';
 import 'FollowerTab.dart';
 
@@ -24,14 +24,15 @@ class ProfilScreen extends StatefulWidget {
 }
 
 class _ProfilScreenState extends State<ProfilScreen> {
+  var log = Logger(printer: PrettyPrinter(colors: false));
   final User _user = SharedPrefUtils.getUser();
   final double _fontSize = ResponsiveDesign.height() / 50;
   final double _numberFontSize = ResponsiveDesign.height() / 35;
   static int bookCount = 0;
   late bool isLoading;
   final double _profileItemSpace = 10;
-  static late List<UserFriendDTO> followingList;
-  static late List<UserFriendDTO> followerList;
+  static List<UserFriendDTO> followingList = [];
+  static List<UserFriendDTO> followerList = [];
 
   @override
   void initState() {
@@ -108,7 +109,26 @@ class _ProfilScreenState extends State<ProfilScreen> {
                               ),
                               body: TabBarView(
                                 children: [
-                                  FollowersTab(list: followerList),
+                                  BlocBuilder<FollowerRemoveCubit,
+                                          UserFriendDTO?>(
+                                      builder: (builder, state) {
+                                    log.i(
+                                        "${state?.name} ${state?.lastname} : >>BlocBuilder<FollowerRemoveCubit,>>> girdi");
+                                    if (state != null &&
+                                        followerList.contains(state)) {
+                                      log.i(">>BlocBuilder<IFFFFFFFFF girdi");
+                                      removeFollowerFromList(state);
+                                    }
+                                    // return const Center(child: CircularProgressIndicator());
+                                    for (UserFriendDTO tmp in followerList) {
+                                      print(
+                                          "gosterilecek user : ${tmp.name + tmp.lastname}");
+                                    }
+                                    return FollowersTab(list: followerList);
+                                  })
+                                  // return const SizedBox();
+                                  // }
+                                  ,
                                   FollowingTab(list: followingList),
                                 ],
                               ),
@@ -121,6 +141,45 @@ class _ProfilScreenState extends State<ProfilScreen> {
             ),
     );
   }
+
+  void removeFollowerFromList(UserFriendDTO object) {
+    _retrieveAllData();
+    /*// followerList.remove(object);
+    for (int i = 0; i < followerList.length; i++) {
+      if (followerList[i].id == object.id) {
+        // print("silinecek  user : ${object.id}-${object.name} ${object.lastname}");
+        // print("followerList deki denk user : ${followerList[i].id}-${followerList[i].name} ${followerList[i].lastname}");
+        followerList.removeAt(i);
+        return;
+      }
+    }*/
+    context.read<FollowerRemoveCubit>().updateIsCompleted();
+  }
+
+  /*
+  *
+  *
+  *
+    return BlocBuilder<LoginCubit, EnumLoginState>(
+      builder: (builder, state) {
+        if (state == EnumLoginState.LoginLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return const SizedBox();
+      },
+    );
+
+ *
+ *
+  Widget getButton() {
+    return BlocBuilder<BookAddRemoveCubit, bool>(builder: (context, state) {
+      if (state == true) {
+        return _RemoveReadBookButton(bookId: book.id);
+      }
+      return _AddAsReadButton(bookId: book.id);
+    });
+    *
+    * */
 
   Center getProfilDataContainer() {
     return Center(

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'SharedPrefUtils.dart';
 
 class SafeLogoutDrawerItem extends StatefulWidget {
+  const SafeLogoutDrawerItem({super.key});
+
   @override
   State<SafeLogoutDrawerItem> createState() => _SafeLogoutDrawerItemState();
 }

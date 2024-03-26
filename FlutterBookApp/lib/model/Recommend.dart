@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter_book_app/enum/EnumRecommendBy.dart';
 
 class RecommendData<T> {
   late String _by;

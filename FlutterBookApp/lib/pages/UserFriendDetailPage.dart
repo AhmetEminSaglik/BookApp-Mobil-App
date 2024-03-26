@@ -1,25 +1,20 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/BookAddRemoveCubit.dart';
 import 'package:flutter_book_app/cubit/MyBookReadScreenCubit.dart';
 import 'package:flutter_book_app/cubit/UserBookActionCubit.dart';
-import 'package:flutter_book_app/model/Book.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/product/BookDesignDecoration.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:logger/logger.dart';
 
-import '../cubit/recommendedbook/BookCubit.dart';
-import '../httprequest/HttpRequestBook.dart';
 
 class UserFriendDetailPage extends StatefulWidget {
   late UserFriendDTO userDTO;
   double imgWidth = 90;
   double imgHeight = 140;
 
-  UserFriendDetailPage({required this.userDTO});
+  UserFriendDetailPage({super.key, required this.userDTO});
 
   @override
   State<UserFriendDetailPage> createState() => _UserFriendDetailPageState();
@@ -153,7 +148,7 @@ class _BigCardDesign extends StatelessWidget {
             ),
             Column(
               children: [
-                Row(
+                const Row(
                   // crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -238,7 +233,7 @@ class _BigCardDesign extends StatelessWidget {
 class _RemoveReadBookButton extends StatefulWidget {
   final int bookId;
 
-  _RemoveReadBookButton({required this.bookId});
+  const _RemoveReadBookButton({required this.bookId});
 
   @override
   State<_RemoveReadBookButton> createState() => _RemoveReadBookButtonState();
@@ -277,7 +272,7 @@ class _RemoveReadBookButtonState extends State<_RemoveReadBookButton> {
 class _AddAsReadButton extends StatefulWidget {
   final int bookId;
 
-  _AddAsReadButton({required this.bookId});
+  const _AddAsReadButton({required this.bookId});
 
   @override
   State<_AddAsReadButton> createState() => _AddAsReadButtonState();
@@ -319,7 +314,7 @@ class _TextForBigCardDesign extends StatelessWidget {
   final FontWeight fontWeight;
   final double textSize;
 
-  _TextForBigCardDesign(
+  const _TextForBigCardDesign(
       {required this.text,
       required this.textColor,
       required this.fontWeight,

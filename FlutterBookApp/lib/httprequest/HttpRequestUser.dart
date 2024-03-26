@@ -5,7 +5,6 @@ import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/repo/UserRepository.dart';
 import 'package:flutter_book_app/util/SharedPrefUtils.dart';
 import 'package:logger/logger.dart';
-import '../model/User.dart';
 import 'BaseHttpRequest.dart';
 import 'Model/ResponseEntity.dart';
 import 'package:http/http.dart' as http;
@@ -50,7 +49,7 @@ class HttpRequestUser {
     log.i("SET CONNECTIONURL : $url");
     // http: //localhost:8080/users/read-book?userId=72&bookId=139&rate=1
     var resp = await Dio().post(url);
-    log.i("SET CONNECTION RESPOND : " + resp.toString());
+    log.i("SET CONNECTION RESPOND : $resp");
   }
 
   static Future<void> destroyUserReadBookConnection(
@@ -58,7 +57,7 @@ class HttpRequestUser {
     String url = "$_baseUrl/readbooks?userId=$userId&bookId=$bookId";
     log.i("DESTROY CONNECTION URL : $url");
     var resp = await Dio().delete(url);
-    log.i("DESTROY CONNECTION  RESPOND : " + resp.toString());
+    log.i("DESTROY CONNECTION  RESPOND : $resp");
   }
 
   static Future<int> getUserBookCount() async {
@@ -71,8 +70,7 @@ class HttpRequestUser {
 
   static Future<List<UserFriendDTO>> getFollowingUserList() async {
     List<UserFriendDTO> userList = [];
-    Uri url =
-    Uri.parse("$_baseUrl/following/${SharedPrefUtils.getUserId()}");
+    Uri url = Uri.parse("$_baseUrl/following/${SharedPrefUtils.getUserId()}");
     log.i("URL : $url");
     var resp = await http.get(url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
@@ -85,8 +83,7 @@ class HttpRequestUser {
 
   static Future<List<UserFriendDTO>> getFollowerUserList() async {
     List<UserFriendDTO> userList = [];
-    Uri url =
-    Uri.parse("$_baseUrl/follower/${SharedPrefUtils.getUserId()}");
+    Uri url = Uri.parse("$_baseUrl/follower/${SharedPrefUtils.getUserId()}");
     log.i("URL : $url");
     var resp = await http.get(url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
@@ -95,5 +92,19 @@ class HttpRequestUser {
       userList = UserRepository.parseUserFriendDTOList(respEntity.data);
     }
     return userList;
+  }
+
+  static Future<bool> removeFollower(int followerId) async {
+    Uri url = Uri.parse(
+        "$_baseUrl/${SharedPrefUtils.getUserId()}/follower/$followerId");
+    log.i("URL : $url");
+    var resp = await http.delete(url);
+    Map<String, dynamic> jsonData = json.decode(resp.body);
+    ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
+    bool result = false;
+    if (respEntity.success) {
+      result = respEntity.success;
+    }
+    return result;
   }
 }

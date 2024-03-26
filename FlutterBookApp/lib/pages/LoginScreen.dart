@@ -9,9 +9,11 @@ import 'package:logger/logger.dart';
 import '../util/ProductColor.dart';
 
 class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: ProductColor.blue,
       body: Center(
         child: LoginForm(),
@@ -21,6 +23,8 @@ class LoginScreen extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
   @override
   _LoginFormState createState() => _LoginFormState();
 }

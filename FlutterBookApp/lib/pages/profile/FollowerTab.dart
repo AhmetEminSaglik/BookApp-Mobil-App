@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_book_app/cubit/FollowerRemoveCubit.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import '../../util/ResponsiveDesign.dart';
-import 'UserCard.dart';
+import 'ProfileUserFriendCard.dart';
 
 class FollowersTab extends StatefulWidget {
   FollowersTab({super.key, required this.list});
@@ -26,7 +28,9 @@ class _FollowersTabState extends State<FollowersTab> {
   Column getUserList() {
     Column column = Column(children: []);
     for (int i = 0; i < widget.list.length; i++) {
-      UserCard userCard = UserCard(
+      print(
+          "FollowerTabl user : ${widget.list[i].name + widget.list[i].lastname}");
+      ProfileUserFriendCard userCard = ProfileUserFriendCard(
         userDTO: widget.list[i],
         index: i,
       );
@@ -50,7 +54,9 @@ class _FollowersTabState extends State<FollowersTab> {
                   "User Profile",
                   style: TextStyle(fontSize: _fontSize),
                 ),
-                SizedBox(width: ResponsiveDesign.width()/12,),
+                SizedBox(
+                  width: ResponsiveDesign.width() / 12,
+                ),
                 Text(
                   "Total Book Read",
                   style: TextStyle(fontSize: _fontSize),

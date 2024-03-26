@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_book_app/pages/MyReadBookScreen.dart';
 import 'package:flutter_book_app/pages/profile/ProfilScreen.dart';
@@ -7,14 +6,14 @@ import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:flutter_book_app/util/SafeLogoutDrawerItem.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 0;
+  int currentIndex = 2;
   final titles = ["My Books", "Recommends", "Profile"];
   final colors = [ProductColor.green, ProductColor.blue, ProductColor.pink];
 

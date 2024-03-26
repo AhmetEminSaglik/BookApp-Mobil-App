@@ -1,14 +1,9 @@
-import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/util/ResponsiveDesign.dart';
 import 'package:logger/logger.dart';
 import '../cubit/recommendedbook/BookCubit.dart';
-import '../httprequest/HttpRequestBook.dart';
 import '../model/Book.dart';
 import '../util/ProductColor.dart';
 import 'BookDesignDecoration.dart';
@@ -18,7 +13,7 @@ class BookCard extends StatefulWidget {
   late int index;
   late bool isBookRead;
 
-  BookCard({required this.book, required this.index});
+  BookCard({super.key, required this.book, required this.index});
 
   @override
   State<BookCard> createState() => _BookCardState();
@@ -200,7 +195,7 @@ class _BookCardState extends State<BookCard> {
   }
 
   String getShortDesc(String desc) {
-    if (desc.trim().length == 0) {
+    if (desc.trim().isEmpty) {
       return "- - -";
     }
     int index = 50;
@@ -213,8 +208,8 @@ class _BookCardState extends State<BookCard> {
   }
 
   Text getShortTitle(String title) {
-    final int maxChar = 40;
-    final int firstLineMaxChar = 20;
+    const int maxChar = 40;
+    const int firstLineMaxChar = 20;
     double fontSize = 20;
     if (title.trim().length > maxChar) {
       title = "${title.substring(0, maxChar).trim()}...";

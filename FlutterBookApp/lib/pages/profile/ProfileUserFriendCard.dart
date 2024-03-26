@@ -1,25 +1,27 @@
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_book_app/cubit/FollowerRemoveCubit.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:flutter_book_app/util/ResponsiveDesign.dart';
 import 'package:logger/logger.dart';
 
-class UserCard extends StatefulWidget {
-  UserCard({super.key, required this.userDTO, required this.index});
+import '../../httprequest/HttpRequestUser.dart';
+import '../../util/CustomSnackBar.dart';
+
+class ProfileUserFriendCard extends StatefulWidget {
+  ProfileUserFriendCard(
+      {super.key, required this.userDTO, required this.index});
 
   int index;
 
   UserFriendDTO userDTO;
 
   @override
-  State<UserCard> createState() => _UserCardState();
+  State<ProfileUserFriendCard> createState() => _ProfileUserFriendCardState();
 }
 
-class _UserCardState extends State<UserCard> {
+class _ProfileUserFriendCardState extends State<ProfileUserFriendCard> {
   var log = Logger(printer: PrettyPrinter(colors: false));
   double cardHeight = ResponsiveDesign.height() / 12;
   double cardWidth = ResponsiveDesign.width();
@@ -47,7 +49,7 @@ class _UserCardState extends State<UserCard> {
             const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
         child: Row(
           children: [
-            Container(
+            SizedBox(
               width: ResponsiveDesign.width() / 12,
               child: Text("${widget.index + 1}-) ",
                   style: TextStyle(fontSize: _fontSize)),
@@ -59,8 +61,8 @@ class _UserCardState extends State<UserCard> {
               padding: EdgeInsets.only(right: ResponsiveDesign.width() / 8),
               child: getUsersReadBookCount(),
             ),
-             InkWell(
-              onTap: () => print("TIKLANDI"),
+            InkWell(
+              onTap: () => removeFollower(widget.userDTO),
               child: const Icon(
                 Icons.delete,
                 color: ProductColor.red,
@@ -71,6 +73,23 @@ class _UserCardState extends State<UserCard> {
         ),
       ),
     );
+  }
+
+  void removeFollower(UserFriendDTO userFriendDTO) async {
+    bool result = await HttpRequestUser.removeFollower(userFriendDTO.id);
+    // bool result = true;
+    String msg = "";
+    if (result) {
+      msg = "${userFriendDTO.name} ${userFriendDTO.lastname} is succesfully removed";
+      context.read<FollowerRemoveCubit>().removeFromList(userFriendDTO);
+    } else {
+      msg = "Failed. Follower is not removed.";
+    }
+    showToastMsg(msg);
+  }
+
+  void showToastMsg(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar.getSnackBar(msg));
   }
 
   Text getUsersReadBookCount() {

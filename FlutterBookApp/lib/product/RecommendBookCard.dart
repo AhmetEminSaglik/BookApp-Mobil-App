@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/model/Recommend.dart';
 import 'package:logger/logger.dart';
@@ -15,7 +13,7 @@ class RecommendBookCard extends StatefulWidget {
   late RecommendData recData;
   late int index;
 
-  RecommendBookCard({required this.index, required this.recData});
+  RecommendBookCard({super.key, required this.index, required this.recData});
 
   @override
   State<RecommendBookCard> createState() => _RecommendBookCardState();
@@ -40,10 +38,16 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
 
   _retrieveReadBookData() async {
     await _retrieveReadBookList();
-
+    if (mounted) {
       setState(() {
         isLoading = false;
       });
+    } else {
+      print("Elseye girdi mounted: $mounted");
+    }
+      // setState(() {
+      //   isLoading = false;
+      // });
 
   }
 
@@ -88,12 +92,12 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
 
   bool isBookReadByUser(Book book) {
     bool isBookRead = false;
-    bookList.forEach((element) {
+    for (var element in bookList) {
       if (element.id == book.id) {
         isBookRead = true;
-        return;
+        continue;
       }
-    });
+    }
     log.i("Book is Read : $isBookRead");
     return isBookRead;
   }
@@ -223,7 +227,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
   }
 
   String getShortDesc(String desc) {
-    if (desc.trim().length == 0) {
+    if (desc.trim().isEmpty) {
       return "- - -";
     }
     int index = 60;
@@ -236,8 +240,8 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
   }
 
   Text getShortTitle(String title) {
-    final int maxChar = 40;
-    final int firstLineMaxChar = 20;
+    const int maxChar = 40;
+    const int firstLineMaxChar = 20;
     double fontSize = 18;
     if (title.trim().length > maxChar) {
       title = "${title.substring(0, maxChar).trim()}...";

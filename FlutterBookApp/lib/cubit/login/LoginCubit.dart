@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
@@ -10,7 +9,6 @@ import 'package:logger/logger.dart';
 
 import '../../enum/EnumLoginState.dart';
 import '../../model/User.dart';
-import '../../pages/RecommendScreen.dart';
 
 class LoginCubit extends Cubit<EnumLoginState> {
   LoginCubit() : super(EnumLoginState.LoginInitial);
@@ -43,6 +41,6 @@ class LoginCubit extends Cubit<EnumLoginState> {
 
   void _navigatePage(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        context, MaterialPageRoute(builder: (context) => const HomeScreen()));
   }
 }

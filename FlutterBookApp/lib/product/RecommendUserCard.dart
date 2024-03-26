@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/model/Recommend.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/pages/UserFriendDetailPage.dart';
 import 'package:flutter_book_app/product/RecommendUserDesignDecoration.dart';
 import 'package:logger/logger.dart';
-import '../cubit/recommendedbook/BookCubit.dart';
-import '../httprequest/HttpRequestBook.dart';
 import '../model/Book.dart';
 import '../util/ProductColor.dart';
 import '../util/ResponsiveDesign.dart';
@@ -17,7 +13,7 @@ class RecommendUserCard extends StatefulWidget {
   late RecommendData<UserFriendDTO> recData;
   late int index;
 
-  RecommendUserCard({required this.index, required this.recData});
+  RecommendUserCard({super.key, required this.index, required this.recData});
 
   @override
   State<RecommendUserCard> createState() => _RecommendUserCardState();
@@ -117,10 +113,11 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
               children: [
                 Text(
                   getShortTitle(
-                      "${widget.index}-) ${widget.recData.data.name} ${widget.recData.data.lastname}"),
+                      // "${widget.index}-) ${widget.recData.data.name} ${widget.recData.data.lastname}"),
+                      "${widget.recData.data.name} ${widget.recData.data.lastname}"),
                   maxLines: 2,
                   style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
+                      fontSize: 19, fontWeight: FontWeight.bold),
                 ),
                 /*   Padding(
                   padding: const EdgeInsets.only(top: 5),
@@ -130,15 +127,18 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
                     ],
                   ),
                 ),*/
+                const SizedBox(
+                  height: 10,
+                ),
                 Text(
                   widget.recData.by,
                   style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: widget.recData.color),
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 Text(
                   "Total Read Book : ${widget.recData.data.totalReadBook}",
@@ -257,7 +257,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   }
 
   String getShortDesc(String desc) {
-    if (desc.trim().length == 0) {
+    if (desc.trim().isEmpty) {
       return "- - -";
     }
     int index = 60;

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/BookAddRemoveCubit.dart';
 import 'package:flutter_book_app/cubit/MyBookReadScreenCubit.dart';
@@ -11,7 +9,6 @@ import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:flutter_book_app/util/ResponsiveDesign.dart';
 import 'package:logger/logger.dart';
 
-import '../cubit/recommendedbook/BookCubit.dart';
 import '../httprequest/HttpRequestBook.dart';
 
 class BookDetailPage extends StatefulWidget {
@@ -19,7 +16,7 @@ class BookDetailPage extends StatefulWidget {
   double imgWidth = 90;
   double imgHeight = 140;
 
-  BookDetailPage({required this.book});
+  BookDetailPage({super.key, required this.book});
 
   @override
   State<BookDetailPage> createState() => _BookDetailPageState();
@@ -266,7 +263,7 @@ class _BigCardDesign extends StatelessWidget {
 class _RemoveReadBookButton extends StatefulWidget {
   final int bookId;
 
-  _RemoveReadBookButton({required this.bookId});
+  const _RemoveReadBookButton({required this.bookId});
 
   @override
   State<_RemoveReadBookButton> createState() => _RemoveReadBookButtonState();
@@ -305,7 +302,7 @@ class _RemoveReadBookButtonState extends State<_RemoveReadBookButton> {
 class _AddAsReadButton extends StatefulWidget {
   final int bookId;
 
-  _AddAsReadButton({required this.bookId});
+  const _AddAsReadButton({required this.bookId});
 
   @override
   State<_AddAsReadButton> createState() => _AddAsReadButtonState();

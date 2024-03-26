@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
-import 'package:flutter_book_app/pages/profile/UserCard.dart';
+import 'package:flutter_book_app/pages/profile/ProfileUserFriendCard.dart';
 import '../../util/ProductColor.dart';
 import '../../util/ResponsiveDesign.dart';
 
@@ -55,7 +55,7 @@ class _FollowingTabState extends State<FollowingTab> {
   Column getUserList() {
     Column column = Column(children: []);
     for (int i = 0; i < widget.list.length; i++) {
-      UserCard userCard = UserCard(
+      ProfileUserFriendCard userCard = ProfileUserFriendCard(
         userDTO: widget.list[i],
         index: i,
       );

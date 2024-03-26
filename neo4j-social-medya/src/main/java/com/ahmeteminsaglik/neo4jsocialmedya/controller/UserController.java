@@ -128,14 +128,15 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}/following/{followingUserId}")
-    public Result removeUserfollowingRelationShipUser(@PathVariable long userId, @PathVariable long followingUserId) {
-        userService.removeUserfollowingRelationShipUser(userId, followingUserId);
+    public Result removeUserfollowingRelationshipUser(@PathVariable long userId, @PathVariable long followingUserId) {
+        userService.removeUserfollowingRelationshipUser(userId, followingUserId);
         return new SuccessResult("Relationship is deleted");
     }
 
     @DeleteMapping("/{userId}/follower/{followerUserId}")
-    public Result removeUserFollowerRelationShipUser(@PathVariable long userId, @PathVariable long followerUserId) {
-        userService.removeUserFollowerRelationShipUser(userId, followerUserId);
+    public Result removeUserFollowerRelationshipUser(@PathVariable long userId, @PathVariable long followerUserId) {
+        userService.removeUserFollowerRelationshipUser(userId, followerUserId);
+        log.info("Follower is removed :  "+followerUserId);
         return new SuccessResult("Relationship is deleted");
     }
 

@@ -3,8 +3,6 @@ import 'package:flutter_book_app/enum/EnumRecommendBy.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
-import 'package:flutter_book_app/pages/profile/FollowerTab.dart';
-import 'package:flutter_book_app/pages/profile/FollowingTab.dart';
 import 'package:flutter_book_app/product/RecommendBookCard.dart';
 import 'package:flutter_book_app/product/RecommendUserCard.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
@@ -53,7 +51,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
 
   retrieveUserList() async {
     userFrienDTOList = await HttpRequestUser.getRecommendUserList();
-    userFrienDTOList.forEach((element) {
+    for (var element in userFrienDTOList) {
       recUserFriendDTOArr.add(RecommendData(
           by: EnumRecommendBy.BY_FRIEND.name,
           data: element,
@@ -62,7 +60,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
           by: EnumRecommendBy.BY_FRIEND.name,
           data: element,
           color: ProductColor.BY_FRIEND));
-    });
+    }
     log.i("recUser data recUserFriendDTOArr length:${recUserFriendDTOArr.length} userFrienDTOList length: ${userFrienDTOList.length}");
   }
 
@@ -94,13 +92,13 @@ class _RecommendScreenState extends State<RecommendScreen> {
       {required EnumRecommendBy recommendBy,
         required List<Book> bookList,
         required Color color}) {
-    bookList.forEach((element) {
+    for (var element in bookList) {
       recBookArr.add(
           RecommendData(by: recommendBy.name, data: element, color: color));
       log.i("Book ID : ${element.name}: ${element.imgUrl}");
       list.add(
           RecommendData(by: recommendBy.name, data: element, color: color));
-    });
+    }
   }
 
   /*
@@ -110,13 +108,13 @@ class _RecommendScreenState extends State<RecommendScreen> {
       {required EnumRecommendBy recommendBy,
         required List<User> userList,
         required Color color}) {
-    userList.forEach((element) {
+    for (var element in userList) {
       recUserFriendDTOArr.add(
           RecommendData(by: recommendBy.name, data: element, color: color));
       log.i("User ID : ${element.name}: ${element.imgUrl}");
       list.add(
           RecommendData(by: recommendBy.name, data: element, color: color));
-    });
+    }
   }
 
   @override
@@ -216,13 +214,13 @@ class _RecommendScreenState extends State<RecommendScreen> {
   Column _BookCardColumn() {
     Column column = Column(children: []);
     for (int i = 0; i < recBookArr.length; i++) {
-      RecommendBookCard _recBookCard = RecommendBookCard(
+      RecommendBookCard recBookCard = RecommendBookCard(
         recData: recBookArr[i],
         index: recBookArr.length - i,
       );
       column.children.add(Padding(
         padding: const EdgeInsets.only(left: 10,top: 10),
-        child: _recBookCard,
+        child: recBookCard,
       ));
     }
     return column;
@@ -232,13 +230,13 @@ class _RecommendScreenState extends State<RecommendScreen> {
 
     Column column = Column(children: []);
     for (int i = 0; i < recUserFriendDTOArr.length; i++) {
-      RecommendUserCard _recUserCard = RecommendUserCard(
+      RecommendUserCard recUserCard = RecommendUserCard(
         recData:recUserFriendDTOArr[i],
         index:/* recUserFriendDTOArr.length - */i+1,
       );
       column.children.add(Padding(
         padding: const EdgeInsets.only(left: 10,top: 10),
-        child: _recUserCard,
+        child: recUserCard,
       ));
     }
     return column;
