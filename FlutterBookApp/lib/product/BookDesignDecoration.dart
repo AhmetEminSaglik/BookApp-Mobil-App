@@ -49,7 +49,7 @@ Widget getBookRatingShape(double rating) {
 Text getReviewText(int totalReviews) {
   return Text("$totalReviews Reviews",
       style: const TextStyle(
-          fontSize: 15, fontWeight: FontWeight.bold, color: ProductColor.grey));
+          fontSize: 17, fontWeight: FontWeight.bold, color: ProductColor.grey));
 }
 
 Text getAveragePointText(double point) {

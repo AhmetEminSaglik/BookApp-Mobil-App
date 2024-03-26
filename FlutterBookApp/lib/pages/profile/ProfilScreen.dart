@@ -15,7 +15,8 @@ import '../../model/User.dart';
 import 'FollowerTab.dart';
 
 class ProfilScreen extends StatefulWidget {
-    ProfilScreen({super.key});
+  ProfilScreen({super.key});
+
   bool _isInit = false;
 
   @override
@@ -47,9 +48,17 @@ class _ProfilScreenState extends State<ProfilScreen> {
     bookCount = await HttpRequestUser.getUserBookCount();
     followingList = await HttpRequestUser.getFollowingUserList();
     followerList = await HttpRequestUser.getFollowerUserList();
-    setState(() {
-      isLoading = false;
-    });
+
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    } else {
+      print("Elseye girdi mounted: $mounted");
+    }
+    // setState(() {
+    //   isLoading = false;
+    // });
   }
 
   @override
@@ -83,16 +92,17 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                   labelColor: ProductColor.pink,
                                   // labelColor: ProductColor.pink ,
                                   overlayColor: MaterialStateColor.resolveWith(
-                                          (states) => ProductColor.lightPurple),
+                                      (states) => ProductColor.lightPurple),
                                   unselectedLabelColor: ProductColor.black,
                                   tabs: [
                                     Tab(
                                         child: Text("Followers",
                                             style: TextStyle(
-                                                fontSize: _fontSize+1))),
-                                    Tab(child: Text("Following",
-                                        style: TextStyle(
-                                            fontSize: _fontSize+1))),
+                                                fontSize: _fontSize + 1))),
+                                    Tab(
+                                        child: Text("Following",
+                                            style: TextStyle(
+                                                fontSize: _fontSize + 1))),
                                   ],
                                 ),
                               ),

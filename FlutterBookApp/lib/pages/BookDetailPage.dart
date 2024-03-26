@@ -66,20 +66,22 @@ class _BookDetailPageState extends State<BookDetailPage> {
       appBar: AppBar(title: const Text("Recommended Book Page")),
       backgroundColor: ProductColor.darkWhite,
       body: Padding(
-        padding: const EdgeInsets.only(top: 30),
+        padding: const EdgeInsets.only(top: 20),
         child: Stack(children: [
           Padding(
-            padding: const EdgeInsets.only(top: 90, left: 25, right: 25),
+            padding: const EdgeInsets.only(top: 110, left: 25, right: 25),
             child: ContainerWithBoxDecoration(
               child: Container(
-                height: 550,
+                height: 570,
                 color: ProductColor.white,
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(left: 10.0,right: 10,bottom: 10),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment:CrossAxisAlignment.center,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -125,20 +127,41 @@ class _BigCardDesign extends StatelessWidget {
       // padding: const EdgeInsets.all(30),
       padding: const EdgeInsets.all(30),
       child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             getBookHeader(),
-            const SizedBox(height: 25),
-            getAuthorData(),
-            const SizedBox(height: 45),
+            Column(children: [
+              const SizedBox(height: 10),
+              getReview(),
+              const SizedBox(height: 25),
+              getAuthorData(),
+              const SizedBox(height: 45),
+            ]),
             SizedBox(width: 250, child: getButton())
           ]),
     );
   }
 
+  Column getReview() {
+    return Column(
+            children: [
+              Row(
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  getBookRatingShape(book.point),
+                  // getAveragePointText(widget.book.point)
+                ],
+              ),
+              getReviewText(book.totalRead),
+            ],
+          );
+  }
+
   SizedBox getBookHeader() {
     return SizedBox(
-      height: 100,
+      height: 50,
       child: SingleChildScrollView(
         child: Column(
           // crossAxisAlignment: CrossAxisAlignment.center,
@@ -150,19 +173,6 @@ class _BigCardDesign extends StatelessWidget {
               textSize: book.name.length <= 20 ? 25 : 20,
               textColor: ProductColor.black,
               fontWeight: FontWeight.bold,
-            ),
-            Column(
-              children: [
-                Row(
-                  // crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    getBookRatingShape(book.point),
-                    // getAveragePointText(widget.book.point)
-                  ],
-                ),
-                getReviewText(book.totalRead),
-              ],
             ),
             /*const SizedBox(height: 25),
             getAuthorData()*/

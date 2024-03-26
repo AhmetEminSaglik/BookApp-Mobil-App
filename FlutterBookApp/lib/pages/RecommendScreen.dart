@@ -39,9 +39,16 @@ class _RecommendScreenState extends State<RecommendScreen> {
     await retrieveBookList();
     print(" recbookArr size : ${recBookArr.length}");
     recBook = recBookArr[recBookArr.length - 1];
-    setState(() {
-      isLoading = false;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }else{
+      print("Elseye girdi mounted: $mounted");
+    }
+    // setState(() {
+    //   isLoading = false;
+    // });
   }
 
   retrieveUserList() async {

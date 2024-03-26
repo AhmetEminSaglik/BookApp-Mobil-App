@@ -12,7 +12,9 @@ import '../util/ProductColor.dart';
 
 class MyReadBookScreen extends StatefulWidget {
   MyReadBookScreen({super.key});
+
   bool _isInit = false;
+
   @override
   State<MyReadBookScreen> createState() => _MyReadBookScreenState();
 }
@@ -27,9 +29,17 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
     log.i("Read book data is retrieved");
     context.read<MyReadBookScreenCubit>().resetUpdateValue();
     await _retrieveReadBookList();
-    setState(() {
-      isLoading = false;
-    });
+
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    } else {
+      print("Elseye girdi mounted: $mounted");
+    }
+    // setState(() {
+    //   isLoading = false;
+    // });
   }
 
   _retrieveReadBookList() async {

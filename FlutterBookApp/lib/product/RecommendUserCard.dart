@@ -54,7 +54,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
 
   @override
   Widget build(BuildContext context) {
-    print("Gelen User Card ${widget.recData.data}");
+    // print("Gelen User Card ${widget.recData.data}");
     return SizedBox(
       height: imgHeight * 1.7,
       child: Column(
@@ -211,12 +211,12 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   }
 
   Padding getImage(BuildContext context) {
-    print(">>>>>>>>>>>>>>>>>>>>>>>>>${ Image.network(
+/*    print(">>>>>>>>>>>>>>>>>>>>>>>>>${ Image.network(
       widget.recData.data.imgUrl,
       fit: BoxFit.fitWidth,
       // height: imgHeight,
       width: imgWidth,
-    )}");
+    )}");*/
 
     return Padding(
         padding: EdgeInsets.only(top: padding),

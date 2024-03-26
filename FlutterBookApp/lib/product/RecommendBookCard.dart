@@ -40,9 +40,11 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
 
   _retrieveReadBookData() async {
     await _retrieveReadBookList();
-    setState(() {
-      isLoading = false;
-    });
+
+      setState(() {
+        isLoading = false;
+      });
+
   }
 
   _retrieveReadBookList() async {

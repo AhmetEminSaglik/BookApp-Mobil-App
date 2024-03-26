@@ -125,7 +125,7 @@ class _BookCardState extends State<BookCard> {
                     Text(
                       "${widget.book.totalRead} Reviews",
                       style: const TextStyle(
-                          fontSize: 15,
+                          fontSize:16,
                           fontWeight: FontWeight.bold,
                           color: ProductColor.grey),
                     ),
@@ -135,7 +135,7 @@ class _BookCardState extends State<BookCard> {
                         getShortDesc(widget.book.desc),
                         maxLines: 2,
                         style:
-                        const TextStyle(fontSize: 15, color: ProductColor.grey),
+                        const TextStyle(fontSize: 16, color: ProductColor.grey),
                       ),
                     )
                   ],),
@@ -215,12 +215,12 @@ class _BookCardState extends State<BookCard> {
   Text getShortTitle(String title) {
     final int maxChar = 40;
     final int firstLineMaxChar = 20;
-    double fontSize = 18;
+    double fontSize = 20;
     if (title.trim().length > maxChar) {
       title = "${title.substring(0, maxChar).trim()}...";
     }
     if (title.length > firstLineMaxChar) {
-      fontSize = 17;
+      fontSize = 18.5;
     }
 
     Text text = Text(
