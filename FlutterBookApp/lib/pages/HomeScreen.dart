@@ -16,16 +16,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   final titles = ["My Books", "Recommends", "Profile"];
-  final colors = [
-    ProductColor.green,
-    ProductColor.blue,
-    ProductColor.pink
-  ];
-  final screens = [
-    const MyReadBookScreen(),
-    const RecommendScreen(),
-    const ProfilScreen()
-  ];
+  final colors = [ProductColor.green, ProductColor.blue, ProductColor.pink];
+
+  final screens = [MyReadBookScreen(), RecommendScreen(), ProfilScreen()];
   final backgroundColor = Colors.blue;
 
   @override

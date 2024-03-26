@@ -56,7 +56,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   Widget build(BuildContext context) {
     print("Gelen User Card ${widget.recData.data}");
     return SizedBox(
-      height: imgHeight * 1.8,
+      height: imgHeight * 1.7,
       child: Column(
         children: [
           Row(

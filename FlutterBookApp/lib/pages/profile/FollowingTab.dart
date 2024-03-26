@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/pages/profile/UserCard.dart';
-
-import '../../model/User.dart';
 import '../../util/ProductColor.dart';
 import '../../util/ResponsiveDesign.dart';
 
@@ -23,7 +21,7 @@ class _FollowingTabState extends State<FollowingTab> {
     return Column(
       children: [
         Container(
-          color: ProductColor.lightBlue,
+          color: ProductColor.pink,
           child: Padding(
             padding: const EdgeInsets.only(left: 30, top: 10, bottom: 10),
             child: Row(

@@ -52,7 +52,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: imgHeight * 1.8,
+      height: imgHeight * 1.7,
       child: Column(
         children: [
           Row(

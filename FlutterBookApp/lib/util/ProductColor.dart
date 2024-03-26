@@ -11,6 +11,7 @@ class ProductColor {
   static const red = Color(0xFFE70C3B);
   static const green = Color(0xFF41C70C);
   static const pink = Colors.pink;
+  static const lightPink = Color(0xFFF170C6);
   // static const lightBlue = Colors.lightBlue;
 
   static const BY_FRIEND = Color(0xFFEA6707);

@@ -171,7 +171,7 @@ public class UserController {
     @GetMapping("/count/book")
     public DataResult<Integer> getUserReadBookCount(@RequestParam long userId) {
         int count = bookService.getUserReadBookCount(userId);
-        String msg = "User(" + userId + " book count (" + count + ") is retrieved.";
+        String msg = "User ID(" + userId + ") book count (" + count + ") is retrieved.";
         log.info("Msg : " + msg);
         return new SuccessDataResult<>(count, msg);
     }

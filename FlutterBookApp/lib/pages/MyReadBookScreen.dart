@@ -11,15 +11,15 @@ import '../product/BookCard.dart';
 import '../util/ProductColor.dart';
 
 class MyReadBookScreen extends StatefulWidget {
-  const MyReadBookScreen({super.key});
-
+  MyReadBookScreen({super.key});
+  bool _isInit = false;
   @override
   State<MyReadBookScreen> createState() => _MyReadBookScreenState();
 }
 
 class _MyReadBookScreenState extends State<MyReadBookScreen> {
   var log = Logger(printer: PrettyPrinter(colors: false));
-  List<Book> bookList = [];
+  static List<Book> bookList = [];
   late List<Book> readBookList;
   bool isLoading = true;
 
@@ -39,7 +39,11 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
   @override
   void initState() {
     super.initState();
-    _retrieveReadBookData();
+    if (!widget._isInit) {
+      print("MyReadBookScreen > initState ");
+      _retrieveReadBookData();
+      widget._isInit = true;
+    }
   }
 
   @override
@@ -70,8 +74,6 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
     );
   }
 
-
-
   Column _BookCardColumn() {
     Column column = Column(children: []);
     for (int i = 0; i < bookList.length; i++) {
@@ -81,7 +83,7 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
         // isBookRead: isBookReadByUser(bookList[i]),
       );
       column.children.add(Padding(
-        padding: const EdgeInsets.only(left: 10,top: 10),
+        padding: const EdgeInsets.only(left: 10, top: 10),
         child: _bookCard,
       ));
     }
@@ -101,6 +103,7 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
   }
 }
 
+/*
 String getShortDesc(String desc) {
   if (desc.trim().length == 0) {
     return "- - -";
@@ -121,3 +124,4 @@ String getShortTitle(String title) {
   }
   return title;
 }
+*/

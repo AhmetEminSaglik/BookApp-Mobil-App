@@ -15,8 +15,8 @@ import '../model/User.dart';
 import '../util/ResponsiveDesign.dart';
 
 class RecommendScreen extends StatefulWidget {
-  const RecommendScreen({Key? key}) : super(key: key);
-
+  RecommendScreen({Key? key}) : super(key: key);
+  bool _isInit = false;
   @override
   State<RecommendScreen> createState() => _RecommendScreenState();
 }
@@ -26,8 +26,8 @@ class _RecommendScreenState extends State<RecommendScreen> {
   var log = Logger(printer: PrettyPrinter(colors: false));
   List<UserFriendDTO> userFrienDTOList = [];
   List<Book> bookList = [];
-  List<RecommendData<Book>> recBookArr = [];
-  List<RecommendData<UserFriendDTO>> recUserFriendDTOArr = [];
+  static List<RecommendData<Book>> recBookArr = [];
+  static List<RecommendData<UserFriendDTO>> recUserFriendDTOArr = [];
   List<RecommendData<Object>> list = [];
 
   // late Book book;
@@ -115,7 +115,11 @@ class _RecommendScreenState extends State<RecommendScreen> {
   @override
   void initState() {
     super.initState();
-    retrieveRecommendData();
+    if (!widget._isInit) {
+      print("MyReadBookScreen > initState ");
+      retrieveRecommendData();
+      widget._isInit = true;
+    }
   }
 
 

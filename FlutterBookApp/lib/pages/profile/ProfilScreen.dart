@@ -15,7 +15,8 @@ import '../../model/User.dart';
 import 'FollowerTab.dart';
 
 class ProfilScreen extends StatefulWidget {
-  const ProfilScreen({super.key});
+    ProfilScreen({super.key});
+  bool _isInit = false;
 
   @override
   State<ProfilScreen> createState() => _ProfilScreenState();
@@ -25,16 +26,21 @@ class _ProfilScreenState extends State<ProfilScreen> {
   final User _user = SharedPrefUtils.getUser();
   final double _fontSize = ResponsiveDesign.height() / 50;
   final double _numberFontSize = ResponsiveDesign.height() / 35;
-  int bookCount = 0;
-  bool isLoading = true;
+  static int bookCount = 0;
+  late bool isLoading;
   final double _profileItemSpace = 10;
-  late List<UserFriendDTO> followingList;
-  late List<UserFriendDTO> followerList;
+  static late List<UserFriendDTO> followingList;
+  static late List<UserFriendDTO> followerList;
 
   @override
   void initState() {
     super.initState();
-    _retrieveAllData();
+    isLoading = !(widget._isInit);
+    if (!widget._isInit) {
+      print("MyReadBookScreen > initState ");
+      _retrieveAllData();
+      widget._isInit = true;
+    }
   }
 
   _retrieveAllData() async {
@@ -73,7 +79,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                 automaticallyImplyLeading: false,
                                 bottom: TabBar(
                                   indicatorColor: ProductColor.pink,
-                                  dividerColor: ProductColor.lightBlue,
+                                  // dividerColor: ProductColor.lightBlue,
                                   labelColor: ProductColor.pink,
                                   // labelColor: ProductColor.pink ,
                                   overlayColor: MaterialStateColor.resolveWith(

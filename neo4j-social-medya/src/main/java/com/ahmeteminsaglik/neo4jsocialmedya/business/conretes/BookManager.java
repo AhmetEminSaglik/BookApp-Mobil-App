@@ -96,7 +96,7 @@ public class BookManager implements BookService {
     private List<Book> setAuthorOfBooksByMatching(List<Book> bookList) {
         bookList.forEach(e -> {
             e.setAuthor(authorRepo.findAuthorOfBook(e.getId()));
-            System.out.println("AUTHOR : " + e.getAuthor());
+//            System.out.println("AUTHOR : " + e.getAuthor());
         });
 
         return bookList;

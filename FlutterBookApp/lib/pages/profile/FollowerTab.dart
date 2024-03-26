@@ -40,7 +40,7 @@ class _FollowersTabState extends State<FollowersTab> {
     return Column(
       children: [
         Container(
-          color: ProductColor.lightBlue,
+          color: ProductColor.lightPink,
           child: Padding(
             padding: const EdgeInsets.only(left: 30, top: 10, bottom: 10),
             child: Row(
