@@ -137,6 +137,7 @@ public class UserController {
     public Result removeUserFollowerRelationshipUser(@PathVariable long userId, @PathVariable long followerUserId) {
         userService.removeUserFollowerRelationshipUser(userId, followerUserId);
         log.info("Follower is removed :  "+followerUserId);
+        userService.fixUserData();
         return new SuccessResult("Relationship is deleted");
     }
 

@@ -33,14 +33,8 @@ class _ProfileUserFriendCardState extends State<ProfileUserFriendCard> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _fillValues();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    _fillValues();
     return Container(
       color:
           widget.index % 2 == 0 ? ProductColor.darkWhite1 : ProductColor.white,
@@ -62,7 +56,7 @@ class _ProfileUserFriendCardState extends State<ProfileUserFriendCard> {
               child: getUsersReadBookCount(),
             ),
             InkWell(
-              onTap: () => removeFollower(widget.userDTO),
+              onTap: () => removeFollower(userDTO),
               child: const Icon(
                 Icons.delete,
                 color: ProductColor.red,
@@ -76,11 +70,12 @@ class _ProfileUserFriendCardState extends State<ProfileUserFriendCard> {
   }
 
   void removeFollower(UserFriendDTO userFriendDTO) async {
-    bool result = await HttpRequestUser.removeFollower(userFriendDTO.id);
-    // bool result = true;
+    // bool result = await HttpRequestUser.removeFollower(userFriendDTO.id);
+    bool result = true;
     String msg = "";
     if (result) {
-      msg = "${userFriendDTO.name} ${userFriendDTO.lastname} is succesfully removed";
+      msg =
+          "${userFriendDTO.name} ${userFriendDTO.lastname} is succesfully removed";
       context.read<FollowerRemoveCubit>().removeFromList(userFriendDTO);
     } else {
       msg = "Failed. Follower is not removed.";

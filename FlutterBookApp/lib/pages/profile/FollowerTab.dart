@@ -28,8 +28,6 @@ class _FollowersTabState extends State<FollowersTab> {
   Column getUserList() {
     Column column = Column(children: []);
     for (int i = 0; i < widget.list.length; i++) {
-      print(
-          "FollowerTabl user : ${widget.list[i].name + widget.list[i].lastname}");
       ProfileUserFriendCard userCard = ProfileUserFriendCard(
         userDTO: widget.list[i],
         index: i,
