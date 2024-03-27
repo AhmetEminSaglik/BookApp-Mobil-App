@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/BookAddRemoveCubit.dart';
 import 'package:flutter_book_app/cubit/FollowerRemoveCubit.dart';
+import 'package:flutter_book_app/cubit/FollowingRemoveCubit.dart';
 import 'package:flutter_book_app/cubit/MyBookReadScreenCubit.dart';
 import 'package:flutter_book_app/cubit/UserBookActionCubit.dart';
 import 'package:flutter_book_app/cubit/login/LoginCubit.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => BookAddRemoveCubit()),
           BlocProvider(create: (context) => MyReadBookScreenCubit()),
           BlocProvider(create: (context) => FollowerRemoveCubit()),
+          BlocProvider(create: (context) => FollowingRemoveCubit()),
         ],
         child: const MaterialApp(
           debugShowCheckedModeBanner: false,

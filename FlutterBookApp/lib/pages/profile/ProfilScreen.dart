@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_book_app/cubit/FollowingRemoveCubit.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
 import 'package:flutter_book_app/model/UserFriendDTOCubitData.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
@@ -120,15 +121,37 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                   log.i(
                                       "${state?.userFriendDTO.name} ${state?.userFriendDTO.lastname} : >>BlocBuilder<FollowerRemoveCubit,>>> girdi");
                                   if (state != null &&
-                                      followerList.contains(state.userFriendDTO)) {
-                                    print("before delete ${followerList.length}");
-                                    removeFollowerFromList(state.userFriendDTO);
-                                    print("before delete ${followerList.length}");
+                                      followerList
+                                          .contains(state.userFriendDTO)) {
+                                    print(
+                                        "followerList before delete ${followerList.length}");
+                                    // removeFollowerFromList(state.userFriendDTO);
+                                    removeFromList(
+                                        followerList, state.userFriendDTO);
+                                    print(
+                                        "followerListbefore delete ${followerList.length}");
                                   }
                                   // return const Center(child: CircularProgressIndicator());
                                   return FollowersTab(list: followerList);
                                 }),
-                                FollowingTab(list: followingList),
+                                BlocBuilder<FollowingRemoveCubit,
+                                        UserFriendDTOCubitData?>(
+                                    builder: (builder, state) {
+                                  log.i(
+                                      "${state?.userFriendDTO.name} ${state?.userFriendDTO.lastname} : >>BlocBuilder<FollowerRemoveCubit,>>> girdi");
+                                  if (state != null &&
+                                      followingList
+                                          .contains(state.userFriendDTO)) {
+                                    print(
+                                        "followingList before delete ${followingList.length}");
+                                    removeFromList(
+                                        followingList, state.userFriendDTO);
+                                    print(
+                                        "followingList before delete ${followerList.length}");
+                                  }
+                                  // return const Center(child: CircularProgressIndicator());
+                                  return FollowingTab(list: followingList);
+                                }),
                               ],
                             ),
                           )),
@@ -140,12 +163,12 @@ class _ProfilScreenState extends State<ProfilScreen> {
     );
   }
 
-  void removeFollowerFromList(UserFriendDTO object) {
-    for (int i = 0; i < followerList.length; i++) {
-      if (followerList[i].id == object.id) {
-        followerList.removeAt(i);
-      }
-    }
+  void removeFromList(List<Object> list, UserFriendDTO object) {
+    // for (int i = 0; i < list.length; i++) {
+    //   if(list[i]==object){
+    list.remove(object);
+    // }
+    // }
   }
 
   /*
@@ -213,7 +236,20 @@ class _ProfilScreenState extends State<ProfilScreen> {
   Column getFollowingNumber() {
     return Column(
       children: [
-        Text("${_user.following}", style: TextStyle(fontSize: _numberFontSize)),
+        // Text("${_user.following}", style: TextStyle(fontSize: _numberFontSize)),
+        BlocBuilder<FollowingRemoveCubit, UserFriendDTOCubitData?>(
+            builder: (builder, state) {
+          print("State : $state");
+          if (state?.updateProfilFollowerValue == true) {
+            print(
+                "burasi calisti : >>>>>>>>>>>>>>>>>>>  list size :${followingList.length}");
+          } else {
+            print(
+                "burasi calisti :ELSEEEEEEEE >>>>>>>>>>>>>>>>>>>  list size :${followingList.length}");
+          }
+          return Text("${followingList.length}",
+              style: TextStyle(fontSize: _numberFontSize));
+        }),
         Text(
           "Following",
           style: TextStyle(fontSize: _fontSize),
@@ -227,11 +263,13 @@ class _ProfilScreenState extends State<ProfilScreen> {
       children: [
         BlocBuilder<FollowerRemoveCubit, UserFriendDTOCubitData?>(
             builder: (builder, state) {
-              print("State : $state");
+          print("State : $state");
           if (state?.updateProfilFollowerValue == true) {
-            print("burasi calisti : >>>>>>>>>>>>>>>>>>>  list size :${followerList.length}");
-          }else{
-            print("burasi calisti :ELSEEEEEEEE >>>>>>>>>>>>>>>>>>>  list size :${followerList.length}");
+            print(
+                "burasi calisti : >>>>>>>>>>>>>>>>>>>  list size :${followerList.length}");
+          } else {
+            print(
+                "burasi calisti :ELSEEEEEEEE >>>>>>>>>>>>>>>>>>>  list size :${followerList.length}");
           }
           return Text("${followerList.length}",
               style: TextStyle(fontSize: _numberFontSize));

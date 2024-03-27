@@ -11,10 +11,13 @@ import '../../util/CustomSnackBar.dart';
 
 class ProfileUserFriendCard extends StatefulWidget {
   ProfileUserFriendCard(
-      {super.key, required this.userDTO, required this.index});
+      {super.key,
+      required this.userDTO,
+      required this.index,
+      required this.removeConnection});
 
   int index;
-
+  final void Function(UserFriendDTO userFriendDTO) removeConnection;
   UserFriendDTO userDTO;
 
   @override
@@ -56,7 +59,7 @@ class _ProfileUserFriendCardState extends State<ProfileUserFriendCard> {
               child: getUsersReadBookCount(),
             ),
             InkWell(
-              onTap: () => removeFollower(userDTO),
+              onTap: () => widget.removeConnection(userDTO),
               child: const Icon(
                 Icons.delete,
                 color: ProductColor.red,
@@ -67,23 +70,6 @@ class _ProfileUserFriendCardState extends State<ProfileUserFriendCard> {
         ),
       ),
     );
-  }
-
-  void removeFollower(UserFriendDTO userFriendDTO) async {
-    bool result = await HttpRequestUser.removeFollower(userFriendDTO.id);
-    String msg = "";
-    if (result) {
-      msg =
-          "${userFriendDTO.name} ${userFriendDTO.lastname} is succesfully removed";
-      context.read<FollowerRemoveCubit>().removeFromList(userFriendDTO);
-    } else {
-      msg = "Failed. Follower is not removed.";
-    }
-    showToastMsg(msg);
-  }
-
-  void showToastMsg(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar.getSnackBar(msg));
   }
 
   Text getUsersReadBookCount() {

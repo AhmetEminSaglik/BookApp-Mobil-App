@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_book_app/cubit/FollowingRemoveCubit.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/pages/profile/ProfileUserFriendCard.dart';
+import '../../httprequest/HttpRequestUser.dart';
+import '../../util/CustomSnackBar.dart';
 import '../../util/ProductColor.dart';
 import '../../util/ResponsiveDesign.dart';
 
@@ -58,9 +63,28 @@ class _FollowingTabState extends State<FollowingTab> {
       ProfileUserFriendCard userCard = ProfileUserFriendCard(
         userDTO: widget.list[i],
         index: i,
+        removeConnection: removeFollowing,
       );
       column.children.add(userCard);
     }
     return column;
+  }
+
+  void removeFollowing(UserFriendDTO userFriendDTO) async {
+    print("removeFollower function calisti");
+    bool result = await HttpRequestUser.removeFollowing(userFriendDTO.id);
+    String msg = "";
+    if (result) {
+      msg =
+          "${userFriendDTO.name} ${userFriendDTO.lastname} is succesfully removed";
+      context.read<FollowingRemoveCubit>().removeFromList(userFriendDTO);
+    } else {
+      msg = "Failed. Following is not removed.";
+    }
+    showToastMsg(msg);
+  }
+
+  void showToastMsg(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar.getSnackBar(msg));
   }
 }
