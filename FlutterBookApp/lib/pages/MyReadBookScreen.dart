@@ -11,7 +11,6 @@ import '../util/ProductColor.dart';
 class MyReadBookScreen extends StatefulWidget {
   MyReadBookScreen({super.key});
 
-  bool _isInit = false;
 
   @override
   State<MyReadBookScreen> createState() => _MyReadBookScreenState();
@@ -19,7 +18,7 @@ class MyReadBookScreen extends StatefulWidget {
 
 class _MyReadBookScreenState extends State<MyReadBookScreen> {
   var log = Logger(printer: PrettyPrinter(colors: false));
-  static List<Book> bookList = [];
+  List<Book> bookList = [];
   late List<Book> readBookList;
   bool isLoading = true;
 
@@ -47,11 +46,8 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
   @override
   void initState() {
     super.initState();
-    if (!widget._isInit) {
       print("MyReadBookScreen > initState ");
       _retrieveReadBookData();
-      widget._isInit = true;
-    }
   }
 
   @override
@@ -69,7 +65,7 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
               : SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        left: 20, right: 10, top: 10, bottom: 10),
+                        left: 25, right: 0, top: 25, bottom:25),
                     child: Column(
                       children: [
                         SingleChildScrollView(child: _BookCardColumn()),
@@ -90,10 +86,7 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
         index: (bookList.length - i),
         // isBookRead: isBookReadByUser(bookList[i]),
       );
-      column.children.add(Padding(
-        padding: const EdgeInsets.only(left: 10, top: 10),
-        child: bookCard,
-      ));
+      column.children.add(bookCard);
     }
     return column;
   }

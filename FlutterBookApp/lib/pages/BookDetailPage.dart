@@ -62,7 +62,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Recommended Book Page")),
       backgroundColor: ProductColor.darkWhite,
-      body: Padding(
+      body:
+      isLoading ? const Center(child: CircularProgressIndicator()):
+      Padding(
         padding: const EdgeInsets.only(top: 20),
         child: Stack(children: [
           Padding(

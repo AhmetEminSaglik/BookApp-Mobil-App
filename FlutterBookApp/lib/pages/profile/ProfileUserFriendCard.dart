@@ -70,8 +70,7 @@ class _ProfileUserFriendCardState extends State<ProfileUserFriendCard> {
   }
 
   void removeFollower(UserFriendDTO userFriendDTO) async {
-    // bool result = await HttpRequestUser.removeFollower(userFriendDTO.id);
-    bool result = true;
+    bool result = await HttpRequestUser.removeFollower(userFriendDTO.id);
     String msg = "";
     if (result) {
       msg =

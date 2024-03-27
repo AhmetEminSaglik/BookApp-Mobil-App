@@ -87,52 +87,49 @@ class _ProfilScreenState extends State<ProfilScreen> {
                       // height: 300,
                       child: DefaultTabController(
                           length: 2,
-                          child: Container(
-                            color: ProductColor.orange,
-                            child: Scaffold(
-                              appBar: AppBar(
-                                toolbarHeight: 0,
-                                leading: null,
-                                automaticallyImplyLeading: false,
-                                bottom: TabBar(
-                                  indicatorColor: ProductColor.pink,
-                                  // dividerColor: ProductColor.lightBlue,
-                                  labelColor: ProductColor.pink,
-                                  // labelColor: ProductColor.pink ,
-                                  overlayColor: MaterialStateColor.resolveWith(
-                                      (states) => ProductColor.lightPurple),
-                                  unselectedLabelColor: ProductColor.black,
-                                  tabs: [
-                                    Tab(
-                                        child: Text("Followers",
-                                            style: TextStyle(
-                                                fontSize: _fontSize + 1))),
-                                    Tab(
-                                        child: Text("Following",
-                                            style: TextStyle(
-                                                fontSize: _fontSize + 1))),
-                                  ],
-                                ),
-                              ),
-                              body: TabBarView(
-                                children: [
-                                  BlocBuilder<FollowerRemoveCubit,
-                                          UserFriendDTOCubitData?>(
-                                      builder: (builder, state) {
-                                    log.i(
-                                        "${state?.userFriendDTO.name} ${state?.userFriendDTO.lastname} : >>BlocBuilder<FollowerRemoveCubit,>>> girdi");
-                                    if (state != null &&
-                                        followerList.contains(state.userFriendDTO)) {
-                                      print("before delete ${followerList.length}");
-                                      removeFollowerFromList(state.userFriendDTO);
-                                      print("before delete ${followerList.length}");
-                                    }
-                                    // return const Center(child: CircularProgressIndicator());
-                                    return FollowersTab(list: followerList);
-                                  }),
-                                  FollowingTab(list: followingList),
+                          child: Scaffold(
+                            appBar: AppBar(
+                              toolbarHeight: 0,
+                              leading: null,
+                              automaticallyImplyLeading: false,
+                              bottom: TabBar(
+                                indicatorColor: ProductColor.pink,
+                                // dividerColor: ProductColor.lightBlue,
+                                labelColor: ProductColor.pink,
+                                // labelColor: ProductColor.pink ,
+                                overlayColor: MaterialStateColor.resolveWith(
+                                    (states) => ProductColor.lightPurple),
+                                unselectedLabelColor: ProductColor.black,
+                                tabs: [
+                                  Tab(
+                                      child: Text("Followers",
+                                          style: TextStyle(
+                                              fontSize: _fontSize + 1))),
+                                  Tab(
+                                      child: Text("Following",
+                                          style: TextStyle(
+                                              fontSize: _fontSize + 1))),
                                 ],
                               ),
+                            ),
+                            body: TabBarView(
+                              children: [
+                                BlocBuilder<FollowerRemoveCubit,
+                                        UserFriendDTOCubitData?>(
+                                    builder: (builder, state) {
+                                  log.i(
+                                      "${state?.userFriendDTO.name} ${state?.userFriendDTO.lastname} : >>BlocBuilder<FollowerRemoveCubit,>>> girdi");
+                                  if (state != null &&
+                                      followerList.contains(state.userFriendDTO)) {
+                                    print("before delete ${followerList.length}");
+                                    removeFollowerFromList(state.userFriendDTO);
+                                    print("before delete ${followerList.length}");
+                                  }
+                                  // return const Center(child: CircularProgressIndicator());
+                                  return FollowersTab(list: followerList);
+                                }),
+                                FollowingTab(list: followingList),
+                              ],
                             ),
                           )),
                     ),

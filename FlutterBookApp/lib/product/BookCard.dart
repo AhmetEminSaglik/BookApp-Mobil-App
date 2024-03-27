@@ -22,8 +22,8 @@ class BookCard extends StatefulWidget {
 class _BookCardState extends State<BookCard> {
   var log = Logger(printer: PrettyPrinter(colors: false));
 
-  final double imgWidth = ResponsiveDesign.width() / 6.5;
-  final double imgHeight = ResponsiveDesign.height() / 6.5;
+  final double imgWidth = ResponsiveDesign.width() / 5.5;
+  final double imgHeight = ResponsiveDesign.height() / 6;
   final double padding = ResponsiveDesign.height() / 65;
   bool isLoading = true;
 
@@ -46,7 +46,7 @@ class _BookCardState extends State<BookCard> {
   Widget build(BuildContext context) {
     // _retrieveUserReadThisBook();
     return SizedBox(
-      height: imgHeight * 1.7,
+      height: imgHeight * 1.85,
       child: Column(
         children: [
           Row(
@@ -59,14 +59,14 @@ class _BookCardState extends State<BookCard> {
                     },
                     child: getBookCardContent(),
                   ),
-                  Row(
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.only(
-                              top: ResponsiveDesign.height() / 100),
-                          child: getBookImage(context)),
-                      getChevron(),
-                    ],
+                  Padding(
+                    padding: EdgeInsets.only(top: ResponsiveDesign.height() / 50),
+                    child: Row(
+                      children: [
+                        getBookImage(context),
+                        getChevron(),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -87,7 +87,7 @@ class _BookCardState extends State<BookCard> {
         child: Container(
           // width: 295,
           width: ResponsiveDesign.width() - contentWidth - 5.5 * padding,
-          height: imgHeight + 5.5 * padding,
+          height: imgHeight + 7 * padding,
           color: ProductColor.white,
           child: Padding(
             padding: EdgeInsets.only(left: imgWidth, top: 10),

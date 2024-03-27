@@ -22,8 +22,8 @@ class RecommendUserCard extends StatefulWidget {
 class _RecommendUserCardState extends State<RecommendUserCard> {
   var log = Logger(printer: PrettyPrinter(colors: false));
 
-  final double imgWidth = ResponsiveDesign.width() / 5;
-  final double imgHeight = ResponsiveDesign.height() / 6.5;
+  final double imgWidth = ResponsiveDesign.width() / 5.5;
+  final double imgHeight = ResponsiveDesign.height() / 6;
   final double padding = ResponsiveDesign.height() / 65;
 
   bool isLoading = true;
@@ -34,19 +34,21 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   void initState() {
     super.initState();
     // _retrieveReadBookData();
-    print("UserCard initState calisti");
+    print("Recommended UserCard initState");
   }
 
+/*
   _retrieveReadBookData() async {
     await _retrieveUserList();
     setState(() {
       isLoading = false;
     });
   }
+*/
 
-  _retrieveUserList() async {
+/*  _retrieveUserList() async {
     // bookList = await HttpRequestBook.getReadBookList();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +69,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsets.only(top: ResponsiveDesign.height() / 30),
+                        EdgeInsets.only(top: ResponsiveDesign.height() / 20),
                     child: Row(
                       children: [
                         getImage(context),
@@ -103,11 +105,11 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
       child: ContainerWithBoxDecoration(
         child: Container(
           // width: 295,
-          width: ResponsiveDesign.width() - contentWidth - 5 * padding,
-          height: imgHeight + 5.5 * padding,
+          width: ResponsiveDesign.width() - contentWidth - 5.5 * padding,
+          height: imgHeight + 4.5 * padding,
           color: ProductColor.white,
           child: Padding(
-            padding: EdgeInsets.only(left: imgWidth * 0.75, top: 10),
+            padding: EdgeInsets.only(left: imgWidth, top: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -188,7 +190,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   Padding getChevron() {
     return Padding(
       padding: EdgeInsets.only(
-          left: ResponsiveDesign.width() - imgWidth - 7.5 * padding),
+          left: ResponsiveDesign.width() - imgWidth - 8 * padding),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2, color: ProductColor.white),

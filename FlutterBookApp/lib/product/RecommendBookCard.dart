@@ -22,21 +22,21 @@ class RecommendBookCard extends StatefulWidget {
 class _RecommendBookCardState extends State<RecommendBookCard> {
   var log = Logger(printer: PrettyPrinter(colors: false));
 
-  final double imgWidth = ResponsiveDesign.width() / 6.5;
-  final double imgHeight = ResponsiveDesign.height() / 6.5;
+  final double imgWidth = ResponsiveDesign.width() / 5.5;
+  final double imgHeight = ResponsiveDesign.height() / 6;
   final double padding = ResponsiveDesign.height() / 65;
 
   bool isLoading = true;
-  List<Book> bookList = [];
+  // List<Book> bookList = [];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _retrieveReadBookData();
+    print("Recommended BookCard initState");
+    // _retrieveReadBookData();
   }
 
-  _retrieveReadBookData() async {
+  /*_retrieveReadBookData() async {
     await _retrieveReadBookList();
     if (mounted) {
       setState(() {
@@ -45,20 +45,19 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
     } else {
       print("Elseye girdi mounted: $mounted");
     }
-      // setState(() {
-      //   isLoading = false;
-      // });
+    // setState(() {
+    //   isLoading = false;
+    // });
+  }*/
 
-  }
-
-  _retrieveReadBookList() async {
+  /*_retrieveReadBookList() async {
     bookList = await HttpRequestBook.getReadBookList();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: imgHeight * 1.7,
+      height: imgHeight * 1.9,
       child: Column(
         children: [
           Row(
@@ -67,19 +66,19 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
                 children: [
                   InkWell(
                     onTap: () {
-                      goToDetailPage(context, widget.recData.data,
-                          isBookReadByUser(widget.recData.data));
+                      goToDetailPage(context, widget.recData.data);
                     },
                     child: getRecommendCardContent(),
                   ),
-                  Row(
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.only(
-                              top: ResponsiveDesign.height() / 100),
-                          child: getBookImage(context)),
-                      getChevron(),
-                    ],
+                  Padding(
+                    padding:
+                        EdgeInsets.only(top: ResponsiveDesign.height() / 50),
+                    child: Row(
+                      children: [
+                        getBookImage(context),
+                        getChevron(),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -90,7 +89,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
     );
   }
 
-  bool isBookReadByUser(Book book) {
+  /*bool isBookReadByUser(Book book) {
     bool isBookRead = false;
     for (var element in bookList) {
       if (element.id == book.id) {
@@ -100,7 +99,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
     }
     log.i("Book is Read : $isBookRead");
     return isBookRead;
-  }
+  }*/
 
   Padding getRecommendCardContent() {
     final double contentWidth = imgWidth / 2 + ResponsiveDesign.width() / 25;
@@ -109,8 +108,10 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
       child: ContainerWithBoxDecoration(
         child: Container(
           // width: 295,
-          width: ResponsiveDesign.width() - contentWidth - 4.5 * padding,
-          height: imgHeight + 5.5 * padding,
+          /*width: ResponsiveDesign.width() - contentWidth - 4.5 * padding,
+          height: imgHeight + 5.5 * padding,*/
+          width: ResponsiveDesign.width() - contentWidth - 5.5 * padding,
+          height: imgHeight + 7 * padding,
           color: ProductColor.white,
           child: Padding(
             padding: EdgeInsets.only(left: imgWidth, top: 5),
@@ -177,7 +178,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
   Padding getChevron() {
     return Padding(
       padding: EdgeInsets.only(
-          left: ResponsiveDesign.width() - imgWidth - 7.2 * padding),
+          left: ResponsiveDesign.width() - imgWidth - 8 * padding),
       child: Container(
         decoration: BoxDecoration(
             border: Border.all(width: 2, color: ProductColor.white),
@@ -204,8 +205,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
         padding: EdgeInsets.only(top: padding),
         child: InkWell(
           onTap: () {
-            goToDetailPage(context, widget.recData.data,
-                isBookReadByUser(widget.recData.data));
+            goToDetailPage(context, widget.recData.data);
           },
           child: ContainerWithBoxDecoration(
             child: Padding(
@@ -221,7 +221,7 @@ class _RecommendBookCardState extends State<RecommendBookCard> {
         ));
   }
 
-  void goToDetailPage(BuildContext context, Book book, bool isBookRead) {
+  void goToDetailPage(BuildContext context, Book book) {
     context.read<BookCubit>().setBook(book);
     context.read<BookCubit>().goToDetailPage(context);
   }
