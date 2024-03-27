@@ -136,7 +136,7 @@ public class UserController {
     @DeleteMapping("/{userId}/follower/{followerUserId}")
     public Result removeUserFollowerRelationshipUser(@PathVariable long userId, @PathVariable long followerUserId) {
         userService.removeUserFollowerRelationshipUser(userId, followerUserId);
-        log.info("Follower is removed :  "+followerUserId);
+        log.info("Follower is removed :  " + followerUserId);
         userService.fixUserData();
         return new SuccessResult("Relationship is deleted");
     }
@@ -144,20 +144,41 @@ public class UserController {
     @GetMapping("/recommend/user/{userId}")
     public DataResult<List<UserFriendDTO>> getRecommendedUserList(@PathVariable long userId) {
         List<User> userList = userService.findCommonUsersByFriends(userId);
-        int userSize = userList.size();
-        if (userSize < 5) {
+//        int userSize = userList.size();
+        /*if (userSize < 5) {
             List<User> userListRandom = userService.findRandomUserToRecommend(userId);
             userList.addAll(userListRandom);
             Set<User> set = new HashSet<>(userList);
             userList = new ArrayList<>(set);
-        }
+        }*/
+        List<UserFriendDTO> userDTOList = userList
+                .stream()
+                .map(userMapper::toUserFriendDTO)
+                .collect(Collectors.toList());
+        DataResult dataResult = new SuccessDataResult<>(userDTOList, "Recommended userDTO list is succesfully retrived");
+        log.info("Donecek deger : " + dataResult);
+        return dataResult;
+    }
+
+    @GetMapping("/recommend/random/user/{userId}")
+    public DataResult<List<UserFriendDTO>> getRandomRecommendedUserList(@PathVariable long userId) {
+//        List<User> userList = userService.findCommonUsersByFriends(userId);
+//        int userSize = userList.size();
+//        if (userSize < 5) {
+        List<User> userList = userService.findRandomUserToRecommend(userId);
+        Set<User> set = new HashSet<>(userList);
+        userList = new ArrayList<>(set);
+//        }
         List<UserFriendDTO> userDTOList = userList
                 .stream()
                 .map(userMapper::toUserFriendDTO)
                 .collect(Collectors.toList());
 
-        return new SuccessDataResult<>(userDTOList, "Recommended userDTO list is succesfully retrived");
+        DataResult dataResult = new SuccessDataResult<>(userDTOList, "Random userDTO list is succesfully retrived");
+        log.info("Donecek deger : " + dataResult);
+        return dataResult;
     }
+
 
     @GetMapping("/fix")
     public void fixUserData() {

@@ -12,11 +12,13 @@ class ProductColor {
   static const green = Color(0xFF41C70C);
   static const pink = Colors.pink;
   static const lightPink = Color(0xFFF170C6);
+
   // static const lightBlue = Colors.lightBlue;
 
   static const BY_FRIEND = Color(0xFFEA6707);
   static const HIGHEST_RATING = Color(0xFFB60A0A);
   static const MOST_READ = Color(0xFF1E972A);
+  static const BY_RANDOM = Color(0xFF3676F3);
 
   // static const ratingColor = Color(0xFFA50926);
   // static const ratingColor = darkBlue;
@@ -29,7 +31,6 @@ class ProductColor {
   static const darkWhite = Color(0xFFEBECEF);
   static const darkWhite1 = Color(0xFFEAE9E6);
   static const lightPurple = Color(0xFFE0BDD6);
-
 
   // static const darkWhite = Color(0xFFE3E3E5);
   static const grey = Colors.grey;

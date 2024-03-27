@@ -21,10 +21,10 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
             "RETURN b")
     Book getBookByUserIdReadBookId(@PathVariable Long userId, @PathVariable Long bookId);
 
-    @Query("MATCH (b:Book)  RETURN b ORDER BY b.point DESC LIMIT 2 ")
+    @Query("MATCH (b:Book)  RETURN b ORDER BY b.point DESC LIMIT 3 ")
     List<Book> findByHighestPoint();
 
-    @Query("MATCH (b:Book) RETURN b ORDER BY b.totalRead DESC LIMIT 2 ")
+    @Query("MATCH (b:Book) RETURN b ORDER BY b.totalRead DESC LIMIT 3 ")
     List<Book> findByHighestTotalRead();
 
     // returns user's following users' read common books to recommend users.

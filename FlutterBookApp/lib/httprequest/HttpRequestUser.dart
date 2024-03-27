@@ -29,7 +29,7 @@ class HttpRequestUser {
   static Future<List<UserFriendDTO>> getRecommendUserList() async {
     List<UserFriendDTO> userList = [];
     Uri url =
-        Uri.parse("$_baseUrl/recommend/user/${SharedPrefUtils.getUserId()}");
+    Uri.parse("$_baseUrl/recommend/user/${SharedPrefUtils.getUserId()}");
     log.i("URL : $url");
     var resp = await http.get(url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
@@ -39,6 +39,22 @@ class HttpRequestUser {
     }
     return userList;
   }
+
+  static Future<List<UserFriendDTO>> getRandomRecommendUserList() async {
+    List<UserFriendDTO> userList = [];
+    Uri url =
+    Uri.parse("$_baseUrl/recommend/random/user/${SharedPrefUtils.getUserId()}");
+    log.i("URL : $url");
+    var resp = await http.get(url);
+    Map<String, dynamic> jsonData = json.decode(resp.body);
+    ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
+    if (respEntity.success) {
+      userList = UserRepository.parseUserFriendDTOList(respEntity.data);
+    }
+    return userList;
+  }
+
+
 
   /*@POST("{userId}/read/{bookId}")
     Call<RestApiResponse> createConnectionUserReadBook(@Path("userId") long userId, @Path("bookId") long bookId);*/

@@ -14,6 +14,7 @@ import '../util/ResponsiveDesign.dart';
 
 class RecommendScreen extends StatefulWidget {
   RecommendScreen({Key? key}) : super(key: key);
+
   @override
   State<RecommendScreen> createState() => _RecommendScreenState();
 }
@@ -25,7 +26,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
   List<Book> bookList = [];
   List<RecommendData<Book>> recBookArr = [];
   List<RecommendData<UserFriendDTO>> recUserFriendDTOArr = [];
-  List<RecommendData<Object>> list = [];
+  // List<RecommendData<Object>> list = [];
 
   // late Book book;
   late RecommendData<Book> recBook;
@@ -49,16 +50,28 @@ class _RecommendScreenState extends State<RecommendScreen> {
   }
 
   retrieveUserList() async {
-    userFrienDTOList = await HttpRequestUser.getRecommendUserList();
-    for (var element in userFrienDTOList) {
+    List<UserFriendDTO> recommendedUserByFriend= await HttpRequestUser.getRecommendUserList();
+    List<UserFriendDTO> randomRecommendedUser= await HttpRequestUser.getRandomRecommendUserList();
+    for (var element in recommendedUserByFriend) {
       recUserFriendDTOArr.add(RecommendData(
           by: EnumRecommendBy.BY_FRIEND.name,
           data: element,
           color: ProductColor.BY_FRIEND));
-      list.add(RecommendData(
+      /*list.add(RecommendData(
           by: EnumRecommendBy.BY_FRIEND.name,
           data: element,
-          color: ProductColor.BY_FRIEND));
+          color: ProductColor.BY_FRIEND));*/
+    }
+
+    for (var element in randomRecommendedUser) {
+      recUserFriendDTOArr.add(RecommendData(
+          by: EnumRecommendBy.BY_RANDOM.name,
+          data: element,
+          color: ProductColor.BY_RANDOM));
+      /*list.add(RecommendData(
+          by: EnumRecommendBy.BY_RANDOM.name,
+          data: element,
+          color: ProductColor.BY_FRIEND));*/
     }
     log.i(
         "recUser data recUserFriendDTOArr length:${recUserFriendDTOArr.length} userFrienDTOList length: ${userFrienDTOList.length}");
@@ -96,8 +109,8 @@ class _RecommendScreenState extends State<RecommendScreen> {
       recBookArr.add(
           RecommendData(by: recommendBy.name, data: element, color: color));
       log.i("Book ID : ${element.name}: ${element.imgUrl}");
-      list.add(
-          RecommendData(by: recommendBy.name, data: element, color: color));
+      /*list.add(
+          RecommendData(by: recommendBy.name, data: element, color: color));*/
     }
   }
 
@@ -112,16 +125,16 @@ class _RecommendScreenState extends State<RecommendScreen> {
       recUserFriendDTOArr.add(
           RecommendData(by: recommendBy.name, data: element, color: color));
       log.i("User ID : ${element.name}: ${element.imgUrl}");
-      list.add(
-          RecommendData(by: recommendBy.name, data: element, color: color));
+      /*list.add(
+          RecommendData(by: recommendBy.name, data: element, color: color));*/
     }
   }
 
   @override
   void initState() {
     super.initState();
-      print("MyReadBookScreen > initState ");
-      retrieveRecommendData();
+    print("MyReadBookScreen > initState ");
+    retrieveRecommendData();
   }
 
   @override
@@ -210,7 +223,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
       column.children.add(recBookCard);
     }
     return Padding(
-      padding: const EdgeInsets.only(top: 15,bottom: 15,left: 25),
+      padding: const EdgeInsets.only(top: 15, bottom: 15, left: 25),
       child: column,
     );
   }
@@ -225,7 +238,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
       column.children.add(recUserCard);
     }
     return Padding(
-      padding: const EdgeInsets.only(top: 15,bottom: 15,left: 15),
+      padding: const EdgeInsets.only(top: 15, bottom: 15, left: 15),
       child: column,
     );
   }
