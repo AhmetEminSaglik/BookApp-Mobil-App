@@ -77,7 +77,6 @@ public class BookController {
         System.out.println("bookId =" + bookId);
 
         for (Book tmp : booklist) {
-            System.out.println("tmp id : " + tmp.getId());
             if (tmp.getId() == bookId) {
                 book = tmp;
                 System.out.println("ESLESDI ");

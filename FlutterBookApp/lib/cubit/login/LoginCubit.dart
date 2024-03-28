@@ -15,14 +15,12 @@ class LoginCubit extends Cubit<EnumLoginState> {
   User? user;
   var log = Logger(printer: PrettyPrinter(colors: false));
 
-
   void login(BuildContext context, String username, String password) async {
     emit(EnumLoginState.LoginLoading);
     ResponseEntity? respEntity;
     try {
       respEntity = await HttpRequestUser.login(username, password);
-    } catch (e) {
-    }
+    } catch (e) {}
     if (respEntity != null) {
       if (respEntity.success) {
         user = UserRepository.parseUser(respEntity.data);

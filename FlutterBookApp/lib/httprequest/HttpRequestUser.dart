@@ -137,4 +137,18 @@ class HttpRequestUser {
     }
     return result;
   }
+
+  static Future<bool> followUser(int userFriendId) async {
+    Uri url = Uri.parse(
+        "$_baseUrl/${SharedPrefUtils.getUserId()}/follow/$userFriendId");
+    log.i("URL : $url");
+    var resp = await http.post(url);
+    Map<String, dynamic> jsonData = json.decode(resp.body);
+    ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
+    bool result = false;
+    if (respEntity.success) {
+      result = respEntity.success;
+    }
+    return result;
+  }
 }

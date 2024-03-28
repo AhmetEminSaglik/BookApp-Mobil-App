@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/model/Recommend.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/pages/UserFriendDetailPage.dart';
 import 'package:flutter_book_app/product/RecommendUserDesignDecoration.dart';
 import 'package:logger/logger.dart';
+import '../cubit/UserFollowCubit.dart';
 import '../model/Book.dart';
+import '../model/UserFollowProcessCubitData.dart';
 import '../util/ProductColor.dart';
 import '../util/ResponsiveDesign.dart';
 import 'BookDesignDecoration.dart';
@@ -25,7 +28,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   final double imgWidth = ResponsiveDesign.width() / 5.5;
   final double imgHeight = ResponsiveDesign.height() / 6;
   final double padding = ResponsiveDesign.height() / 65;
-
+  final double fontsize = 15;
   bool isLoading = true;
 
   // List<Book> bookList = [];
@@ -52,9 +55,8 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
 
   @override
   Widget build(BuildContext context) {
-    // print("Gelen User Card ${widget.recData.data}");
     return SizedBox(
-      height: imgHeight * 1.7,
+      height: imgHeight * 1.8,
       child: Column(
         children: [
           Row(
@@ -106,7 +108,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
         child: Container(
           // width: 295,
           width: ResponsiveDesign.width() - contentWidth - 5.5 * padding,
-          height: imgHeight + 4.5 * padding,
+          height: imgHeight + 6 * padding,
           color: ProductColor.white,
           child: Padding(
             padding: EdgeInsets.only(left: imgWidth, top: 10),
@@ -118,8 +120,8 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
                       // "${widget.index}-) ${widget.recData.data.name} ${widget.recData.data.lastname}"),
                       "${widget.recData.data.name} ${widget.recData.data.lastname}"),
                   maxLines: 2,
-                  style: const TextStyle(
-                      fontSize: 19, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: fontsize + 1, fontWeight: FontWeight.bold),
                 ),
                 /*   Padding(
                   padding: const EdgeInsets.only(top: 5),
@@ -129,46 +131,57 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
                     ],
                   ),
                 ),*/
-                const SizedBox(
-                  height: 10,
-                ),
+                getSpace(),
                 Text(
                   widget.recData.by,
                   style: TextStyle(
-                      fontSize: 16,
+                      fontSize: fontsize,
                       fontWeight: FontWeight.bold,
                       color: widget.recData.color),
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
+                getSpace(),
                 Text(
                   "Total Read Book : ${widget.recData.data.totalReadBook}",
-                  style: const TextStyle(
-                      fontSize: 17,
+                  style: TextStyle(
+                      fontSize: fontsize,
                       fontWeight: FontWeight.bold,
                       color: ProductColor.grey),
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
+                // getSpace(),
                 Text(
                   "Following : ${widget.recData.data.totalFollowing}",
-                  style: const TextStyle(
-                      fontSize: 17,
+                  style: TextStyle(
+                      fontSize: fontsize,
                       fontWeight: FontWeight.bold,
                       color: ProductColor.grey),
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
+                // getSpace(),
                 Text(
                   "Followers : ${widget.recData.data.totalFollowers}",
-                  style: const TextStyle(
-                      fontSize: 17,
+                  style: TextStyle(
+                      fontSize: fontsize,
                       fontWeight: FontWeight.bold,
                       color: ProductColor.grey),
                 ),
+                getSpace(3),
+
+                BlocBuilder<UserFollowProcessCubit,
+                    UserFollowProcessCubitData?>(builder: (builder, state) {
+                  if (state!=null &&state.userFriendDTO == widget.recData.data) {
+                    if (state.userIsFollowed == true) {
+                      return _FollowButton(
+                        userFriendDTO: widget.recData.data,
+                        btnColor: ProductColor.red,
+                        onClickUserBtn: followUserBtnAction,
+                      );
+                    }
+                  }
+                  return _FollowButton(
+                    userFriendDTO: widget.recData.data,
+                    btnColor: ProductColor.green,
+                    onClickUserBtn: followUserBtnAction,
+                  );
+                }),
 
                 /*    Padding(
                   padding: const EdgeInsets.only(top: 5),
@@ -184,6 +197,26 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
           ),
         ),
       ),
+    );
+  }
+
+  void followUserBtnAction(UserFriendDTO userFriendDTO) async {
+    UserFollowProcessCubitData data =
+        await context.read<UserFollowProcessCubit>().followUser(userFriendDTO);
+    print("followUserBtnAction result :$data");
+    // if(result==true){
+    //
+    // }
+    /*await context
+              .read<UserBookActionCubit>()
+              .createUserReadBookConnection(widget.bookId);
+          context.read<BookAddRemoveCubit>().updateBookReadValue(true);
+          context.read<MyReadBookScreenCubit>().updateBookList();*/
+  }
+
+  SizedBox getSpace([int value = 1]) {
+    return SizedBox(
+      height: (5 * value).toDouble(),
     );
   }
 
@@ -277,5 +310,51 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
       return "${title.substring(0, index).trim()}...";
     }
     return title;
+  }
+}
+
+class _FollowButton extends StatefulWidget {
+  const _FollowButton(
+      {required this.userFriendDTO,
+      required this.btnColor,
+      required this.onClickUserBtn});
+
+  final btnColor;
+  final void Function(UserFriendDTO userFriendDTO) onClickUserBtn;
+  final UserFriendDTO userFriendDTO;
+
+  @override
+  State<_FollowButton> createState() => _FollowButtonState();
+}
+
+class _FollowButtonState extends State<_FollowButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 30,
+      width: ResponsiveDesign.width() / 3,
+      child: ElevatedButton(
+        // onPressed: () => widget.onClickUserBtn,
+        onPressed: () {
+          print("butona tiklandi");
+          widget.onClickUserBtn(widget.userFriendDTO);
+        },
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            // side: const BorderSide(color: Colors.red)
+          )),
+          backgroundColor:
+              MaterialStateColor.resolveWith((states) => widget.btnColor),
+          foregroundColor:
+              MaterialStateColor.resolveWith((states) => ProductColor.white),
+        ),
+        child: const Text(
+          "Follow",
+          style: TextStyle(fontSize: 17),
+        ),
+      ),
+    );
   }
 }

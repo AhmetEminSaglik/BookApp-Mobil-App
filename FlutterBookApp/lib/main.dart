@@ -10,6 +10,8 @@ import 'package:flutter_book_app/cubit/recommendedbook/BookCubit.dart';
 import 'package:flutter_book_app/pages/LoginScreen.dart';
 import 'package:flutter_book_app/util/ResponsiveDesign.dart';
 
+import 'cubit/UserFollowCubit.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -32,6 +34,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => MyReadBookScreenCubit()),
           BlocProvider(create: (context) => FollowerRemoveCubit()),
           BlocProvider(create: (context) => FollowingRemoveCubit()),
+          BlocProvider(create: (context) => UserFollowProcessCubit()),
         ],
         child: const MaterialApp(
           debugShowCheckedModeBanner: false,
