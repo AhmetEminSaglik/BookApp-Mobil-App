@@ -54,7 +54,8 @@ class UserFriendDTO {
 
   @override
   String toString() {
-    return "UserFriendDTO{id:$id,name:$name,lastname:$lastname,gender:$gender,totalReadBook:$totalReadBook,totalFollowers:$totalFollowers,totalFollowing:$totalFollowing,imgUrl:$imgUrl}";
+    // return "UserFriendDTO{id:$id,name:$name,lastname:$lastname,gender:$gender,totalReadBook:$totalReadBook,totalFollowers:$totalFollowers,totalFollowing:$totalFollowing,imgUrl:$imgUrl}";
+    return "$id-$name $lastname}";
   }
 
   int get totalReadBook => _totalReadBook;

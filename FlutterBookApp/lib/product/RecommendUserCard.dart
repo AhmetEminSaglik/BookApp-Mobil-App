@@ -5,6 +5,7 @@ import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/pages/UserFriendDetailPage.dart';
 import 'package:flutter_book_app/product/RecommendUserDesignDecoration.dart';
 import 'package:logger/logger.dart';
+
 import '../cubit/UserFollowCubit.dart';
 import '../model/Book.dart';
 import '../model/UserFollowProcessCubitData.dart';
@@ -30,6 +31,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   final double padding = ResponsiveDesign.height() / 65;
   final double fontsize = 15;
   bool isLoading = true;
+  bool isUserFollowed = false;
 
   // List<Book> bookList = [];
 
@@ -167,7 +169,33 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
 
                 BlocBuilder<UserFollowProcessCubit,
                     UserFollowProcessCubitData?>(builder: (builder, state) {
-                  if (state!=null &&state.userFriendDTO == widget.recData.data) {
+                  print("widget.recData.data : ${widget.recData.data}");
+                  if (state != null &&
+                      state.userFriendDTO == widget.recData.data) {
+                    isUserFollowed = state.userIsFollowed;
+                  }
+                  if (isUserFollowed) {
+                    return _FollowButton(
+                      userFriendDTO: widget.recData.data,
+                      btnColor: ProductColor.red,
+                      onClickUserBtn: followUserBtnAction,
+                    );
+                  } else {
+                    return _FollowButton(
+                      userFriendDTO: widget.recData.data,
+                      btnColor: ProductColor.green,
+                      onClickUserBtn: followUserBtnAction,
+                    );
+                  }
+                  /*if (state == null) {
+                    return _FollowButton(
+                      userFriendDTO: widget.recData.data,
+                      btnColor: ProductColor.green,
+                      onClickUserBtn: followUserBtnAction,
+                    );
+                  } else if (state != null&&state.userFriendDTO == widget.recData.data) {
+                    print("state.userIsFollowed : ${state.userIsFollowed}");
+                    isUserFollowed=state.userIsFollowed;
                     if (state.userIsFollowed == true) {
                       return _FollowButton(
                         userFriendDTO: widget.recData.data,
@@ -175,12 +203,13 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
                         onClickUserBtn: followUserBtnAction,
                       );
                     }
-                  }
-                  return _FollowButton(
-                    userFriendDTO: widget.recData.data,
-                    btnColor: ProductColor.green,
-                    onClickUserBtn: followUserBtnAction,
-                  );
+                    // return _FollowButton(
+                    //   userFriendDTO: widget.recData.data,
+                    //   btnColor: ProductColor.green,
+                    //   onClickUserBtn: followUserBtnAction,
+                    // );
+                  }*/
+                  return Container();
                 }),
 
                 /*    Padding(

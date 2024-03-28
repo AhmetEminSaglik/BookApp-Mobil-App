@@ -15,6 +15,7 @@ class UserFollowProcessCubit extends Cubit<UserFollowProcessCubitData?> {
       UserFriendDTO userFriendDTO) async {
     data = UserFollowProcessCubitData(userFriendDTO: userFriendDTO);
     data.userIsFollowed = await HttpRequestUser.followUser(userFriendDTO.id);
+    print("userIsFollowed : ${data.userIsFollowed}");
     emit(data);
     return data;
   }

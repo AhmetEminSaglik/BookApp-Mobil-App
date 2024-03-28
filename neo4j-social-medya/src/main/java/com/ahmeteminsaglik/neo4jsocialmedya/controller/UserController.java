@@ -165,11 +165,17 @@ public class UserController {
 //        List<User> userList = userService.findCommonUsersByFriends(userId);
 //        int userSize = userList.size();
 //        if (userSize < 5) {
-        List<User> userList = userService.findRandomUserToRecommend(userId);
-        Set<User> set = new HashSet<>(userList);
-        userList = new ArrayList<>(set);
+
+        List<User> userList = userService.findCommonUsersByFriends(userId);
+        List<User> randomUserList = userService.findRandomUserToRecommend(userId);
+
+//        userList.forEach(e1 -> randomUserList.removeIf(e2 -> e1 == e2));
+        userList.forEach(randomUserList::remove);
+
+        Set<User> set = new HashSet<>(randomUserList);
+        randomUserList = new ArrayList<>(set);
 //        }
-        List<UserFriendDTO> userDTOList = userList
+        List<UserFriendDTO> userDTOList = randomUserList
                 .stream()
                 .map(userMapper::toUserFriendDTO)
                 .collect(Collectors.toList());
