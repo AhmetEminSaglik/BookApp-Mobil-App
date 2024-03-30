@@ -8,6 +8,7 @@ class UserFriendDTO {
   late int _totalFollowing;
   late int _totalReadBook;
 
+
   UserFriendDTO(
       {required id,
       required name,
@@ -25,6 +26,9 @@ class UserFriendDTO {
     _imgUrl = imgUrl;
     _totalFollowers = totalFollowers;
     _totalFollowing = totalFollowing;
+  }
+  factory UserFriendDTO.empty(){
+    return UserFriendDTO(id: -1, name:"", lastname: "", gender:"", totalReadBook:-1, totalFollowers: -1, totalFollowing:-1, imgUrl:"");
   }
 
   factory UserFriendDTO.fromJson(Map<String, dynamic> json) {

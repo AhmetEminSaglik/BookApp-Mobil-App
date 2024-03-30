@@ -13,13 +13,14 @@ import 'package:flutter_book_app/util/SharedPrefUtils.dart';
 import 'package:logger/logger.dart';
 
 import '../../cubit/FollowerRemoveCubit.dart';
+import '../../cubit/ConnectionsValueCubit.dart';
 import '../../model/User.dart';
 import 'FollowerTab.dart';
 
 class ProfilScreen extends StatefulWidget {
   ProfilScreen({super.key});
 
-  bool _isInit = false;
+  // bool _isInit = false;
 
   @override
   State<ProfilScreen> createState() => _ProfilScreenState();
@@ -31,7 +32,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
   final double _fontSize = ResponsiveDesign.height() / 50;
   final double _numberFontSize = ResponsiveDesign.height() / 35;
   static int bookCount = 0;
-  late bool isLoading;
+  bool isLoading = true;
   final double _profileItemSpace = 10;
   static List<UserFriendDTO> followingList = [];
   static List<UserFriendDTO> followerList = [];
@@ -39,12 +40,12 @@ class _ProfilScreenState extends State<ProfilScreen> {
   @override
   void initState() {
     super.initState();
-    isLoading = !(widget._isInit);
-    if (!widget._isInit) {
-      print("MyReadBookScreen > initState ");
-      _retrieveAllData();
-      widget._isInit = true;
-    }
+    // isLoading = !(widget._isInit);
+    // if (!widget._isInit) {
+    print("MyReadBookScreen > initState ");
+    _retrieveAllData();
+    // widget._isInit = true;
+    // }
   }
 
   _retrieveAllData() async {
@@ -56,9 +57,9 @@ class _ProfilScreenState extends State<ProfilScreen> {
       setState(() {
         isLoading = false;
       });
-    } else {
-      print("Elseye girdi mounted: $mounted");
-    }
+    } /* else {
+      print(" mounted: $mounted");
+    }*/
     // setState(() {
     //   isLoading = false;
     // });
@@ -72,13 +73,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
           ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
-                // BlocBuilder<FollowerRemoveCubit, UserFriendDTO?>(
-                //     builder: (builder, state) {
-                //       print("burasi calisti : >>>>>>>>>>>>>>>>>>>  list size :${followerList.length}");
-                //       return getProfilDataContainer();
                 getProfilDataContainer(),
-                // }),
-
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -123,33 +118,17 @@ class _ProfilScreenState extends State<ProfilScreen> {
                                   if (state != null &&
                                       followerList
                                           .contains(state.userFriendDTO)) {
-                                    print(
-                                        "followerList before delete ${followerList.length}");
-                                    // removeFollowerFromList(state.userFriendDTO);
                                     removeFromList(
                                         followerList, state.userFriendDTO);
-                                    print(
-                                        "followerListbefore delete ${followerList.length}");
                                   }
-                                  // return const Center(child: CircularProgressIndicator());
                                   return FollowersTab(list: followerList);
                                 }),
                                 BlocBuilder<FollowingRemoveCubit,
-                                        UserFriendDTOCubitData?>(
-                                    builder: (builder, state) {
-                                  log.i(
-                                      "${state?.userFriendDTO.name} ${state?.userFriendDTO.lastname} : >>BlocBuilder<FollowerRemoveCubit,>>> girdi");
+                                    UserFriendDTO?>(builder: (builder, state) {
                                   if (state != null &&
-                                      followingList
-                                          .contains(state.userFriendDTO)) {
-                                    print(
-                                        "followingList before delete ${followingList.length}");
-                                    removeFromList(
-                                        followingList, state.userFriendDTO);
-                                    print(
-                                        "followingList before delete ${followerList.length}");
+                                      followingList.contains(state)) {
+                                    removeFromList(followingList, state);
                                   }
-                                  // return const Center(child: CircularProgressIndicator());
                                   return FollowingTab(list: followingList);
                                 }),
                               ],
@@ -164,37 +143,9 @@ class _ProfilScreenState extends State<ProfilScreen> {
   }
 
   void removeFromList(List<Object> list, UserFriendDTO object) {
-    // for (int i = 0; i < list.length; i++) {
-    //   if(list[i]==object){
     list.remove(object);
-    // }
-    // }
+    context.read<ConnectionsValueCubit>().update();
   }
-
-  /*
-  *
-  *
-  *
-    return BlocBuilder<LoginCubit, EnumLoginState>(
-      builder: (builder, state) {
-        if (state == EnumLoginState.LoginLoading) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        return const SizedBox();
-      },
-    );
-
- *
- *
-  Widget getButton() {
-    return BlocBuilder<BookAddRemoveCubit, bool>(builder: (context, state) {
-      if (state == true) {
-        return _RemoveReadBookButton(bookId: book.id);
-      }
-      return _AddAsReadButton(bookId: book.id);
-    });
-    *
-    * */
 
   Center getProfilDataContainer() {
     return Center(
@@ -236,17 +187,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
   Column getFollowingNumber() {
     return Column(
       children: [
-        // Text("${_user.following}", style: TextStyle(fontSize: _numberFontSize)),
-        BlocBuilder<FollowingRemoveCubit, UserFriendDTOCubitData?>(
-            builder: (builder, state) {
-          print("State : $state");
-          if (state?.updateProfilFollowerValue == true) {
-            print(
-                "burasi calisti : >>>>>>>>>>>>>>>>>>>  list size :${followingList.length}");
-          } else {
-            print(
-                "burasi calisti :ELSEEEEEEEE >>>>>>>>>>>>>>>>>>>  list size :${followingList.length}");
-          }
+        BlocBuilder<ConnectionsValueCubit, bool>(builder: (builder, state) {
           return Text("${followingList.length}",
               style: TextStyle(fontSize: _numberFontSize));
         }),
@@ -261,16 +202,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
   Column getFollowersNumber() {
     return Column(
       children: [
-        BlocBuilder<FollowerRemoveCubit, UserFriendDTOCubitData?>(
-            builder: (builder, state) {
-          print("State : $state");
-          if (state?.updateProfilFollowerValue == true) {
-            print(
-                "burasi calisti : >>>>>>>>>>>>>>>>>>>  list size :${followerList.length}");
-          } else {
-            print(
-                "burasi calisti :ELSEEEEEEEE >>>>>>>>>>>>>>>>>>>  list size :${followerList.length}");
-          }
+        BlocBuilder<ConnectionsValueCubit, bool>(builder: (builder, state) {
           return Text("${followerList.length}",
               style: TextStyle(fontSize: _numberFontSize));
         }),
