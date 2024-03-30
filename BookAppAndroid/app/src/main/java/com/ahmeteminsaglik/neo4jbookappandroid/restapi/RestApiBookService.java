@@ -18,6 +18,7 @@ public interface RestApiBookService {
     Call<RestApiResponse<List<Book>>> getReadBooks(@Path("userId") Long id);
 
     @GET("recommend/point")
+
     Call<RestApiResponse<List<Book>>> getRecommendedBookListByPoint();
 
     @GET("recommend/totalread")

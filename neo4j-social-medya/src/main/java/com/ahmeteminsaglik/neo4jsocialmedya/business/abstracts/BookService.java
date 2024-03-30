@@ -12,6 +12,8 @@ public interface BookService {
 
     Book save(Book book);
 
+    Book getBookByUserIdReadBookId(long userId, long bookId);
+
     List<Book> save(List<Book> list);
 
     List<Book> getAllReadBooksByUserId(long userId);
@@ -25,5 +27,6 @@ public interface BookService {
     void createConnectionUserReadBook(long userId, long bookId);
 
     void fixBookData();
+    int getUserReadBookCount(long userId);
 
 }

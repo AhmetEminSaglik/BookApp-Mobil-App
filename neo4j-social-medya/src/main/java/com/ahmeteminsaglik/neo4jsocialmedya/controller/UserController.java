@@ -1,11 +1,14 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.controller;
 
-import com.ahmeteminsaglik.neo4jsocialmedya.business.StaticData;
+import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.BookService;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.UserService;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.LoginUser;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationLoginInput;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.conretes.validation.ValidationSignUp;
+import com.ahmeteminsaglik.neo4jsocialmedya.mapper.UserMapper;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
+import com.ahmeteminsaglik.neo4jsocialmedya.model.dto.UserFriendDTO;
+import com.ahmeteminsaglik.neo4jsocialmedya.utility.CustomLog;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.ApiRequestException;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.response.InvalidUsernameOrPasswordException;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.DataResult;
@@ -19,26 +22,41 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/users")
 @CrossOrigin
 public class UserController {
-    @Autowired
-    private UserService userService;
+    private static CustomLog log = new CustomLog(UserController.class);
+    private final UserService userService;
     private ValidationSignUp validationSignUp = new ValidationSignUp();
     private ValidationLoginInput validationLogin = new ValidationLoginInput();
+    private BookService bookService;
 
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    public UserController(UserService userService, BookService bookService) {
+        this.userService = userService;
+        this.bookService = bookService;
+    }
 
     @GetMapping()
     public List<User> getAll() {
         return userService.findAll();
     }
 
-    @GetMapping("/readbooks")
-    public List<User> getAllWithReadBooksoca() {
-        return userService.findAll();
+    @GetMapping("/id/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userService.findById(id);
     }
+
+//    @GetMapping("/readbooks")
+//    public List<User> getAllReadBookByUser() {
+//        return userService.findAll();
+//    }
 
     @GetMapping("/{name}")
     public User getUserByName(@PathVariable String name) {
@@ -83,16 +101,24 @@ public class UserController {
         return new SuccessResult("Connection is removed successfully");
     }
 
-    @GetMapping("/followed/{userId}")
-    public DataResult<List<User>> getFollowedUserList(@PathVariable long userId) {
-        List<User> userList = userService.findAllFollowedUsersByUserId(userId);
-        return new SuccessDataResult<>(userList, "User's followed users are retrived");
+    @GetMapping("/following/{userId}")
+    public DataResult<List<UserFriendDTO>> getfollowingUserList(@PathVariable long userId) {
+        List<User> userList = userService.findAllfollowingUsersByUserId(userId);
+        List<UserFriendDTO> userFriendDTOList = userList
+                .stream()
+                .map(userMapper::toUserFriendDTO)
+                .collect(Collectors.toList());
+        return new SuccessDataResult<>(userFriendDTOList, "User's following users are retrived");
     }
 
     @GetMapping("/follower/{userId}")
-    public DataResult<List<User>> getAllFollowersOfUserId(@PathVariable long userId) {
+    public DataResult<List<UserFriendDTO>> getAllFollowersOfUserId(@PathVariable long userId) {
         List<User> userList = userService.findAllFollowersOfUserId(userId);
-        return new SuccessDataResult<>(userList, "User's followed users are retrived");
+        List<UserFriendDTO> userFriendDTOList = userList
+                .stream()
+                .map(userMapper::toUserFriendDTO)
+                .collect(Collectors.toList());
+        return new SuccessDataResult<>(userFriendDTOList, "User's following users are retrived");
     }
 
     @PostMapping("/{userId}/follow/{friendUserId}")
@@ -101,31 +127,64 @@ public class UserController {
         return new SuccessResult("Connection is created");
     }
 
-    @DeleteMapping("/{userId}/followed/{followedUserId}")
-    public Result removeUserFollowedRelationShipUser(@PathVariable long userId, @PathVariable long followedUserId) {
-        userService.removeUserFollowedRelationShipUser(userId, followedUserId);
+    @DeleteMapping("/{userId}/following/{followingUserId}")
+    public Result removeUserfollowingRelationshipUser(@PathVariable long userId, @PathVariable long followingUserId) {
+        userService.removeUserfollowingRelationshipUser(userId, followingUserId);
         return new SuccessResult("Relationship is deleted");
     }
 
     @DeleteMapping("/{userId}/follower/{followerUserId}")
-    public Result removeUserFollowerRelationShipUser(@PathVariable long userId, @PathVariable long followerUserId) {
-        userService.removeUserFollowerRelationShipUser(userId, followerUserId);
+    public Result removeUserFollowerRelationshipUser(@PathVariable long userId, @PathVariable long followerUserId) {
+        userService.removeUserFollowerRelationshipUser(userId, followerUserId);
+        log.info("Follower is removed :  " + followerUserId);
+        userService.fixUserData();
         return new SuccessResult("Relationship is deleted");
     }
 
     @GetMapping("/recommend/user/{userId}")
-    public DataResult<List<User>> getRecommendedUserList(@PathVariable long userId) {
+    public DataResult<List<UserFriendDTO>> getRecommendedUserList(@PathVariable long userId) {
         List<User> userList = userService.findCommonUsersByFriends(userId);
-        int userSize = userList.size();
-        if (userSize < 5) {
+//        int userSize = userList.size();
+        /*if (userSize < 5) {
             List<User> userListRandom = userService.findRandomUserToRecommend(userId);
             userList.addAll(userListRandom);
             Set<User> set = new HashSet<>(userList);
-//            userList = set.stream().toList();
             userList = new ArrayList<>(set);
-        }
-        return new SuccessDataResult<>(userList, "Recommended user list is succesfully retrived");
+        }*/
+        List<UserFriendDTO> userDTOList = userList
+                .stream()
+                .map(userMapper::toUserFriendDTO)
+                .collect(Collectors.toList());
+        DataResult dataResult = new SuccessDataResult<>(userDTOList, "Recommended userDTO list is succesfully retrived");
+        log.info("Donecek deger : " + dataResult);
+        return dataResult;
     }
+
+    @GetMapping("/recommend/random/user/{userId}")
+    public DataResult<List<UserFriendDTO>> getRandomRecommendedUserList(@PathVariable long userId) {
+//        List<User> userList = userService.findCommonUsersByFriends(userId);
+//        int userSize = userList.size();
+//        if (userSize < 5) {
+
+        List<User> userList = userService.findCommonUsersByFriends(userId);
+        List<User> randomUserList = userService.findRandomUserToRecommend(userId);
+
+//        userList.forEach(e1 -> randomUserList.removeIf(e2 -> e1 == e2));
+        userList.forEach(randomUserList::remove);
+
+        Set<User> set = new HashSet<>(randomUserList);
+        randomUserList = new ArrayList<>(set);
+//        }
+        List<UserFriendDTO> userDTOList = randomUserList
+                .stream()
+                .map(userMapper::toUserFriendDTO)
+                .collect(Collectors.toList());
+
+        DataResult dataResult = new SuccessDataResult<>(userDTOList, "Random userDTO list is succesfully retrived");
+        log.info("Donecek deger : " + dataResult);
+        return dataResult;
+    }
+
 
     @GetMapping("/fix")
     public void fixUserData() {
@@ -135,18 +194,24 @@ public class UserController {
     //@PostMapping("/read-book")
     @PostMapping("/read-book")
     public void setConnectionUserReadBook(@RequestParam long userId, @RequestParam long bookId, @RequestParam int rate) {
-        System.out.println(userId+"-[r:Read{rate:"+rate+"}]->"+bookId);
         userService.setConnectionUserReadBook(userId, bookId, rate);
+    }
 
+    @GetMapping("/count/book")
+    public DataResult<Integer> getUserReadBookCount(@RequestParam long userId) {
+        int count = bookService.getUserReadBookCount(userId);
+        String msg = "User ID(" + userId + ") book count (" + count + ") is retrieved.";
+        log.info("Msg : " + msg);
+        return new SuccessDataResult<>(count, msg);
     }
     /*@GetMapping("/recommend/friend/{userId}")
     public DataResult<List<User>> getByMostReadBookFromFollowings(@PathVariable Long userId) {
         return new SuccessDataResult<>(userService.findCommonUsersByFriends(userId), "Data retrived Successfully");
     }*/
-/*    @PostMapping("/post/followed")
-    public DataResult<List<User>> getFollowedUserList2(@Body int userId) {
-        List<User> userList = userService.findAllFollowedUsersByUserId(userId);
-        return new SuccessDataResult<>(userList, "User's followed users are retrived");
+/*    @PostMapping("/post/following")
+    public DataResult<List<User>> getfollowingUserList2(@Body int userId) {
+        List<User> userList = userService.findAllfollowingUsersByUserId(userId);
+        return new SuccessDataResult<>(userList, "User's following users are retrived");
     }*/
 /*    @GetMapping("/read")
     public List<Read> getReadData() {

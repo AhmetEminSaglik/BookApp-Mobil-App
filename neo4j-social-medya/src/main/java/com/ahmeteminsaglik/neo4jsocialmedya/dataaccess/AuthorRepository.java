@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AuthorRepository extends Neo4jRepository<Author, Long> {
     @Query("MATCH(a:Author)" +
-            "RETURN a ORDER BY a.point DESC LIMIT 3")
+            "RETURN a ORDER BY a.point DESC LIMIT 2")
     List<Author> findByHighestPoint();
 
     @Query("MATCH (a:Author)-[:WRITE]->(b:Book)\nWITH a, COUNT(b) AS totalBook\nSET a.totalBook = totalBook\nWITH a\nMATCH (a:Author)-[:WRITE]->(b:Book)\nWITH a, sum(b.point) as totalPoints, count(b) as totalBooks\nSET a.point = round(totalPoints / totalBooks,2)")
@@ -20,4 +20,8 @@ public interface AuthorRepository extends Neo4jRepository<Author, Long> {
     void setWriteConnection(long authorId, long bookId);
 
     Author findByKey(String key);
+    @Query("MATCH (book:Book)<-[:WRITE]-(author:Author) " +
+            "WHERE ID(book)= $bookId " +
+            "return author")
+    Author findAuthorOfBook(long bookId);
 }

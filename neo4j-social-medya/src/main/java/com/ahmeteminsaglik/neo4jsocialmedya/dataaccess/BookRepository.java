@@ -1,5 +1,6 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.dataaccess;
 
+import com.ahmeteminsaglik.neo4jsocialmedya.model.Author;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.Book;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
@@ -15,10 +16,15 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
             "RETURN u,b")
     List<Book> getAllByUserIdMatches(@PathVariable Long userId);
 
-    @Query("MATCH (b:Book)  RETURN b ORDER BY b.point DESC LIMIT 5")
+    @Query("MATCH (u:User) WHERE ID(u) = $userId " +
+            "MATCH (u)-[:READ]->(b:Book) WHERE ID(b) = $bookId " +
+            "RETURN b")
+    Book getBookByUserIdReadBookId(@PathVariable Long userId, @PathVariable Long bookId);
+
+    @Query("MATCH (b:Book)  RETURN b ORDER BY b.point DESC LIMIT 3 ")
     List<Book> findByHighestPoint();
 
-    @Query("MATCH (b:Book) RETURN b ORDER BY b.totalRead DESC LIMIT 5")
+    @Query("MATCH (b:Book) RETURN b ORDER BY b.totalRead DESC LIMIT 3 ")
     List<Book> findByHighestTotalRead();
 
     // returns user's following users' read common books to recommend users.
@@ -27,7 +33,7 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
             "WHERE  NOT (b)<-[:READ]-(u) " +
             "WITH b, COUNT(DISTINCT u2) AS num_readers " +
             "ORDER BY num_readers DESC " +
-            "LIMIT 5 " +
+            "LIMIT 2  " +
             "MATCH (u:User)-[:READ]->(b) " +
             "RETURN DISTINCT b")
     List<Book> findByMostReadBookFromFollowings(@PathVariable Long userId);
@@ -37,6 +43,16 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
             "MERGE (u)-[r:READ]->(b)")
     void createConnectionUserReadBook(long userId, long bookId);
 
-    @Query("MATCH (b:Book)<-[r:READ]-(u:User)\nWITH b, avg(r.rate) as point, count(u) as totalReaders\nSET b.totalRead = totalReaders, b.point = round(point, 2)\n")
+    @Query("MATCH (b:Book)<-[r:READ]-(u:User)\nWITH b, avg(r.rate) as point, count(u) as totalReaders\nSET b.totalRead = totalReaders, b.point = round(point, 1)\n")
     void fixBookData();
+    @Query("match (u:User)-[:READ]->(b:Book) \n " +
+            "WHERE ID(u) = $userId " +
+            " RETURN COUNT(b)")
+    int getUserReadBookCount(long userId);
+
+
+/*    @Query("MATCH (book:Book)<-[:WRITE]-(author:Author) " +
+            "WHERE ID(book)= $bookId " +
+            "return author")
+    Author findAuthorOfBook(long bookId);*/
 }

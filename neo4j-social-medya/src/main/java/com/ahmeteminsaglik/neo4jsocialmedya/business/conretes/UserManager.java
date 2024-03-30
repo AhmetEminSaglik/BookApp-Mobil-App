@@ -20,6 +20,11 @@ public class UserManager implements UserService {
     }
 
     @Override
+    public User findById(Long id) {
+        return repo.findById(id).get();
+    }
+
+    @Override
     public User findByName(String name) {
         return repo.findByName(name);
     }
@@ -40,8 +45,8 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public List<User> findAllFollowedUsersByUserId(long id) {
-        return repo.findAllFollowedUsersByUserId(id);
+    public List<User> findAllfollowingUsersByUserId(long id) {
+        return repo.findAllfollowingUsersByUserId(id);
     }
 
     @Override
@@ -50,13 +55,13 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public void removeUserFollowedRelationShipUser(long userId, long followedUserId) {
-        repo.removeUserFollowedRelationShipUser(userId, followedUserId);
+    public void removeUserfollowingRelationshipUser(long userId, long followingUserId) {
+        repo.removeUserfollowingRelationshipUser(userId, followingUserId);
     }
 
     @Override
-    public void removeUserFollowerRelationShipUser(long userId, long followerUserId) {
-        repo.removeUserFollowerRelationShipUser(userId, followerUserId);
+    public void removeUserFollowerRelationshipUser(long userId, long followerUserId) {
+        repo.removeUserFollowerRelationshipUser(userId, followerUserId);
     }
 
     @Override
@@ -81,7 +86,7 @@ public class UserManager implements UserService {
     }
 
     @Override
-        public void setConnectionUserReadBook(long userId, long bookId, int rate) {
+    public void setConnectionUserReadBook(long userId, long bookId, int rate) {
         repo.setConnectionUserReadBook(userId, bookId, rate);
     }
 

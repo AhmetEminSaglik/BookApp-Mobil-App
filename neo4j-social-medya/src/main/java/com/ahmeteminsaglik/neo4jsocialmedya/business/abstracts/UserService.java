@@ -7,6 +7,8 @@ import java.util.List;
 public interface UserService {
     List<User> findAll();
 
+    User findById(Long id);
+
     User findByName(String name);
 
     User findByUserNameAndPassword(String username, String password);
@@ -20,13 +22,13 @@ public interface UserService {
     //    List<Read> findAllReadData();
     void removeUserReadBookConnection(long userId, long bookId);
 
-    List<User> findAllFollowedUsersByUserId(long id);
+    List<User> findAllfollowingUsersByUserId(long id);
 
     List<User> findAllFollowersOfUserId(long id);
 
-    void removeUserFollowedRelationShipUser(long userId, long followedUserId);
+    void removeUserfollowingRelationshipUser(long userId, long followingUserId);
 
-    void removeUserFollowerRelationShipUser(long userId, long followedUserId);
+    void removeUserFollowerRelationshipUser(long userId, long followingUserId);
 
     List<User> findCommonUsersByFriends(long userId);
 

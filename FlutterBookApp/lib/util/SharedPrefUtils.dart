@@ -23,8 +23,23 @@ class SharedPrefUtils {
     _sp.setString(EnumUserProp.NAME.name, user.name);
     _sp.setString(EnumUserProp.LASTNAME.name, user.lastname);
     _sp.setString(EnumUserProp.PASSWORD.name, user.password);
-    _sp.setInt(EnumUserProp.TOTAL_FOLLOWED.name, user.totalFollowed);
-    _sp.setInt(EnumUserProp.TOTAL_FOLLOWERS.name, user.totalFollowers);
+    _sp.setString(EnumUserProp.GENDER.name, user.gender);
+    _sp.setInt(EnumUserProp.TOTAL_Following.name, user.following);
+    _sp.setInt(EnumUserProp.TOTAL_FOLLOWERS.name, user.followers);
+    _sp.setString(EnumUserProp.IMG_URL.name, user.imgUrl);
+  }
+
+  static User getUser() {
+    return User(
+        id: _sp.getInt(EnumUserProp.ID.name),
+        name: _sp.getString(EnumUserProp.NAME.name),
+        lastname: _sp.getString(EnumUserProp.LASTNAME.name),
+        username: _sp.getString(EnumUserProp.USERNAME.name),
+        gender: _sp.getString(EnumUserProp.GENDER.name),
+        password: _sp.getString(EnumUserProp.PASSWORD.name),
+        followers: _sp.getInt(EnumUserProp.TOTAL_FOLLOWERS.name),
+        following: _sp.getInt(EnumUserProp.TOTAL_Following.name),
+        imgUrl: _sp.getString(EnumUserProp.IMG_URL.name));
   }
 
   static int getUserId() {

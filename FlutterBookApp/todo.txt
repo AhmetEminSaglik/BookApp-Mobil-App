@@ -1,0 +1,3 @@
+Recommends User  --> in Recommend Page
+delete User  --> in profil Page   : Delete directly
+follow, unfollow --> User Detail Page

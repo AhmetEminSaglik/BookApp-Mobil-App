@@ -24,12 +24,21 @@ public class Book {
     private String description;
     private String isbn;
     private String webUrl;
+    private Author author;
+    private byte[] imageBytes;
 
+    public byte[] getImageBytes() {
+        return imageBytes;
+    }
+    public void setImageBytes(byte[] imageBytes) {
+        this.imageBytes = imageBytes;
+    }
     @Override
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ",\n author='" + author + '\'' +
+                ",\n name='" + name + '\'' +
                 ", point=" + point +
                 ", imgUrl='" + imgUrl + '\'' +
                 ", totalRead=" + totalRead +

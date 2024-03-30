@@ -30,7 +30,7 @@ public class InitialDataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if (bookController.getAll().size() == 0) {
+        if (bookController.getAll().getBody().getData().size() == 0) {
             saveInitilizateData();
         }
     }
@@ -38,12 +38,10 @@ public class InitialDataLoader implements CommandLineRunner {
     static int counter = 0;
 
     public void saveInitilizateData() {
-        freeAPIData.createBookData(30);
+        freeAPIData.createBookData(100);
 //        Map<String, List<Book>> map = freeAPIData.getBookListMap();
         List<Author> authorList = freeAPIData.getAuthorList();
-        System.out.println("Alinan Author List size : " + authorList.size());
         authorList = authorController.saveAll(authorList).getData();
-        System.out.println("Saved Author List  size: " + authorList.size());
         processUserData();
         processBookData();
         setConnectionUserReadBook();
@@ -54,6 +52,19 @@ public class InitialDataLoader implements CommandLineRunner {
         userController.fixUserData();
         authorController.fixAuthorData();
         bookController.fixBookData();
+    }
+
+    private List<Book> fixUnknowCharsBook(List<Book> bookList) {
+        for (int i = 0; i < bookList.size(); i++) {
+            bookList.get(i).setName(clearUnknowChars(bookList.get(i).getName()));
+            bookList.get(i).setDescription(clearUnknowChars(bookList.get(i).getDescription()));
+        }
+        return bookList;
+    }
+
+    private String clearUnknowChars(String data) {
+        String cleanedString = data.replaceAll("[^a-zA-Z0-9\\s]", "");
+        return cleanedString;
     }
 
     private void processUserData() {
@@ -75,16 +86,13 @@ public class InitialDataLoader implements CommandLineRunner {
 
     private void setConnectionUserReadBook() {
         List<User> userList = userController.getAll();
-        List<Book> bookList = bookController.getAll();
-        System.out.println("User List Size : " + userList.size());
-        System.out.println("Book List Size : " + bookList.size());
+        List<Book> bookList = bookController.getAll().getBody().getData();
         for (int i = 0; i < userList.size(); i++) {
-            int totalBookSize = getRandomTotalBookListSize(bookList.size() /3);
+            int totalBookSize = getRandomTotalBookListSize(bookList.size() / 3);
 //            int totalBookSize = 1;//getRandomTotalBookListSize(bookList.size());
             List<Book> bookListOfUser = getRandomBooks(bookList, totalBookSize);
-            System.out.println("bookListOfUser Size : " + bookListOfUser.size());
             for (Book tmp : bookListOfUser) {
-                userController.setConnectionUserReadBook(userList.get(i).getId(), tmp.getId(), random.nextInt(10) + 1);
+                userController.setConnectionUserReadBook(userList.get(i).getId(), tmp.getId(), random.nextInt(5) + 1);
             }
         }
     }
@@ -96,10 +104,8 @@ public class InitialDataLoader implements CommandLineRunner {
     private List<Book> getRandomBooks(List<Book> bookList, int totalBookSize) {
         Set<Book> bookSet = new HashSet<>();
         while (bookSet.size() < totalBookSize) {
-            System.out.println("getRandomBooks : totalBookSize : " + totalBookSize);
             int index = random.nextInt(totalBookSize);
             Book book = getBook(bookSet, bookList, index);
-            System.out.println("eklenen Book id : "+book.getId());
             bookSet.add(book);
 
         }
@@ -123,6 +129,10 @@ public class InitialDataLoader implements CommandLineRunner {
             Author author = authorController.findByKey(autorKey);
 //            System.out.println("Author : " + author);
             List<Book> bookList = entry.getValue();
+            bookList.forEach(e -> {
+                System.out.println(e.getPoint());
+            });
+            bookList = fixUnknowCharsBook(bookList);
             bookController.saveAllBook(bookList);
 
             authorController.setWriteConnection(author, bookList);
@@ -132,13 +142,10 @@ public class InitialDataLoader implements CommandLineRunner {
     }
 
     private void printAllAuthorKeyAndBooks(Map<String, List<Book>> map) {
-        System.out.println(">>>>>>>>>>>>>>>>> printAllAuthorKeyAndBooks ");
         for (Map.Entry<String, List<Book>> entry : map.entrySet()) {
             String authorKey = entry.getKey();
             List<Book> bookList = entry.getValue();
-
             System.out.println("authorKey: " + authorKey);
-
             for (int i = 0; i < bookList.size(); i++) {
                 System.out.println((i + 1) + "-) book : " + bookList.get(i));
             }

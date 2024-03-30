@@ -4,8 +4,10 @@ class User {
   late String _lastname;
   late String _username;
   late String _password;
-  late int _totalFollowers;
-  late int _totalFollowed;
+  late String _gender;
+  late int _followers;
+  late int _following;
+  late String _imgUrl;
 
   User(
       {required id,
@@ -13,27 +15,32 @@ class User {
       required lastname,
       required username,
       required password,
-      required totalFollowers,
-      required totalFollowed}) {
+      required gender,
+      required followers,
+      required following,
+      required imgUrl}) {
     _id = id;
     _name = name;
     _lastname = lastname;
     _username = username;
     _password = password;
-    _totalFollowers = totalFollowers;
-    _totalFollowed = totalFollowed;
+    _followers = followers;
+    _following = following;
+    _imgUrl = imgUrl;
+    _gender = gender;
   }
 
   factory User.fromJson(Map<String, dynamic> json) {
-    print("gelen json : $json");
     return User(
       id: json["id"] as int,
       name: json["name"] as String,
       lastname: json["lastname"] as String,
       username: json["username"] as String,
       password: json["password"] as String,
-      totalFollowers: json["totalFollowers"] as int,
-      totalFollowed: json["totalFollowed"] as int,
+      gender: json["gender"] as String,
+      followers: json["followers"] as int,
+      following: json["following"] as int,
+      imgUrl: json["imgUrl"] as String,
     );
   }
 
@@ -44,27 +51,34 @@ class User {
       'lastname': lastname,
       'username': username,
       '_password': password,
-      '_totalFollowers': totalFollowers,
-      'totalFollowed': totalFollowed,
+      '_followers': followers,
+      'following': following,
+      'imgUrl': imgUrl,
     };
   }
 
-  int get totalFollowed => _totalFollowed;
+  int get following => _following;
 
-  set totalFollowed(int value) {
-    _totalFollowed = value;
+  set following(int value) {
+    _following = value;
   }
 
-  int get totalFollowers => _totalFollowers;
+  int get followers => _followers;
 
-  set totalFollowers(int value) {
-    _totalFollowers = value;
+  set followers(int value) {
+    _followers = value;
   }
 
   String get password => _password;
 
   set password(String value) {
     _password = value;
+  }
+
+  String get gender => _gender;
+
+  set gender(String value) {
+    _gender = value;
   }
 
   String get username => _username;
@@ -87,8 +101,14 @@ class User {
 
   int get id => _id;
 
+  String get imgUrl => _imgUrl;
+
+  set imgUrl(String value) {
+    _imgUrl = value;
+  }
+
   @override
   String toString() {
-    return 'User{_id: $_id, _name: $_name, _lastname: $_lastname, _username: $_username, _password: $_password, _totalFollowers: $_totalFollowers, _totalFollowed: $_totalFollowed}';
+    return 'User{_id: $_id, _name: $_name, _lastname: $_lastname, _username: $_username, _password: $_password, _gender: $_gender, _followers: $_followers, _following: $_following, _imgUrl: $_imgUrl}';
   }
 }
