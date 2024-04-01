@@ -282,8 +282,8 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
             boxShadow: [
               BoxShadow(
                 color: Colors.deepOrange.withOpacity(0.7),
-                spreadRadius: 2,
-                blurRadius: 3,
+                spreadRadius: 3,
+                blurRadius: 1,
                 offset: const Offset(0, 1), // Gölge ofseti (x, y)
               ),
             ]),

@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/model/Recommend.dart';
 import 'package:logger/logger.dart';
 import '../cubit/recommendedbook/BookCubit.dart';
-import '../httprequest/HttpRequestBook.dart';
 import '../model/Book.dart';
 import '../util/ProductColor.dart';
 import '../util/ResponsiveDesign.dart';
@@ -148,13 +147,13 @@ class _BookCardState extends State<BookCard> {
                             fontWeight: FontWeight.bold,
                             color: ProductColor.grey),
                       ),
-                      Text(
+                      widget.recData.by.isNotEmpty ?Text(
                         widget.recData.by,
                         style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
                             color: widget.recData.color),
-                      ),
+                      ): Container(),
                       Padding(
                         padding: const EdgeInsets.only(top: 5),
                         child: Text(
@@ -187,7 +186,7 @@ class _BookCardState extends State<BookCard> {
             boxShadow: [
               BoxShadow(
                 color: Colors.deepOrange.withOpacity(0.7),
-                spreadRadius: 2,
+                spreadRadius: 3,
                 blurRadius: 3,
                 offset: const Offset(0, 1), // Gölge ofseti (x, y)
               ),

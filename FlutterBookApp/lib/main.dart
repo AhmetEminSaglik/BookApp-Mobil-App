@@ -23,10 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ResponsiveDesign(mediaQueryData: MediaQuery.of(context));
-    print(
-        "ResponsiveDesign : height : ${ResponsiveDesign.height()} , width : ${ResponsiveDesign.width()}");
-
-    return MultiBlocProvider(
+        return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => LoginCubit()),
           BlocProvider(create: (context) => BookCubit()),
@@ -38,9 +35,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => UserFollowProcessCubit()),
           BlocProvider(create: (context) => ConnectionsValueCubit()),
         ],
-        child: const MaterialApp(
+        child: MaterialApp(
+          theme: ThemeData(fontFamily: 'Lato'),
           debugShowCheckedModeBanner: false,
-          home: LoginScreen(),
+          home: const LoginScreen(),
         ));
   }
 }

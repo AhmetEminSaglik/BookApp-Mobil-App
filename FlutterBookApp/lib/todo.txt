@@ -1,7 +1,3 @@
 login screen duzeltilecek
 
-Recommended BOok Paghe yerine --> book title eklencek
-
-shadowlar azaltilacak
-
 font eklenebilir
