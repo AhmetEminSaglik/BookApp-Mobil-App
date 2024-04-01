@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/model/Recommend.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
-import 'package:flutter_book_app/pages/UserFriendDetailPage.dart';
 import 'package:flutter_book_app/product/RecommendUserDesignDecoration.dart';
 import 'package:logger/logger.dart';
-
 import '../cubit/UserFollowCubit.dart';
 import '../model/Book.dart';
 import '../model/UserFollowProcessCubitData.dart';
+import '../util/CustomSnackBar.dart';
 import '../util/ProductColor.dart';
 import '../util/ResponsiveDesign.dart';
 import 'BookDesignDecoration.dart';
@@ -67,7 +66,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
                 children: [
                   InkWell(
                     onTap: () {
-                      goToDetailPage(context, widget.recData.data);
+                      // goToDetailPage(context, widget.recData.data);
                     },
                     child: getRecommendCardContent(),
                   ),
@@ -178,7 +177,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
                     return _FollowButton(
                       userFriendDTO: widget.recData.data,
                       btnColor: ProductColor.red,
-                      onClickUserBtn: followUserBtnAction,
+                      onClickUserBtn: unfollowUserBtnAction,
                     );
                   } else {
                     return _FollowButton(
@@ -231,8 +230,10 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
 
   void followUserBtnAction(UserFriendDTO userFriendDTO) async {
     UserFollowProcessCubitData data =
-        await context.read<UserFollowProcessCubit>().followUser(userFriendDTO);
-    print("followUserBtnAction result :$data");
+    await context.read<UserFollowProcessCubit>().followUser(userFriendDTO);
+    String msg = "${userFriendDTO.name} ${userFriendDTO.lastname} is following";
+    showToastMsg(msg);
+    // showToastMsg(data.userIsFollowed);
     // if(result==true){
     //
     // }
@@ -241,6 +242,26 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
               .createUserReadBookConnection(widget.bookId);
           context.read<BookAddRemoveCubit>().updateBookReadValue(true);
           context.read<MyReadBookScreenCubit>().updateBookList();*/
+  }
+
+  void unfollowUserBtnAction(UserFriendDTO userFriendDTO) async {
+    UserFollowProcessCubitData data =
+    await context.read<UserFollowProcessCubit>().unfollowUser(userFriendDTO);
+    String msg = "${userFriendDTO.name} ${userFriendDTO.lastname} is not following anymore.";
+    showToastMsg(msg);
+    // showToastMsg(data.userIsFollowed);
+    // if(result==true){
+    //
+    // }
+    /*await context
+              .read<UserBookActionCubit>()
+              .createUserReadBookConnection(widget.bookId);
+          context.read<BookAddRemoveCubit>().updateBookReadValue(true);
+          context.read<MyReadBookScreenCubit>().updateBookList();*/
+  }
+
+  void showToastMsg(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(CustomSnackBar.getSnackBar(msg));
   }
 
   SizedBox getSpace([int value = 1]) {
@@ -284,41 +305,36 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
 
     return Padding(
         padding: EdgeInsets.only(top: padding),
-        child: InkWell(
-          onTap: () {
-            goToDetailPage(context, widget.recData.data);
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: RecommendUserDesignDecoration(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.network(
-                  widget.recData.data.imgUrl,
-                  fit: BoxFit.fitWidth,
-                  // height: imgHeight,
-                  width: imgWidth,
-                ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: RecommendUserDesignDecoration(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.network(
+                widget.recData.data.imgUrl,
+                fit: BoxFit.fitWidth,
+                // height: imgHeight,
+                width: imgWidth,
               ),
             ),
           ),
         ));
   }
 
-  void goToDetailPage(BuildContext context, UserFriendDTO userFriendDTO) {
+  /*void goToDetailPage(BuildContext context, UserFriendDTO userFriendDTO) {
     // context.read<BookCubit>().setBook(book);
     // context.read<BookCubit>().goToDetailPage(context);
     _navigatePage(context, userFriendDTO);
-  }
+  }*/
 
-  void _navigatePage(BuildContext context, UserFriendDTO userFriendDTO) {
+  /*void _navigatePage(BuildContext context, UserFriendDTO userFriendDTO) {
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => UserFriendDetailPage(
                   userDTO: userFriendDTO,
                 )));
-  }
+  }*/
 
   String getShortDesc(String desc) {
     if (desc.trim().isEmpty) {
@@ -365,7 +381,6 @@ class _FollowButtonState extends State<_FollowButton> {
       child: ElevatedButton(
         // onPressed: () => widget.onClickUserBtn,
         onPressed: () {
-          print("butona tiklandi");
           widget.onClickUserBtn(widget.userFriendDTO);
         },
         style: ButtonStyle(

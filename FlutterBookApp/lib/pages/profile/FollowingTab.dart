@@ -34,11 +34,17 @@ class _FollowingTabState extends State<FollowingTab> {
               children: [
                 Text(
                   "User Profile",
-                  style: TextStyle(fontSize: _fontSize),
+                  style: TextStyle(
+                      fontSize: _fontSize,
+                      color: ProductColor.white,
+                      fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "Total Book Read",
-                  style: TextStyle(fontSize: _fontSize),
+                  style: TextStyle(
+                      fontSize: _fontSize,
+                      color: ProductColor.white,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),

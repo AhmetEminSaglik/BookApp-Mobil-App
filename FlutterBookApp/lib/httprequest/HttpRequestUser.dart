@@ -151,4 +151,18 @@ class HttpRequestUser {
     }
     return result;
   }
+  static Future<bool> unfollowUser(int userFriendId) async {
+    Uri url = Uri.parse(
+        "$_baseUrl/${SharedPrefUtils.getUserId()}/following/$userFriendId");
+    log.i("URL : $url");
+    var resp = await http.delete(url);
+    Map<String, dynamic> jsonData = json.decode(resp.body);
+    ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
+    bool result = false;
+    if (respEntity.success) {
+      result = respEntity.success;
+    }
+    return result;
+  }
 }
+

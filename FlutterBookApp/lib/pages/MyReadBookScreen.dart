@@ -2,10 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/MyBookReadScreenCubit.dart';
+import 'package:flutter_book_app/model/Recommend.dart';
+import 'package:flutter_book_app/product/BookCard.dart';
 import 'package:logger/logger.dart';
 import '../httprequest/HttpRequestBook.dart';
 import '../model/Book.dart';
-import '../product/BookCard.dart';
+import '../product/BookCardOld.dart';
 import '../util/ProductColor.dart';
 
 class MyReadBookScreen extends StatefulWidget {
@@ -81,11 +83,13 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
   Column _BookCardColumn() {
     Column column =  Column(children: []);
     for (int i = 0; i < bookList.length; i++) {
-      BookCard bookCard = BookCard(
-        book: bookList[i],
-        index: (bookList.length - i),
+      RecommendData<Book> recData= RecommendData(data: bookList[i]);
+      BookCard bookCard =BookCard(index: bookList.length - i, recData:recData);
+      // BookCard bookCard = BookCard(
+        // book: bookList[i],
+        // index: (bookList.length - i),
         // isBookRead: isBookReadByUser(bookList[i]),
-      );
+      // );
       column.children.add(bookCard);
     }
     return column;

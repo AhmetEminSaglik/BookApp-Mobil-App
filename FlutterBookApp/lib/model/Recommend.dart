@@ -1,12 +1,13 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 
 class RecommendData<T> {
   late String _by;
   late T _data;
   late Color _color;
 
-  RecommendData({required by, required data, required Color color}) {
+  RecommendData({by = "", required data, color = Colors.black}) {
     _by = by;
     _data = data;
     _color = color;

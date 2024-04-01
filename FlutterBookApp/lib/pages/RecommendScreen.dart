@@ -3,7 +3,7 @@ import 'package:flutter_book_app/enum/EnumRecommendBy.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
-import 'package:flutter_book_app/product/RecommendBookCard.dart';
+import 'package:flutter_book_app/product/BookCard.dart';
 import 'package:flutter_book_app/product/RecommendUserCard.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:logger/logger.dart';
@@ -216,7 +216,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
   Padding _BookCardColumn() {
     Column column = Column(children: []);
     for (int i = 0; i < recBookArr.length; i++) {
-      RecommendBookCard recBookCard = RecommendBookCard(
+      BookCard recBookCard = BookCard(
         recData: recBookArr[i],
         index: recBookArr.length - i,
       );

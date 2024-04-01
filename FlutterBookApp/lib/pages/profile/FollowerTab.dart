@@ -70,7 +70,7 @@ class _FollowersTabState extends State<FollowersTab> {
     return Column(
       children: [
         Container(
-          color: ProductColor.lightPink,
+          color: ProductColor.pink,
           child: Padding(
             padding: const EdgeInsets.only(left: 30, top: 10, bottom: 10),
             child: Row(
@@ -78,14 +78,20 @@ class _FollowersTabState extends State<FollowersTab> {
               children: [
                 Text(
                   "User Profile",
-                  style: TextStyle(fontSize: _fontSize),
+                  style: TextStyle(
+                      fontSize: _fontSize,
+                      color: ProductColor.white,
+                      fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   width: ResponsiveDesign.width() / 12,
                 ),
                 Text(
                   "Total Book Read",
-                  style: TextStyle(fontSize: _fontSize),
+                  style: TextStyle(
+                      fontSize: _fontSize,
+                      color: ProductColor.white,
+                      fontWeight: FontWeight.bold),
                 ),
               ],
             ),

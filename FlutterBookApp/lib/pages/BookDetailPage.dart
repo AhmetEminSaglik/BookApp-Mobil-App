@@ -60,7 +60,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
   Widget build(BuildContext context) {
     _retrieveUserReadThisBook();
     return Scaffold(
-      appBar: AppBar(title: const Text("Recommended Book Page")),
+      appBar: AppBar(title: Text(widget.book.name)),
       backgroundColor: ProductColor.darkWhite,
       body:
       isLoading ? const Center(child: CircularProgressIndicator()):
