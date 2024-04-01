@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/BookAddRemoveCubit.dart';
@@ -45,13 +46,15 @@ class _UserFriendDetailPageState extends State<UserFriendDetailPage> {
     // if(book!=null){
       isBookRead=true;
     // }
-    /*List<Book> bookList = await HttpRequestBook.getReadBookList();
+    */
+/*List<Book> bookList = await HttpRequestBook.getReadBookList();
     bookList.forEach((element) {
       if (element.id == widget.book.id) {
         isBookRead = true;
         return;
       }
-    });*/
+    });*//*
+
   }
 
 
@@ -159,8 +162,10 @@ class _BigCardDesign extends StatelessWidget {
                 getReviewText(userDTO.totalReadBook),
               ],
             ),
-            /*const SizedBox(height: 25),
-            getAuthorData()*/
+            */
+/*const SizedBox(height: 25),
+            getAuthorData()*//*
+
           ],
         ),
       ),
@@ -184,17 +189,20 @@ class _BigCardDesign extends StatelessWidget {
         const SizedBox(height: 15),
         // getBookDesc(),
         // const SizedBox(height: 20),
-        /*     SizedBox(
+        */
+/*     SizedBox(
                 width: 200,
                 height: 45,
                 child: isLoading
                     ? const Center(child: CircularProgressIndicator())
-                    : getButton()),*/
+                    : getButton()),*//*
+
       ],
     );
   }
 
-  /*Container getBookDesc() {
+  */
+/*Container getBookDesc() {
     if (book.desc.isNotEmpty) {
       return Container(
         color: ProductColor.darkWhite,
@@ -214,8 +222,10 @@ class _BigCardDesign extends StatelessWidget {
         alignment: Alignment.centerLeft,
       );
     }
-  }*/
+  }*//*
 
+
+*/
 /*  Widget getButton() {
     return BlocBuilder<BookAddRemoveCubit, bool>(builder: (context, state) {
       if (state == true) {
@@ -224,10 +234,15 @@ class _BigCardDesign extends StatelessWidget {
       return _AddAsReadButton(bookId: book.id);
     });
 
-    *//*return isBookRead
+    *//*
+*/
+/*return isBookRead
         ? _RemoveReadBookButton(bookId: book.id)
         : _AddAsReadButton(bookId: book.id);*//*
-  }*/
+*/
+/*
+  }*//*
+
 }
 
 class _RemoveReadBookButton extends StatefulWidget {
@@ -328,3 +343,4 @@ class _TextForBigCardDesign extends StatelessWidget {
             fontSize: textSize, fontWeight: fontWeight, color: textColor));
   }
 }
+*/

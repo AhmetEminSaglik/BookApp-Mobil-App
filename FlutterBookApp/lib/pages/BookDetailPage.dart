@@ -13,8 +13,8 @@ import '../httprequest/HttpRequestBook.dart';
 
 class BookDetailPage extends StatefulWidget {
   late Book book;
-  double imgWidth = 90;
-  double imgHeight = 140;
+  double imgWidth = 200;
+  double imgHeight = 300;
 
   BookDetailPage({super.key, required this.book});
 
@@ -62,51 +62,59 @@ class _BookDetailPageState extends State<BookDetailPage> {
     return Scaffold(
       appBar: AppBar(title: Text(widget.book.name)),
       backgroundColor: ProductColor.darkWhite,
-      body:
-      isLoading ? const Center(child: CircularProgressIndicator()):
-      Padding(
-        padding: const EdgeInsets.only(top: 20),
-        child: Stack(children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 110, left: 25, right: 25),
-            child: ContainerWithBoxDecoration(
-              child: Container(
-                height: 570,
-                color: ProductColor.white,
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Column(children: [
+                  /*Padding(
+                    padding: const EdgeInsets.only(top: 110, left: 25, right: 25),
+                    child: ContainerWithBoxDecoration(
+                      child: Container(
+                        height: 570,
+                        color: ProductColor.white,
+                      ),
+                    ),
+                  ),*/
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 10.0, right: 10, bottom: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      // crossAxisAlignment:CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Image.network(
+                                widget.book.imgUrl,
+                                fit: BoxFit.cover,
+                                width: widget.imgWidth,
+                                height: widget.imgHeight,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: ContainerWithBoxDecoration(
+                            child: _BigCardDesign(
+                              book: widget.book,
+                              isBookRead: isBookRead,
+                              isLoading: isLoading,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ]),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 10.0,right: 10,bottom: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              // crossAxisAlignment:CrossAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ContainerWithBoxDecoration(
-                        child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Image.network(
-                        widget.book.imgUrl,
-                        fit: BoxFit.cover,
-                        width: widget.imgWidth,
-                        height: widget.imgHeight,
-                      ),
-                    )),
-                  ],
-                ),
-                _BigCardDesign(
-                  book: widget.book,
-                  isBookRead: isBookRead,
-                  isLoading: isLoading,
-                ),
-              ],
-            ),
-          )
-        ]),
-      ),
     );
   }
 }
@@ -144,18 +152,18 @@ class _BigCardDesign extends StatelessWidget {
 
   Column getReview() {
     return Column(
-            children: [
-              Row(
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  getBookRatingShape(book.point),
-                  // getAveragePointText(widget.book.point)
-                ],
-              ),
-              getReviewText(book.totalRead),
-            ],
-          );
+      children: [
+        Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            getBookRatingShape(book.point),
+            // getAveragePointText(widget.book.point)
+          ],
+        ),
+        getReviewText(book.totalRead),
+      ],
+    );
   }
 
   SizedBox getBookHeader() {
