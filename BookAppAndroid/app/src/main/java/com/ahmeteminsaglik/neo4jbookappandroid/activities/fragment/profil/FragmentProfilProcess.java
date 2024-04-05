@@ -29,26 +29,26 @@ public class FragmentProfilProcess {
         this.context = context;
     }
 
-    public List<RelationshipUser> getFollowedList() {
-        return sendUserFollowedRelationshipListRequest();
+    public List<RelationshipUser> getfollowingList() {
+        return sendUserfollowingRelationshipListRequest();
     }
 
     public List<RelationshipUser> getFollowerList() {
         return sendUserFollowerRelationshipListRequest();
     }
 
-    public static void removeFollowedUserRelationship(long followedUserId) {
-        sendRemoveUserFollowedRelationshipRequest(followedUserId);
+    public static void removefollowingUserRelationship(long followingUserId) {
+        sendRemoveUserfollowingRelationshipRequest(followingUserId);
     }
 
     public static void removeFollowerUserRelationship(long followerUserId) {
         sendRemoveUserFollowerRelationshipRequest(followerUserId);
     }
 
-    private static void sendRemoveUserFollowedRelationshipRequest(long followedUserId) {
-        Call<RestApiResponse<List<User>>> call = ManagerAll.getInstance().removeFollowedUserRelationShipRequest(
+    private static void sendRemoveUserfollowingRelationshipRequest(long followingUserId) {
+        Call<RestApiResponse<List<User>>> call = ManagerAll.getInstance().removefollowingUserRelationShipRequest(
                 SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID),
-                followedUserId
+                followingUserId
         );
         try {
             call.execute();
@@ -56,6 +56,7 @@ public class FragmentProfilProcess {
             e.printStackTrace();
         }
     }
+
     private static void sendRemoveUserFollowerRelationshipRequest(long followerUserId) {
         Call<RestApiResponse<List<User>>> call = ManagerAll.getInstance().removeFollowerUserRelationShipRequest(
                 SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID),
@@ -68,11 +69,11 @@ public class FragmentProfilProcess {
         }
     }
 
-    private List<RelationshipUser> sendUserFollowedRelationshipListRequest() {
-        Call<RestApiResponse<List<User>>> call = ManagerAll.getInstance().getUserRelationshipFollowedListRequest(
+    private List<RelationshipUser> sendUserfollowingRelationshipListRequest() {
+        Call<RestApiResponse<List<User>>> call = ManagerAll.getInstance().getUserRelationshipfollowingListRequest(
                 SharedPreferenceUtility.getLongDataFromSharedPreference(context, EnumUser.ID)
         );
-        return parseRequestOfRelationshipList(call, EnumRelationship.FOLLOWED);
+        return parseRequestOfRelationshipList(call, EnumRelationship.following);
     }
 
     private List<RelationshipUser> sendUserFollowerRelationshipListRequest() {
@@ -95,6 +96,7 @@ public class FragmentProfilProcess {
                 });
                 return relationshipList;
             } else {
+                Log.i("RESPONSE : ", response.toString());
                 Log.e("Error occured  : ", "error body : " + response.errorBody());
                 Gson gson = new Gson();
                 RestApiErrorResponse errorResponse = gson.fromJson(response.errorBody().charStream(), RestApiErrorResponse.class);
@@ -108,7 +110,6 @@ public class FragmentProfilProcess {
             }
         } catch (IOException e) {
             e.printStackTrace();
-
         }
         return null;
     }

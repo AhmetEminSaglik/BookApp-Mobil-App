@@ -155,7 +155,7 @@ class _BookCardState extends State<BookCard> {
                             color: widget.recData.color),
                       ): Container(),
                       Padding(
-                        padding: const EdgeInsets.only(top: 5),
+                        padding: const EdgeInsets.only(top: 5,right: 15),
                         child: Text(
                           getShortDesc(widget.recData.data.desc),
                           maxLines: 3,

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/MyBookReadScreenCubit.dart';
@@ -48,8 +47,8 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
   @override
   void initState() {
     super.initState();
-      print("MyReadBookScreen > initState ");
-      _retrieveReadBookData();
+    print("MyReadBookScreen > initState ");
+    _retrieveReadBookData();
   }
 
   @override
@@ -64,31 +63,44 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
           }
           return state
               ? const Center(child: CircularProgressIndicator())
-              : SingleChildScrollView(
+              : ListView(children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 25, right: 0, top: 25, bottom: 25),
+              child: Column(
+                children: [
+                  _BookCardColumn(),
+                ],
+              ),
+            ),
+
+          ]);
+          /*: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 25, right: 0, top: 25, bottom:25),
                     child: Column(
                       children: [
-                        SingleChildScrollView(child: _BookCardColumn()),
+                        _BookCardColumn(),
                       ],
                     ),
                   ),
-                );
+                );*/
         },
       ),
     );
   }
 
   Column _BookCardColumn() {
-    Column column =  Column(children: []);
+    Column column = Column(children: []);
     for (int i = 0; i < bookList.length; i++) {
-      RecommendData<Book> recData= RecommendData(data: bookList[i]);
-      BookCard bookCard =BookCard(index: bookList.length - i, recData:recData);
+      RecommendData<Book> recData = RecommendData(data: bookList[i]);
+      BookCard bookCard = BookCard(
+          index: bookList.length - i, recData: recData);
       // BookCard bookCard = BookCard(
-        // book: bookList[i],
-        // index: (bookList.length - i),
-        // isBookRead: isBookReadByUser(bookList[i]),
+      // book: bookList[i],
+      // index: (bookList.length - i),
+      // isBookRead: isBookReadByUser(bookList[i]),
       // );
       column.children.add(bookCard);
     }

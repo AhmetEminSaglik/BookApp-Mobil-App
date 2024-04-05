@@ -57,8 +57,8 @@ public class RelationshipUserRVAdapter extends RecyclerView.Adapter<Relationship
         holder.relationshipType.setText(relationshipUser.getEnumRelationship().getName());
         holder.cardView.setBackgroundResource(CardUtility.getCardBackgroundColorByRelationshipType(relationshipUser.getEnumRelationship().getName()));
         holder.removeRelationshipBtn.setOnClickListener(view -> {
-            if (relationshipUser.getEnumRelationship().equals(EnumRelationship.FOLLOWED)) {
-                FragmentProfilProcess.removeFollowedUserRelationship(relationshipUser.getId());
+            if (relationshipUser.getEnumRelationship().equals(EnumRelationship.following)) {
+                FragmentProfilProcess.removefollowingUserRelationship(relationshipUser.getId());
                 Toast.makeText(activity, relationshipUser.getName() + " " + relationshipUser.getLastname() + "is not following any more.", Toast.LENGTH_LONG).show();
             }
             if (relationshipUser.getEnumRelationship().equals(EnumRelationship.FOLLOWER)) {

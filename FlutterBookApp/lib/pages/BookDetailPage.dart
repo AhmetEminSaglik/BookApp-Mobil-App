@@ -225,7 +225,7 @@ class _BigCardDesign extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         color: ProductColor.darkWhite,
       ),
-      height: 150,
+      // height: 150,
       width: ResponsiveDesign.width(),
       child: Padding(
         padding: const EdgeInsets.all(10.0),

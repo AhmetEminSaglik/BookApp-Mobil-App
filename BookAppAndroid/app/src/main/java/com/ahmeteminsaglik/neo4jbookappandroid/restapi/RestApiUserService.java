@@ -29,14 +29,14 @@ public interface RestApiUserService {
     @POST("signup")
     Call<SignUpResponse> signUpUser(@Body User user);
 
-    @GET("followed/{userId}")
-    Call<RestApiResponse<List<User>>> getFollowedList(@Path("userId") long userId);
+    @GET("following/{userId}")
+    Call<RestApiResponse<List<User>>> getfollowingList(@Path("userId") long userId);
 
     @GET("follower/{userId}")
     Call<RestApiResponse<List<User>>> getFollowerList(@Path("userId") long userId);
 
-    @DELETE("/users/{userId}/followed/{followedUserId}")
-    Call<RestApiResponse<List<User>>> removeFollowedUserRelationship(@Path("userId") long userId, @Path("followedUserId") long followedUserId);
+    @DELETE("/users/{userId}/following/{followingUserId}")
+    Call<RestApiResponse<List<User>>> removefollowingUserRelationship(@Path("userId") long userId, @Path("followingUserId") long followingUserId);
 
     @DELETE("/users/{userId}/follower/{followerUserId}")
     Call<RestApiResponse<List<User>>> removeFollowerUserRelationship(@Path("userId") long userId, @Path("followerUserId") long followerUserId);

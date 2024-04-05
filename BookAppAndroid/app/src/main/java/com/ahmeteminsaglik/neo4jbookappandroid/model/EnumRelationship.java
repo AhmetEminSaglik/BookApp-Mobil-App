@@ -1,7 +1,7 @@
 package com.ahmeteminsaglik.neo4jbookappandroid.model;
 
 public enum EnumRelationship {
-    FOLLOWED("Following"),
+    following("Following"),
     FOLLOWER("Follower");
     private final String name;
 

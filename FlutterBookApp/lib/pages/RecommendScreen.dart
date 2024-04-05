@@ -78,23 +78,27 @@ class _RecommendScreenState extends State<RecommendScreen> {
   }
 
   retrieveBookList() async {
+    bookList = await HttpRequestBook.getRecommendedBookListByFriendRead();
+    addBookListToRecBookList(
+        recommendBy: EnumRecommendBy.BY_FRIEND,
+        bookList: bookList,
+        color: ProductColor.BY_FRIEND);
+
+    bookList = await HttpRequestBook.getRecommendedBookListByTotalRead();
+    addBookListToRecBookList(
+        recommendBy: EnumRecommendBy.BESTSELLER,
+        bookList: bookList,
+        color: ProductColor.MOST_READ);
+
     bookList = await HttpRequestBook.getRecommendedBookListByPoint();
     addBookListToRecBookList(
         recommendBy: EnumRecommendBy.HIGHEST_RATING,
         bookList: bookList,
         color: ProductColor.HIGHEST_RATING);
 
-    bookList = await HttpRequestBook.getRecommendedBookListByTotalRead();
-    addBookListToRecBookList(
-        recommendBy: EnumRecommendBy.MOST_READ,
-        bookList: bookList,
-        color: ProductColor.MOST_READ);
 
-    bookList = await HttpRequestBook.getRecommendedBookListByFriendRead();
-    addBookListToRecBookList(
-        recommendBy: EnumRecommendBy.BY_FRIEND,
-        bookList: bookList,
-        color: ProductColor.BY_FRIEND);
+
+
 /*
     bookList.forEach((element) {
       list.add(element);

@@ -23,7 +23,7 @@ import java.util.List;
 public class FragmentProfil extends Fragment {
     private final AppCompatActivity activity;
     private RecyclerView rv;
-    public RelationshipUserRVAdapter followedUserListAdapter;
+    public RelationshipUserRVAdapter followingUserListAdapter;
     public RelationshipUserRVAdapter followerUserListAdapter;
 
     public FragmentProfil(AppCompatActivity activity) {
@@ -40,12 +40,12 @@ public class FragmentProfil extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         createRecycleView(view);
-        List<RelationshipUser> followedUserList = getFollowedRelationshipList();
+        List<RelationshipUser> followingUserList = getfollowingRelationshipList();
         List<RelationshipUser> followerUserList = getFollowerRelationshipList();
 //        List<RecommendedBook> recommendedBookList = convertBookListToRecommedBookList(bookList);
-        followedUserListAdapter = new RelationshipUserRVAdapter(activity, followedUserList);//new BookRVAdapter(fragment, activity, recommendedBookList);
+        followingUserListAdapter = new RelationshipUserRVAdapter(activity, followingUserList);//new BookRVAdapter(fragment, activity, recommendedBookList);
         followerUserListAdapter = new RelationshipUserRVAdapter(activity, followerUserList);//new BookRVAdapter(fragment, activity, recommendedBookList);
-        ConcatAdapter concatAdapter = new ConcatAdapter(followedUserListAdapter, followerUserListAdapter);
+        ConcatAdapter concatAdapter = new ConcatAdapter(followingUserListAdapter, followerUserListAdapter);
         rv.setAdapter(concatAdapter);
     }
 
@@ -55,9 +55,9 @@ public class FragmentProfil extends Fragment {
         rv.setLayoutManager(new LinearLayoutManager(view.getContext()));
     }
 
-    private List<RelationshipUser> getFollowedRelationshipList() {
+    private List<RelationshipUser> getfollowingRelationshipList() {
         FragmentProfilProcess fragmentRecommendsProcess = new FragmentProfilProcess(activity.getApplicationContext());
-        return fragmentRecommendsProcess.getFollowedList();
+        return fragmentRecommendsProcess.getfollowingList();
     }
 
     private List<RelationshipUser> getFollowerRelationshipList() {
