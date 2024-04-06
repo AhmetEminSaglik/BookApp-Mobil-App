@@ -17,11 +17,13 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // backgroundColor: ProductColor.blue,
         body: DecoratedBox(
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("images/2.jpg"), fit: BoxFit.cover)),
+                    // image: AssetImage("images/8.jpg"),
+                    image: AssetImage("images/9.png"),
+                    // image: AssetImage("images/10.jpg"),
+                    fit: BoxFit.none)),
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -54,11 +56,11 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController _passwordController =
       TextEditingController(text: "pass");
 
-   Color hintColor = ProductColor.black;
-   Color textColor = ProductColor.pink;
-   Color iconColor = ProductColor.red;
-   Color itemBackgroundColor = ProductColor.pink;
-   Color itemForegroundColor = ProductColor.black;
+  Color hintColor = ProductColor.black;
+  Color textColor = ProductColor.pink;
+  Color iconColor = ProductColor.pink;
+  Color itemBackgroundColor = ProductColor.pink;
+  Color itemForegroundColor = ProductColor.black;
 
   @override
   Widget build(BuildContext context) {
@@ -81,47 +83,11 @@ class _LoginFormState extends State<LoginForm> {
             const SizedBox(
               height: 50,
             ),
-            TextFormField(
-              controller: _usernameController,
-              style: TextStyle(fontSize: 20, color: textColor),
-              decoration: InputDecoration(
-                labelText: "Username",
-                labelStyle: TextStyle(
-                    fontSize: 20,
-                    color: hintColor,
-                    fontWeight: FontWeight.bold),
-                filled: true,
-                fillColor: ProductColor.white,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                // hintText: "Username",
-                prefixIcon: Icon(
-                  Icons.person,
-                  color: iconColor,
-                ),
-              ),
-            ),
+            _getUsernameField(),
             const SizedBox(
               height: 50,
             ),
-            TextFormField(
-              controller: _passwordController,
-              obscureText: true,
-              style: TextStyle(fontSize: 20, color: textColor),
-              decoration: InputDecoration(
-                labelStyle: TextStyle(
-                    fontSize: 20,
-                    color: hintColor,
-                    fontWeight: FontWeight.bold),
-                labelText: "Password",
-                filled: true,
-                fillColor: ProductColor.white,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                // hintText: "Username",
-                prefixIcon: Icon(Icons.lock, color: iconColor),
-              ),
-            ),
+            _getPasswordField(),
             const SizedBox(
               height: 50,
             ),
@@ -146,7 +112,7 @@ class _LoginFormState extends State<LoginForm> {
                           (states) => itemForegroundColor)),
                   child: const Text(
                     "Login",
-                    style: TextStyle(fontSize: 23),
+                    style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold),
                   )),
             ),
           ],
@@ -189,4 +155,74 @@ class _LoginFormState extends State<LoginForm> {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const RecommendScreen()));
   }*/
+  Widget _getUsernameField() {
+    return _getFormField(
+        controller: _usernameController,
+        hintText: "Username",
+        textColor: textColor,
+        hintColor: hintColor,
+        iconColor: iconColor,
+        icon: Icons.person);
+  }
+
+  Widget _getPasswordField() {
+    return _getFormField(
+      controller: _passwordController,
+      hintText: "Password",
+      textColor: textColor,
+      hintColor: hintColor,
+      iconColor: iconColor,
+      icon: Icons.lock,
+      obscureText: true,
+    );
+  }
+}
+
+class _getFormField extends StatelessWidget {
+  const _getFormField(
+      {required TextEditingController controller,
+      required String hintText,
+      required this.textColor,
+      required this.hintColor,
+      required this.iconColor,
+      required IconData icon,
+      bool obscureText = false})
+      : _controller = controller,
+        _hintText = hintText,
+        _icon = icon,
+        _obscureText = obscureText;
+
+  final TextEditingController _controller;
+  final Color textColor;
+  final Color hintColor;
+  final String _hintText;
+  final Color iconColor;
+  final IconData _icon;
+  final bool _obscureText;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: _controller,
+      obscureText: _obscureText,
+      style: TextStyle(fontSize: 20, color: textColor),
+      decoration: InputDecoration(
+        // labelText: _hintText,
+        // alignLabelWithHint: true,
+        hintText: _hintText,
+        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+        labelStyle: TextStyle(
+            fontSize: 20, color: hintColor, fontWeight: FontWeight.bold),
+        filled: true,
+        fillColor: ProductColor.white,
+        border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        // hintText: "Username",
+        prefixIcon: Icon(
+          _icon,
+          color: iconColor,
+        ),
+      ),
+    );
+  }
 }
