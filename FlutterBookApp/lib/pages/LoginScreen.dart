@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/login/LoginCubit.dart';
@@ -13,12 +16,27 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: ProductColor.blue,
-      body: Center(
-        child: LoginForm(),
-      ),
-    );
+    return Scaffold(
+        // backgroundColor: ProductColor.blue,
+        body: DecoratedBox(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("images/2.jpg"), fit: BoxFit.cover)),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(
+                                    width: 5, color: ProductColor.black)),
+                            child: const LoginForm()))),
+              ),
+            )));
   }
 }
 
@@ -36,21 +54,28 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController _passwordController =
       TextEditingController(text: "pass");
 
+   Color hintColor = ProductColor.black;
+   Color textColor = ProductColor.pink;
+   Color iconColor = ProductColor.red;
+   Color itemBackgroundColor = ProductColor.pink;
+   Color itemForegroundColor = ProductColor.black;
+
   @override
   Widget build(BuildContext context) {
     // Login();
     autoLogin();
     return Padding(
-      padding: const EdgeInsets.all(25.0),
+      padding: const EdgeInsets.all(15.0),
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
+            // const Image(image: AssetImage('images/21.jpg')),
+            SizedBox(
               child: Icon(
                 FontAwesomeIcons.book,
                 size: 125.0, // İstediğiniz boyuta ayarlayabilirsiniz
-                color: ProductColor.white, // İstediğiniz rengi seçebilirsiniz
+                color: itemBackgroundColor, // İstediğiniz rengi seçebilirsiniz
               ),
             ),
             const SizedBox(
@@ -58,20 +83,22 @@ class _LoginFormState extends State<LoginForm> {
             ),
             TextFormField(
               controller: _usernameController,
-              style:
-                  const TextStyle(fontSize: 20, color: ProductColor.darkBlue),
-              decoration: const InputDecoration(
+              style: TextStyle(fontSize: 20, color: textColor),
+              decoration: InputDecoration(
                 labelText: "Username",
                 labelStyle: TextStyle(
                     fontSize: 20,
-                    color: Colors.black,
+                    color: hintColor,
                     fontWeight: FontWeight.bold),
                 filled: true,
                 fillColor: ProductColor.white,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 // hintText: "Username",
-                prefixIcon: Icon(Icons.person),
+                prefixIcon: Icon(
+                  Icons.person,
+                  color: iconColor,
+                ),
               ),
             ),
             const SizedBox(
@@ -80,12 +107,11 @@ class _LoginFormState extends State<LoginForm> {
             TextFormField(
               controller: _passwordController,
               obscureText: true,
-              style:
-                  const TextStyle(fontSize: 20, color: ProductColor.darkBlue),
-              decoration: const InputDecoration(
+              style: TextStyle(fontSize: 20, color: textColor),
+              decoration: InputDecoration(
                 labelStyle: TextStyle(
                     fontSize: 20,
-                    color: Colors.black,
+                    color: hintColor,
                     fontWeight: FontWeight.bold),
                 labelText: "Password",
                 filled: true,
@@ -93,7 +119,7 @@ class _LoginFormState extends State<LoginForm> {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(20))),
                 // hintText: "Username",
-                prefixIcon: Icon(Icons.lock),
+                prefixIcon: Icon(Icons.lock, color: iconColor),
               ),
             ),
             const SizedBox(
@@ -101,8 +127,8 @@ class _LoginFormState extends State<LoginForm> {
             ),
             /*
             *  return BlocBuilder<ProfilUpdatedCubit, bool>(
-      builder: (builder, isUpdated) {}
-      * */
+              builder: (builder, isUpdated) {}
+              * */
             getWidgetFoLoginState() ?? Container(),
             SizedBox(
               width: 150,
@@ -115,9 +141,9 @@ class _LoginFormState extends State<LoginForm> {
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateColor.resolveWith(
-                          (states) => ProductColor.darkBlue),
+                          (states) => itemBackgroundColor),
                       foregroundColor: MaterialStateColor.resolveWith(
-                          (states) => ProductColor.white)),
+                          (states) => itemForegroundColor)),
                   child: const Text(
                     "Login",
                     style: TextStyle(fontSize: 23),
