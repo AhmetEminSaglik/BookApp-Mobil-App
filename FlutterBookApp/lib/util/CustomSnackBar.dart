@@ -9,8 +9,7 @@ class CustomSnackBar {
       content: Text(
         msg,
         style: TextStyle(
-            color: ProductColor.white,
-            fontSize: ResponsiveDesign.width() / 27),
+            color: ProductColor.white, fontSize: ResponsiveDesign.width() / 27),
       ),
       closeIconColor: ProductColor.white,
       showCloseIcon: true,

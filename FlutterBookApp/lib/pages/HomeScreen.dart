@@ -26,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: colors[currentIndex],
         foregroundColor: Colors.white,
-        //Theme.of(context).colorScheme.inversePrimary,
         title: Text(titles[currentIndex]),
       ),
       body: screens[currentIndex],

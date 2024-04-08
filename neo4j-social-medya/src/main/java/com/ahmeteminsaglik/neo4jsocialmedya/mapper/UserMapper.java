@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserMapper {
-    private UserService userService;
-    private BookService bookService;
-    private static CustomLog log = new CustomLog(UserMapper.class);
+    private static final CustomLog log = new CustomLog(UserMapper.class);
+    private final UserService userService;
+    private final BookService bookService;
 
 
     @Autowired

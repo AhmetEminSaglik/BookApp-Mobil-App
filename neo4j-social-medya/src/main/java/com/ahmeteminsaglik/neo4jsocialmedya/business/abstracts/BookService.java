@@ -15,7 +15,9 @@ public interface BookService {
     Book getBookByUserIdReadBookId(long userId, long bookId);
 
     List<Book> save(List<Book> list);
+
     void removeUserReadBookConnection(long userId, long bookId);
+
     List<Book> getAllReadBooksByUserId(long userId);
 
     List<Book> findByHighestPoint();
@@ -24,9 +26,10 @@ public interface BookService {
 
     List<Book> findByMostReadBookFromFollowings(long userId);
 
-    void createConnectionUserReadBook(long userId, long bookId,int rate);
+    void createConnectionUserReadBook(long userId, long bookId, int rate);
 
     void fixBookData();
+
     int getUserReadBookCount(long userId);
 
 }

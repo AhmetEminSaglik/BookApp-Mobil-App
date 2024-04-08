@@ -26,32 +26,12 @@ class _BookCardState extends State<BookCard> {
   final double padding = ResponsiveDesign.height() / 65;
 
   bool isLoading = true;
-  // List<Book> bookList = [];
 
   @override
   void initState() {
     super.initState();
     print("Recommended BookCard initState BY : ${widget.recData.by}");
-    // _retrieveReadBookData();
   }
-
-  /*_retrieveReadBookData() async {
-    await _retrieveReadBookList();
-    if (mounted) {
-      setState(() {
-        isLoading = false;
-      });
-    } else {
-      print("Elseye girdi mounted: $mounted");
-    }
-    // setState(() {
-    //   isLoading = false;
-    // });
-  }*/
-
-  /*_retrieveReadBookList() async {
-    bookList = await HttpRequestBook.getReadBookList();
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -88,27 +68,12 @@ class _BookCardState extends State<BookCard> {
     );
   }
 
-  /*bool isBookReadByUser(Book book) {
-    bool isBookRead = false;
-    for (var element in bookList) {
-      if (element.id == book.id) {
-        isBookRead = true;
-        continue;
-      }
-    }
-    log.i("Book is Read : $isBookRead");
-    return isBookRead;
-  }*/
-
   Padding getRecommendCardContent() {
     final double contentWidth = imgWidth / 2 + ResponsiveDesign.width() / 25;
     return Padding(
       padding: EdgeInsets.only(left: contentWidth),
       child: ContainerWithBoxDecoration(
         child: Container(
-          // width: 295,
-          /*width: ResponsiveDesign.width() - contentWidth - 4.5 * padding,
-          height: imgHeight + 5.5 * padding,*/
           width: ResponsiveDesign.width() - contentWidth - 5.5 * padding,
           height: imgHeight + 7 * padding,
           color: ProductColor.white,
@@ -118,13 +83,6 @@ class _BookCardState extends State<BookCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 getShortTitle("${widget.index}-) ${widget.recData.data.name}"),
-                /*Text(
-                  getShortTitle(
-                      "${widget.index}-) ${widget.recData.data.name}"),
-                  maxLines: 2,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
-                ),*/
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,15 +105,17 @@ class _BookCardState extends State<BookCard> {
                             fontWeight: FontWeight.bold,
                             color: ProductColor.grey),
                       ),
-                      widget.recData.by.isNotEmpty ?Text(
-                        widget.recData.by,
-                        style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                            color: widget.recData.color),
-                      ): Container(),
+                      widget.recData.by.isNotEmpty
+                          ? Text(
+                              widget.recData.by,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: widget.recData.color),
+                            )
+                          : Container(),
                       Padding(
-                        padding: const EdgeInsets.only(top: 5,right: 15),
+                        padding: const EdgeInsets.only(top: 5, right: 15),
                         child: Text(
                           getShortDesc(widget.recData.data.desc),
                           maxLines: 3,
@@ -193,7 +153,6 @@ class _BookCardState extends State<BookCard> {
             ]),
         height: 25,
         width: 25,
-        // color: ProductColor.red,
         child: const Icon(Icons.chevron_right, color: ProductColor.red),
       ),
     );
@@ -257,12 +216,4 @@ class _BookCardState extends State<BookCard> {
 
     return text;
   }
-/*
-  String getShortTitle(String title) {
-    int index = 40;
-    if (title.trim().length > index) {
-      return "${title.substring(0, index).trim()}...";
-    }
-    return title;
-  }*/
 }

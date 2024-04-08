@@ -1,6 +1,5 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.dataaccess;
 
-import com.ahmeteminsaglik.neo4jsocialmedya.model.Author;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.Book;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;

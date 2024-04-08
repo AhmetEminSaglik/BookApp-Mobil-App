@@ -1,4 +1,4 @@
-import 'dart:developer';
+// import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,8 +20,6 @@ import 'FollowerTab.dart';
 class ProfilScreen extends StatefulWidget {
   ProfilScreen({super.key});
 
-  // bool _isInit = false;
-
   @override
   State<ProfilScreen> createState() => _ProfilScreenState();
 }
@@ -40,12 +38,8 @@ class _ProfilScreenState extends State<ProfilScreen> {
   @override
   void initState() {
     super.initState();
-    // isLoading = !(widget._isInit);
-    // if (!widget._isInit) {
     print("MyReadBookScreen > initState ");
     _retrieveAllData();
-    // widget._isInit = true;
-    // }
   }
 
   _retrieveAllData() async {
@@ -57,12 +51,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
       setState(() {
         isLoading = false;
       });
-    } /* else {
-      print(" mounted: $mounted");
-    }*/
-    // setState(() {
-    //   isLoading = false;
-    // });
+    }
   }
 
   @override

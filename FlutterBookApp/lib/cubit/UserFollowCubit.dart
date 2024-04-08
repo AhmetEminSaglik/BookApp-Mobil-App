@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
-import 'package:flutter_book_app/httprequest/Model/ResponseEntity.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:logger/logger.dart';
 
@@ -11,7 +10,6 @@ class UserFollowProcessCubit extends Cubit<UserFollowProcessCubitData?> {
   var log = Logger(printer: PrettyPrinter(colors: false));
   late UserFollowProcessCubitData data;
 
-  // late UserFriendDTO userFriendDTO;
   Future<UserFollowProcessCubitData> followUser(
       UserFriendDTO userFriendDTO) async {
     data = UserFollowProcessCubitData(userFriendDTO: userFriendDTO);
@@ -24,14 +22,12 @@ class UserFollowProcessCubit extends Cubit<UserFollowProcessCubitData?> {
       UserFriendDTO userFriendDTO) async {
     data = UserFollowProcessCubitData(userFriendDTO: userFriendDTO);
     bool success = await HttpRequestUser.unfollowUser(userFriendDTO.id);
-    if(success){
-      data.userIsFollowed=false;
-    }else{
-      data.userIsFollowed=true;
+    if (success) {
+      data.userIsFollowed = false;
+    } else {
+      data.userIsFollowed = true;
     }
     emit(data);
     return data;
-    // bool result = await HttpRequestUser.followUser(userFriendDTO.id);
-    // return result;
   }
 }

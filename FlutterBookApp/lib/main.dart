@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ResponsiveDesign(mediaQueryData: MediaQuery.of(context));
-        return MultiBlocProvider(
+    return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => LoginCubit()),
           BlocProvider(create: (context) => BookCubit()),

@@ -30,9 +30,11 @@ public class Book {
     public byte[] getImageBytes() {
         return imageBytes;
     }
+
     public void setImageBytes(byte[] imageBytes) {
         this.imageBytes = imageBytes;
     }
+
     @Override
     public String toString() {
         return "Book{" +

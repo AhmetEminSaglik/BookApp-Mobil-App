@@ -1,7 +1,6 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.dataaccess;
 
 import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
-import org.neo4j.cypherdsl.core.Match;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 

@@ -26,6 +26,7 @@ class UserRepository {
 
     return userList;
   }
+
   static List<UserFriendDTO> parseUserFriendDTOList(List<dynamic> json) {
     List<UserFriendDTO> userList = [];
     for (var tmp in json) {

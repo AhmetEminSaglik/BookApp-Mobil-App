@@ -7,8 +7,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 @SpringBootApplication
 public class Neo4jSocialMedyaApplication extends SpringBootServletInitializer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Neo4jSocialMedyaApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Neo4jSocialMedyaApplication.class, args);
+    }
 
 }

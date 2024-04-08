@@ -1,7 +1,7 @@
 package com.ahmeteminsaglik.neo4jsocialmedya.utility.result;
 
-public class Result { // super type olarak geciyor. Tek basina da anlami olmasi yani sira interface gorevi gormektedir
-    private boolean success;
+public class Result {
+    private final boolean success;
     private String message;
 
     public Result(boolean success) {

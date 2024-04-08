@@ -75,8 +75,8 @@ public class BookManager implements BookService {
     }
 
     @Override
-    public void createConnectionUserReadBook(long userId, long bookId,int rate) {
-        repo.createConnectionUserReadBook(userId, bookId,rate);
+    public void createConnectionUserReadBook(long userId, long bookId, int rate) {
+        repo.createConnectionUserReadBook(userId, bookId, rate);
     }
 
     @Override

@@ -7,7 +7,6 @@ class FollowingRemoveCubit extends Cubit<UserFriendDTO?> {
   var log = Logger(printer: PrettyPrinter(colors: false));
 
   void removeFromList(UserFriendDTO userFriendDTO) {
-    print(">>>>>>>>>>>the follower will be removed");
     emit(userFriendDTO);
   }
 }

@@ -64,7 +64,6 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    // Login();
     autoLogin();
     return Padding(
       padding: const EdgeInsets.all(15.0),
@@ -72,12 +71,11 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // const Image(image: AssetImage('images/21.jpg')),
             SizedBox(
               child: Icon(
                 FontAwesomeIcons.book,
-                size: 125.0, // İstediğiniz boyuta ayarlayabilirsiniz
-                color: itemBackgroundColor, // İstediğiniz rengi seçebilirsiniz
+                size: 125.0,
+                color: itemBackgroundColor,
               ),
             ),
             const SizedBox(
@@ -91,11 +89,7 @@ class _LoginFormState extends State<LoginForm> {
             const SizedBox(
               height: 50,
             ),
-            /*
-            *  return BlocBuilder<ProfilUpdatedCubit, bool>(
-              builder: (builder, isUpdated) {}
-              * */
-            getWidgetFoLoginState() ?? Container(),
+            getWidgetFoLoginState(), // ?? Container(),
             SizedBox(
               width: 150,
               height: 40,
@@ -112,7 +106,7 @@ class _LoginFormState extends State<LoginForm> {
                           (states) => itemForegroundColor)),
                   child: const Text(
                     "Login",
-                    style: TextStyle(fontSize: 23,fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                   )),
             ),
           ],
@@ -137,8 +131,6 @@ class _LoginFormState extends State<LoginForm> {
     String username = SharedPrefUtils.getUsername();
     String pass = SharedPrefUtils.getPassword();
     if (username.isNotEmpty && pass.isNotEmpty) {
-      // print("Username is not Empty : ($username)");
-      // print("password is not Empty : ($pass)");
       login(username: username, password: pass);
     }
   }
@@ -151,10 +143,6 @@ class _LoginFormState extends State<LoginForm> {
     context.read<LoginCubit>().login(context, username, password);
   }
 
-/*void navigatePage() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const RecommendScreen()));
-  }*/
   Widget _getUsernameField() {
     return _getFormField(
         controller: _usernameController,
@@ -207,8 +195,6 @@ class _getFormField extends StatelessWidget {
       obscureText: _obscureText,
       style: TextStyle(fontSize: 20, color: textColor),
       decoration: InputDecoration(
-        // labelText: _hintText,
-        // alignLabelWithHint: true,
         hintText: _hintText,
         hintStyle: const TextStyle(fontWeight: FontWeight.bold),
         labelStyle: TextStyle(
@@ -217,7 +203,6 @@ class _getFormField extends StatelessWidget {
         fillColor: ProductColor.white,
         border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
-        // hintText: "Username",
         prefixIcon: Icon(
           _icon,
           color: iconColor,

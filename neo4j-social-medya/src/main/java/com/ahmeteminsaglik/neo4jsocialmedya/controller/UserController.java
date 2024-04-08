@@ -28,11 +28,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/users")
 @CrossOrigin
 public class UserController {
-    private static CustomLog log = new CustomLog(UserController.class);
+    private static final CustomLog log = new CustomLog(UserController.class);
     private final UserService userService;
-    private ValidationSignUp validationSignUp = new ValidationSignUp();
-    private ValidationLoginInput validationLogin = new ValidationLoginInput();
-    private BookService bookService;
+    private final ValidationSignUp validationSignUp = new ValidationSignUp();
+    private final ValidationLoginInput validationLogin = new ValidationLoginInput();
+    private final BookService bookService;
 
     @Autowired
     private UserMapper userMapper;

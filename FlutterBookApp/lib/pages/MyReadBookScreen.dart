@@ -6,7 +6,6 @@ import 'package:flutter_book_app/product/BookCard.dart';
 import 'package:logger/logger.dart';
 import '../httprequest/HttpRequestBook.dart';
 import '../model/Book.dart';
-import '../product/BookCardOld.dart';
 import '../util/ProductColor.dart';
 
 class MyReadBookScreen extends StatefulWidget {
@@ -32,9 +31,6 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
         isLoading = false;
       });
     }
-    // setState(() {
-    //   isLoading = false;
-    // });
   }
 
   _retrieveReadBookList() async {
@@ -44,7 +40,6 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
   @override
   void initState() {
     super.initState();
-    print("MyReadBookScreen > initState ");
     _retrieveReadBookData();
   }
 
@@ -73,17 +68,6 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
                       ),
                     ),
                   ]);
-            /*: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 25, right: 0, top: 25, bottom:25),
-                      child: Column(
-                        children: [
-                          _BookCardColumn(),
-                        ],
-                      ),
-                    ),
-                  );*/
           },
         ),
       ),
@@ -96,11 +80,6 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
       RecommendData<Book> recData = RecommendData(data: bookList[i]);
       BookCard bookCard =
           BookCard(index: bookList.length - i, recData: recData);
-      // BookCard bookCard = BookCard(
-      // book: bookList[i],
-      // index: (bookList.length - i),
-      // isBookRead: isBookReadByUser(bookList[i]),
-      // );
       column.children.add(bookCard);
     }
     return column;
@@ -118,26 +97,3 @@ class _MyReadBookScreenState extends State<MyReadBookScreen> {
     return isBookRead;
   }
 }
-
-/*
-String getShortDesc(String desc) {
-  if (desc.trim().length == 0) {
-    return "- - -";
-  }
-  int index = 60;
-  String shortDesc = desc;
-  if (desc.trim().length > index) {
-    shortDesc = shortDesc.replaceAll("\n", " ");
-    shortDesc = "${shortDesc.substring(0, index).trim()}...";
-  }
-  return shortDesc;
-}
-
-String getShortTitle(String title) {
-  int index = 35;
-  if (title.trim().length > index) {
-    return "${title.substring(0, index).trim()}...";
-  }
-  return title;
-}
-*/

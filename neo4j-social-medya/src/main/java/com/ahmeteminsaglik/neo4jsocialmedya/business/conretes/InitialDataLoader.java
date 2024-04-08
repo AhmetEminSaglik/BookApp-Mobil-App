@@ -17,16 +17,15 @@ import java.util.*;
 
 @Component
 public class InitialDataLoader implements CommandLineRunner {
-    private static CustomLog log = new CustomLog(InitialDataLoader.class);
-    private Random random = new Random();
+    private static final CustomLog log = new CustomLog(InitialDataLoader.class);
     @Autowired
     BookController bookController;
     @Autowired
     UserController userController;
     @Autowired
     AuthorController authorController;
-
     OpenLibraryFreeAPIData freeAPIData = new OpenLibraryFreeAPIData();
+    private final Random random = new Random();
 
     @Override
     public void run(String... args) throws Exception {
@@ -67,7 +66,7 @@ public class InitialDataLoader implements CommandLineRunner {
     private void processUserData() {
         if (userController.getAll().isEmpty()) {
             List<User> userList = userController.saveAll(StaticData.getUserList());
-            User arr[][] = StaticData.getRelationArr();
+            User[][] arr = StaticData.getRelationArr();
             for (int i = 0; i < arr.length; i++) {
                 userController.createNewConnectionFollowUser(arr[i][0].getId(), arr[i][1].getId());
             }

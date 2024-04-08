@@ -47,13 +47,6 @@ class _BookDetailPageState extends State<BookDetailPage> {
     if (book != null) {
       isBookRead = true;
     }
-    /*List<Book> bookList = await HttpRequestBook.getReadBookList();
-    bookList.forEach((element) {
-      if (element.id == widget.book.id) {
-        isBookRead = true;
-        return;
-      }
-    });*/
   }
 
   @override
@@ -68,21 +61,11 @@ class _BookDetailPageState extends State<BookDetailPage> {
               child: Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Column(children: [
-                  /*Padding(
-                    padding: const EdgeInsets.only(top: 110, left: 25, right: 25),
-                    child: ContainerWithBoxDecoration(
-                      child: Container(
-                        height: 570,
-                        color: ProductColor.white,
-                      ),
-                    ),
-                  ),*/
                   Padding(
                     padding: const EdgeInsets.only(
                         left: 10.0, right: 10, bottom: 10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      // crossAxisAlignment:CrossAxisAlignment.center,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -154,11 +137,9 @@ class _BigCardDesign extends StatelessWidget {
     return Column(
       children: [
         Row(
-          // crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             getBookRatingShape(book.point),
-            // getAveragePointText(widget.book.point)
           ],
         ),
         getReviewText(book.totalRead),
@@ -171,8 +152,6 @@ class _BigCardDesign extends StatelessWidget {
       height: 50,
       child: SingleChildScrollView(
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             _TextForBigCardDesign(
               textAlign: TextAlign.center,
@@ -181,8 +160,6 @@ class _BigCardDesign extends StatelessWidget {
               textColor: ProductColor.black,
               fontWeight: FontWeight.bold,
             ),
-            /*const SizedBox(height: 25),
-            getAuthorData()*/
           ],
         ),
       ),
@@ -191,7 +168,6 @@ class _BigCardDesign extends StatelessWidget {
 
   Column getAuthorData() {
     return Column(
-      // crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -206,31 +182,21 @@ class _BigCardDesign extends StatelessWidget {
         ),
         const SizedBox(height: 15),
         getBookDesc(),
-        // const SizedBox(height: 20),
-        /*     SizedBox(
-                width: 200,
-                height: 45,
-                child: isLoading
-                    ? const Center(child: CircularProgressIndicator())
-                    : getButton()),*/
       ],
     );
   }
 
   Container getBookDesc() {
-    // if (book.desc.`isNotEmpty`) {
     bool descIsEmpty = book.desc.isEmpty;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: ProductColor.darkWhite,
       ),
-      // height: 150,
       width: ResponsiveDesign.width(),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: SingleChildScrollView(
-          // scrollDirection: Axis.vertical,
           child: Padding(
             padding: EdgeInsets.only(
               top: descIsEmpty ? 50 : 10,
@@ -248,12 +214,6 @@ class _BigCardDesign extends StatelessWidget {
         ),
       ),
     );
-    // } else {
-    //   return Container(
-    //     child: const Text("- - -"),
-    //     alignment: Alignment.centerLeft,
-    //   );
-    // }
   }
 
   Widget getButton() {
@@ -263,10 +223,6 @@ class _BigCardDesign extends StatelessWidget {
       }
       return _AddAsReadButton(bookId: book.id);
     });
-
-    /*return isBookRead
-        ? _RemoveReadBookButton(bookId: book.id)
-        : _AddAsReadButton(bookId: book.id);*/
   }
 }
 
@@ -294,7 +250,6 @@ class _RemoveReadBookButtonState extends State<_RemoveReadBookButton> {
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
-          // side: const BorderSide(color: Colors.red)
         )),
         backgroundColor:
             MaterialStateColor.resolveWith((states) => ProductColor.red),
@@ -333,7 +288,6 @@ class _AddAsReadButtonState extends State<_AddAsReadButton> {
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
-          // side: const BorderSide(color: Colors.red)
         )),
         backgroundColor:
             MaterialStateColor.resolveWith((states) => ProductColor.green),

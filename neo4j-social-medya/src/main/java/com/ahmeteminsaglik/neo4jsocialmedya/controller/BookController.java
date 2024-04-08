@@ -24,9 +24,9 @@ import java.util.List;
 @RequestMapping("/books")
 @CrossOrigin
 public class BookController {
+    private static final CustomLog log = new CustomLog(UserMapper.class);
     @Autowired
     private BookService service;
-    private static CustomLog log = new CustomLog(UserMapper.class);
 
     @GetMapping("/start")
     public String startImageSave() {

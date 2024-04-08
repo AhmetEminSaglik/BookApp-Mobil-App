@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../util/ProductColor.dart';
 
-
 class ContainerWithBoxDecoration extends StatelessWidget {
   late Widget child;
 
@@ -35,7 +34,6 @@ Widget getBookRatingShape(double rating) {
       tapOnlyMode: false,
       allowHalfRating: true,
       itemBuilder: (context, _) => const Icon(
-            // Icons.star,
             Icons.star,
             color: ProductColor.ratingColor,
           ),

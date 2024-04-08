@@ -8,7 +8,6 @@ class UserFriendDTO {
   late int _totalFollowing;
   late int _totalReadBook;
 
-
   UserFriendDTO(
       {required id,
       required name,
@@ -27,8 +26,17 @@ class UserFriendDTO {
     _totalFollowers = totalFollowers;
     _totalFollowing = totalFollowing;
   }
-  factory UserFriendDTO.empty(){
-    return UserFriendDTO(id: -1, name:"", lastname: "", gender:"", totalReadBook:-1, totalFollowers: -1, totalFollowing:-1, imgUrl:"");
+
+  factory UserFriendDTO.empty() {
+    return UserFriendDTO(
+        id: -1,
+        name: "",
+        lastname: "",
+        gender: "",
+        totalReadBook: -1,
+        totalFollowers: -1,
+        totalFollowing: -1,
+        imgUrl: "");
   }
 
   factory UserFriendDTO.fromJson(Map<String, dynamic> json) {
@@ -50,7 +58,7 @@ class UserFriendDTO {
       'lastname': lastname,
       'gender': gender,
       'totalReadBook': totalReadBook,
-      'totalFollowing':totalFollowing,
+      'totalFollowing': totalFollowing,
       'totalFollowers': totalFollowers,
       'imgUrl': imgUrl
     };
@@ -58,8 +66,8 @@ class UserFriendDTO {
 
   @override
   String toString() {
-    // return "UserFriendDTO{id:$id,name:$name,lastname:$lastname,gender:$gender,totalReadBook:$totalReadBook,totalFollowers:$totalFollowers,totalFollowing:$totalFollowing,imgUrl:$imgUrl}";
-    return "$id-$name $lastname}";
+    return "UserFriendDTO{id:$id,name:$name,lastname:$lastname,gender:$gender,totalReadBook:$totalReadBook,totalFollowers:$totalFollowers,totalFollowing:$totalFollowing,imgUrl:$imgUrl}";
+    // return "$id-$name $lastname}";
   }
 
   int get totalReadBook => _totalReadBook;
@@ -79,7 +87,6 @@ class UserFriendDTO {
   set gender(String value) {
     _gender = value;
   }
-
 
   int get totalFollowers => _totalFollowers;
 

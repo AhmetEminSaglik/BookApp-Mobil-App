@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 
-import java.util.List;
 import java.util.Objects;
 
 
