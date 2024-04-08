@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_book_app/repo/BookRepository.dart';
 import 'package:logger/logger.dart';
 
@@ -27,6 +28,23 @@ class HttpRequestBook {
       bookList = BookRepository.parseBookList(respEntity.data);
     }
     return bookList;
+  }
+
+  static Future<void> destroyUserReadBookConnection(
+      int userId, int bookId) async {
+    // String url = "$_baseUrl/readbooks?userId=$userId&bookId=$bookId";
+    String url = "$_baseUrl/$bookId/readby/user/$userId";
+    log.i("DESTROY CONNECTION URL : $url");
+    var resp = await Dio().delete(url);
+    log.i("DESTROY CONNECTION  RESPOND : $resp");
+  }
+
+  static Future<void> setUserReadBookConnection(
+      int userId, int bookId, rate) async {
+    String url = "$_baseUrl/$bookId/readby/user/$userId/rate/$rate";
+    log.i("SET CONNECTIONURL : $url");
+    var resp = await Dio().post(url);
+    log.i("SET CONNECTION RESPOND : $resp");
   }
 
   static Future<List<Book>> getReadBookList() async {

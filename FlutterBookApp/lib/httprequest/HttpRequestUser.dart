@@ -54,28 +54,6 @@ class HttpRequestUser {
     return userList;
   }
 
-
-
-  /*@POST("{userId}/read/{bookId}")
-    Call<RestApiResponse> createConnectionUserReadBook(@Path("userId") long userId, @Path("bookId") long bookId);*/
-
-  static Future<void> setUserReadBookConnection(
-      int userId, int bookId, rate) async {
-    String url = "$_baseUrl/read-book?userId=$userId&bookId=$bookId&rate=$rate";
-    log.i("SET CONNECTIONURL : $url");
-    // http: //localhost:8080/users/read-book?userId=72&bookId=139&rate=1
-    var resp = await Dio().post(url);
-    log.i("SET CONNECTION RESPOND : $resp");
-  }
-
-  static Future<void> destroyUserReadBookConnection(
-      int userId, int bookId) async {
-    String url = "$_baseUrl/readbooks?userId=$userId&bookId=$bookId";
-    log.i("DESTROY CONNECTION URL : $url");
-    var resp = await Dio().delete(url);
-    log.i("DESTROY CONNECTION  RESPOND : $resp");
-  }
-
   static Future<int> getUserBookCount() async {
     String url = "$_baseUrl/count/book?userId=${SharedPrefUtils.getUserId()}";
     log.i("URL : $url");

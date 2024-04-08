@@ -4,6 +4,8 @@ import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.BookService;
 import com.ahmeteminsaglik.neo4jsocialmedya.dataaccess.AuthorRepository;
 import com.ahmeteminsaglik.neo4jsocialmedya.dataaccess.BookRepository;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.Book;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import java.util.List;
 
 @Service
 public class BookManager implements BookService {
+    private static final Logger log = LoggerFactory.getLogger(BookManager.class);
     @Autowired
     private BookRepository repo;
     @Autowired
@@ -46,6 +49,11 @@ public class BookManager implements BookService {
     }
 
     @Override
+    public void removeUserReadBookConnection(long userId, long bookId) {
+        repo.removeUserReadBookConnection(userId, bookId);
+    }
+
+    @Override
     public List<Book> getAllReadBooksByUserId(long userId) {
 //        return repo.getAllByUserIdMatches(userId);
         List<Book> bookList = repo.getAllByUserIdMatches(userId);
@@ -70,8 +78,9 @@ public class BookManager implements BookService {
     }
 
     @Override
-    public void createConnectionUserReadBook(long userId, long bookId) {
-        repo.createConnectionUserReadBook(userId, bookId);
+    public void createConnectionUserReadBook(long userId, long bookId,int rate) {
+        log.info("createConnectionUserReadBook >> Timezone da eklenecek");
+        repo.createConnectionUserReadBook(userId, bookId,rate);
     }
 
     @Override

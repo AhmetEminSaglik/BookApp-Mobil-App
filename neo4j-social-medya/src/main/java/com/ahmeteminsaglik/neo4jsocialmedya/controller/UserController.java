@@ -95,11 +95,7 @@ public class UserController {
         return userService.saveAll(userList);
     }
 
-    @DeleteMapping("/readbooks")
-    public Result removeUserReadBookConnection(@RequestParam long userId, @RequestParam long bookId) {
-        userService.removeUserReadBookConnection(userId, bookId);
-        return new SuccessResult("Connection is removed successfully");
-    }
+
 
     @GetMapping("/following/{userId}")
     public DataResult<List<UserFriendDTO>> getfollowingUserList(@PathVariable long userId) {
@@ -194,7 +190,8 @@ public class UserController {
     //@PostMapping("/read-book")
     @PostMapping("/read-book")
     public void setConnectionUserReadBook(@RequestParam long userId, @RequestParam long bookId, @RequestParam int rate) {
-        userService.setConnectionUserReadBook(userId, bookId, rate);
+//        userService.setConnectionUserReadBook(userId, bookId, rate);
+        bookService.createConnectionUserReadBook(userId,bookId,rate);
     }
 
     @GetMapping("/count/book")

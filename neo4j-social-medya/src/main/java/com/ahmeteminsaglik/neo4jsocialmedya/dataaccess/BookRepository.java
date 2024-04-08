@@ -14,7 +14,11 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
     //    @Query("MATCH (u:User) WHERE ID(u) = $userId " +
 //            "MATCH (u)-[:READ]->(b:Book) " +
 //            "RETURN u,b")
-    @Query("MATCH (u:User)-[:READ]->(b:Book) WHERE ID(u) = $userId RETURN b")
+    /*@Query("MATCH (u:User)-[:READ]->(b:Book) WHERE ID(u) = $userId RETURN b " +
+            "ORDER BY r.timestamp DESC")*/
+    @Query("MATCH (u:User)-[r:READ]->(b:Book) WHERE ID(u) = $userId " +
+            "RETURN b " +
+            "ORDER BY r.timestamp DESC")
     List<Book> getAllByUserIdMatches(@PathVariable Long userId);
 
     @Query("MATCH (u:User) WHERE ID(u) = $userId " +
@@ -39,10 +43,26 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
             "RETURN DISTINCT b")
     List<Book> findByMostReadBookFromFollowings(@PathVariable Long userId);
 
+//    @Query("MATCH (u:User) WHERE ID(u) = $userId " +
+//            "MATCH (b:Book) WHERE ID(b) = $bookId " +
+//            "MERGE (u)-[r:READ]->(b)")
+/*@Query("MATCH (u:User) WHERE ID(u) = $userId " +
+        "MATCH (b:Book) WHERE ID(b) = $bookId " +
+        "MERGE (u)-[r:READ {timestamp: timestamp()}]->(b)")*/
     @Query("MATCH (u:User) WHERE ID(u) = $userId " +
             "MATCH (b:Book) WHERE ID(b) = $bookId " +
-            "MERGE (u)-[r:READ]->(b)")
-    void createConnectionUserReadBook(long userId, long bookId);
+            "MERGE (u)-[r:READ{rate:$rate}]->(b) " +
+//            "WHERE ID(u) = $userId AND ID(b) = $bookId " +
+            "SET r.timestamp = datetime() "//            "MERGE (u)-[r:READ {timestamp: timestamp()}]->(b)" +
+//            "RETURN u, b"
+    )
+    void createConnectionUserReadBook(long userId, long bookId,int rate);
+
+    @Query("MATCH (u:User)-[r:READ]->(b:Book) " +
+            "WHERE ID(u)=$userId " +
+            "AND ID(b)=$bookId " +
+            "DETACH DELETE r")
+    void removeUserReadBookConnection(long userId, long bookId);
 
     @Query("MATCH (b:Book)<-[r:READ]-(u:User)\nWITH b, avg(r.rate) as point, count(u) as totalReaders\nSET b.totalRead = totalReaders, b.point = round(point, 1)\n")
     void fixBookData();

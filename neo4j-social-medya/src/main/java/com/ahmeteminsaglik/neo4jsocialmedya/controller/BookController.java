@@ -69,6 +69,12 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
 
     }
+    @DeleteMapping("/{bookId}/readby/user/{userId}")
+    public Result removeUserReadBookConnection(@PathVariable long userId, @PathVariable long bookId) {
+        log.info("User removed the book from read");
+        service.removeUserReadBookConnection(userId, bookId);
+        return new SuccessResult("Connection is removed successfully");
+    }
 
     @GetMapping("/{userId}/{bookId}")
     public ResponseEntity<DataResult<Book>> getBookByUserIdReadBookId(@PathVariable long userId, @PathVariable long bookId) {
@@ -119,7 +125,7 @@ public class BookController {
     @GetMapping("/readby/{userId}")
     public DataResult<List<Book>> getAllReadBookByUserId(@PathVariable long userId) {
         DataResult<List<Book>> dataResult = new SuccessDataResult<>(service.getAllReadBooksByUserId(userId), "Read book data is retrived successfuly");
-        dataResult.getData().forEach(e-> System.out.println(e.getName()));
+        dataResult.getData().forEach(e -> System.out.println(e.getName()));
         return dataResult;
     }
 
@@ -138,9 +144,10 @@ public class BookController {
         return new SuccessDataResult<>(service.findByMostReadBookFromFollowings(userId), "Data retrived Successfully");
     }
 
-    @PostMapping("/{userId}/read/{bookId}")
-    public Result createConnectionUserReadBook(@PathVariable long userId, @PathVariable long bookId) {
-        service.createConnectionUserReadBook(userId, bookId);
+    @PostMapping("{bookId}/readby/user/{userId}/rate/{rate}")
+    public Result createConnectionUserReadBook(@PathVariable long userId, @PathVariable long bookId, @PathVariable int rate) {
+        log.info("User("+userId+") read("+rate+") Book("+bookId+") Connection will be created");
+        service.createConnectionUserReadBook(userId, bookId, rate);
         return new SuccessResult("Connection is created");
     }
 

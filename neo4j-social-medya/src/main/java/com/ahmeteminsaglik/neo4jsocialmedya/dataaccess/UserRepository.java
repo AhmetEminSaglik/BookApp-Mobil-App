@@ -17,12 +17,6 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
     @Query("MATCH (u:User)-[r:READ]->(b:Book) RETURN u,r,b LIMIT 2")
     List<User> findAllWithBooks();
 
-    @Query("MATCH (u:User)-[r:READ]->(b:Book) " +
-            "WHERE ID(u)=$userId " +
-            "AND ID(b)=$bookId " +
-            "DETACH DELETE r")
-    void removeUserReadBookConnection(long userId, long bookId);
-
     @Query("MATCH (u:User)-[:FOLLOW]->(f:User) " +
             "WHERE ID(u) = $userId " +
             "RETURN f")
@@ -73,11 +67,11 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
     void fixUserData();
 
 
-    @Query("MATCH (u:User) WHERE ID(u) = $userId " +
+  /*  @Query("MATCH (u:User) WHERE ID(u) = $userId " +
             "MATCH (b:Book) WHERE ID(b) = $bookId " +
             "MERGE (u)-[r:READ{rate:$rate}]->(b)")
-        /*@Query("CREATE (u:User)-[:READ{rate:$rate}]->(b:Book)" +
+        *//*@Query("CREATE (u:User)-[:READ{rate:$rate}]->(b:Book)" +
             "WHERE ID(u) = $userId" +
-            "AND ID(b) = $bookId")*/
-    void setConnectionUserReadBook(long userId, long bookId, int rate);
+            "AND ID(b) = $bookId")*//*
+    void setConnectionUserReadBook(long userId, long bookId, int rate);*/
 }
