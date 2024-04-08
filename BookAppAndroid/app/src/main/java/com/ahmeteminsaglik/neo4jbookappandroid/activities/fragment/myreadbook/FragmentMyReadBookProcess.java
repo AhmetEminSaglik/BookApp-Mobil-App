@@ -77,7 +77,7 @@ public class FragmentMyReadBookProcess {
         try {
             Response<RestApiResponse<Object>> response = call.execute();
             if (response.code() == 200) {
-                Toast.makeText(context, "response : " + response, Toast.LENGTH_LONG).show();
+//                Toast.makeText(context, "response : " + response, Toast.LENGTH_LONG).show();
             } else/* if (response.code() == 400) */ {
                 Log.e("Remove Connection Error : ", response.errorBody().toString());
 //                Gson gson = new Gson();

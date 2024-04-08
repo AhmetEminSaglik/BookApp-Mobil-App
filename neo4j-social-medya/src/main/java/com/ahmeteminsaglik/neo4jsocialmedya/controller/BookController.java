@@ -36,7 +36,7 @@ public class BookController {
         List<Book> bookList = service.findAll();
         for (int i = 0; i < bookList.size(); i++) {
 //        for (int i = 44; i <47; i++) {
-            log.info("image book index process : "+bookList.size()+"/"+(i+1)+" book name: "+bookList.get(i).getName());
+            log.info("image book index process : " + bookList.size() + "/" + (i + 1) + " book name: " + bookList.get(i).getName());
             try {
                 URL url = null;
 //                url = new URL("https://covers.openlibrary.org/b/id/3993778.jpg");
@@ -55,11 +55,11 @@ public class BookController {
             }
         }
         service.save(bookList);
-        StringBuilder sb=new StringBuilder();
-        for(Book tmp : bookList){
+        StringBuilder sb = new StringBuilder();
+        for (Book tmp : bookList) {
             sb.append(tmp.getId()).append(" -) ").append(tmp.getName()).append("<br/>");
         }
-       return sb.toString();
+        return sb.toString();
     }
 
     @GetMapping
@@ -118,7 +118,9 @@ public class BookController {
 */
     @GetMapping("/readby/{userId}")
     public DataResult<List<Book>> getAllReadBookByUserId(@PathVariable long userId) {
-        return new SuccessDataResult<>(service.getAllReadBooksByUserId(userId), "Read book data is retrived successfuly");
+        DataResult<List<Book>> dataResult = new SuccessDataResult<>(service.getAllReadBooksByUserId(userId), "Read book data is retrived successfuly");
+        dataResult.getData().forEach(e-> System.out.println(e.getName()));
+        return dataResult;
     }
 
     @GetMapping("/recommend/point")
@@ -137,7 +139,7 @@ public class BookController {
     }
 
     @PostMapping("/{userId}/read/{bookId}")
-    public Result createNewConnectionFollowUser(@PathVariable long userId, @PathVariable long bookId) {
+    public Result createConnectionUserReadBook(@PathVariable long userId, @PathVariable long bookId) {
         service.createConnectionUserReadBook(userId, bookId);
         return new SuccessResult("Connection is created");
     }

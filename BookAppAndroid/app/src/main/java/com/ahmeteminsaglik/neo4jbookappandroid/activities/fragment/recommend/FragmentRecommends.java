@@ -58,7 +58,7 @@ public class FragmentRecommends extends Fragment {
         bookAdapter = new RecommendedBookRVAdapter(activity, allBookList);//new BookRVAdapter(activity, allBookList);
         authorAdapter = new AuthorRVAdapter(activity, authorList);
         recommendedUserRVAdapter = new RecommendedUserRVAdapter(activity, recommendedUserList);
-        ConcatAdapter concatAdapter = new ConcatAdapter(recommendedUserRVAdapter, bookAdapter, authorAdapter);
+        ConcatAdapter concatAdapter = new ConcatAdapter(recommendedUserRVAdapter, bookAdapter/*, authorAdapter*/);
         rvRecommend.setAdapter(concatAdapter);
     }
 
