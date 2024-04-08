@@ -12,6 +12,7 @@ class ConnectionsValueCubit extends Cubit<bool> {
     emit(willBeUpdated);
     reset();
   }
+
   void reset() {
     willBeUpdated = false;
     emit(willBeUpdated);

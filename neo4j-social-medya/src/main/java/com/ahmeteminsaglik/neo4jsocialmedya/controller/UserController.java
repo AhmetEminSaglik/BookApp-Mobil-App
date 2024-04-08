@@ -28,11 +28,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/users")
 @CrossOrigin
 public class UserController {
-    private static CustomLog log = new CustomLog(UserController.class);
+    private static final CustomLog log = new CustomLog(UserController.class);
     private final UserService userService;
-    private ValidationSignUp validationSignUp = new ValidationSignUp();
-    private ValidationLoginInput validationLogin = new ValidationLoginInput();
-    private BookService bookService;
+    private final ValidationSignUp validationSignUp = new ValidationSignUp();
+    private final ValidationLoginInput validationLogin = new ValidationLoginInput();
+    private final BookService bookService;
 
     @Autowired
     private UserMapper userMapper;
@@ -53,17 +53,11 @@ public class UserController {
         return userService.findById(id);
     }
 
-//    @GetMapping("/readbooks")
-//    public List<User> getAllReadBookByUser() {
-//        return userService.findAll();
-//    }
-
     @GetMapping("/{name}")
     public User getUserByName(@PathVariable String name) {
         return userService.findByName(name);
     }
 
-    //    @ExceptionHandler
     @PostMapping("/login")
     @ResponseBody
     public DataResult<User> login(@RequestBody User user) {
@@ -87,7 +81,6 @@ public class UserController {
             user = userService.save(user);
             return new SuccessDataResult(user, result.getMessage());
         }
-//        return new ErrorDataResult<>(result.getMessage());
         throw new ApiRequestException(result.getMessage(), new InvalidUsernameOrPasswordException());
     }
 
@@ -95,11 +88,6 @@ public class UserController {
         return userService.saveAll(userList);
     }
 
-    @DeleteMapping("/readbooks")
-    public Result removeUserReadBookConnection(@RequestParam long userId, @RequestParam long bookId) {
-        userService.removeUserReadBookConnection(userId, bookId);
-        return new SuccessResult("Connection is removed successfully");
-    }
 
     @GetMapping("/following/{userId}")
     public DataResult<List<UserFriendDTO>> getfollowingUserList(@PathVariable long userId) {
@@ -144,13 +132,6 @@ public class UserController {
     @GetMapping("/recommend/user/{userId}")
     public DataResult<List<UserFriendDTO>> getRecommendedUserList(@PathVariable long userId) {
         List<User> userList = userService.findCommonUsersByFriends(userId);
-//        int userSize = userList.size();
-        /*if (userSize < 5) {
-            List<User> userListRandom = userService.findRandomUserToRecommend(userId);
-            userList.addAll(userListRandom);
-            Set<User> set = new HashSet<>(userList);
-            userList = new ArrayList<>(set);
-        }*/
         List<UserFriendDTO> userDTOList = userList
                 .stream()
                 .map(userMapper::toUserFriendDTO)
@@ -162,39 +143,28 @@ public class UserController {
 
     @GetMapping("/recommend/random/user/{userId}")
     public DataResult<List<UserFriendDTO>> getRandomRecommendedUserList(@PathVariable long userId) {
-//        List<User> userList = userService.findCommonUsersByFriends(userId);
-//        int userSize = userList.size();
-//        if (userSize < 5) {
-
         List<User> userList = userService.findCommonUsersByFriends(userId);
         List<User> randomUserList = userService.findRandomUserToRecommend(userId);
-
-//        userList.forEach(e1 -> randomUserList.removeIf(e2 -> e1 == e2));
         userList.forEach(randomUserList::remove);
 
         Set<User> set = new HashSet<>(randomUserList);
         randomUserList = new ArrayList<>(set);
-//        }
         List<UserFriendDTO> userDTOList = randomUserList
                 .stream()
                 .map(userMapper::toUserFriendDTO)
                 .collect(Collectors.toList());
-
         DataResult dataResult = new SuccessDataResult<>(userDTOList, "Random userDTO list is succesfully retrived");
-        log.info("Donecek deger : " + dataResult);
         return dataResult;
     }
-
 
     @GetMapping("/fix")
     public void fixUserData() {
         userService.fixUserData();
     }
 
-    //@PostMapping("/read-book")
     @PostMapping("/read-book")
     public void setConnectionUserReadBook(@RequestParam long userId, @RequestParam long bookId, @RequestParam int rate) {
-        userService.setConnectionUserReadBook(userId, bookId, rate);
+        bookService.createConnectionUserReadBook(userId, bookId, rate);
     }
 
     @GetMapping("/count/book")
@@ -204,17 +174,4 @@ public class UserController {
         log.info("Msg : " + msg);
         return new SuccessDataResult<>(count, msg);
     }
-    /*@GetMapping("/recommend/friend/{userId}")
-    public DataResult<List<User>> getByMostReadBookFromFollowings(@PathVariable Long userId) {
-        return new SuccessDataResult<>(userService.findCommonUsersByFriends(userId), "Data retrived Successfully");
-    }*/
-/*    @PostMapping("/post/following")
-    public DataResult<List<User>> getfollowingUserList2(@Body int userId) {
-        List<User> userList = userService.findAllfollowingUsersByUserId(userId);
-        return new SuccessDataResult<>(userList, "User's following users are retrived");
-    }*/
-/*    @GetMapping("/read")
-    public List<Read> getReadData() {
-        return userService.findAllReadData();
-    }*/
 }

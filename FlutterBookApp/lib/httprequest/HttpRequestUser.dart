@@ -29,7 +29,7 @@ class HttpRequestUser {
   static Future<List<UserFriendDTO>> getRecommendUserList() async {
     List<UserFriendDTO> userList = [];
     Uri url =
-    Uri.parse("$_baseUrl/recommend/user/${SharedPrefUtils.getUserId()}");
+        Uri.parse("$_baseUrl/recommend/user/${SharedPrefUtils.getUserId()}");
     log.i("URL : $url");
     var resp = await http.get(url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
@@ -42,8 +42,8 @@ class HttpRequestUser {
 
   static Future<List<UserFriendDTO>> getRandomRecommendUserList() async {
     List<UserFriendDTO> userList = [];
-    Uri url =
-    Uri.parse("$_baseUrl/recommend/random/user/${SharedPrefUtils.getUserId()}");
+    Uri url = Uri.parse(
+        "$_baseUrl/recommend/random/user/${SharedPrefUtils.getUserId()}");
     log.i("URL : $url");
     var resp = await http.get(url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
@@ -52,28 +52,6 @@ class HttpRequestUser {
       userList = UserRepository.parseUserFriendDTOList(respEntity.data);
     }
     return userList;
-  }
-
-
-
-  /*@POST("{userId}/read/{bookId}")
-    Call<RestApiResponse> createConnectionUserReadBook(@Path("userId") long userId, @Path("bookId") long bookId);*/
-
-  static Future<void> setUserReadBookConnection(
-      int userId, int bookId, rate) async {
-    String url = "$_baseUrl/read-book?userId=$userId&bookId=$bookId&rate=$rate";
-    log.i("SET CONNECTIONURL : $url");
-    // http: //localhost:8080/users/read-book?userId=72&bookId=139&rate=1
-    var resp = await Dio().post(url);
-    log.i("SET CONNECTION RESPOND : $resp");
-  }
-
-  static Future<void> destroyUserReadBookConnection(
-      int userId, int bookId) async {
-    String url = "$_baseUrl/readbooks?userId=$userId&bookId=$bookId";
-    log.i("DESTROY CONNECTION URL : $url");
-    var resp = await Dio().delete(url);
-    log.i("DESTROY CONNECTION  RESPOND : $resp");
   }
 
   static Future<int> getUserBookCount() async {
@@ -143,6 +121,20 @@ class HttpRequestUser {
         "$_baseUrl/${SharedPrefUtils.getUserId()}/follow/$userFriendId");
     log.i("URL : $url");
     var resp = await http.post(url);
+    Map<String, dynamic> jsonData = json.decode(resp.body);
+    ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
+    bool result = false;
+    if (respEntity.success) {
+      result = respEntity.success;
+    }
+    return result;
+  }
+
+  static Future<bool> unfollowUser(int userFriendId) async {
+    Uri url = Uri.parse(
+        "$_baseUrl/${SharedPrefUtils.getUserId()}/following/$userFriendId");
+    log.i("URL : $url");
+    var resp = await http.delete(url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
     ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
     bool result = false;

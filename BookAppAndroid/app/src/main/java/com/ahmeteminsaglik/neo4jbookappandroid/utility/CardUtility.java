@@ -23,7 +23,7 @@ public class CardUtility {
     }
 
     public static int getCardBackgroundColorByRelationshipType(String relationship) {
-        if (relationship.equals(EnumRelationship.FOLLOWED.getName())) {
+        if (relationship.equals(EnumRelationship.following.getName())) {
             return R.color.card_constraintColor_2_light_green;
         }
         if (relationship.equals(EnumRelationship.FOLLOWER.getName())) {

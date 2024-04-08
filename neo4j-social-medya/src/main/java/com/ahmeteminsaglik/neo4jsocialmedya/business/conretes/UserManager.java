@@ -39,10 +39,6 @@ public class UserManager implements UserService {
         return repo.findAllWithBooks();
     }
 
-    @Override
-    public void removeUserReadBookConnection(long userId, long bookId) {
-        repo.removeUserReadBookConnection(userId, bookId);
-    }
 
     @Override
     public List<User> findAllfollowingUsersByUserId(long id) {
@@ -86,11 +82,6 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public void setConnectionUserReadBook(long userId, long bookId, int rate) {
-        repo.setConnectionUserReadBook(userId, bookId, rate);
-    }
-
-    @Override
     public User findByUserNameAndPassword(String username, String password) {
         return repo.findByUsernameAndPassword(username, password);
     }
@@ -104,6 +95,5 @@ public class UserManager implements UserService {
     public List<User> saveAll(List<User> userList) {
         return repo.saveAll(userList);
     }
-
 
 }

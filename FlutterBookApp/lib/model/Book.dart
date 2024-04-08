@@ -43,7 +43,6 @@ class Book {
         totalRead: json["totalRead"] as int,
         webUrl: json["webUrl"] as String,
         author: Author.fromJson(json["author"]));
-
   }
 
   Map<String, dynamic> toJson() {
@@ -57,7 +56,6 @@ class Book {
       "totalRead": totalRead,
       "webUrl": webUrl,
       "author": _author.toJson()
-
     };
   }
 

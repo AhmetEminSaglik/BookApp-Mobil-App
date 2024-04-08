@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.neo4j.ogm.annotation.Index;
 import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Property;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Relationship;
@@ -27,8 +26,6 @@ public class Author {
     private Long id;
     private String name;
     private String lastname;
-    //    private int totalBook = random.nextInt(50) + 10;
-//    private double point = random.nextInt(5) + 1;
     @Index(unique = true)
     private String key;
 
@@ -41,8 +38,6 @@ public class Author {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastname='" + lastname + '\'' +
-//                ", totalBook=" + totalBook +
-//                ", point=" + point +
                 ", key='" + key + '\'' +
                 ", bookList=" + bookList +
                 '}';

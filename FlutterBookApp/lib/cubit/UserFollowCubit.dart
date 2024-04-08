@@ -10,18 +10,24 @@ class UserFollowProcessCubit extends Cubit<UserFollowProcessCubitData?> {
   var log = Logger(printer: PrettyPrinter(colors: false));
   late UserFollowProcessCubitData data;
 
-  // late UserFriendDTO userFriendDTO;
   Future<UserFollowProcessCubitData> followUser(
       UserFriendDTO userFriendDTO) async {
     data = UserFollowProcessCubitData(userFriendDTO: userFriendDTO);
     data.userIsFollowed = await HttpRequestUser.followUser(userFriendDTO.id);
-    print("userIsFollowed : ${data.userIsFollowed}");
     emit(data);
     return data;
   }
 
-  void unfollowUser(UserFriendDTO userFriendDTO) async {
-    // bool result = await HttpRequestUser.followUser(userFriendDTO.id);
-    // return result;
+  Future<UserFollowProcessCubitData> unfollowUser(
+      UserFriendDTO userFriendDTO) async {
+    data = UserFollowProcessCubitData(userFriendDTO: userFriendDTO);
+    bool success = await HttpRequestUser.unfollowUser(userFriendDTO.id);
+    if (success) {
+      data.userIsFollowed = false;
+    } else {
+      data.userIsFollowed = true;
+    }
+    emit(data);
+    return data;
   }
 }

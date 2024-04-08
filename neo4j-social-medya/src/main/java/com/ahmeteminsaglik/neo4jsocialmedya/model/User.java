@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.springframework.data.neo4j.core.schema.GeneratedValue;
 import org.springframework.data.neo4j.core.schema.Id;
 
-import java.util.List;
 import java.util.Objects;
 
 
@@ -16,8 +15,6 @@ import java.util.Objects;
 @Getter
 @Setter
 public class User {
-    /*
-     * create (n:User{name:"Ahmet Emin",lastname:"SAGLIK",username:"ahmet",password:"pass",followers:0})*/
     @Id
     @GeneratedValue
     private Long id;
@@ -30,18 +27,6 @@ public class User {
     private int followers;
     private int following;
     private String imgUrl;
-//    @Relationship(type = "Read",direction = Relationship.Direction.OUTGOING)
-//    private  List<Book> bookList;
-
-    //    @JsonIgnoreProperties("person")
-//    @Relationship(type = "ACTED_IN")
-//    private List<Movie> actedIn = new ArrayList<>();
-//
-//    @JsonIgnoreProperties({"actors", "directors"})
-//    @Relationship(type = "DIRECTED")
-//    private List<Movie> directed = new ArrayList<>();
-//    @Relationship(type = "Read", direction = Relationship.Direction.OUTGOING)
-//    private List<Read> reads;
 
     @Override
     public String toString() {

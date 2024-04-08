@@ -4,20 +4,21 @@ import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.UserService;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.Validation;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.User;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.exception.InvalidInputException;
-import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.*;
+import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.DataResult;
+import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.ErrorDataResult;
+import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.SuccessDataResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ValidationSignUp implements Validation {
+    private final static int minLength = 1;
+    private final static int maxLength = 15;
+    Logger logger = LoggerFactory.getLogger(ValidationSignUp.class);
     private UserService userService;
 
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
-
-    Logger logger = LoggerFactory.getLogger(ValidationSignUp.class);
-    private final static int minLength = 1;
-    private final static int maxLength = 15;
 
     @Override
     public DataResult<User> validate(User user) {
@@ -65,7 +66,6 @@ public class ValidationSignUp implements Validation {
         isTextLengthProper(inputArea, password, minLength, maxLength);
     }
 
-
     private boolean isTextLengthProper(String inputArea, String text, int min, int max) throws InvalidInputException {
         if (text.length() < min || text.length() > max) {
             throw new InvalidInputException(inputArea, min, max);
@@ -84,9 +84,6 @@ public class ValidationSignUp implements Validation {
         System.out.println("Username : " + username);
         User user = userService.findByUsername(username);
         System.out.println("user : " + user);
-        if (user == null) {
-            return true;
-        }
-        return false;
+        return user == null;
     }
 }

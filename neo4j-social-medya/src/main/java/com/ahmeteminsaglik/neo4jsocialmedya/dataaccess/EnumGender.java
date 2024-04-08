@@ -2,8 +2,8 @@ package com.ahmeteminsaglik.neo4jsocialmedya.dataaccess;
 
 public enum EnumGender {
     MAN(0, "man"), WOMAN(1, "woman");
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
 
     EnumGender(int id, String gender) {
         this.id = id;

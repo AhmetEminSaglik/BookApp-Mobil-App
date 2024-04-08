@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_book_app/repo/BookRepository.dart';
 import 'package:logger/logger.dart';
 
@@ -18,7 +19,6 @@ class HttpRequestBook {
   static Future<List<Book>> getRecommendedBookListByPoint() async {
     List<Book> bookList = [];
     Uri url = Uri.parse("$_baseUrl/recommend/point");
-    // Uri url = Uri.parse("$_baseUrl");
     log.i("URL : $url");
     var resp = await http.get(url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
@@ -29,10 +29,23 @@ class HttpRequestBook {
     return bookList;
   }
 
+  static Future<void> destroyUserReadBookConnection(
+      int userId, int bookId) async {
+    String url = "$_baseUrl/$bookId/readby/user/$userId";
+    log.i("DESTROY CONNECTION URL : $url");
+    var resp = await Dio().delete(url);
+  }
+
+  static Future<void> setUserReadBookConnection(
+      int userId, int bookId, rate) async {
+    String url = "$_baseUrl/$bookId/readby/user/$userId/rate/$rate";
+    log.i("SET CONNECTIONURL : $url");
+    var resp = await Dio().post(url);
+  }
+
   static Future<List<Book>> getReadBookList() async {
     List<Book> bookList = [];
     Uri url = Uri.parse("$_baseUrl/readby/${SharedPrefUtils.getUserId()}");
-    // Uri url = Uri.parse("$_baseUrl");
     log.i("URL : $url");
     var resp = await http.get(url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
@@ -77,11 +90,9 @@ class HttpRequestBook {
     var resp = await http.get(url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
     ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
-    // if (respEntity.success) {
     if (respEntity.data != null) {
       book = BookRepository.parseBook(respEntity.data);
     }
-    // }
     return book;
   }
 }

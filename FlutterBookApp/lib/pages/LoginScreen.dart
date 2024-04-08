@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/login/LoginCubit.dart';
@@ -13,12 +16,29 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: ProductColor.blue,
-      body: Center(
-        child: LoginForm(),
-      ),
-    );
+    return Scaffold(
+        body: DecoratedBox(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    // image: AssetImage("images/8.jpg"),
+                    image: AssetImage("images/9.png"),
+                    // image: AssetImage("images/10.jpg"),
+                    fit: BoxFit.none)),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(
+                                    width: 5, color: ProductColor.black)),
+                            child: const LoginForm()))),
+              ),
+            )));
   }
 }
 
@@ -36,74 +56,40 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController _passwordController =
       TextEditingController(text: "pass");
 
+  Color hintColor = ProductColor.black;
+  Color textColor = ProductColor.pink;
+  Color iconColor = ProductColor.pink;
+  Color itemBackgroundColor = ProductColor.pink;
+  Color itemForegroundColor = ProductColor.black;
+
   @override
   Widget build(BuildContext context) {
-    // Login();
     autoLogin();
     return Padding(
-      padding: const EdgeInsets.all(25.0),
+      padding: const EdgeInsets.all(15.0),
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
+            SizedBox(
               child: Icon(
                 FontAwesomeIcons.book,
-                size: 125.0, // İstediğiniz boyuta ayarlayabilirsiniz
-                color: ProductColor.white, // İstediğiniz rengi seçebilirsiniz
+                size: 125.0,
+                color: itemBackgroundColor,
               ),
             ),
             const SizedBox(
               height: 50,
             ),
-            TextFormField(
-              controller: _usernameController,
-              style:
-                  const TextStyle(fontSize: 20, color: ProductColor.darkBlue),
-              decoration: const InputDecoration(
-                labelText: "Username",
-                labelStyle: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
-                filled: true,
-                fillColor: ProductColor.white,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                // hintText: "Username",
-                prefixIcon: Icon(Icons.person),
-              ),
-            ),
+            _getUsernameField(),
             const SizedBox(
               height: 50,
             ),
-            TextFormField(
-              controller: _passwordController,
-              obscureText: true,
-              style:
-                  const TextStyle(fontSize: 20, color: ProductColor.darkBlue),
-              decoration: const InputDecoration(
-                labelStyle: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold),
-                labelText: "Password",
-                filled: true,
-                fillColor: ProductColor.white,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                // hintText: "Username",
-                prefixIcon: Icon(Icons.lock),
-              ),
-            ),
+            _getPasswordField(),
             const SizedBox(
               height: 50,
             ),
-            /*
-            *  return BlocBuilder<ProfilUpdatedCubit, bool>(
-      builder: (builder, isUpdated) {}
-      * */
-            getWidgetFoLoginState() ?? Container(),
+            getWidgetFoLoginState(), // ?? Container(),
             SizedBox(
               width: 150,
               height: 40,
@@ -115,12 +101,12 @@ class _LoginFormState extends State<LoginForm> {
                   },
                   style: ButtonStyle(
                       backgroundColor: MaterialStateColor.resolveWith(
-                          (states) => ProductColor.darkBlue),
+                          (states) => itemBackgroundColor),
                       foregroundColor: MaterialStateColor.resolveWith(
-                          (states) => ProductColor.white)),
+                          (states) => itemForegroundColor)),
                   child: const Text(
                     "Login",
-                    style: TextStyle(fontSize: 23),
+                    style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                   )),
             ),
           ],
@@ -145,8 +131,6 @@ class _LoginFormState extends State<LoginForm> {
     String username = SharedPrefUtils.getUsername();
     String pass = SharedPrefUtils.getPassword();
     if (username.isNotEmpty && pass.isNotEmpty) {
-      // print("Username is not Empty : ($username)");
-      // print("password is not Empty : ($pass)");
       login(username: username, password: pass);
     }
   }
@@ -159,8 +143,71 @@ class _LoginFormState extends State<LoginForm> {
     context.read<LoginCubit>().login(context, username, password);
   }
 
-/*void navigatePage() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const RecommendScreen()));
-  }*/
+  Widget _getUsernameField() {
+    return _getFormField(
+        controller: _usernameController,
+        hintText: "Username",
+        textColor: textColor,
+        hintColor: hintColor,
+        iconColor: iconColor,
+        icon: Icons.person);
+  }
+
+  Widget _getPasswordField() {
+    return _getFormField(
+      controller: _passwordController,
+      hintText: "Password",
+      textColor: textColor,
+      hintColor: hintColor,
+      iconColor: iconColor,
+      icon: Icons.lock,
+      obscureText: true,
+    );
+  }
+}
+
+class _getFormField extends StatelessWidget {
+  const _getFormField(
+      {required TextEditingController controller,
+      required String hintText,
+      required this.textColor,
+      required this.hintColor,
+      required this.iconColor,
+      required IconData icon,
+      bool obscureText = false})
+      : _controller = controller,
+        _hintText = hintText,
+        _icon = icon,
+        _obscureText = obscureText;
+
+  final TextEditingController _controller;
+  final Color textColor;
+  final Color hintColor;
+  final String _hintText;
+  final Color iconColor;
+  final IconData _icon;
+  final bool _obscureText;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: _controller,
+      obscureText: _obscureText,
+      style: TextStyle(fontSize: 20, color: textColor),
+      decoration: InputDecoration(
+        hintText: _hintText,
+        hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+        labelStyle: TextStyle(
+            fontSize: 20, color: hintColor, fontWeight: FontWeight.bold),
+        filled: true,
+        fillColor: ProductColor.white,
+        border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        prefixIcon: Icon(
+          _icon,
+          color: iconColor,
+        ),
+      ),
+    );
+  }
 }

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
 import 'package:flutter_book_app/util/SharedPrefUtils.dart';
 
@@ -12,7 +13,7 @@ class UserBookActionCubit extends Cubit<void> {
 
   Future<bool> createUserReadBookConnection(int bookId) async {
     final rate = random.nextInt(9) + 1;
-    await HttpRequestUser.setUserReadBookConnection(
+    await HttpRequestBook.setUserReadBookConnection(
         SharedPrefUtils.getUserId(), bookId, rate);
     result = true;
     emit(result);
@@ -20,7 +21,7 @@ class UserBookActionCubit extends Cubit<void> {
   }
 
   Future<bool> destroyUserReadBookConnection(int bookId) async {
-    await HttpRequestUser.destroyUserReadBookConnection(
+    await HttpRequestBook.destroyUserReadBookConnection(
         SharedPrefUtils.getUserId(), bookId);
     result = true;
     emit(result);

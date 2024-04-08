@@ -12,6 +12,8 @@ public interface AuthorService {
     List<Author> findAll();
 
     List<Author> saveAll(List<Author> authorList);
+
     void setWriteConnection(long authorId, long bookId);
+
     Author findByKey(String authorKey);
 }

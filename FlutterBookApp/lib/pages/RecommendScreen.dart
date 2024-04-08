@@ -3,7 +3,7 @@ import 'package:flutter_book_app/enum/EnumRecommendBy.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
-import 'package:flutter_book_app/product/RecommendBookCard.dart';
+import 'package:flutter_book_app/product/BookCard.dart';
 import 'package:flutter_book_app/product/RecommendUserCard.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:logger/logger.dart';
@@ -26,6 +26,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
   List<Book> bookList = [];
   List<RecommendData<Book>> recBookArr = [];
   List<RecommendData<UserFriendDTO>> recUserFriendDTOArr = [];
+
   // List<RecommendData<Object>> list = [];
 
   // late Book book;
@@ -50,17 +51,15 @@ class _RecommendScreenState extends State<RecommendScreen> {
   }
 
   retrieveUserList() async {
-    List<UserFriendDTO> recommendedUserByFriend= await HttpRequestUser.getRecommendUserList();
-    List<UserFriendDTO> randomRecommendedUser= await HttpRequestUser.getRandomRecommendUserList();
+    List<UserFriendDTO> recommendedUserByFriend =
+        await HttpRequestUser.getRecommendUserList();
+    List<UserFriendDTO> randomRecommendedUser =
+        await HttpRequestUser.getRandomRecommendUserList();
     for (var element in recommendedUserByFriend) {
       recUserFriendDTOArr.add(RecommendData(
           by: EnumRecommendBy.BY_FRIEND.name,
           data: element,
           color: ProductColor.BY_FRIEND));
-      /*list.add(RecommendData(
-          by: EnumRecommendBy.BY_FRIEND.name,
-          data: element,
-          color: ProductColor.BY_FRIEND));*/
     }
 
     for (var element in randomRecommendedUser) {
@@ -68,37 +67,29 @@ class _RecommendScreenState extends State<RecommendScreen> {
           by: EnumRecommendBy.BY_RANDOM.name,
           data: element,
           color: ProductColor.BY_RANDOM));
-      /*list.add(RecommendData(
-          by: EnumRecommendBy.BY_RANDOM.name,
-          data: element,
-          color: ProductColor.BY_FRIEND));*/
     }
     log.i(
         "recUser data recUserFriendDTOArr length:${recUserFriendDTOArr.length} userFrienDTOList length: ${userFrienDTOList.length}");
   }
 
   retrieveBookList() async {
-    bookList = await HttpRequestBook.getRecommendedBookListByPoint();
-    addBookListToRecBookList(
-        recommendBy: EnumRecommendBy.HIGHEST_RATING,
-        bookList: bookList,
-        color: ProductColor.HIGHEST_RATING);
-
-    bookList = await HttpRequestBook.getRecommendedBookListByTotalRead();
-    addBookListToRecBookList(
-        recommendBy: EnumRecommendBy.MOST_READ,
-        bookList: bookList,
-        color: ProductColor.MOST_READ);
-
     bookList = await HttpRequestBook.getRecommendedBookListByFriendRead();
     addBookListToRecBookList(
         recommendBy: EnumRecommendBy.BY_FRIEND,
         bookList: bookList,
         color: ProductColor.BY_FRIEND);
-/*
-    bookList.forEach((element) {
-      list.add(element);
-    });*/
+
+    bookList = await HttpRequestBook.getRecommendedBookListByTotalRead();
+    addBookListToRecBookList(
+        recommendBy: EnumRecommendBy.BESTSELLER,
+        bookList: bookList,
+        color: ProductColor.MOST_READ);
+
+    bookList = await HttpRequestBook.getRecommendedBookListByPoint();
+    addBookListToRecBookList(
+        recommendBy: EnumRecommendBy.HIGHEST_RATING,
+        bookList: bookList,
+        color: ProductColor.HIGHEST_RATING);
   }
 
   void addBookListToRecBookList(
@@ -109,14 +100,9 @@ class _RecommendScreenState extends State<RecommendScreen> {
       recBookArr.add(
           RecommendData(by: recommendBy.name, data: element, color: color));
       log.i("Book ID : ${element.name}: ${element.imgUrl}");
-      /*list.add(
-          RecommendData(by: recommendBy.name, data: element, color: color));*/
     }
   }
 
-  /*
-  * Todo: User Card Column : 0 geliyor. muhtemelen user to DTO'da sorun var.  User listesi almak yerine direk
-  *  dto almak daha dogru olucak*/
   void addUserListToRecUserList(
       {required EnumRecommendBy recommendBy,
       required List<User> userList,
@@ -125,15 +111,12 @@ class _RecommendScreenState extends State<RecommendScreen> {
       recUserFriendDTOArr.add(
           RecommendData(by: recommendBy.name, data: element, color: color));
       log.i("User ID : ${element.name}: ${element.imgUrl}");
-      /*list.add(
-          RecommendData(by: recommendBy.name, data: element, color: color));*/
     }
   }
 
   @override
   void initState() {
     super.initState();
-    print("MyReadBookScreen > initState ");
     retrieveRecommendData();
   }
 
@@ -152,7 +135,6 @@ class _RecommendScreenState extends State<RecommendScreen> {
               indicatorColor: ProductColor.pink,
               dividerColor: ProductColor.blue,
               labelColor: ProductColor.pink,
-              // labelColor: ProductColor.pink ,
               overlayColor: MaterialStateColor.resolveWith(
                   (states) => ProductColor.lightPurple),
               unselectedLabelColor: ProductColor.black,
@@ -172,51 +154,14 @@ class _RecommendScreenState extends State<RecommendScreen> {
               SingleChildScrollView(child: _UserCardColumn()),
               SingleChildScrollView(child: _BookCardColumn()),
             ],
-          )
-          /*
-            isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20,right: 10,top: 10,bottom: 10),
-                child: Column(
-                  children: [
-                    SingleChildScrollView(child: _UserCardColumn()),
-                    SingleChildScrollView(child: _BookCardColumn()),
-                  ],
-                ),
-              ),
-            )
-          */
-          ),
+          )),
     ));
   }
-
-  /*
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: ProductColor.darkWhite,
-        body: isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20,right: 10,top: 10,bottom: 10),
-                  child: Column(
-                    children: [
-                      SingleChildScrollView(child: _UserCardColumn()),
-                      SingleChildScrollView(child: _BookCardColumn()),
-                    ],
-                  ),
-                ),
-              ));
-  }
-*/
 
   Padding _BookCardColumn() {
     Column column = Column(children: []);
     for (int i = 0; i < recBookArr.length; i++) {
-      RecommendBookCard recBookCard = RecommendBookCard(
+      BookCard recBookCard = BookCard(
         recData: recBookArr[i],
         index: recBookArr.length - i,
       );
@@ -233,7 +178,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
     for (int i = 0; i < recUserFriendDTOArr.length; i++) {
       RecommendUserCard recUserCard = RecommendUserCard(
         recData: recUserFriendDTOArr[i],
-        index: /* recUserFriendDTOArr.length - */ i + 1,
+        index: i + 1,
       );
       column.children.add(recUserCard);
     }

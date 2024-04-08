@@ -19,9 +19,6 @@ public interface UserService {
 
     List<User> findAllWithReadBooks();
 
-    //    List<Read> findAllReadData();
-    void removeUserReadBookConnection(long userId, long bookId);
-
     List<User> findAllfollowingUsersByUserId(long id);
 
     List<User> findAllFollowersOfUserId(long id);
@@ -39,6 +36,4 @@ public interface UserService {
     List<User> saveAll(List<User> userList);
 
     void fixUserData();
-
-    void setConnectionUserReadBook(long userId, long bookId, int rate);
 }

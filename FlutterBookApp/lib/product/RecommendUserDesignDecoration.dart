@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../util/ProductColor.dart';
 
-
 class RecommendUserDesignDecoration extends StatelessWidget {
   late Widget child;
 
@@ -18,9 +17,9 @@ class RecommendUserDesignDecoration extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.7),
-              spreadRadius: 6,
+              spreadRadius: 3,
               blurRadius: 5,
-              offset: const Offset(0, 1), // Gölge ofseti (x, y)
+              offset: const Offset(0, 1),
             ),
           ]),
       child: child,
@@ -35,7 +34,6 @@ Widget getBookRatingShape(double rating) {
       tapOnlyMode: false,
       allowHalfRating: true,
       itemBuilder: (context, _) => const Icon(
-            // Icons.star,
             Icons.star,
             color: ProductColor.ratingColor,
           ),

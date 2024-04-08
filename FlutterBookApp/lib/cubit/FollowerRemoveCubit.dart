@@ -7,7 +7,6 @@ class FollowerRemoveCubit extends Cubit<UserFriendDTOCubitData?> {
   FollowerRemoveCubit() : super(null);
   var log = Logger(printer: PrettyPrinter(colors: false));
 
-  // bool followerIsRemoved = false;
   late UserFriendDTOCubitData userFriendDTOCubitData;
 
   void removeFromList(UserFriendDTO userFriendDTO) {
@@ -17,7 +16,6 @@ class FollowerRemoveCubit extends Cubit<UserFriendDTOCubitData?> {
 
   void updateFollowersNumber() {
     userFriendDTOCubitData.updateProfilFollowerValue = true;
-    print(">>>>>>>>>>>followers will be updated");
     emit(userFriendDTOCubitData);
   }
 }

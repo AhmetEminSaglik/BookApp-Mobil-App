@@ -33,8 +33,6 @@ class LoginCubit extends Cubit<EnumLoginState> {
         log.e("ERROR OCCURED : ${respEntity.message}");
       }
     }
-    // print("Gelen User : $user");
-    // emit(EnumLoginState.LoginSuccess);
   }
 
   void _navigatePage(BuildContext context) {

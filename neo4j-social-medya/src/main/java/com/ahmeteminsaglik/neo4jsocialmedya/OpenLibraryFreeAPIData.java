@@ -13,12 +13,13 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 public class OpenLibraryFreeAPIData {
-    //    String apiUrl = "https://openlibrary.org/works/12/ratings.json"; // API URL
-    private static CustomLog log = new CustomLog(InitialDataLoader.class);
-    private RestTemplate restTemplate = new RestTemplate();
     //    private final static int startIndex = 45804;
     private final static int startIndex = 52257;
-    private final static int successAddressArr[] = {45804, 45808, 45809, 45830, 45864, 45868, 45876, 45884, 45887, 45922, 46080, 46089, 46092, 46101, 46103, 46107, 46119, 46154, 46155, 46172, 46176, 46181, 46195, 46201, 46204, 46212, 46236, 46259, 46279, 46290, 46316, 46324, 46327, 46328, 46343, 46347, 46375, 46384, 46385, 46395, 46472, 46760, 46873, 46874, 46875, 46904, 46913, 46932, 47292, 47500, 47529, 47765, 47802, 47816, 47818, 47827, 47840, 47847, 47852, 47863, 47889, 47890, 47891, 47895, 47914, 47922, 47943, 47946, 48020, 48036, 48045, 48054, 48067, 48233, 48540, 48670, 48704, 49494, 49517, 49642, 49652, 49666, 50232, 50283, 50453, 50549, 50550, 50567, 50843, 50859, 51351, 51543, 51655, 51805, 51919, 52114, 52202, 52227, 52252, 52257};
+    private final static int[] successAddressArr = {45804, 45808, 45809, 45830, 45864, 45868, 45876, 45884, 45887, 45922, 46080, 46089, 46092, 46101, 46103, 46107, 46119, 46154, 46155, 46172, 46176, 46181, 46195, 46201, 46204, 46212, 46236, 46259, 46279, 46290, 46316, 46324, 46327, 46328, 46343, 46347, 46375, 46384, 46385, 46395, 46472, 46760, 46873, 46874, 46875, 46904, 46913, 46932, 47292, 47500, 47529, 47765, 47802, 47816, 47818, 47827, 47840, 47847, 47852, 47863, 47889, 47890, 47891, 47895, 47914, 47922, 47943, 47946, 48020, 48036, 48045, 48054, 48067, 48233, 48540, 48670, 48704, 49494, 49517, 49642, 49652, 49666, 50232, 50283, 50453, 50549, 50550, 50567, 50843, 50859, 51351, 51543, 51655, 51805, 51919, 52114, 52202, 52227, 52252, 52257};
+    private final static ObjectMapper objectMapper = new ObjectMapper();
+    //    String apiUrl = "https://openlibrary.org/works/12/ratings.json"; // API URL
+    private static final CustomLog log = new CustomLog(InitialDataLoader.class);
+    private static final List<Author> authorList = new ArrayList<>();
     private final String apiPrefixBook = "https://openlibrary.org/works/OL";
     private final String apiPrefixAuthor = "https://openlibrary.org/authors/";
     private final String apiInfix = "W";
@@ -27,13 +28,8 @@ public class OpenLibraryFreeAPIData {
     private final String apiForRating = "/ratings";
     private final String apiForEditions = "/editions";
     private final String apiForReadData = "/bookshelves";
-    private final static ObjectMapper objectMapper = new ObjectMapper();
-    private Map<String, List<Book>> map = new HashMap<>();
-    private static List<Author> authorList = new ArrayList<>();
-
-    /* public static void main(String[] args) {
-         new OpenLibraryFreeAPIData().retrieveData(10);
-     }*/
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final Map<String, List<Book>> map = new HashMap<>();
 
     public Map<String, List<Book>> getBookListMap() {
         return map;
@@ -67,18 +63,9 @@ public class OpenLibraryFreeAPIData {
         String authorDataJson;
         String bookEditionJson;
         String bookImgJson;
-//        int i = startIndex - 1;
-//        for (int i = startIndex; i < startIndex + range; i++) {
-
-//        List<Integer> successIndexs = new ArrayList<>();
-//        while (bookList.size() < range) {
-//            i++;
         for (int i = 0; i < range; i++) {
 
-
             try {
-//                log.info("[" + (i + 1 - startIndex) + "/" + range + "] Processing Index : " + i);
-//                log.info((i + 1 - startIndex) + "-) [" + bookList.size() + "/" + range + "] Processing Index : " + i);
                 log.info((i + 1) + "-) [" + bookList.size() + "/" + range + "] Processing Index : " + (i + 1));
                 bookUrl = demoMain.createBookUrl(successAddressArr[i]);
                 bookRatingUrl = demoMain.createBookRatingUrl(successAddressArr[i]);
@@ -105,7 +92,7 @@ public class OpenLibraryFreeAPIData {
                 AuthorOL authorOL = demoMain.parseJsonToAuthorOL(bookJson);
                 authorDataUrl = demoMain.createAuthorDataUrl(authorOL.getKey());
                 authorDataJson = demoMain.sendGetRequest(authorDataUrl);
-                authorOL = demoMain.parseJsonToAuthorData(authorOL, authorDataJson);
+                authorOL = demoMain.parseJsonToAuthorData(authorDataJson);
                 RatingOL ratingOL = demoMain.parseJsonToSummaryOL(bookRatingJson);
 
                 ReadDataOL readDataOL = demoMain.parseJsonToReadDataOL(bookReadDataJson);
@@ -154,9 +141,9 @@ public class OpenLibraryFreeAPIData {
 
     private Author createAuthorFromAPIData(AuthorOL authorOL) {
         Author author = new Author();
-        String arrKey[] = authorOL.getKey().split("/");
+        String[] arrKey = authorOL.getKey().split("/");
         author.setKey(arrKey[arrKey.length - 1]);
-        String arr[] = authorOL.getName().split(" ");
+        String[] arr = authorOL.getName().split(" ");
         String name = "";
         String lastname = arr[arr.length - 1];
         for (int i = 0; i < arr.length - 1; i++) {
@@ -209,22 +196,9 @@ public class OpenLibraryFreeAPIData {
 
     private BookOL parseJsonToBookOLEdition(BookOL bookOL, String json) throws JsonProcessingException {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//        try {
         JsonNode rootNode = objectMapper.readTree(json);
         JsonNode isbn_10_JN = rootNode.get("entries").get(0).get("isbn_10");
-        JsonNode isbn_13_JN = rootNode.get("entries").get(0).get("isbn_13");//.get(0).asText();
-        /*JsonNode description = rootNode.get("entries").get(0).get("description");//.get(0).asText();
-        if (description != null) {
-            System.out.println("description : " + description.asText());
-            bookOL.setDescription(description.asText());
-        }*/
-/*        JsonNode description2 = rootNode.get("entries").get(0).path("description").path("value");
-        if (description2 != null) {
-            System.out.println("description2 : " + description2);
-            bookOL.setDescription(description.asText());
-        }*/
-//        JsonNode imgUrl = rootNode.get("entries").get(0).get("covers");//.get(0).asText();
-//        System.out.println(">>>>>>>>>>>>>>>> ImggUrl : "+imgUrl);
+        JsonNode isbn_13_JN = rootNode.get("entries").get(0).get("isbn_13");
         if (isbn_10_JN != null) {
             bookOL.setIsbn(isbn_10_JN.get(0).asText());
         } else if (isbn_13_JN != null) {
@@ -274,15 +248,15 @@ public class OpenLibraryFreeAPIData {
                 authorKey = authorNode.get("key").asText();
             }
         }
-        String arr[] = authorKey.split("/");
+        String[] arr = authorKey.split("/");
         authorKey = arr[arr.length - 1];
         AuthorOL authorOL = new AuthorOL();
         authorOL.setKey(authorKey);
         return authorOL;
     }
 
-    private AuthorOL parseJsonToAuthorData(AuthorOL authorOL, String json) throws JsonProcessingException {
-        authorOL = objectMapper.readValue(json, AuthorOL.class);
+    private AuthorOL parseJsonToAuthorData(/*AuthorOL authorOL,*/ String json) throws JsonProcessingException {
+        AuthorOL authorOL = objectMapper.readValue(json, AuthorOL.class);
         return authorOL;
     }
 
@@ -306,7 +280,6 @@ public class OpenLibraryFreeAPIData {
     }
 
     private String sendGetRequest(String apiUrl) {
-//        try {
         ResponseEntity<String> response = restTemplate.getForEntity(apiUrl, String.class);
         if (response.getStatusCode().is2xxSuccessful()) {
             return response.getBody();

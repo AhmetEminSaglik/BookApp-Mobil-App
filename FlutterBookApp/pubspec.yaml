@@ -64,8 +64,22 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - images/1.jpg
+    - images/2.jpg
+    - images/3.jpg
+    - images/4.jpg
+    - images/5.jpg
+    - images/6.jpg
+    - images/7.jpg
+    - images/8.jpg
+    - images/9.png
+    - images/10.jpg
+#    - images/11.jpg
+#    - images/13.jpg
+#    - images/22.jpg
+#    - images/32.jpg
+#    - images/42.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -79,6 +93,22 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+#    - family: Whisper
+#      fonts:
+#        - asset: fonts/Whisper-Regular.ttf
+    - family: Patrick_Hand
+      fonts:
+        - asset: fonts/PatrickHand-Regular.ttf
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Regular.ttf
+#    - family: OpenSans
+#      fonts:
+#        - asset: fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf
+    - family: Lato
+      fonts:
+        - asset: fonts/Lato-Regular.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:

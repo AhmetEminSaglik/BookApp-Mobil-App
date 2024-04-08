@@ -6,7 +6,6 @@ class UserFriendDTOCubitData {
 
   UserFriendDTOCubitData(this._userFriendDTO);
 
-
   UserFriendDTO get userFriendDTO => _userFriendDTO;
 
   set userFriendDTO(UserFriendDTO value) {

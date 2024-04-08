@@ -1,19 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_book_app/util/ResponsiveDesign.dart';
+import 'package:flutter_book_app/model/Recommend.dart';
 import 'package:logger/logger.dart';
 import '../cubit/recommendedbook/BookCubit.dart';
 import '../model/Book.dart';
 import '../util/ProductColor.dart';
+import '../util/ResponsiveDesign.dart';
 import 'BookDesignDecoration.dart';
 
 class BookCard extends StatefulWidget {
-  late Book book;
+  late RecommendData recData;
   late int index;
-  late bool isBookRead;
 
-  BookCard({super.key, required this.book, required this.index});
+  BookCard({super.key, required this.index, required this.recData});
 
   @override
   State<BookCard> createState() => _BookCardState();
@@ -25,28 +24,19 @@ class _BookCardState extends State<BookCard> {
   final double imgWidth = ResponsiveDesign.width() / 5.5;
   final double imgHeight = ResponsiveDesign.height() / 6;
   final double padding = ResponsiveDesign.height() / 65;
+
   bool isLoading = true;
 
-/*
-  _retrieveUserReadThisBook() async {
-    await _retrieveReadBookList();
-    setState(() {
-      isLoading = false;
-    });
+  @override
+  void initState() {
+    super.initState();
+    print("Recommended BookCard initState BY : ${widget.recData.by}");
   }
-
-  _retrieveReadBookList() async {
-    Book book = await HttpRequestBook.getIfUserReadBook(widget.book.id);
-    if (book.id == widget.book.id) {
-      widget.isBookRead = true;
-    }
-  }*/
 
   @override
   Widget build(BuildContext context) {
-    // _retrieveUserReadThisBook();
     return SizedBox(
-      height: imgHeight * 1.85,
+      height: imgHeight * 1.9,
       child: Column(
         children: [
           Row(
@@ -55,12 +45,13 @@ class _BookCardState extends State<BookCard> {
                 children: [
                   InkWell(
                     onTap: () {
-                      goToDetailPageOfBook(context, widget.book);
+                      goToDetailPage(context, widget.recData.data);
                     },
-                    child: getBookCardContent(),
+                    child: getRecommendCardContent(),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: ResponsiveDesign.height() / 50),
+                    padding:
+                        EdgeInsets.only(top: ResponsiveDesign.height() / 50),
                     child: Row(
                       children: [
                         getBookImage(context),
@@ -77,63 +68,63 @@ class _BookCardState extends State<BookCard> {
     );
   }
 
-  Padding getBookCardContent() {
+  Padding getRecommendCardContent() {
     final double contentWidth = imgWidth / 2 + ResponsiveDesign.width() / 25;
     return Padding(
-      padding: EdgeInsets.only(
-        left: contentWidth,
-      ),
+      padding: EdgeInsets.only(left: contentWidth),
       child: ContainerWithBoxDecoration(
         child: Container(
-          // width: 295,
           width: ResponsiveDesign.width() - contentWidth - 5.5 * padding,
           height: imgHeight + 7 * padding,
           color: ProductColor.white,
           child: Padding(
-            padding: EdgeInsets.only(left: imgWidth, top: 10),
+            padding: EdgeInsets.only(left: imgWidth, top: 5),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                getShortTitle("${widget.index}-) ${widget.book.name}")
-                /*Text(
-                  getShortTitle("${widget.index}-) ${widget.book.name}"),
-                  maxLines: 2,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
-                )*/
-                ,
+                getShortTitle("${widget.index}-) ${widget.recData.data.name}"),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Row(
-                        children: [
-                          getBookRatingShape(widget.book.point),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Row(
+                          children: [
+                            getBookRatingShape(widget.recData.data.point),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "${widget.book.totalRead} Reviews",
-                      style: const TextStyle(
-                          fontSize:16,
-                          fontWeight: FontWeight.bold,
-                          color: ProductColor.grey),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Text(
-                        getShortDesc(widget.book.desc),
-                        maxLines: 2,
-                        style:
-                        const TextStyle(fontSize: 16, color: ProductColor.grey),
+                      const SizedBox(
+                        height: 12,
                       ),
-                    )
-                  ],),
+                      Text(
+                        "${widget.recData.data.totalRead} Reviews",
+                        style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: ProductColor.grey),
+                      ),
+                      widget.recData.by.isNotEmpty
+                          ? Text(
+                              widget.recData.by,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: widget.recData.color),
+                            )
+                          : Container(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, right: 15),
+                        child: Text(
+                          getShortDesc(widget.recData.data.desc),
+                          maxLines: 3,
+                          style: const TextStyle(
+                              fontSize: 15, color: ProductColor.grey),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -155,14 +146,13 @@ class _BookCardState extends State<BookCard> {
             boxShadow: [
               BoxShadow(
                 color: Colors.deepOrange.withOpacity(0.7),
-                spreadRadius: 2,
+                spreadRadius: 3,
                 blurRadius: 3,
                 offset: const Offset(0, 1), // Gölge ofseti (x, y)
               ),
             ]),
         height: 25,
         width: 25,
-        // color: ProductColor.red,
         child: const Icon(Icons.chevron_right, color: ProductColor.red),
       ),
     );
@@ -173,13 +163,13 @@ class _BookCardState extends State<BookCard> {
         padding: EdgeInsets.only(top: padding),
         child: InkWell(
           onTap: () {
-            goToDetailPageOfBook(context, widget.book);
+            goToDetailPage(context, widget.recData.data);
           },
           child: ContainerWithBoxDecoration(
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Image.network(
-                widget.book.imgUrl,
+                widget.recData.data.imgUrl,
                 fit: BoxFit.cover,
                 height: imgHeight,
                 width: imgWidth,
@@ -189,7 +179,7 @@ class _BookCardState extends State<BookCard> {
         ));
   }
 
-  void goToDetailPageOfBook(BuildContext context, Book book) {
+  void goToDetailPage(BuildContext context, Book book) {
     context.read<BookCubit>().setBook(book);
     context.read<BookCubit>().goToDetailPage(context);
   }
@@ -198,7 +188,7 @@ class _BookCardState extends State<BookCard> {
     if (desc.trim().isEmpty) {
       return "- - -";
     }
-    int index = 50;
+    int index = 60;
     String shortDesc = desc;
     if (desc.trim().length > index) {
       shortDesc = shortDesc.replaceAll("\n", " ");
@@ -210,18 +200,18 @@ class _BookCardState extends State<BookCard> {
   Text getShortTitle(String title) {
     const int maxChar = 40;
     const int firstLineMaxChar = 20;
-    double fontSize = 20;
+    double fontSize = 18;
     if (title.trim().length > maxChar) {
       title = "${title.substring(0, maxChar).trim()}...";
     }
     if (title.length > firstLineMaxChar) {
-      fontSize = 18.5;
+      fontSize = 17;
     }
 
     Text text = Text(
       title,
       maxLines: 2,
-      style:  TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
+      style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold),
     );
 
     return text;

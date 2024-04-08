@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 1;
+  int currentIndex = 0;
   final titles = ["My Books", "Recommends", "Profile"];
   final colors = [ProductColor.green, ProductColor.blue, ProductColor.pink];
 
@@ -26,7 +26,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: colors[currentIndex],
         foregroundColor: Colors.white,
-        //Theme.of(context).colorScheme.inversePrimary,
         title: Text(titles[currentIndex]),
       ),
       body: screens[currentIndex],

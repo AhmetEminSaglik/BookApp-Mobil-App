@@ -17,16 +17,15 @@ import java.util.*;
 
 @Component
 public class InitialDataLoader implements CommandLineRunner {
-    private static CustomLog log = new CustomLog(InitialDataLoader.class);
-    private Random random = new Random();
+    private static final CustomLog log = new CustomLog(InitialDataLoader.class);
     @Autowired
     BookController bookController;
     @Autowired
     UserController userController;
     @Autowired
     AuthorController authorController;
-
     OpenLibraryFreeAPIData freeAPIData = new OpenLibraryFreeAPIData();
+    private final Random random = new Random();
 
     @Override
     public void run(String... args) throws Exception {
@@ -35,11 +34,8 @@ public class InitialDataLoader implements CommandLineRunner {
         }
     }
 
-    static int counter = 0;
-
     public void saveInitilizateData() {
         freeAPIData.createBookData(100);
-//        Map<String, List<Book>> map = freeAPIData.getBookListMap();
         List<Author> authorList = freeAPIData.getAuthorList();
         authorList = authorController.saveAll(authorList).getData();
         processUserData();
@@ -70,17 +66,13 @@ public class InitialDataLoader implements CommandLineRunner {
     private void processUserData() {
         if (userController.getAll().isEmpty()) {
             List<User> userList = userController.saveAll(StaticData.getUserList());
-            User arr[][] = StaticData.getRelationArr();
-
+            User[][] arr = StaticData.getRelationArr();
             for (int i = 0; i < arr.length; i++) {
                 userController.createNewConnectionFollowUser(arr[i][0].getId(), arr[i][1].getId());
             }
-
             userList.forEach(e -> {
                 System.out.println("user : " + e);
             });
-
-
         }
     }
 
@@ -89,7 +81,6 @@ public class InitialDataLoader implements CommandLineRunner {
         List<Book> bookList = bookController.getAll().getBody().getData();
         for (int i = 0; i < userList.size(); i++) {
             int totalBookSize = getRandomTotalBookListSize(bookList.size() / 3);
-//            int totalBookSize = 1;//getRandomTotalBookListSize(bookList.size());
             List<Book> bookListOfUser = getRandomBooks(bookList, totalBookSize);
             for (Book tmp : bookListOfUser) {
                 userController.setConnectionUserReadBook(userList.get(i).getId(), tmp.getId(), random.nextInt(5) + 1);
@@ -107,7 +98,6 @@ public class InitialDataLoader implements CommandLineRunner {
             int index = random.nextInt(totalBookSize);
             Book book = getBook(bookSet, bookList, index);
             bookSet.add(book);
-
         }
         return new ArrayList<>(bookSet);
     }
@@ -123,22 +113,17 @@ public class InitialDataLoader implements CommandLineRunner {
 
     private void processBookData() {
         Map<String, List<Book>> map = freeAPIData.getBookListMap();
-
         for (Map.Entry<String, List<Book>> entry : map.entrySet()) {
             String autorKey = entry.getKey();
             Author author = authorController.findByKey(autorKey);
-//            System.out.println("Author : " + author);
             List<Book> bookList = entry.getValue();
             bookList.forEach(e -> {
                 System.out.println(e.getPoint());
             });
             bookList = fixUnknowCharsBook(bookList);
             bookController.saveAllBook(bookList);
-
             authorController.setWriteConnection(author, bookList);
-
         }
-
     }
 
     private void printAllAuthorKeyAndBooks(Map<String, List<Book>> map) {
