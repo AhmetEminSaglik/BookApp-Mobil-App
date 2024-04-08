@@ -3,7 +3,6 @@ package com.ahmeteminsaglik.neo4jsocialmedya.controller;
 import com.ahmeteminsaglik.neo4jsocialmedya.business.abstracts.BookService;
 import com.ahmeteminsaglik.neo4jsocialmedya.mapper.UserMapper;
 import com.ahmeteminsaglik.neo4jsocialmedya.model.Book;
-import com.ahmeteminsaglik.neo4jsocialmedya.model.BookOL;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.CustomLog;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.DataResult;
 import com.ahmeteminsaglik.neo4jsocialmedya.utility.result.Result;
@@ -18,7 +17,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -35,7 +33,6 @@ public class BookController {
         log.info("DB'ye imageByte  eklenmeye basladi");
         List<Book> bookList = service.findAll();
         for (int i = 0; i < bookList.size(); i++) {
-//        for (int i = 44; i <47; i++) {
             log.info("image book index process : " + bookList.size() + "/" + (i + 1) + " book name: " + bookList.get(i).getName());
             try {
                 URL url = null;
@@ -46,10 +43,7 @@ public class BookController {
                 ImageIO.write(image, "jpg", baos);
                 byte[] imageInByte = baos.toByteArray();
                 bookList.get(i).setImageBytes(imageInByte);
-            }/* catch (MalformedURLException e) {
-                log.error(e.getMessage());
-//                throw new RuntimeException(e);
-            }*/ catch (IOException e) {
+            } catch (IOException e) {
                 log.error(e.getMessage());
                 bookList.get(0).setImageBytes(null);
             }
@@ -69,6 +63,7 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
 
     }
+
     @DeleteMapping("/{bookId}/readby/user/{userId}")
     public Result removeUserReadBookConnection(@PathVariable long userId, @PathVariable long bookId) {
         log.info("User removed the book from read");
@@ -114,14 +109,6 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
-    /*public ResponseEntity<DataResult<BookOL>> save(@RequestBody BookOL bookOL) {
-        bookOL = bookOLService.save(bookOL);
-        DataResult result = new SuccessDataResult(bookOL, "BookOL is saved.");
-        return ResponseEntity.status(HttpStatus.CREATED).body(result);
-    }
-
-
-*/
     @GetMapping("/readby/{userId}")
     public DataResult<List<Book>> getAllReadBookByUserId(@PathVariable long userId) {
         DataResult<List<Book>> dataResult = new SuccessDataResult<>(service.getAllReadBooksByUserId(userId), "Read book data is retrived successfuly");
@@ -146,7 +133,7 @@ public class BookController {
 
     @PostMapping("{bookId}/readby/user/{userId}/rate/{rate}")
     public Result createConnectionUserReadBook(@PathVariable long userId, @PathVariable long bookId, @PathVariable int rate) {
-        log.info("User("+userId+") read("+rate+") Book("+bookId+") Connection will be created");
+        log.info("User(" + userId + ") read(" + rate + ") Book(" + bookId + ") Connection will be created");
         service.createConnectionUserReadBook(userId, bookId, rate);
         return new SuccessResult("Connection is created");
     }
@@ -155,5 +142,4 @@ public class BookController {
     public void fixBookData() {
         service.fixBookData();
     }
-
 }

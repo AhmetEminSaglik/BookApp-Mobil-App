@@ -11,11 +11,6 @@ import java.util.List;
 public interface BookRepository extends Neo4jRepository<Book, Long> {
     Book findByName(String name);
 
-    //    @Query("MATCH (u:User) WHERE ID(u) = $userId " +
-//            "MATCH (u)-[:READ]->(b:Book) " +
-//            "RETURN u,b")
-    /*@Query("MATCH (u:User)-[:READ]->(b:Book) WHERE ID(u) = $userId RETURN b " +
-            "ORDER BY r.timestamp DESC")*/
     @Query("MATCH (u:User)-[r:READ]->(b:Book) WHERE ID(u) = $userId " +
             "RETURN b " +
             "ORDER BY r.timestamp DESC")
@@ -32,7 +27,6 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
     @Query("MATCH (b:Book) RETURN b ORDER BY b.totalRead DESC LIMIT 2 ")
     List<Book> findByHighestTotalRead();
 
-    // returns user's following users' read common books to recommend users.
     @Query(" MATCH (u:User) WHERE ID(u) = $userId " +
             "MATCH (u)-[:FOLLOW]->(u2:User)-[:READ]->(b:Book) " +
             "WHERE  NOT (b)<-[:READ]-(u) " +
@@ -43,20 +37,13 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
             "RETURN DISTINCT b")
     List<Book> findByMostReadBookFromFollowings(@PathVariable Long userId);
 
-//    @Query("MATCH (u:User) WHERE ID(u) = $userId " +
-//            "MATCH (b:Book) WHERE ID(b) = $bookId " +
-//            "MERGE (u)-[r:READ]->(b)")
-/*@Query("MATCH (u:User) WHERE ID(u) = $userId " +
-        "MATCH (b:Book) WHERE ID(b) = $bookId " +
-        "MERGE (u)-[r:READ {timestamp: timestamp()}]->(b)")*/
+
     @Query("MATCH (u:User) WHERE ID(u) = $userId " +
             "MATCH (b:Book) WHERE ID(b) = $bookId " +
             "MERGE (u)-[r:READ{rate:$rate}]->(b) " +
-//            "WHERE ID(u) = $userId AND ID(b) = $bookId " +
-            "SET r.timestamp = datetime() "//            "MERGE (u)-[r:READ {timestamp: timestamp()}]->(b)" +
-//            "RETURN u, b"
+            "SET r.timestamp = datetime() "
     )
-    void createConnectionUserReadBook(long userId, long bookId,int rate);
+    void createConnectionUserReadBook(long userId, long bookId, int rate);
 
     @Query("MATCH (u:User)-[r:READ]->(b:Book) " +
             "WHERE ID(u)=$userId " +
@@ -71,10 +58,4 @@ public interface BookRepository extends Neo4jRepository<Book, Long> {
             "WHERE ID(u) = $userId " +
             " RETURN COUNT(b)")
     int getUserReadBookCount(long userId);
-
-
-/*    @Query("MATCH (book:Book)<-[:WRITE]-(author:Author) " +
-            "WHERE ID(book)= $bookId " +
-            "return author")
-    Author findAuthorOfBook(long bookId);*/
 }

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ApiExceptionHandler {
     @ExceptionHandler(value = {ApiRequestException.class})
     public ResponseEntity<Object> handleApiRequestException(ApiRequestException exception) {
-        //create payload containing exception details.
         ApiException apiException = new ApiException(
                 exception.getMessage(),
                 HttpStatus.BAD_REQUEST);

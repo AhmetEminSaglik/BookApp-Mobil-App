@@ -65,7 +65,6 @@ public class ValidationSignUp implements Validation {
         isTextLengthProper(inputArea, password, minLength, maxLength);
     }
 
-
     private boolean isTextLengthProper(String inputArea, String text, int min, int max) throws InvalidInputException {
         if (text.length() < min || text.length() > max) {
             throw new InvalidInputException(inputArea, min, max);

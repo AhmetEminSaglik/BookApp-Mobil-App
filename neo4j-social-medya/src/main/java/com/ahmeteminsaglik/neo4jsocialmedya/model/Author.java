@@ -27,8 +27,6 @@ public class Author {
     private Long id;
     private String name;
     private String lastname;
-    //    private int totalBook = random.nextInt(50) + 10;
-//    private double point = random.nextInt(5) + 1;
     @Index(unique = true)
     private String key;
 
@@ -41,8 +39,6 @@ public class Author {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastname='" + lastname + '\'' +
-//                ", totalBook=" + totalBook +
-//                ", point=" + point +
                 ", key='" + key + '\'' +
                 ", bookList=" + bookList +
                 '}';

@@ -51,6 +51,4 @@ public class ValidationLoginInput implements Validation {
         }
         return true;
     }
-
-
 }

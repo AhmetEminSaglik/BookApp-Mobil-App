@@ -39,8 +39,7 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
             "DETACH DELETE f")
     void removeUserFollowerRelationshipUser(long userId, long followingUserId);
 
-    /*
-     * This query return user's friends' most common following friends as recommened user*/
+    /* This query return user's friends' most common following friends as recommened user*/
     @Query("MATCH (u:User)-[:FOLLOW]->(fu:User)-[:FOLLOW]->(f:User) " +
             "WHERE ID(u) = $userId " +
             "AND NOT (u)-[:FOLLOW]->(f) " +
@@ -65,13 +64,4 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
 
     @Query("MATCH (u:User)<-[:FOLLOW]-(f:User)\nWITH u, COUNT(f) AS followers\nSET u.followers = followers\nWITH u\nMATCH (u)-[:FOLLOW]->(f:User)\nWITH u, COUNT(f) AS following\nSET u.following = following\n")
     void fixUserData();
-
-
-  /*  @Query("MATCH (u:User) WHERE ID(u) = $userId " +
-            "MATCH (b:Book) WHERE ID(b) = $bookId " +
-            "MERGE (u)-[r:READ{rate:$rate}]->(b)")
-        *//*@Query("CREATE (u:User)-[:READ{rate:$rate}]->(b:Book)" +
-            "WHERE ID(u) = $userId" +
-            "AND ID(b) = $bookId")*//*
-    void setConnectionUserReadBook(long userId, long bookId, int rate);*/
 }

@@ -55,7 +55,6 @@ public class BookManager implements BookService {
 
     @Override
     public List<Book> getAllReadBooksByUserId(long userId) {
-//        return repo.getAllByUserIdMatches(userId);
         List<Book> bookList = repo.getAllByUserIdMatches(userId);
         bookList = setAuthorOfBooksByMatching(bookList);
         return bookList;
@@ -63,7 +62,6 @@ public class BookManager implements BookService {
 
     @Override
     public List<Book> findByHighestPoint() {
-//        return repo.findByHighestPoint();
         List<Book> bookList = repo.findByHighestPoint();
         bookList = setAuthorOfBooksByMatching(bookList);
         return bookList;
@@ -71,7 +69,6 @@ public class BookManager implements BookService {
 
     @Override
     public List<Book> findByHighestTotalRead() {
-//        return repo.findByHighestTotalRead();
         List<Book> bookList = repo.findByHighestTotalRead();
         bookList = setAuthorOfBooksByMatching(bookList);
         return bookList;
@@ -79,7 +76,6 @@ public class BookManager implements BookService {
 
     @Override
     public void createConnectionUserReadBook(long userId, long bookId,int rate) {
-        log.info("createConnectionUserReadBook >> Timezone da eklenecek");
         repo.createConnectionUserReadBook(userId, bookId,rate);
     }
 
@@ -95,19 +91,15 @@ public class BookManager implements BookService {
 
     @Override
     public List<Book> findByMostReadBookFromFollowings(long userId) {
-//        return repo.findByMostReadBookFromFollowings(userId);
         List<Book> bookList = repo.findByMostReadBookFromFollowings(userId);
         bookList = setAuthorOfBooksByMatching(bookList);
         return bookList;
-
     }
 
     private List<Book> setAuthorOfBooksByMatching(List<Book> bookList) {
         bookList.forEach(e -> {
             e.setAuthor(authorRepo.findAuthorOfBook(e.getId()));
-//            System.out.println("AUTHOR : " + e.getAuthor());
         });
-
         return bookList;
     }
 

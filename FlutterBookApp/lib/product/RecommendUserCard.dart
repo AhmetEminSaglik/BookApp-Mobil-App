@@ -231,8 +231,8 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   void followUserBtnAction(UserFriendDTO userFriendDTO) async {
     UserFollowProcessCubitData data =
     await context.read<UserFollowProcessCubit>().followUser(userFriendDTO);
-    String msg = "${userFriendDTO.name} ${userFriendDTO.lastname} is following";
-    showToastMsg(msg);
+    // String msg = "${userFriendDTO.name} ${userFriendDTO.lastname} is following";
+    // showToastMsg(msg);
     // showToastMsg(data.userIsFollowed);
     // if(result==true){
     //
