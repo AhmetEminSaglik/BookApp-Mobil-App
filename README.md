@@ -33,15 +33,26 @@ The project was created to make a web service app with Spring Boot, Flutter, and
 
 <h2 id="images">4-) Images </h2>
 
-<ul> 
-        <li>
---------------------------------- buraya image eklencek          
-       </li>
-        
-</ul>
+<img src="images/1.png" alt="image 1" width="33%"><img src="images/2.png" alt="image 2" width="33%"><img src="images/3.png" alt="image 3" width="33.5%">
+<img src="images/4.png" alt="image 4" width="33.5%"><img src="images/5.png" alt="image 5" width="32.7%"><img src="images/6.png" alt="image 6" width="33.8%">
+<img src="images/7.png" alt="image 7" width="33%"><img src="images/8.png" alt="image 8" width="33.4%"><img src="images/9.png" alt="image 9" width="33.3%">
+
+
+
+<!-- 
+![login image](https://github.com/AhmetEminSaglik/BookAppDemo/blob/master/images/1.png)
+![login image](https://github.com/AhmetEminSaglik/BookAppDemo/blob/master/images/2.png)
+![login image](https://github.com/AhmetEminSaglik/BookAppDemo/blob/master/images/3.png)
+![login image](https://github.com/AhmetEminSaglik/BookAppDemo/blob/master/images/4.png)
+![login image](https://github.com/AhmetEminSaglik/BookAppDemo/blob/master/images/5.png)
+![login image](https://github.com/AhmetEminSaglik/BookAppDemo/blob/master/images/6.png)
+![login image](https://github.com/AhmetEminSaglik/BookAppDemo/blob/master/images/7.png)
+![login image](https://github.com/AhmetEminSaglik/BookAppDemo/blob/master/images/8.png)
+![login image](https://github.com/AhmetEminSaglik/BookAppDemo/blob/master/images/9.png)
+-->
 <!-- -> <h2 id="gif">GIF</h2>
 !["PathFinderGif"](image/PathFinderGif.gif)->
-<!-- <img src="image/ss-cmd.png" alt="Resim 1" width="50%"><img src="image/ss-netbeans.png" alt="Resim 2" width="50%">-->
+
 
 <!-- <h2 id="netbeans-output"> Netbeans Output</h2>
 
@@ -86,6 +97,17 @@ git clone  https://github.com/AhmetEminSaglik/BookAppDemo.git
 ```
 2-) After successfully cloning the project, go into the cloned project's folder
 * Open with IntelliJ Idea  ```neo4j-social-media``` folder
+* Note: 30 books data is requested first while launching the first time  from the OpenLibrary like following output:
+
+><br>---AES-DEV.-MODE---> :1-) [0/30] Processing Index : 1 
+><br>---AES-DEV.-MODE---> :[->] SUCCESSFUL: 0
+><br>---AES-DEV.-MODE---> :2-) [1/30] Processing Index : 2
+><br>---AES-DEV.-MODE---> :[->] SUCCESSFUL: 1
+><br>---AES-DEV.-MODE---> :3-) [2/30] Processing Index : 3
+><br>---AES-DEV.-MODE---> :[->] SUCCESSFUL: 2
+><br>...
+
+
 * Open with Android Studio ```FlutterBookApp``` folder
 
 3-) Launch the Neo4j database with the following steps :
