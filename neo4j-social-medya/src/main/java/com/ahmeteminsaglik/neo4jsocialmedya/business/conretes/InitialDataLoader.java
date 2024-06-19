@@ -35,7 +35,8 @@ public class InitialDataLoader implements CommandLineRunner {
     }
 
     public void saveInitilizateData() {
-        freeAPIData.createBookData(100);
+        //30 books are retrieved from OpenLibrary
+        freeAPIData.createBookData(30);
         List<Author> authorList = freeAPIData.getAuthorList();
         authorList = authorController.saveAll(authorList).getData();
         processUserData();
