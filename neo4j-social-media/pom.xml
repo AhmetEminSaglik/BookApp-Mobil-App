@@ -9,11 +9,11 @@
 		<version>3.1.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ahmeteminsaglik</groupId>
-	<artifactId>neo4j-social-medya</artifactId>
+	<groupId>org.ahmeteminsaglik</groupId>
+	<artifactId>neo4j-social-media</artifactId>
 	<version>1.0</version>
 <!--	<packaging>war</packaging>-->
-	<name>neo4j-social-medya</name>
+	<name>neo4j-social-media</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
@@ -79,9 +79,19 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ahmeteminsaglik</groupId>
-			<artifactId>Neo4jBookAppDataCreation</artifactId>
-			<version>1.0</version>
-			</dependency>
+			<artifactId>file-operation</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+            <groupId>org.ahmeteminsaglik</groupId>
+            <artifactId>readable-format</artifactId>
+            <version>1.1</version>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.ahmeteminsaglik</groupId>-->
+<!--			<artifactId>Neo4jBookAppDataCreation</artifactId>-->
+<!--			<version>1.0</version>-->
+<!--			</dependency>-->
     </dependencies>
 
 	<build>
@@ -91,6 +101,14 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>indexes.txt</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 
 </project>
