@@ -16,7 +16,6 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class OpenLibraryFreeAPIData {
-    private final static int startIndex = 52257;
     private final static ObjectMapper objectMapper = new ObjectMapper();
     //    String apiUrl = "https://openlibrary.org/works/12/ratings.json"; // API URL
     private static final CustomLog log = new CustomLog(OpenLibraryFreeAPIData.class);

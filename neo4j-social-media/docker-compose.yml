@@ -1,14 +1,14 @@
 version: '3.8'
 
 services:
-  spring-boot-app:
-    image: ahmeteminsaglik/neo4j-social-media
-    container_name: neo4j-social-media-ws
+  ws-bookapp:
+    image: ahmeteminsaglik/ws-neo4j-bookapp:latest
+    container_name: ws-bookapp
     ports:
-      - "8081:8081"  # Application port
+      - "8081:8081"
     depends_on:
       neo4j-db:
-        condition: service_healthy # Wait for Neo4j to be ready
+        condition: service_healthy
     environment:
       SPRING_NEO4J_URI: bolt://neo4j-db:7687
       SPRING_NEO4J_USERNAME: neo4j
@@ -21,20 +21,59 @@ services:
     volumes:
       - app-neo4j-db:/data
     ports:
-      - "7474:7474" # HTTP
-      - "7687:7687" # Bolt
+      - "7474:7474"
+      - "7687:7687"
     environment:
-#      NEO4J_AUTH: neo4j/password # Username: neo4j, Password: password
-      NEO4J_AUTH: none # Username: neo4j, Password: password
-      dbms.connector.bolt.listen_address: 0.0.0.0:7687
+      NEO4J_AUTH: none
+      dbms.connector.bolt.listen.address: 0.0.0.0:7687
       dbms.connector.http.listen_address: 0.0.0.0:7474
-#      dbms.connector.bolt.listen_address: 192.168.32.2:7687
-#      dbms.connector.http.listen_address: 192.168.32.2:7474
     healthcheck:
-      test: ["CMD", "cypher-shell", "--username", "neo4j", "--password", "password", "MATCH (n) RETURN COUNT(n);"]
+      test: ["CMD","cypher-shell","--username","neo4j","--password","MATCH (n) RETURN COUNT(n);"]
       interval: 10s
       timeout: 10s
       retries: 5
 
 volumes:
   app-neo4j-db:
+
+
+#version: '3.8'
+#
+#services:
+#  spring-boot-app:
+#    image: ahmeteminsaglik/neo4j-social-media
+#    container_name: neo4j-social-media-ws
+#    ports:
+#      - "8081:8081"  # Application port
+#    depends_on:
+#      neo4j-db:
+#        condition: service_healthy # Wait for Neo4j to be ready
+#    environment:
+#      SPRING_NEO4J_URI: bolt://neo4j-db:7687
+#      SPRING_NEO4J_USERNAME: neo4j
+#      SPRING_NEO4J_PASSWORD: password
+#
+#  neo4j-db:
+#    image: neo4j:4.4
+#    container_name: app-neo4j-db
+#    restart: on-failure
+#    volumes:
+#      - app-neo4j-db:/data
+#    ports:
+#      - "7474:7474" # HTTP
+#      - "7687:7687" # Bolt
+#    environment:
+##      NEO4J_AUTH: neo4j/password # Username: neo4j, Password: password
+#      NEO4J_AUTH: none # Username: neo4j, Password: password
+#      dbms.connector.bolt.listen_address: 0.0.0.0:7687
+#      dbms.connector.http.listen_address: 0.0.0.0:7474
+##      dbms.connector.bolt.listen_address: 192.168.32.2:7687
+##      dbms.connector.http.listen_address: 192.168.32.2:7474
+#    healthcheck:
+#      test: ["CMD", "cypher-shell", "--username", "neo4j", "--password", "password", "MATCH (n) RETURN COUNT(n);"]
+#      interval: 10s
+#      timeout: 10s
+#      retries: 5
+#
+#volumes:
+#  app-neo4j-db:
