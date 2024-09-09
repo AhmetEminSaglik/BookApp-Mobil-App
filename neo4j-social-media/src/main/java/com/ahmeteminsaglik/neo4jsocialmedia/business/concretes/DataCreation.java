@@ -32,7 +32,7 @@ public class DataCreation {
     public synchronized boolean isDataCreated() {
         if (dataIsCreated == false && bookController.getAll().getBody().getData().size() == 0) {
             dataIsCreated = true;
-            isDataCreated();
+//            isDataCreated();
             new Thread(() -> createData()).start();
             return false;
         } else {
@@ -53,7 +53,7 @@ public class DataCreation {
         if (isDataCreated()) {
             freeAPIData.createBookData();
             List<Author> authorList = freeAPIData.getAuthorList();
-            authorList = authorController.saveAll(authorList).getData();
+            authorController.saveAll(authorList).getData();
             processUserData();
             processBookData();
             setConnectionUserReadBook();
@@ -97,7 +97,13 @@ public class DataCreation {
         List<User> userList = userController.getAll();
         List<Book> bookList = bookController.getAll().getBody().getData();
         for (int i = 0; i < userList.size(); i++) {
-            int totalBookSize = getRandomTotalBookListSize(bookList.size() / 3);
+//            int totalBookSize = getRandomTotalBookListSize(bookList.size() / 5);
+            int totalBookSize;
+            if (bookList.size() > 3) {
+                totalBookSize = 3;
+            } else {
+                totalBookSize = bookList.size();
+            }
             List<Book> bookListOfUser = getRandomBooks(bookList, totalBookSize);
             for (Book tmp : bookListOfUser) {
                 userController.setConnectionUserReadBook(userList.get(i).getId(), tmp.getId(), random.nextInt(5) + 1);
@@ -106,7 +112,7 @@ public class DataCreation {
     }
 
     private int getRandomTotalBookListSize(int size) {
-        return random.nextInt(size) + 3;
+        return random.nextInt(size) + 2;
     }
 
     private List<Book> getRandomBooks(List<Book> bookList, int totalBookSize) {
