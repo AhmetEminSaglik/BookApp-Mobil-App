@@ -5,7 +5,7 @@ services:
     image: ahmeteminsaglik/ws-neo4j-bookapp:latest
     container_name: ws-bookapp
     ports:
-      - "8081:8081"
+      - "8080:8080"
     depends_on:
       neo4j-db:
         condition: service_healthy

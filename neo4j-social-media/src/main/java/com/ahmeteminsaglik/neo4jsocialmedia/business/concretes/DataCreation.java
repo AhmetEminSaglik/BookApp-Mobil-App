@@ -126,7 +126,7 @@ public class DataCreation {
     }
 
     private Book getBook(Set<Book> bookSet, List<Book> bookList, int index) {
-        System.out.println("getBook " + index);
+//        System.out.println("getBook " + index);
         Book book = bookList.get(index % bookList.size());
         if (!bookSet.contains(book)) {
             return book;
