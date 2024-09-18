@@ -1,14 +1,14 @@
-package com.ahmeteminsaglik.neo4jsocialmedia.business.concretes;
+package org.ahmeteminsaglik.bookapp.business.concretes;
 
-import com.ahmeteminsaglik.neo4jsocialmedia.OpenLibraryFreeAPIData;
-import com.ahmeteminsaglik.neo4jsocialmedia.business.StaticData;
-import com.ahmeteminsaglik.neo4jsocialmedia.controller.AuthorController;
-import com.ahmeteminsaglik.neo4jsocialmedia.controller.BookController;
-import com.ahmeteminsaglik.neo4jsocialmedia.controller.UserController;
-import com.ahmeteminsaglik.neo4jsocialmedia.model.Author;
-import com.ahmeteminsaglik.neo4jsocialmedia.model.Book;
-import com.ahmeteminsaglik.neo4jsocialmedia.model.User;
-import com.ahmeteminsaglik.neo4jsocialmedia.utility.CustomLog;
+import org.ahmeteminsaglik.bookapp.OpenLibraryFreeAPIData;
+import org.ahmeteminsaglik.bookapp.business.StaticData;
+import org.ahmeteminsaglik.bookapp.controller.AuthorController;
+import org.ahmeteminsaglik.bookapp.controller.BookController;
+import org.ahmeteminsaglik.bookapp.controller.UserController;
+import org.ahmeteminsaglik.bookapp.model.Author;
+import org.ahmeteminsaglik.bookapp.model.Book;
+import org.ahmeteminsaglik.bookapp.model.User;
+import org.ahmeteminsaglik.bookapp.utility.CustomLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -55,8 +55,8 @@ public class DataCreation {
             List<Author> authorList = freeAPIData.getAuthorList();
             authorList = authorController.saveAll(authorList).getData();
             System.out.println("saved authorList data: ");
-            for (int i=0;i < authorList.size();i++) {
-                System.out.println((i+1)+"-) Author data : "+authorList.get(i));
+            for (int i = 0; i < authorList.size(); i++) {
+                System.out.println((i + 1) + "-) Author data : " + authorList.get(i));
             }
             processUserData();
             processBookData();

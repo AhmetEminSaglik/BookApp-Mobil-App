@@ -1,12 +1,12 @@
-package com.ahmeteminsaglik.neo4jsocialmedia;
+package org.ahmeteminsaglik.bookapp;
 
-import com.ahmeteminsaglik.neo4jsocialmedia.model.*;
-import com.ahmeteminsaglik.neo4jsocialmedia.utility.CustomLog;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ahmeteminsaglik.ReadableFormat;
+import org.ahmeteminsaglik.bookapp.model.*;
+import org.ahmeteminsaglik.bookapp.utility.CustomLog;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -59,7 +59,7 @@ public class OpenLibraryFreeAPIData {
         String bookImgJson;
 
         List<String> urlIndexList = getBookUrlIndexList();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 20; i++) {
             try {
                 int processUrlIndex = Integer.parseInt(urlIndexList.get(i));
                 log.info((i + 1) + "-) [" + bookList.size() + "/" + urlIndexList.size() + "] Processing Index : " + (ReadableFormat.getStringValue(processUrlIndex)));
