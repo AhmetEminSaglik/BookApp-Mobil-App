@@ -8,7 +8,7 @@
         <li><a href="#used-technologies">3-) Used Technologies </a></li>
         <li><a href="#images">4-) Images </a></li>
         <li><a href="#video-links">5-) Video Links</a></li>
-        <li><a href="#workflow">6-) Workflow</a></li>
+        <li><a href="#workflow">6-) Workflow</a> (not added yet)</li>
         <li><a href="#requirement">7-) Requirements</a></li>
         <li><a href="#installation">8-) Installation</a></li>
         
@@ -73,11 +73,8 @@ The project was created to make a web service app with Spring Boot, Flutter, and
 * <a href="https://www.linkedin.com/posts/ahmeteminsaglik_java-springboot-flutter-activity-7183031906781843456-NNvl?utm_source=share&utm_medium=member_desktop"> Linkedin Link </a>
 
 
-<h2 id="workflow">6-) Workflow?</h2>
-The flowchart below provides a brief overview of the program.
-<br><br>
-
- --------------------------------- FlowChart eklencek !["workflow"](image/FlowChart.png)
+<h2 id="workflow">6-) Workflow </h2>
+Workflow will be added later.
 
 
 <h2 id="requirement">7-) Requirements</h2>
