@@ -59,7 +59,7 @@ public class OpenLibraryFreeAPIData {
         String bookImgJson;
 
         List<String> urlIndexList = getBookUrlIndexList();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < urlIndexList.size(); i++) {
             try {
                 int processUrlIndex = Integer.parseInt(urlIndexList.get(i));
                 log.info((i + 1) + "-) [" + bookList.size() + "/" + urlIndexList.size() + "] Processing Index : " + (ReadableFormat.getStringValue(processUrlIndex)));
