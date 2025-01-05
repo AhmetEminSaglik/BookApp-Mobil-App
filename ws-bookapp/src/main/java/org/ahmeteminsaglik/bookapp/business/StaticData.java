@@ -19,31 +19,31 @@ public class StaticData {
             userList.add(new User(-1L, "Thomas", "Sarah", "user5", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
             userList.add(new User(-1L, "Donna", "Paul", "user7", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
             userList.add(new User(-1L, "William", "Donna", "user9", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Andrew", "Daniel", "user11", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Steven", "Daniel", "user13", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Paul", "David", "user15", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Matthew", "Michael", "user17", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Daniel", "Susan", "user19", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Matthew", "Mark", "user21", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "John", "William", "user23", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Thomas", "Elizabeth", "user25", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Andrew", "Jennifer", "user27", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Thomas", "Nancy", "user29", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Andrew", "Daniel", "user11", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Steven", "Daniel", "user13", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Paul", "David", "user15", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Matthew", "Michael", "user17", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Daniel", "Susan", "user19", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Matthew", "Mark", "user21", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "John", "William", "user23", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Thomas", "Elizabeth", "user25", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Andrew", "Jennifer", "user27", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Thomas", "Nancy", "user29", "pass", EnumGender.MAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.MAN.getName()) + "/" + getUserImage() + ".jpg"));
             userList.add(new User(-1L, "Michelle", "Mark", "user2", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
             userList.add(new User(-1L, "Kimberly", "Mary", "user4", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
             userList.add(new User(-1L, "Patricia", "Elizabeth", "user6", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
             userList.add(new User(-1L, "Mary", "Michael", "user8", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
             userList.add(new User(-1L, "Ashley", "Karen", "user10", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Barbara", "Karen", "user12", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Betty", "Matthew", "user14", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Kimberly", "Margaret", "user16", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Margaret", "Mark", "user18", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Michelle", "William", "user20", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Amanda", "Barbara", "user22", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Elizabeth", "Jessica", "user24", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Mary", "Michael", "user26", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Jennifer", "Margaret", "user28", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
-            userList.add(new User(-1L, "Sarah", "Margaret", "user30", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Barbara", "Karen", "user12", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Betty", "Matthew", "user14", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Kimberly", "Margaret", "user16", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Margaret", "Mark", "user18", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Michelle", "William", "user20", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Amanda", "Barbara", "user22", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Elizabeth", "Jessica", "user24", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Mary", "Michael", "user26", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Jennifer", "Margaret", "user28", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
+//            userList.add(new User(-1L, "Sarah", "Margaret", "user30", "pass", EnumGender.WOMAN.getName(), 5, 5, "https://randomuser.me/api/portraits/" + getName(EnumGender.WOMAN.getName()) + "/" + getUserImage() + ".jpg"));
 
         }
         return userList;
@@ -67,7 +67,37 @@ public class StaticData {
 
     public static User[][] getRelationArr() {
         if (userRelationArr == null) {
-            userRelationArr = new User[465][2];
+            userRelationArr = new User[28][2];
+            addRelationToArr(userList.get(0), userList.get(1));
+            addRelationToArr(userList.get(0), userList.get(2));
+            addRelationToArr(userList.get(0), userList.get(5));
+            addRelationToArr(userList.get(1), userList.get(0));
+            addRelationToArr(userList.get(1), userList.get(2));
+            addRelationToArr(userList.get(1), userList.get(3));
+            addRelationToArr(userList.get(1), userList.get(6));
+            addRelationToArr(userList.get(1), userList.get(7));
+            addRelationToArr(userList.get(2), userList.get(0));
+            addRelationToArr(userList.get(2), userList.get(1));
+            addRelationToArr(userList.get(2), userList.get(3));
+            addRelationToArr(userList.get(2), userList.get(8));
+            addRelationToArr(userList.get(2), userList.get(9));
+            addRelationToArr(userList.get(3), userList.get(5));
+            addRelationToArr(userList.get(3), userList.get(7));
+            addRelationToArr(userList.get(3), userList.get(8));
+            addRelationToArr(userList.get(4), userList.get(5));
+            addRelationToArr(userList.get(4), userList.get(8));
+            addRelationToArr(userList.get(4), userList.get(9));
+            addRelationToArr(userList.get(6), userList.get(2));
+            addRelationToArr(userList.get(6), userList.get(3));
+            addRelationToArr(userList.get(6), userList.get(9));
+            addRelationToArr(userList.get(7), userList.get(0));
+            addRelationToArr(userList.get(7), userList.get(1));
+            addRelationToArr(userList.get(7), userList.get(5));
+            addRelationToArr(userList.get(8), userList.get(2));
+            addRelationToArr(userList.get(8), userList.get(7));
+            addRelationToArr(userList.get(8), userList.get(9));
+
+            /*userRelationArr = new User[465][2];
             addRelationToArr(userList.get(1), userList.get(24));
             addRelationToArr(userList.get(1), userList.get(25));
             addRelationToArr(userList.get(1), userList.get(7));
@@ -533,7 +563,7 @@ public class StaticData {
             addRelationToArr(userList.get(29), userList.get(20));
             addRelationToArr(userList.get(29), userList.get(24));
             addRelationToArr(userList.get(29), userList.get(0));
-        }
+*/        }
         return userRelationArr;
     }
 }

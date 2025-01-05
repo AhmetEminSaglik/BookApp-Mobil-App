@@ -92,6 +92,7 @@ public class OpenLibraryFreeAPIData {
 
                 ReadDataOL readDataOL = demoMain.parseJsonToReadDataOL(bookReadDataJson);
                 Book book = demoMain.createBookFromAPIData(bookOL, ratingOL, readDataOL);
+                book.setIndexNo(Long.parseLong(urlIndexList.get(i)));
                 Author author = demoMain.createAuthorFromAPIData(authorOL);
                 addBookToAuthorKeyMap(book, author);
                 bookList.add(book);

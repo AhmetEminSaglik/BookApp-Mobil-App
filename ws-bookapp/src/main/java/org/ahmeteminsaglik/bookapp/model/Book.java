@@ -17,6 +17,7 @@ public class Book {
     @Id
     @GeneratedValue
     private Long id;
+    private Long indexNo;
     private String name;
     private double point;
     private String imgUrl;
@@ -39,8 +40,9 @@ public class Book {
     public String toString() {
         return "Book{" +
                 "id=" + id +
-                ",\n author='" + author + '\'' +
-                ",\n name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                ", name='" + name + '\'' +
+                ", indexNo=" + indexNo +
                 ", point=" + point +
                 ", imgUrl='" + imgUrl + '\'' +
                 ", totalRead=" + totalRead +

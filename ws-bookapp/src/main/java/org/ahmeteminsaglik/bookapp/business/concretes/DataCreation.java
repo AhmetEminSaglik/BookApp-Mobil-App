@@ -32,7 +32,7 @@ public class DataCreation {
     public synchronized boolean isDataCreated() {
         if (dataIsCreated == false && bookController.getAll().getBody().getData().size() == 0) {
             dataIsCreated = true;
-            isDataCreated();
+//            isDataCreated();
             new Thread(() -> createData()).start();
             return false;
         } else {
@@ -49,7 +49,6 @@ public class DataCreation {
 */
 
     public void createData() {
-        //30 books are retrieved from OpenLibrary
         if (isDataCreated()) {
             freeAPIData.createBookData();
             List<Author> authorList = freeAPIData.getAuthorList();
@@ -73,15 +72,26 @@ public class DataCreation {
 
     private List<Book> fixUnknowCharsBook(List<Book> bookList) {
         for (int i = 0; i < bookList.size(); i++) {
-            bookList.get(i).setName(clearUnknowChars(bookList.get(i).getName()));
-            bookList.get(i).setDescription(clearUnknowChars(bookList.get(i).getDescription()));
+            Book book = bookList.get(i);
+            if (containsAnyInvalidChar(book.getName()) || containsAnyInvalidChar(book.getDescription())) {
+                System.out.println("--> Removed book index "+ book.getIndexNo());
+                bookList.set(i, null);
+            }
+//            bookList.get(i).setName(clearUnknowChars(bookList.get(i).getName()));
+//            bookList.get(i).setDescription(clearUnknowChars(bookList.get(i).getDescription()));
         }
-        return bookList;
+        return bookList.stream().filter(Objects::nonNull).toList();
     }
 
     private String clearUnknowChars(String data) {
         String cleanedString = data.replaceAll("[^a-zA-Z0-9\\s]", "");
         return cleanedString;
+    }
+
+    private boolean containsAnyInvalidChar(String data) {
+        if (data.contains("[^a-zA-Z0-9\\s]"))
+            return true;
+        return false;
     }
 
     private void processUserData() {
