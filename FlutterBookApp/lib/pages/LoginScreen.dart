@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/login/LoginCubit.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_book_app/util/SharedPrefUtils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:logger/logger.dart';
 
+import '../util/CustomAlertDialog.dart';
 import '../util/ProductColor.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     // image: AssetImage("images/8.jpg"),
-                    image: AssetImage("images/9.png"),
+                    image: AssetImage("assets/9.png"),
                     // image: AssetImage("images/10.jpg"),
                     fit: BoxFit.none)),
             child: Center(
@@ -52,9 +52,9 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   var log = Logger(printer: PrettyPrinter(colors: false));
   final TextEditingController _usernameController =
-      TextEditingController(text: "user2");
+      TextEditingController(text: "");
   final TextEditingController _passwordController =
-      TextEditingController(text: "pass");
+      TextEditingController(text: "");
 
   Color hintColor = ProductColor.black;
   Color textColor = ProductColor.pink;
@@ -91,7 +91,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
             getWidgetFoLoginState(), // ?? Container(),
             SizedBox(
-              width: 150,
+              width: 200,
               height: 40,
               child: ElevatedButton(
                   onPressed: () {
@@ -109,6 +109,8 @@ class _LoginFormState extends State<LoginForm> {
                     style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                   )),
             ),
+            SizedBox(height: 30),
+            _HelpButton()
           ],
         ),
       ),
@@ -209,5 +211,33 @@ class _getFormField extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _HelpButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 200,
+      height: 40,
+      child: ElevatedButton(
+        onPressed: () {
+          String msg = "username: user1"
+              "\npassword: pass"
+              "\n\n10 users"
+              "\nare saved for demo."
+              "\nYou can switch number"
+              "\nfor user 1-10."
+              "\n\nHopes you having fun.";
+          showDialog(
+              context: context,
+              builder: (builder) => CustomAlertDialog.getAlertDialogHowToLogin(
+                  context: context, title: "How to Login?", msg: msg));
+        },
+        child: Text("How to Login?",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+      ),
+    );
+    // TODO: implement build
   }
 }
