@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/repo/UserRepository.dart';
+import 'package:flutter_book_app/util/HttpUtil.dart';
 import 'package:flutter_book_app/util/SharedPrefUtils.dart';
+import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
+
 import 'BaseHttpRequest.dart';
 import 'Model/ResponseEntity.dart';
-import 'package:http/http.dart' as http;
 
 class HttpRequestUser {
   static const String _classUrl = "/users";
@@ -21,7 +23,8 @@ class HttpRequestUser {
       "username": username,
       "password": password,
     };
-    var resp = await Dio().post(url, data: requestData);
+    var resp = await Dio().post(url,
+        data: requestData, options: Options(headers: HttpUtil.getHeaders()));
     ResponseEntity respEntity = ResponseEntity.fromJson(resp.data);
     return respEntity;
   }
@@ -31,7 +34,7 @@ class HttpRequestUser {
     Uri url =
         Uri.parse("$_baseUrl/recommend/user/${SharedPrefUtils.getUserId()}");
     log.i("URL : $url");
-    var resp = await http.get(url);
+    var resp = await http.get(headers: HttpUtil.getHeaders(), url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
     ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
     if (respEntity.success) {
@@ -45,7 +48,7 @@ class HttpRequestUser {
     Uri url = Uri.parse(
         "$_baseUrl/recommend/random/user/${SharedPrefUtils.getUserId()}");
     log.i("URL : $url");
-    var resp = await http.get(url);
+    var resp = await http.get(headers: HttpUtil.getHeaders(), url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
     ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
     if (respEntity.success) {
@@ -57,7 +60,8 @@ class HttpRequestUser {
   static Future<int> getUserBookCount() async {
     String url = "$_baseUrl/count/book?userId=${SharedPrefUtils.getUserId()}";
     log.i("URL : $url");
-    var resp = await Dio().get(url);
+    var resp =
+        await Dio().get(url, options: Options(headers: HttpUtil.getHeaders()));
     ResponseEntity respEntity = ResponseEntity.fromJson(resp.data);
     return respEntity.data;
   }
@@ -66,7 +70,7 @@ class HttpRequestUser {
     List<UserFriendDTO> userList = [];
     Uri url = Uri.parse("$_baseUrl/following/${SharedPrefUtils.getUserId()}");
     log.i("URL : $url");
-    var resp = await http.get(url);
+    var resp = await http.get(headers: HttpUtil.getHeaders(), url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
     ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
     if (respEntity.success) {
@@ -79,7 +83,7 @@ class HttpRequestUser {
     List<UserFriendDTO> userList = [];
     Uri url = Uri.parse("$_baseUrl/follower/${SharedPrefUtils.getUserId()}");
     log.i("URL : $url");
-    var resp = await http.get(url);
+    var resp = await http.get(headers: HttpUtil.getHeaders(), url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
     ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
     if (respEntity.success) {
@@ -92,7 +96,7 @@ class HttpRequestUser {
     Uri url = Uri.parse(
         "$_baseUrl/${SharedPrefUtils.getUserId()}/follower/$followerId");
     log.i("URL : $url");
-    var resp = await http.delete(url);
+    var resp = await http.delete(headers: HttpUtil.getHeaders(), url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
     ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
     bool result = false;
@@ -106,7 +110,7 @@ class HttpRequestUser {
     Uri url = Uri.parse(
         "$_baseUrl/${SharedPrefUtils.getUserId()}/following/$followerId");
     log.i("URL : $url");
-    var resp = await http.delete(url);
+    var resp = await http.delete(headers: HttpUtil.getHeaders(), url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
     ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
     bool result = false;
@@ -120,7 +124,7 @@ class HttpRequestUser {
     Uri url = Uri.parse(
         "$_baseUrl/${SharedPrefUtils.getUserId()}/follow/$userFriendId");
     log.i("URL : $url");
-    var resp = await http.post(url);
+    var resp = await http.post(headers: HttpUtil.getHeaders(), url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
     ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
     bool result = false;
@@ -134,7 +138,7 @@ class HttpRequestUser {
     Uri url = Uri.parse(
         "$_baseUrl/${SharedPrefUtils.getUserId()}/following/$userFriendId");
     log.i("URL : $url");
-    var resp = await http.delete(url);
+    var resp = await http.delete(headers: HttpUtil.getHeaders(), url);
     Map<String, dynamic> jsonData = json.decode(resp.body);
     ResponseEntity respEntity = ResponseEntity.fromJson(jsonData);
     bool result = false;
