@@ -65,7 +65,7 @@ public class UserController {
         if (dataResult.isSuccess()) {
             dataResult = new LoginUser(userService).login(user);
             if (dataResult.isSuccess()) {
-                System.out.println("Gelen user : " + dataResult.getData().toString());
+//                System.out.println("Gelen user : " + dataResult.getData().toString());
                 return dataResult;
             }
         }

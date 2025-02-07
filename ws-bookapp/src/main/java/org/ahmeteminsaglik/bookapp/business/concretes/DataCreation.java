@@ -53,9 +53,9 @@ public class DataCreation {
             freeAPIData.createBookData();
             List<Author> authorList = freeAPIData.getAuthorList();
             authorList = authorController.saveAll(authorList).getData();
-            System.out.println("saved authorList data: ");
+//            System.out.println("saved authorList data: ");
             for (int i = 0; i < authorList.size(); i++) {
-                System.out.println((i + 1) + "-) Author data : " + authorList.get(i));
+//                System.out.println((i + 1) + "-) Author data : " + authorList.get(i));
             }
             processUserData();
             processBookData();
@@ -74,7 +74,7 @@ public class DataCreation {
         for (int i = 0; i < bookList.size(); i++) {
             Book book = bookList.get(i);
             if (containsAnyInvalidChar(book.getName()) || containsAnyInvalidChar(book.getDescription())) {
-                System.out.println("--> Removed book index "+ book.getIndexNo());
+//                System.out.println("--> Removed book index "+ book.getIndexNo());
                 bookList.set(i, null);
             }
 //            bookList.get(i).setName(clearUnknowChars(bookList.get(i).getName()));
@@ -102,7 +102,7 @@ public class DataCreation {
                 userController.createNewConnectionFollowUser(arr[i][0].getId(), arr[i][1].getId());
             }
             userList.forEach(e -> {
-                System.out.println("user : " + e);
+//                System.out.println("user : " + e);
             });
         }
     }
@@ -134,7 +134,7 @@ public class DataCreation {
     }
 
     private Book getBook(Set<Book> bookSet, List<Book> bookList, int index) {
-        System.out.println("getBook " + index);
+//        System.out.println("getBook " + index);
         Book book = bookList.get(index % bookList.size());
         if (!bookSet.contains(book)) {
             return book;
@@ -148,9 +148,9 @@ public class DataCreation {
             String autorKey = entry.getKey();
             Author author = authorController.findByKey(autorKey);
             List<Book> bookList = entry.getValue();
-            bookList.forEach(e -> {
-                System.out.println(e.getPoint());
-            });
+//            bookList.forEach(e -> {
+//                System.out.println(e.getPoint());
+//            });
             bookList = fixUnknowCharsBook(bookList);
             bookController.saveAllBook(bookList);
             authorController.setWriteConnection(author, bookList);
@@ -161,9 +161,9 @@ public class DataCreation {
         for (Map.Entry<String, List<Book>> entry : map.entrySet()) {
             String authorKey = entry.getKey();
             List<Book> bookList = entry.getValue();
-            System.out.println("authorKey: " + authorKey);
+//            System.out.println("authorKey: " + authorKey);
             for (int i = 0; i < bookList.size(); i++) {
-                System.out.println((i + 1) + "-) book : " + bookList.get(i));
+//                System.out.println((i + 1) + "-) book : " + bookList.get(i));
             }
         }
     }

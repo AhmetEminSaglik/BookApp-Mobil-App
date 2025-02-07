@@ -19,15 +19,15 @@ public class ClearIndexTxtFileMain {
         FileOperationFacade fofIndexes = new FileOperationFacade(new WriteFileManagement(fileFund), new ReadFileManagement(fileFund));
         fofIndexes.read();
         List<String> list = fofIndexes.getReadDataList();
-        System.out.println("read data : (size)" + list.size());
+//        System.out.println("read data : (size)" + list.size());
 
         HashSet<String> hashSet = new HashSet<>(list);
-        System.out.println("hashsetSize : " + hashSet.size());
+//        System.out.println("hashsetSize : " + hashSet.size());
 
         list = new ArrayList<>(hashSet);
-        System.out.println(list);
+//        System.out.println(list);
         Collections.sort(list);
-        System.out.println(list);
+//        System.out.println(list);
 
         FileFundamental newFileFund = getFile("completed-indexes");
 

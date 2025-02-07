@@ -81,9 +81,9 @@ public class ValidationSignUp implements Validation {
     }
 
     private boolean isUsernameAvailable(String username) {
-        System.out.println("Username : " + username);
+//        System.out.println("Username : " + username);
         User user = userService.findByUsername(username);
-        System.out.println("user : " + user);
+//        System.out.println("user : " + user);
         return user == null;
     }
 }

@@ -75,24 +75,24 @@ public class BookController {
     public ResponseEntity<DataResult<Book>> getBookByUserIdReadBookId(@PathVariable long userId, @PathVariable long bookId) {
         List<Book> booklist = service.getAllReadBooksByUserId(userId);
         Book book = null;// = service.getBookByUserIdReadBookId(userId, bookId);
-        System.out.println("bookId =" + bookId);
+//        System.out.println("bookId =" + bookId);
 
         for (Book tmp : booklist) {
             if (tmp.getId() == bookId) {
                 book = tmp;
-                System.out.println("ESLESDI ");
+//                System.out.println("ESLESDI ");
                 break;
             }
         }
         DataResult result = new SuccessDataResult(book, "User(" + userId + ") read Book(" + bookId + ") data is retrieved.");
-        System.out.println(" result : " + result.getData());
+//        System.out.println(" result : " + result.getData());
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @GetMapping("/{name}")
     public ResponseEntity<DataResult<Book>> getBookByName(@PathVariable String name) {
         Book book = service.findByName(name);
-        System.out.println(" Book >>>>>>>>>>>> book : " + book);
+//        System.out.println(" Book >>>>>>>>>>>> book : " + book);
         DataResult result = new SuccessDataResult(book, "Book is retrieved.");
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
@@ -112,7 +112,7 @@ public class BookController {
     @GetMapping("/readby/{userId}")
     public DataResult<List<Book>> getAllReadBookByUserId(@PathVariable long userId) {
         DataResult<List<Book>> dataResult = new SuccessDataResult<>(service.getAllReadBooksByUserId(userId), "Read book data is retrived successfuly");
-        dataResult.getData().forEach(e -> System.out.println(e.getName()));
+//        dataResult.getData().forEach(e -> System.out.println(e.getName()));
         return dataResult;
     }
 
