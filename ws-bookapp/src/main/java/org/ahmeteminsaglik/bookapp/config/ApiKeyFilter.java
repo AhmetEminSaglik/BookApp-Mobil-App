@@ -21,14 +21,20 @@ public class ApiKeyFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
+        if (req.getRequestURI().equals("/")) {
+            chain.doFilter(request, response);
+            return;
+        }
+
         String requestApiKey = req.getHeader("X-API-KEY");
 
         if (requestApiKey == null || !requestApiKey.equals(apiKey)) {
             res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            res.getWriter().write("Unauthorized: Invalid API Key");
+            res.setContentType("application/json");
+            res.setCharacterEncoding("UTF-8");
+            res.getWriter().write("{\"error\": \"Unauthorized\", \"message\": \"Invalid API Key\"}");
             return;
         }
 
         chain.doFilter(request, response);
-    }
-}
+    }}
