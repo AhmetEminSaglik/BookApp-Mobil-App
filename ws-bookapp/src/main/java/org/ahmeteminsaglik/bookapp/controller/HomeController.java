@@ -46,7 +46,12 @@ public class HomeController {
                         <h1>Welcome to the BookApp API</h1>
                         <p>This project's is created with Spring Security. And it is using with API Key.
                          <p>Not allowed to visit API other way.</p>
+                         <hr>
                         <p>But you can visit my other BloodCheck App:</p> <a href="https://bloodcheck.ahmeteminsaglik.com/api/1.0/">https://bloodcheck.ahmeteminsaglik.com/api/1.0/</a>:</p>
+                        <hr>
+                        <p style="color:green;font-size:20px">BookApp Google Play Link:</p>
+                        <p><a href="https://play.google.com/store/apps/details?id=com.ahmeteminsaglik.flutter_book_app">https://play.google.com/store/apps/details?id=com.ahmeteminsaglik.flutter_book_app</a></p>
+                        <hr> 
                         <ul>
                 """);
         return html.toString();
