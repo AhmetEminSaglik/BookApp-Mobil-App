@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/cubit/FollowerRemoveCubit.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
@@ -13,7 +11,7 @@ import 'ProfileUserFriendCard.dart';
 class FollowersTab extends StatefulWidget {
   FollowersTab({super.key, required this.list});
 
-  List<UserFriendDTO> list;
+  final List<UserFriendDTO> list;
 
   @override
   State<FollowersTab> createState() => _FollowersTabState();

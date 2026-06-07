@@ -135,7 +135,7 @@ class _RecommendScreenState extends State<RecommendScreen> {
               indicatorColor: ProductColor.pink,
               dividerColor: ProductColor.blue,
               labelColor: ProductColor.pink,
-              overlayColor: MaterialStateColor.resolveWith(
+              overlayColor: WidgetStateColor.resolveWith(
                   (states) => ProductColor.lightPurple),
               unselectedLabelColor: ProductColor.black,
               dividerHeight: 2,

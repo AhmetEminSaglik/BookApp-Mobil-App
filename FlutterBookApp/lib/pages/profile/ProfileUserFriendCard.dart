@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_book_app/cubit/FollowerRemoveCubit.dart';
 import 'package:flutter_book_app/model/dto/UserFriendDTO.dart';
 import 'package:flutter_book_app/util/ProductColor.dart';
 import 'package:flutter_book_app/util/ResponsiveDesign.dart';
 import 'package:logger/logger.dart';
-
-import '../../httprequest/HttpRequestUser.dart';
-import '../../util/CustomSnackBar.dart';
 
 class ProfileUserFriendCard extends StatefulWidget {
   ProfileUserFriendCard(
@@ -16,9 +11,9 @@ class ProfileUserFriendCard extends StatefulWidget {
       required this.index,
       required this.removeConnection});
 
-  int index;
+  final int index;
   final void Function(UserFriendDTO userFriendDTO) removeConnection;
-  UserFriendDTO userDTO;
+  final UserFriendDTO userDTO;
 
   @override
   State<ProfileUserFriendCard> createState() => _ProfileUserFriendCardState();

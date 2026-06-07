@@ -100,9 +100,9 @@ class _LoginFormState extends State<LoginForm> {
                         password: _passwordController.text);
                   },
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateColor.resolveWith(
+                      backgroundColor: WidgetStateColor.resolveWith(
                           (states) => itemBackgroundColor),
-                      foregroundColor: MaterialStateColor.resolveWith(
+                      foregroundColor: WidgetStateColor.resolveWith(
                           (states) => itemForegroundColor)),
                   child: const Text(
                     "Login",

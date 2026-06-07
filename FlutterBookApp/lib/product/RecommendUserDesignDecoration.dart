@@ -3,7 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../util/ProductColor.dart';
 
 class RecommendUserDesignDecoration extends StatelessWidget {
-  late Widget child;
+  final Widget child;
 
   RecommendUserDesignDecoration({super.key, required this.child});
 
@@ -16,7 +16,7 @@ class RecommendUserDesignDecoration extends StatelessWidget {
           color: ProductColor.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.7),
+              color: Colors.grey.withValues(alpha: 0.7),
               spreadRadius: 3,
               blurRadius: 5,
               offset: const Offset(0, 1),

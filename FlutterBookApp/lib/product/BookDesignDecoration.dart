@@ -3,7 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../util/ProductColor.dart';
 
 class ContainerWithBoxDecoration extends StatelessWidget {
-  late Widget child;
+  final Widget child;
 
   ContainerWithBoxDecoration({super.key, required this.child});
 
@@ -16,7 +16,7 @@ class ContainerWithBoxDecoration extends StatelessWidget {
           color: ProductColor.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.7),
+              color: Colors.grey.withValues(alpha: 0.7),
               spreadRadius: 3,
               blurRadius: 5,
               offset: const Offset(0, 1), // Gölge ofseti (x, y)

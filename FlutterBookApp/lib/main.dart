@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => LoginCubit()),
           BlocProvider(create: (context) => BookCubit()),
-          BlocProvider(create: (context) => UserBookActionCubit(0)),
+          BlocProvider(create: (context) => UserBookActionCubit(false)),
           BlocProvider(create: (context) => BookAddRemoveCubit()),
           BlocProvider(create: (context) => MyReadBookScreenCubit()),
           BlocProvider(create: (context) => FollowerRemoveCubit()),

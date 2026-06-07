@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.ahmeteminsaglik.ReadableFormat;
 import org.ahmeteminsaglik.bookapp.model.*;
 import org.ahmeteminsaglik.bookapp.utility.CustomLog;
 import org.springframework.core.io.ClassPathResource;
@@ -62,7 +61,7 @@ public class OpenLibraryFreeAPIData {
         for (int i = 0; i < urlIndexList.size(); i++) {
             try {
                 int processUrlIndex = Integer.parseInt(urlIndexList.get(i));
-                log.info((i + 1) + "-) [" + bookList.size() + "/" + urlIndexList.size() + "] Processing Index : " + (ReadableFormat.getStringValue(processUrlIndex)));
+                log.info((i + 1) + "-) [" + bookList.size() + "/" + urlIndexList.size() + "] Processing Index : " + (processUrlIndex));
                 bookUrl = demoMain.createBookUrl(processUrlIndex);
                 bookRatingUrl = demoMain.createBookRatingUrl(processUrlIndex);
                 bookReadDataUrl = demoMain.createBookReadDataUrl(processUrlIndex);

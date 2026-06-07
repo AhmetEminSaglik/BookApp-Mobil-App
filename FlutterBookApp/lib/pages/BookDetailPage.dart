@@ -12,9 +12,9 @@ import 'package:logger/logger.dart';
 import '../httprequest/HttpRequestBook.dart';
 
 class BookDetailPage extends StatefulWidget {
-  late Book book;
-  double imgWidth = 200;
-  double imgHeight = 300;
+  final Book book;
+  final double imgWidth = 200;
+  final double imgHeight = 300;
 
   BookDetailPage({super.key, required this.book});
 
@@ -104,9 +104,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
 
 class _BigCardDesign extends StatelessWidget {
   final Book book;
-  bool connectionIsNotCreated = true;
-  late bool isBookRead;
-  late bool isLoading;
+  final bool connectionIsNotCreated = true;
+  final bool isBookRead;
+  final bool isLoading;
 
   _BigCardDesign(
       {required this.book, required this.isBookRead, required this.isLoading});
@@ -247,14 +247,14 @@ class _RemoveReadBookButtonState extends State<_RemoveReadBookButton> {
         context.read<MyReadBookScreenCubit>().updateBookList();
       },
       style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         )),
         backgroundColor:
-            MaterialStateColor.resolveWith((states) => ProductColor.red),
+            WidgetStateColor.resolveWith((states) => ProductColor.red),
         foregroundColor:
-            MaterialStateColor.resolveWith((states) => ProductColor.white),
+            WidgetStateColor.resolveWith((states) => ProductColor.white),
       ),
       child: const Text(
         "Remove Book",
@@ -285,14 +285,14 @@ class _AddAsReadButtonState extends State<_AddAsReadButton> {
         context.read<MyReadBookScreenCubit>().updateBookList();
       },
       style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         )),
         backgroundColor:
-            MaterialStateColor.resolveWith((states) => ProductColor.green),
+            WidgetStateColor.resolveWith((states) => ProductColor.green),
         foregroundColor:
-            MaterialStateColor.resolveWith((states) => ProductColor.white),
+            WidgetStateColor.resolveWith((states) => ProductColor.white),
       ),
       child: const Text(
         "Add Book",

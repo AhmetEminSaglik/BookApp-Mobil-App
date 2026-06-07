@@ -21,7 +21,7 @@ class LoginCubit extends Cubit<EnumLoginState> {
     try {
       respEntity = await HttpRequestUser.login(username, password);
     } catch (e) {
-      print("error: ${e}");
+      print("error: $e");
     }
     if (respEntity != null) {
       if (respEntity.success) {

@@ -48,18 +48,6 @@ class CustomAlertDialog {
     );
   }
 
-  static int _calculateLines(String text, double fontSize) {
-    // Satır sayısını hesapla
-    double textWidth = 100;
-    double textHeight = 100;
-    TextPainter textPainter = TextPainter(
-      text: TextSpan(text: text, style: TextStyle(fontSize: fontSize)),
-      maxLines: 100,
-      textDirection: TextDirection.ltr,
-    );
-    textPainter.layout(minWidth: textWidth, maxWidth: textWidth);
-    return textPainter.computeLineMetrics().length;
-  }
 
   static AlertDialog getAlertDialogValidateProcess({
     required BuildContext context,

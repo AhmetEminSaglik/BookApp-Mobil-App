@@ -2,10 +2,9 @@ import 'dart:math';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_book_app/httprequest/HttpRequestBook.dart';
-import 'package:flutter_book_app/httprequest/HttpRequestUser.dart';
 import 'package:flutter_book_app/util/SharedPrefUtils.dart';
 
-class UserBookActionCubit extends Cubit<void> {
+class UserBookActionCubit extends Cubit<bool> {
   UserBookActionCubit(super.initialState);
 
   final random = Random();

@@ -9,8 +9,8 @@ import '../util/ResponsiveDesign.dart';
 import 'BookDesignDecoration.dart';
 
 class BookCard extends StatefulWidget {
-  late RecommendData recData;
-  late int index;
+  final RecommendData recData;
+  final int index;
 
   BookCard({super.key, required this.index, required this.recData});
 
@@ -145,7 +145,7 @@ class _BookCardState extends State<BookCard> {
             color: ProductColor.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.deepOrange.withOpacity(0.7),
+                color: Colors.deepOrange.withValues(alpha: 0.7),
                 spreadRadius: 3,
                 blurRadius: 3,
                 offset: const Offset(0, 1), // Gölge ofseti (x, y)

@@ -13,8 +13,8 @@ import '../util/ResponsiveDesign.dart';
 import 'BookDesignDecoration.dart';
 
 class RecommendUserCard extends StatefulWidget {
-  late RecommendData<UserFriendDTO> recData;
-  late int index;
+  final RecommendData<UserFriendDTO> recData;
+  final int index;
 
   RecommendUserCard({super.key, required this.index, required this.recData});
 
@@ -158,12 +158,11 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
   }
 
   void followUserBtnAction(UserFriendDTO userFriendDTO) async {
-    UserFollowProcessCubitData data =
-        await context.read<UserFollowProcessCubit>().followUser(userFriendDTO);
+    await context.read<UserFollowProcessCubit>().followUser(userFriendDTO);
   }
 
   void unfollowUserBtnAction(UserFriendDTO userFriendDTO) async {
-    UserFollowProcessCubitData data = await context
+    await context
         .read<UserFollowProcessCubit>()
         .unfollowUser(userFriendDTO);
     String msg =
@@ -192,7 +191,7 @@ class _RecommendUserCardState extends State<RecommendUserCard> {
             color: ProductColor.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.deepOrange.withOpacity(0.7),
+                color: Colors.deepOrange.withValues(alpha: 0.7),
                 spreadRadius: 3,
                 blurRadius: 1,
                 offset: const Offset(0, 1), // Gölge ofseti (x, y)
@@ -270,14 +269,14 @@ class _FollowButtonState extends State<_FollowButton> {
           widget.onClickUserBtn(widget.userFriendDTO);
         },
         style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           )),
           backgroundColor:
-              MaterialStateColor.resolveWith((states) => widget.btnColor),
+              WidgetStateColor.resolveWith((states) => widget.btnColor),
           foregroundColor:
-              MaterialStateColor.resolveWith((states) => ProductColor.white),
+              WidgetStateColor.resolveWith((states) => ProductColor.white),
         ),
         child: const Text(
           "Follow",

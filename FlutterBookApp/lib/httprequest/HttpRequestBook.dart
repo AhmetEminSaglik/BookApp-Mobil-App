@@ -33,7 +33,7 @@ class HttpRequestBook {
       int userId, int bookId) async {
     String url = "$_baseUrl/$bookId/readby/user/$userId";
     log.i("DESTROY CONNECTION URL : $url");
-    var resp = await Dio()
+    await Dio()
         .delete(url, options: Options(headers: HttpUtil.getHeaders()));
   }
 
@@ -41,8 +41,7 @@ class HttpRequestBook {
       int userId, int bookId, rate) async {
     String url = "$_baseUrl/$bookId/readby/user/$userId/rate/$rate";
     log.i("SET CONNECTIONURL : $url");
-    var resp =
-        await Dio().post(url, options: Options(headers: HttpUtil.getHeaders()));
+    await Dio().post(url, options: Options(headers: HttpUtil.getHeaders()));
   }
 
   static Future<List<Book>> getReadBookList() async {
